@@ -64,3 +64,10 @@ h2 {
 .button:hover {
   background-color: #555;
 }
+
+/* This is for the heart shaped icon under the 'Mentors we'd love to work with.' section. Instruction via https://css-tricks.com/forums/topic/icon-sizes-how-can-i-resize-them/ */
+
+.my-icon {
+    width: 20px;
+    height: 20px;
+}
