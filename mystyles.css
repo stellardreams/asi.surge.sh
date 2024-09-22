@@ -104,3 +104,7 @@ li {
 p {
   text-align:justify;
 }
+
+nav {
+  display: block;
+}
