@@ -16,20 +16,15 @@ document.addEventListener("DOMContentLoaded", function() {
 function createSun() {
     const sun = document.getElementById('sun');
     sun.style.position = 'absolute';
-    
-    // Convert 30 mm to inches and calculate the new top position
-    const currentTopInches = 4.7; // in inches
-    const moveDownInches = 30 / 25.4; // convert mm to inches
-    const newTopInches = currentTopInches + moveDownInches;
-    
-    sun.style.top = newTopInches + 'in'; // Set the new top position
-    sun.style.right = '0.5in';
+    sun.style.top = '6.1in';
+    sun.style.left = '0.5in'; // Position sun 0.5 inches from the left
     sun.style.width = '1in';
     sun.style.height = '1in';
     sun.style.backgroundColor = 'yellow';
     sun.style.borderRadius = '50%';
     sun.style.boxShadow = '0 0 20px yellow';
 }
+
 
 // Call the function to create the sun
 createSun();
@@ -38,9 +33,9 @@ function makeSunWobble() {
     const sun = document.getElementById('sun');
     let angle = 0;
     setInterval(() => {
-        angle += 0.1;
-        sun.style.transform = `translateY(${Math.sin(angle) * 5}px)`;
-    }, 100);
+        angle += 0.05; // Slow down the increment for a gentler movement
+        sun.style.transform = `translateY(${Math.sin(angle) * 2}px)`; // Use a smaller multiplier for subtle movement
+    }, 50); // Slightly slower interval for smoother wobbling
 }
 
 makeSunWobble();
