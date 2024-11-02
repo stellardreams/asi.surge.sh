@@ -12,35 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Programmatically calculate the new top position by directly adding 30 mm to the existing position, you can do this:
-function createSun() {
-    const sun = document.getElementById('sun');
-    sun.style.position = 'absolute';
-    sun.style.top = '6.1in';
-    sun.style.left = '0.5in';  // Position sun 0.5 inches from the left
-    sun.style.right = 'auto';  // Ensure right side positioning is cleared
-    sun.style.width = '1in';
-    sun.style.height = '1in';
-    sun.style.backgroundColor = 'yellow';
-    sun.style.borderRadius = '50%';
-    sun.style.boxShadow = '0 0 20px yellow';
-}
-
-// Ensure the DOM has loaded before calling the function
-window.onload = createSun;
-
-
-function makeSunWobble() {
-    const sun = document.getElementById('sun');
-    let angle = 0;
-    setInterval(() => {
-        angle += 0.05; // Slow down the increment for a gentler movement
-        sun.style.transform = `translateY(${Math.sin(angle) * 2}px)`; // Use a smaller multiplier for subtle movement
-    }, 50); // Slightly slower interval for smoother wobbling
-}
-
-makeSunWobble();
-
 /*
 const projects = {
     data: [
@@ -255,12 +226,11 @@ document.addEventListener('DOMContentLoaded', stackBricks);
 // To embed the sun element in another website, you can copy the following code snippet and include it in the HTML file of the target website:
 
 
-// script.js
 function createSun() {
     const sun = document.getElementById('sun');
     sun.style.position = 'absolute';
     sun.style.top = '6.1in';
-    sun.style.right = '0.5in';
+    sun.style.left = '0.5in'; // Change this to 'left' instead of 'right'
     sun.style.width = '1in';
     sun.style.height = '1in';
     sun.style.backgroundColor = 'yellow';
@@ -281,4 +251,3 @@ window.onload = function() {
     createSun();
     makeSunWobble();
 };
-
