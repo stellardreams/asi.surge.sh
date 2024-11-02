@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', stackBricks);
 function createSun() {
     const sun = document.getElementById('sun');
     sun.style.position = 'absolute';
-    sun.style.top = '7.582in';     // Moved up by 3 mm
+    sun.style.top = '7.782in';     // Moved up by 3 mm
     sun.style.left = '1.7in'; // Change this to 'left' instead of 'right'
     sun.style.width = '2in';
     sun.style.height = '2in';
