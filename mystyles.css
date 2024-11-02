@@ -114,3 +114,28 @@ p {
   color: #333;
   margin: 20px 0;
 }
+
+/* css for quotes/blockquotes towards the end of the index.html file */
+blockquote {
+    font-family: 'Georgia', serif; /* Choose a nice font */
+    font-size: 1.2em; /* Increase font size for better readability */
+    color: #333; /* Set a soft text color */
+    border-left: 5px solid #007BFF; /* Add a left border for emphasis */
+    padding: 10px 20px; /* Add some padding */
+    margin: 20px 0; /* Add spacing between blockquotes */
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 5px; /* Slightly rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.quote {
+    quotes: "“" "”" "‘" "’"; /* Define quotation marks for styling */
+}
+
+.quote:before {
+    content: open-quote; /* Add opening quote */
+}
+
+.quote:after {
+    content: close-quote; /* Add closing quote */
+}
