@@ -155,3 +155,12 @@ cite {
     color: #555; /* Slightly lighter text color */
     margin-top: 5px; /* Space above the citation */
 }
+
+/* Add styles for the footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #ff0066;
+    color: #fff;
+    border-radius: 5px;
+}
