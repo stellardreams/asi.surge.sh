@@ -229,10 +229,10 @@ document.addEventListener('DOMContentLoaded', stackBricks);
 function createSun() {
     const sun = document.getElementById('sun');
     sun.style.position = 'absolute';
-    sun.style.top = '9.1in';
-    sun.style.left = '2.5in'; // Change this to 'left' instead of 'right'
-    sun.style.width = '1in';
-    sun.style.height = '1in';
+    sun.style.top = '8.1in';
+    sun.style.left = '2.3in'; // Change this to 'left' instead of 'right'
+    sun.style.width = '2in';
+    sun.style.height = '2in';
     sun.style.backgroundColor = 'yellow';
     sun.style.borderRadius = '50%';
     sun.style.boxShadow = '0 0 20px yellow';
