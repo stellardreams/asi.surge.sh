@@ -151,3 +151,26 @@ li {
     transform: translateY(-50%) rotate(10deg);
   }
 }
+
+/* First-Paragraph on index.html - Text Styles */
+
+.text-container {
+    max-width: 800px; /* Restrict width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add padding for spacing */
+    font-family: Arial, sans-serif; /* Set a readable font */
+    line-height: 1.6; /* Improve line spacing */
+    color: #333; /* Dark gray text color */
+}
+
+.text-container p {
+    margin-bottom: 15px; /* Add spacing between paragraphs */
+}
+
+.text-container strong {
+    color: #0056b3; /* Blue color for emphasis */
+}
+
+.text-container em {
+    font-style: italic; /* Italic style for book titles */
+}
