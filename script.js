@@ -229,8 +229,8 @@ document.addEventListener('DOMContentLoaded', stackBricks);
 function createSun() {
     const sun = document.getElementById('sun');
     sun.style.position = 'absolute';
-    sun.style.top = '6.1in';
-    sun.style.left = '0.5in'; // Change this to 'left' instead of 'right'
+    sun.style.top = '9.1in';
+    sun.style.left = '2.5in'; // Change this to 'left' instead of 'right'
     sun.style.width = '1in';
     sun.style.height = '1in';
     sun.style.backgroundColor = 'yellow';
