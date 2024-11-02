@@ -60,6 +60,7 @@ At some point, I picked up a book by an author by the name of 'Patrick McCray, t
 </p> 
 <p>
 <center>
+<div class="sun"></div>
 <img src="img/Inner-Solar-System-Vision-2018.jpg" alt="Awake Aerospace - The vision" style="width:42%">
 </center></p>
 
@@ -451,7 +452,17 @@ We offer:
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   	<script src="js/bootstrap.min.js"></script>
+    <script>
+      const sun = document.querySelector('.sun');
+      let angle = 0;
 
+      function wobble() {
+        angle += 0.1;
+        sun.style.transform = `rotate(${Math.sin(angle) * 5}deg)`;
+        requestAnimationFrame(wobble);
+      }
 
+      wobble();
+    </script>
 </body>
 </html>

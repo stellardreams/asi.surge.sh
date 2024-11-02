@@ -108,3 +108,26 @@ p {
 nav {
   display: block;
 }
+
+/* Add CSS styles for the sun class to create the wobbling effect */
+.sun {
+  width: 100px;
+  height: 100px;
+  background: yellow;
+  border-radius: 50%;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: wobble 2s infinite;
+}
+
+/* Add keyframes for the wobbling animation */
+@keyframes wobble {
+  0%, 100% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-50%) rotate(10deg);
+  }
+}
