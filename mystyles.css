@@ -117,15 +117,15 @@ p {
 
 /* css for quotes/blockquotes towards the end of the index.html file */
 blockquote {
-    font-family: 'Georgia', serif; /* Choose a nice font */
-    font-size: 1.2em; /* Increase font size for better readability */
-    color: #333; /* Set a soft text color */
-    border-left: 5px solid #007BFF; /* Add a left border for emphasis */
-    padding: 10px 20px; /* Add some padding */
-    margin: 20px 0; /* Add spacing between blockquotes */
-    background-color: #f9f9f9; /* Light background color */
-    border-radius: 5px; /* Slightly rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    font-family: 'Georgia', serif; /* Nice font style */
+    font-size: 1.2em; /* Font size */
+    color: #333; /* Text color */
+    border-left: 5px solid #007BFF; /* Left border */
+    padding: 10px 20px; /* Padding */
+    margin: 20px 0; /* Margin */
+    background-color: #f9f9f9; /* Background color */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow */
 }
 
 .quote {
@@ -138,4 +138,12 @@ blockquote {
 
 .quote:after {
     content: close-quote; /* Add closing quote */
+}
+
+cite {
+    display: block; /* Make it a block element */
+    font-style: italic; /* Italicize for differentiation */
+    font-size: 0.9em; /* Slightly smaller font size */
+    color: #555; /* Slightly lighter text color */
+    margin-top: 5px; /* Space above the citation */
 }
