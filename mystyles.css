@@ -131,3 +131,11 @@ nav {
     transform: translateY(-50%) rotate(10deg);
   }
 }
+
+/* Add styles to make the text look better on imagine.html */
+p {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  margin: 20px 0;
+}
