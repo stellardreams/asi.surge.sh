@@ -1,11 +1,5 @@
-/* General Styles */
 body {
   background-color: #d2f8d2;
-  font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  margin: 0;
-  padding: 20px;
 }
 
 h1 {
@@ -18,28 +12,7 @@ h2 {
   margin-left: 2px;
 }
 
-p {
-  text-align: justify;
-  margin: 20px 0;
-}
-
-/* Navigation Styles */
-nav {
-  display: block;
-  margin-bottom: 20px;
-}
-
-nav a {
-  text-decoration: none;
-  color: navy;
-  margin-right: 15px;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Column Layout */
+/* Three columns side by side */
 .column {
   float: left;
   width: 30%;
@@ -47,7 +20,7 @@ nav a:hover {
   padding: 0 8px;
 }
 
-/* Responsive Design */
+/* Display the columns below each other instead of side by side on small screens */
 @media screen and (max-width: 650px) {
   .column {
     width: 100%;
@@ -55,58 +28,30 @@ nav a:hover {
   }
 }
 
-/* Card Effect */
+/* Add some shadows to create a card effect */
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
 }
 
-/* Container Styles */
+/* Some left and right padding inside the container */
 .container {
   padding: 0 16px;
-  height: 410px; /* Control the height for identified roles */
-  text-align: justify;
+/* Important:  This line controls how long the box is going to be for the roles that have been identified. */
+  height: 410px;
+  text-align:justify; 
 }
 
-/* Clear Floats */
-.container::after,
-.row::after {
+/* Clear floats */
+.container::after, .row::after {
   content: "";
   clear: both;
   display: table;
 }
 
-/* Additional Text Styles */
 .title {
   color: grey;
 }
 
-blockquote {
-  background: #87CEFA;
-  border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
-}
-
-blockquote:before {
-  color: #ccc;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.25em;
-  vertical-align: -0.4em;
-}
-
-blockquote p {
-  display: inline;
-}
-
-/* List and Paragraph Alignment */
-li {
-  text-align: justify;
-}
-
-/* Button Styles */
 .button {
   border: none;
   outline: 0;
@@ -123,54 +68,49 @@ li {
   background-color: #555;
 }
 
-/* Icon Styles */
+/* This is for the heart shaped icon under the 'Mentors we'd love to work with.' section. Instruction via https://css-tricks.com/forums/topic/icon-sizes-how-can-i-resize-them/ */
+
 .my-icon {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
-/* Sun Animation Styles */
-.sun {
-  width: 100px;
-  height: 100px;
-  background: yellow;
-  border-radius: 50%;
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  animation: wobble 2s infinite;
+blockquote {
+  background: #87CEFA;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
 }
 
-/* Keyframes for Wobbling Animation */
-@keyframes wobble {
-  0%, 100% {
-    transform: translateY(-50%) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-50%) rotate(10deg);
-  }
+/* This code was added on 07-01-2021 (July 01st) as it was recommended by RG (Rusith). This is what this code does --> Aligning the text to 'justify' for lists and paragraphs */ 
+li {
+  text-align:justify;
 }
 
-/* First-Paragraph on index.html - Text Styles */
-
-.text-container {
-    max-width: 800px; /* Restrict width for better readability */
-    margin: 0 auto; /* Center the container */
-    padding: 20px; /* Add padding for spacing */
-    font-family: Arial, sans-serif; /* Set a readable font */
-    line-height: 1.6; /* Improve line spacing */
-    color: #333; /* Dark gray text color */
+p {
+  text-align:justify;
 }
 
-.text-container p {
-    margin-bottom: 15px; /* Add spacing between paragraphs */
+nav {
+  display: block;
 }
 
-.text-container strong {
-    color: #0056b3; /* Blue color for emphasis */
-}
-
-.text-container em {
-    font-style: italic; /* Italic style for book titles */
+/* Add styles to make the text look better on imagine.html */
+p {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  margin: 20px 0;
 }
