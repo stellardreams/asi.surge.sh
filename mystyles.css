@@ -75,6 +75,14 @@ h2 {
     height: 20px;
 }
 
+section {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 blockquote {
   background: #87CEFA;
   border-left: 10px solid #ccc;
