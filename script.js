@@ -17,7 +17,8 @@ function createSun() {
     const sun = document.getElementById('sun');
     sun.style.position = 'absolute';
     sun.style.top = '6.1in';
-    sun.style.left = '0.5in'; // Position sun 0.5 inches from the left
+    sun.style.left = '0.5in';  // Position sun 0.5 inches from the left
+    sun.style.right = 'auto';  // Ensure right side positioning is cleared
     sun.style.width = '1in';
     sun.style.height = '1in';
     sun.style.backgroundColor = 'yellow';
@@ -25,9 +26,9 @@ function createSun() {
     sun.style.boxShadow = '0 0 20px yellow';
 }
 
+// Ensure the DOM has loaded before calling the function
+window.onload = createSun;
 
-// Call the function to create the sun
-createSun();
 
 function makeSunWobble() {
     const sun = document.getElementById('sun');
