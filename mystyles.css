@@ -175,6 +175,7 @@ sun {
           border-radius: 50%;
           box-shadow: 0 0 20px yellow;
       }
-
-
-      
+#mr-rogers-img {
+    max-width: 100%;  /* Ensures the image won't exceed the container's width */
+    width: 400px;     /* Set the width you prefer (e.g., 400px) */
+    height: auto;     /* Maintains the aspect ratio */
