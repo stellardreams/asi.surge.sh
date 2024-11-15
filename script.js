@@ -41,7 +41,7 @@ document.getElementById("gantt_here").addEventListener("dblclick", promptPasswor
 function createBrickWall() {
     const wall = document.getElementById('brick-wall');
     wall.style.position = 'absolute';
-    wall.style.top = '3.5in';
+    wall.style.top = '3.8in';
     wall.style.right = '0.5in';
     wall.style.width = '2in';
     wall.style.height = '1.5in';
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', stackBricks);
 function createSun() {
     const sun = document.getElementById('sun');
     sun.style.position = 'absolute';
-    sun.style.top = '7.282in';     // Moved up by 3 mm
+    sun.style.top = '10.482in';     // Moved up by 3 mm
     sun.style.left = '1.7in'; // Change this to 'left' instead of 'right'
     sun.style.width = '2in';
     sun.style.height = '2in';
