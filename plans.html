@@ -113,6 +113,25 @@
             </article>
         </div>
 
+        <section id="strategy-visualization" class="glass-card" style="margin-top: 4rem; overflow: auto;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Strategic Overview</h2>
+            <div class="mermaid" style="display: flex; justify-content: center;">
+                graph TD
+                A["I. Orbital Stewardship"] -->|"Secures Commons"| B["III. Interplanetary Foundations"]
+                B -->|"Infrastructure Backbone"| C["Plan for Global Prosperity"]
+                C -->|"Move Industry Off-World"| D["Biosphere Healing & Abundance"]
+                B -->|"Resources & Connectivity"| E["II. Planetary Life Support"]
+                E -->|"Organ Mfg & Agriculture"| F["Biological Scarcity Elimination"]
+
+                style A fill:#020c1b,stroke:#64ffda,color:#fff
+                style B fill:#020c1b,stroke:#64ffda,color:#fff
+                style C fill:#020c1b,stroke:#64ffda,color:#fff
+                style D fill:#112240,stroke:#64ffda,color:#64ffda,stroke-width:4px
+                style E fill:#020c1b,stroke:#64ffda,color:#fff
+                style F fill:#112240,stroke:#64ffda,color:#64ffda,stroke-width:4px
+            </div>
+        </section>
+
         <section id="tactical-footer" class="glass-card" style="margin-top: 4rem; text-align: center;">
             <h3>"The goal is simple: We want a succinct, to-the-point breakdown of high level steps."</h3>
             <p style="margin-top: 1rem;">This page is a living document mapping every project element to tactical
@@ -127,6 +146,20 @@
         </div>
     </footer>
 
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            themeVariables: {
+                darkMode: true,
+                background: '#020c1b',
+                primaryColor: '#64ffda',
+                lineColor: '#64ffda'
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 
