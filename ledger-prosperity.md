@@ -26,9 +26,9 @@ Time-bound:
 5. [ ] **Restoration Initiate**: Begin re-wilding programs on former industrial sites (Month 24).
 
 ## Key Milestones
-- **M1**: "The Dirty Twenty" list published.
+- **M1**: "The Most Polluting Top 20 Industries" list published.
 - **M2**: First 100kg of Psyche-refined material reaches Earth surface.
-- **M3**: First terrestrial factory shutdown in favor of orbital production.
+- **M3**: First terrestrial factory shutdown in favor of production at <Artemis Base x y z, L4, L5, or O'Neill Cylinders, Deep Space via ITN e.t.c>
 
 ## Resources
 - Materials Scientists
