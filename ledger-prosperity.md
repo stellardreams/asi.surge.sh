@@ -39,4 +39,4 @@ Time-bound:
   - - Former contact via AECOM via LSIC, not responding to emails as of year 2024. Call him.
 - Economic Strategists
 - AMU Production Swarms
-  - - Request 5 letter agency if tech can be repurposed for civilian purposes. 
+  - - Request 5 letter agency behind ARPANET, if tech can be repurposed for civilian purposes. 
