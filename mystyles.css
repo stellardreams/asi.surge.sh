@@ -36,13 +36,14 @@ h2 {
 /* Some left and right padding inside the container */
 .container {
   padding: 0 16px;
-/* Important:  This line controls how long the box is going to be for the roles that have been identified. */
+  /* Important:  This line controls how long the box is going to be for the roles that have been identified. */
   height: 410px;
-  text-align:justify; 
+  text-align: justify;
 }
 
 /* Clear floats */
-.container::after, .row::after {
+.container::after,
+.row::after {
   content: "";
   clear: both;
   display: table;
@@ -71,16 +72,16 @@ h2 {
 /* This is for the heart shaped icon under the 'Mentors we'd love to work with.' section. Instruction via https://css-tricks.com/forums/topic/icon-sizes-how-can-i-resize-them/ */
 
 .my-icon {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 section {
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 blockquote {
@@ -88,8 +89,9 @@ blockquote {
   border-left: 10px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
+  quotes: "\201C" "\201D" "\2018" "\2019";
 }
+
 blockquote:before {
   color: #ccc;
   content: open-quote;
@@ -98,17 +100,18 @@ blockquote:before {
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
+
 blockquote p {
   display: inline;
 }
 
-/* This code was added on 07-01-2021 (July 01st) as it was recommended by RG (Rusith). This is what this code does --> Aligning the text to 'justify' for lists and paragraphs */ 
+/* This code was added on 07-01-2021 (July 01st) as it was recommended by RG (Rusith). This is what this code does --> Aligning the text to 'justify' for lists and paragraphs */
 li {
-  text-align:justify;
+  text-align: justify;
 }
 
 p {
-  text-align:justify;
+  text-align: justify;
 }
 
 nav {
@@ -125,57 +128,79 @@ p {
 
 /* css for quotes/blockquotes towards the end of the index.html file */
 blockquote {
-    font-family: 'Georgia', serif; /* Nice font style */
-    font-size: 1.2em; /* Font size */
-    color: #333; /* Text color */
-    border-left: 5px solid #007BFF; /* Left border */
-    padding: 10px 20px; /* Padding */
-    margin: 20px 0; /* Margin */
-    background-color: #f9f9f9; /* Background color */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow */
+  font-family: 'Georgia', serif;
+  /* Nice font style */
+  font-size: 1.2em;
+  /* Font size */
+  color: #333;
+  /* Text color */
+  border-left: 5px solid #007BFF;
+  /* Left border */
+  padding: 10px 20px;
+  /* Padding */
+  margin: 20px 0;
+  /* Margin */
+  background-color: #f9f9f9;
+  /* Background color */
+  border-radius: 5px;
+  /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Shadow */
 }
 
 .quote {
-    quotes: "“" "”" "‘" "’"; /* Define quotation marks for styling */
+  quotes: "“" "”" "‘" "’";
+  /* Define quotation marks for styling */
 }
 
 .quote:before {
-    content: open-quote; /* Add opening quote */
+  content: open-quote;
+  /* Add opening quote */
 }
 
 .quote:after {
-    content: close-quote; /* Add closing quote */
+  content: close-quote;
+  /* Add closing quote */
 }
 
 cite {
-    display: block; /* Make it a block element */
-    font-style: italic; /* Italicize for differentiation */
-    font-size: 0.9em; /* Slightly smaller font size */
-    color: #555; /* Slightly lighter text color */
-    margin-top: 5px; /* Space above the citation */
+  display: block;
+  /* Make it a block element */
+  font-style: italic;
+  /* Italicize for differentiation */
+  font-size: 0.9em;
+  /* Slightly smaller font size */
+  color: #555;
+  /* Slightly lighter text color */
+  margin-top: 5px;
+  /* Space above the citation */
 }
 
 /* Add styles for the footer */
 footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #ff0066;
-    color: #fff;
-    border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  background-color: #eaffea;
+  color: #2e7d32;
+  border-radius: 5px;
 }
 
 /* Styles for sun */
 
 sun {
-          position: absolute;
-          width: 1in;
-          height: 1in;
-          background-color: yellow;
-          border-radius: 50%;
-          box-shadow: 0 0 20px yellow;
-      }
+  position: absolute;
+  width: 1in;
+  height: 1in;
+  background-color: yellow;
+  border-radius: 50%;
+  box-shadow: 0 0 20px yellow;
+}
+
 #mr-rogers-img {
-    max-width: 100%;  /* Ensures the image won't exceed the container's width */
-    width: 400px;     /* Set the width you prefer (e.g., 400px) */
-    height: auto;     /* Maintains the aspect ratio */
+  max-width: 100%;
+  /* Ensures the image won't exceed the container's width */
+  width: 400px;
+  /* Set the width you prefer (e.g., 400px) */
+  height: auto;
+  /* Maintains the aspect ratio */
+}
