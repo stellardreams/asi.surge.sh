@@ -1,6 +1,6 @@
 # Awake Space Industries
 
-> **Mission**: Explore space to improve human reality and promote a sustainable, peaceful, and strategic presence in outer space for the benefit of all.
+> **Mission**: Explore and develop outer space in order to improve human reality and promote a sustainable, peaceful, and strategic presence in outer space for the benefit of all. humans and machines and all other lifeforms.
 
 Welcome to the **Awakened Imagination Group of Projects** (formerly conceived with the name 'Awake Space Industries - Not incorporated as of yet) This repository hosts the landing page and foundational documentation for Awake Space Industries (ASI).
 
