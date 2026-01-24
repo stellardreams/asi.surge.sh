@@ -13,7 +13,7 @@ Measurable:
 - Anticipate pushback from specific circles. Pre-empt.
   - Design plans to integrate. Prepare offers in advance. 
   - Design plans to anticipate outcomes in the kubler ross sense. [link](https://en.wikipedia.org/wiki/Five_stages_of_grief)
-  - Prepar workforce for the long haul. 
+  - Prepare workforce for the long haul. 
 
 Achievable:
 - Utilizing self-replicating AMU clusters and autonomous deep-space transport.
