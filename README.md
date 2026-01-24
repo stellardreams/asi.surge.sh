@@ -37,7 +37,7 @@ The site is currently hosted at [asi.surge.sh](https://asi.surge.sh/).
 
 ## 🤝 Contributing
 
-We are looking for dreamers, builders, and experts to join our swarm:
+for this vision to evolve, you can now make this project your own. starting with:
 - Lead Ethicists
 - Habitat Designers
 - Gardeners of the Galaxy
