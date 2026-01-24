@@ -34,6 +34,7 @@ Time-bound:
 ## Resources
 - Talk to Jim @ offworld (no affiliation as of yet)
 - Materials Scientists
+  - - Contact from across the pond. Nice chap. Has liked visionary thinking ever since we met via yc sus.
 - Logistical Core Engineers
   - - Former contact via AECOM via LSIC, not responding to emails as of year 2024. Call him.
 - Economic Strategists
