@@ -2,8 +2,22 @@
 
 ## SMART Goal: Establish "Aura" Orbital Domain Security
 Specific:
-- Deploy 1,000 "Aura Sweeper" swarm clusters for debris removal.
-- Establish the "Orbital Sentry" compute layer.
+- First, consult Dr. Jah extensively
+  - - Assessment of current debris situation.
+  - - Assessment of current debris removal technologies.
+  - - Assessment of current debris monitoring technologies.
+  - - Assessment of current debris legal frameworks.
+  - - Assessment of current debris legal frameworks.
+  - - Assessment of projected debris situation
+- Gain necessary approvals
+- A typical lean approach, throw it in the orbit and see if it sticks will not work. 
+- Successful iterations to determine next steps. Which will include:
+  - Securing funding for the project.
+  - Building a world class team or teams.
+  - Gaining the necessary approvals from the relevant authorities.
+  - Communicating plans to the public and relevant stakeholders.
+  - Deployment of "Aura Sweeper" in swarm clusters for debris removal.
+  - Establish the "Orbital Sentry" compute layer.
 
 Measurable:
 - Reduction of tracked mm-scale debris by 40% in LEO/MEO.
