@@ -187,16 +187,7 @@ footer {
   border-radius: 5px;
 }
 
-/* Styles for sun */
 
-sun {
-  position: absolute;
-  width: 1in;
-  height: 1in;
-  background-color: yellow;
-  border-radius: 50%;
-  box-shadow: 0 0 20px yellow;
-}
 
 #mr-rogers-img {
   max-width: 100%;
