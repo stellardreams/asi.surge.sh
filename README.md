@@ -51,4 +51,4 @@ If you resonate with our values of **radical transparency, trust, and reducing s
 Support our mission via [GitHub Sponsors](https://github.com/sponsors/genidma).
 
 ---
-*Created by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
+*ideas co-conceived and taken to TRL 1.x by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
