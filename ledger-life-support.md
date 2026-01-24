@@ -1,11 +1,22 @@
 # Ledger: Planetary Life Support
 
 ## SMART Goal: Elimination of Biological Scarcity
-**Specific**: Scale orbital organ manufacturing to 100 organs/month and establish self-sustaining polyculture greenhouses in O'Neill cylinders.
-**Measurable**: zero-waitlist status for heart/lung transplants in participating regions; 100% nutritional self-sufficiency for initial O'Neill colony prototypes.
-**Achievable**: Using zero-gravity bioreactors and V8 Greenhouse AMUs.
-**Relevant**: Essential for human health and longevity in a post-scarcity world.
-**Time-bound**: Target organ capacity by Q2 2027.
+Specific:
+- Scale orbital organ manufacturing to 100 organs/month.
+- Establish self-sustaining polyculture greenhouses in O'Neill cylinders.
+
+Measurable:
+- Zero-waitlist status for heart/lung transplants in participating regions.
+- 100% nutritional self-sufficiency for initial O'Neill colony prototypes.
+
+Achievable:
+- Using zero-gravity bioreactors and V8 Greenhouse AMUs.
+
+Relevant:
+- Essential for human health and longevity in a post-scarcity world.
+
+Time-bound:
+- Target organ capacity by Q2 2027.
 
 ## Actionable Tasks
 1. [ ] **Bioreactor Iteration**: Optimize Stage-2 AMU for large-scale cellular scaffolding (Month 2).

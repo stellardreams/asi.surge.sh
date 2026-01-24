@@ -1,11 +1,22 @@
 # Ledger: Stewardship & Security
 
 ## SMART Goal: Establish "Aura" Orbital Domain Security
-**Specific**: Deploy 1,000 "Aura Sweeper" swarm clusters for debris removal and establish the "Orbital Sentry" compute layer.
-**Measurable**: Reduction of tracked mm-scale debris by 40% in LEO/MEO.
-**Achievable**: Utilizing 3-stage AMU self-replicating swarms.
-**Relevant**: Crucial for safe long-term space development and Earth's protection.
-**Time-bound**: Operational by Q4 2026.
+Specific:
+- Deploy 1,000 "Aura Sweeper" swarm clusters for debris removal.
+- Establish the "Orbital Sentry" compute layer.
+
+Measurable:
+- Reduction of tracked mm-scale debris by 40% in LEO/MEO.
+
+Achievable:
+- Utilizing 3-stage AMU self-replicating swarms.
+
+Relevant:
+- Crucial for safe long-term space development.
+- Essential for Earth's protection.
+
+Time-bound:
+- Operational by Q4 2026.
 
 ## Actionable Tasks
 1. [ ] **Protocol Design**: Finalize "Aura" swarm coordination logic and collision avoidance (Month 1).

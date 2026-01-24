@@ -1,11 +1,21 @@
 # Ledger: Global Prosperity
 
 ## SMART Goal: The Great Industry Migration
-**Specific**: Transition the top 20 most biosphere-polluting terrestrial industries to off-world AMU-based production.
-**Measurable**: 15% reduction in terrestrial heavy manufacturing carbon footprint; extraction of 1,000 tons of high-purity refined materials from Psyche-class asteroids.
-**Achievable**: Phased deployment of AMU Stage-3 Industrial Cores.
-**Relevant**: Core mission of healing the Earth while securing abundance.
-**Time-bound**: First 5 industries transitioned by 2030.
+Specific:
+- Transition the top 20 most biosphere-polluting terrestrial industries to off-world AMU-based production.
+
+Measurable:
+- 15% reduction in terrestrial heavy manufacturing carbon footprint.
+- Extraction of 1,000 tons of high-purity refined materials from Psyche-class asteroids.
+
+Achievable:
+- Phased deployment of AMU Stage-3 Industrial Cores.
+
+Relevant:
+- Core mission of healing the Earth while securing abundance.
+
+Time-bound:
+- First 5 industries transitioned by 2030.
 
 ## Actionable Tasks
 1. [ ] **Eco-Audit**: Identify the 20 highest-impact carbon/chemical polluters on Earth (Month 1).
