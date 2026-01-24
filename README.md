@@ -26,6 +26,7 @@ graph TD
     subgraph "Requirement & Alignment"
         R["REQUIREMENTS.md"] -.->|Technical Blueprint| D
     end
+```
 
 ## 🌐 Site Overview
 
