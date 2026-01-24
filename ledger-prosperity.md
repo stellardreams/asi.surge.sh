@@ -28,7 +28,8 @@ Time-bound:
 ## Key Milestones
 - **M1**: "The Most Polluting Top 20 Industries" list published.
 - **M2**: First 100kg of Psyche-refined material reaches Earth surface.
-- **M3**: First terrestrial factory shutdown in favor of production at <Artemis Base x y z, L4, L5, or O'Neill Cylinders, Deep Space via ITN e.t.c>
+- **M3**: First terrestrial factory shutdown in favor of production at 
+    - - identify candidates for shutdown: <Artemis Base x y z, L4, L5, or O'Neill Cylinders, Deep Space via ITN e.t.c>
 
 ## Resources
 - Materials Scientists
