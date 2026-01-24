@@ -52,7 +52,11 @@ Time-bound:
 - **M3**: Live domain security protocol active.
 
 ## Resources
+- Privateer via Dr. Jah
+- Existing Space Debris Catalog/Players (US, EU active)
 - AMU Factory Nodes
 - Blockchain Developers
 - Lead Ethicists
 - Computer Vision Specialists
+- NVIDIA, maybe?
+- SpaceApps challenge
