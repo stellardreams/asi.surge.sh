@@ -2,7 +2,8 @@
 
 ## SMART Goal: Establish "Aura" Orbital Domain Security
 Specific:
-- First, consult Dr. Jah extensively
+- Security hygiene is of utmost importance. 
+- Concurrently, consult with Dr. Jah extensively
   - - Assessment of current debris situation.
   - - Assessment of current debris removal technologies.
   - - Assessment of current debris monitoring technologies.
@@ -11,10 +12,13 @@ Specific:
   - - Assessment of projected debris situation
 - Gain necessary approvals
 - A typical lean approach, throw it in the orbit and see if it sticks will not work. 
+  - TRL level to 9 is required for launch.
 - Successful iterations to determine next steps. Which will include:
   - Securing funding for the project.
   - Building a world class team or teams.
   - Gaining the necessary approvals from the relevant authorities.
+  - Asking how to communicate with other space agencies
+  - Asking other space agencies on how to avoid miscommunication (in an era of ASAT and other space weaponization like satellite recon/trailing formations)
   - Communicating plans to the public and relevant stakeholders.
   - Deployment of "Aura Sweeper" in swarm clusters for debris removal.
   - Establish the "Orbital Sentry" compute layer.
@@ -24,8 +28,10 @@ Measurable:
 
 Achievable:
 - Utilizing 3-stage AMU self-replicating swarms.
+- I am not sure, but I think the deployment will be in MEO? Fuel costs will be a determinant. Unless, ion thruster can be secured/licensed.
 
 Relevant:
+- Avoid the Kessler Syndrome [link](https://www.youtube.com/watch?v=dft7-yNSabc)
 - Crucial for safe long-term space development.
 - Essential for Earth's protection.
 
