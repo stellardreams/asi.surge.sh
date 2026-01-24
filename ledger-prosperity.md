@@ -32,6 +32,7 @@ Time-bound:
     - - identify candidates for shutdown: <Artemis Base x y z, L4, L5, or O'Neill Cylinders, Deep Space via ITN e.t.c>
 
 ## Resources
+- Talk to Jim @ offworld (no affiliation as of yet)
 - Materials Scientists
 - Logistical Core Engineers
 - Economic Strategists
