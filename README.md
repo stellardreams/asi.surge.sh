@@ -26,14 +26,13 @@ graph TD
     subgraph "Requirement & Alignment"
         R["REQUIREMENTS.md"] -.->|Technical Blueprint| D
     end
-```
 
 ## 🌐 Site Overview
 
-- **[Home](https://asi.surge.sh/)**: The unified mission core and origin story. Highlights our primary areas of interest and technical leadership.
-- **[The Effort](https://asi.surge.sh/effort)**: The technical log of iterative development—from autonomous swarm units (AMUs) to deep-space propulsion simulations.
-- **[Imagine](https://asi.surge.sh/imagine)**: A visionary workspace visualizing a world where automation, orbital healing, and environmental stewardship have eliminated scarcity.
-- **[Master Plans](https://asi.surge.sh/plans)**: The tactical "back of the envelope" strategy for sequential execution (Stewardship → Foundations → Life Support → Prosperity).
+- **[Home](https://asi.surge.sh/)**: main page highlighting the primary areas of interest +
+- **[The Effort](https://asi.surge.sh/effort)**: TRL 1 designs of autonomous swarm units (AMUs) and some other designs.
+- **[Imagine](https://asi.surge.sh/imagine)**: original vision
+- **[Master Plans](https://asi.surge.sh/plans)**: "back of the envelope" plans. 
 
 ## 🚀 Tactical Ledger Integration
 
