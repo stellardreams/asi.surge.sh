@@ -3,10 +3,10 @@
 ## Strategic Overview
 ```mermaid
 graph TD
-    A["I. Orbital Stewardship"] -->|Secures Commons| B["III. Interplanetary Foundations"]
-    B -->|Infrastructure Backbone| C["Plan for Global Prosperity"]
+    A["I. Orbital Stewardship"] -->|Secures Commons| B["II. Interplanetary Foundations"]
+    B -->|Infrastructure Backbone| C["IV. Global Prosperity"]
     C -->|Move Industry Off-World| D["Biosphere Healing & Abundance"]
-    B -->|Resources & Connectivity| E["II. Planetary Life Support"]
+    B -->|Resources & Connectivity| E["III. Planetary Life Support"]
     E -->|Organ Mfg & Agriculture| F["Biological Scarcity Elimination"]
     
     style A fill:#0d2538,stroke:#64ffda,color:#fff
