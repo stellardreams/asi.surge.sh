@@ -1,55 +1,64 @@
-# Awake Space Industries
+# Awakened Imagination: The Path to Abundance
 
-> **Mission**: Explore and develop outer space in order to improve human reality and promote a sustainable, peaceful, and strategic presence in outer space for the benefit of all. humans and machines and all other lifeforms.
+> **Mission**: To secure the **Age of Abundance** through the development of outer space, healing the biosphere, and promoting a sustainable, peaceful, and strategic presence for all sentient life.
 
-Welcome to the **Awakened Imagination Group of Projects** (formerly conceived with the name 'Awake Space Industries - Not incorporated as of yet) This repository hosts the landing page and foundational documentation for Awake Space Industries (ASI).
+Welcome to the official repository of the **Awakened Imagination Group of Projects**. This site translates high-level orbital development vision into tactical execution logs.
 
-## 🌌 Vision
+## 🗺️ Project Architecture
 
-ASI is dedicated to unlocking the potential of the inner solar system to address Earth's challenges. We focus on:
-- **Orbital Manufacturing**: Enabling semi-autonomous factories in space.
-- **Biotech in Orbit**: Growing organs (hearts, lungs) in zero-gravity environments.
-- **Space Colonies**: Supporting the creation of sustainable O'Neill colonies for future generations.
-- **Space Agriculture**: Cultivating high-quality polyculture crops—such as olive trees and peaches—within orbiting greenhouses, on the Moon and in O'Neill colonies in order to provide nutritious food and a piece of Earth's heritage to space inhabitants. As well, solve our food scarcity problem here on Earth.
-- **AI & Space Safety**: Promoting norms and behaviors for peaceful space development and mitigating the harmful effects of superabundance.
+The project is structured around four primary pillars, each with a dedicated interactive hub and tactical documentation:
 
-## 🚀 Key Projects
+```mermaid
+graph TD
+    subgraph "Public Interface (GitHub Pages / Surge)"
+        A["Home (index.html)"] --> B["The Effort (effort.html)"]
+        A --> C["Imagine (imagine.html)"]
+        A --> D["Master Plans (plans.html)"]
+    end
+    
+    subgraph "Tactical Ledgers (Markdown Hub)"
+        D -->|View Plan| L1["ledger-stewardship.md"]
+        D -->|View Plan| L2["ledger-foundations.md"]
+        D -->|View Plan| L3["ledger-life-support.md"]
+        D -->|View Plan| L4["ledger-prosperity.md"]
+    end
+    
+    subgraph "Requirement & Alignment"
+        R["REQUIREMENTS.md"] -.->|Technical Blueprint| D
+    end
+```
 
-- **AMU (Autonomous Manufacturing Units)**: 3-stage semi-autonomous factories designed for orbiting greenhouses and decentralized manufacturing. [snapshot](https://asi.surge.sh/effort) each AMU can make a copy of itself to scale production. each AMU can reorient itself to make a manufacturing unit of choosing. TRL [Technology Readiness Level](https://en.wikipedia.org/wiki/Technology_readiness_level) level is between TRL 1 and TRL 2
-- **Governance**: 
-  - the structure for governance for ASI has not been setup as of yet. considering that the organization could generate a substantial amount of profits and revenue, amounting in the Trillions. hence, it is best that the organization is setup in a manner that it's revenues go towards enabling a global infrastructure for healthcare (See AUH below). 
-  - for this purpose, the nations around the world and United Nations would audit all the operations of this organization all the time, everytime. every process initiated by the kernel and every transaction on the accounting ledger would be visible to the appropriate governing authorities.
-  - basically we sought to enable Gerry K' O'Neill's vision. you can learn more about Gerry by reading a book titled [visioneers](https://www.amazon.ca/Visioneers-Scientists-Colonies-Nanotechnologies-Limitless/dp/0691176299) by W. Patrick McCray. later on, there was a documentary made about gerry. which you can stream on the internet. here's the imdb [link](https://www.imdb.com/title/tt12483148/). Digital artist, Erik Wernquist worked on some of the scenes for the documentary. you can see the trailer on his personal youtube [here](https://www.youtube.com/watch?v=pSsWkooeIds)
-  - from my vantage point, when gerry's vision is going to begin to manifest is a question of when and not if. I personally did not know gerry. but if ASI starts taking off, it would only be kind to do something in gerry's memory by working closely and respectfully with his family. as of yet, I don't know anyone in gerry's family or circle of friends.
-- **AUH (Awake Universal Healthcare)**: Developing quality healthcare infrastructure for the solar system. please see [https://auh.surge.sh/](https://auh.surge.sh/) for more details
-- **Shangrila-VHP**: Veterans Healing Places using earthen materials and sustainable resources. please see [https://github.com/Shangrila-VHP/shangrila-vhp/](https://github.com/Shangrila-VHP/shangrila-vhp/)for more information. As well, the [issues](https://github.com/Shangrila-VHP/shangrila-vhp/issues) section and the [wiki](https://github.com/Shangrila-VHP/shangrila-vhp/wiki) also
+## 🌐 Site Overview
 
-## 🛠 Tech Stack
+- **[Home](https://asi.surge.sh/)**: main page highlighting the primary areas of interest +
+- **[The Effort](https://asi.surge.sh/effort)**: TRL 1 designs of autonomous swarm units (AMUs) and some other designs.
+- **[Imagine](https://asi.surge.sh/imagine)**: original vision
+- **[Master Plans](https://asi.surge.sh/plans)**: "back of the envelope" plans. 
 
-- **Architecture**: 
-  - Designed for radical transparency and eventual blockchain-based regulation of swarms. 
-  - smaller units designed to enable and equip pre-approved modular realms in a post AGI world (Artificial General Intelligence).
-  - it is the hope that the depth and fidelity of simulations will improve with the increased availability of computational power.
-  - separately, I will be advocating for the rights for intelligences that are independent of a substrate. only then can the simulations begin to evolve in an organic manner
+## 🚀 Tactical Ledger Integration
 
-## 🌐 Deployment
+The **Plans** page acts as a living bridge between the abstract vision and tactical execution. Every plan card on the site maps directly to a **Tactical Ledger** in this repository:
 
-The site is currently hosted at [asi.surge.sh](https://asi.surge.sh/).
+1.  **[Orbital Stewardship](ledger-stewardship.md)**: Security, hygiene, and debris mitigation (Kessler Syndrome prevention).
+2.  **[Interplanetary Foundations](ledger-foundations.md)**: Deep space industrial backbone and Interplanetary Transport Network (ITN).
+3.  **[Planetary Life Support](ledger-life-support.md)**: Orbital health span research and bio-scarcity elimination (ISS decommissioning alignment).
+4.  **[Global Prosperity](ledger-prosperity.md)**: Transitioning heavy industry off-world to allow Earth's biosphere to heal.
 
-## 🤝 Contributing
+## 🛠️ The Architecture of Abundance (AMUs)
 
-for this vision to evolve, you can now make this project your own. starting with:
-- Lead Ethicists
-- Habitat Designers
-- Gardeners of the Galaxy
-- Materials Scientists
-- And more...
+Our foundational technology is the **3-stage AMU (Autonomous Manufacturing Unit)**: 
+- **Self-Replication**: Designed for exponential scale.
+- **Reorientation**: Capable of on-orbit re-tasking for diverse manufacturing needs.
+- **TRL Target**: We are currently bridging the gap from TRL 1 to TRL 9 for orbital deployment.
 
-If you resonate with our values of **radical transparency, trust, and reducing suffering**, please reach out!
+## 🤝 Join the Effort
 
-## 💖 Sponsorship
+This project follows the **Wikipedia Model**—it is a collaborative, radically transparent public benefit ecosystem. We are currently seeking:
+- **Lead Ethicists** & **Habitat Designers**
+- **Geneticists** & **Astrobiologists**
+- **Remote Operations Teams** (Australia/Canada expertise)
 
 Support our mission via [GitHub Sponsors](https://github.com/sponsors/genidma).
 
 ---
-*ideas co-conceived and taken to TRL 1.x by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
+*Vision co-conceived by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
