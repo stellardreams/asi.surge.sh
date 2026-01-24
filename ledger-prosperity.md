@@ -21,7 +21,7 @@ Time-bound:
 1. [ ] **Eco-Audit**: Identify the 20 highest-impact carbon/chemical polluters on Earth (Month 1).
 2. [ ] **Material Analysis**: Simulation of off-world manufacturing equivalents for steel, aluminum, and titanium (Month 4).
 3. [ ] **Orbital Loop**: Establish the high-cadence delivery system for material reentry (Month 12). 
-    | Note: There is a Khosla Ventures funded startup already doing this. This startup is called 'Varda Space' [link](https://www.varda.com/company/). I emailed them, as their designs were eerily similar to AMUs. However, AMUs were never designed for re-entry and nor was it ever conceived to be in LEO (Low Earth Orbit)
+    - Note: There is a Khosla Ventures funded startup already doing this. This startup is called 'Varda Space' [link](https://www.varda.com/company/). I emailed them, as their designs were eerily similar to AMUs. However, AMUs were never designed for re-entry and nor was it ever conceived to be in LEO (Low Earth Orbit)
 4. [ ] **Industry Partnerships**: Form alliances with legacy manufacturers for decommissioning strategies (Month 18).
 5. [ ] **Restoration Initiate**: Begin re-wilding programs on former industrial sites (Month 24).
 
