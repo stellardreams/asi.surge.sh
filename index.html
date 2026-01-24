@@ -2,113 +2,110 @@
 <html lang="en">
 
 <head>
-  <META charset="UTF-8">
-  <META name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="mystyles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Awake Space Industries - Landing page 2023</title>
 
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="mystyles.css">
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2TGX86LYD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-F2TGX86LYD');
   </script>
-  <!-- Google analytics specific code ends here -->
 
-  <! -- Adding a menu based off the following article https://www.w3schools.com/tags/tag_nav.asp -->
-
-    <nav>
-      <a href="/index/">Home</a> |
-      <a href="/effort/">Effort</a> |
-      <a href="/imagine/">Imagine</a> |
-    </nav>
-
-
-    <!--Added on 12-27-2024: Microsoft Clarity tracking code for https://asi.surge.sh/ -->
-    <script>    (function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) }; t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i + "?ref=bwt"; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, "clarity", "script", "pkp1yhekrs");</script>
-
+  <!-- Microsoft Clarity tracking code -->
+  <script>
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i + "?ref=bwt";
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "pkp1yhekrs");
+  </script>
 </head>
 
-<!-- Header section -->
-<header style="color: #ADD8E6;">
-  <h1 style="color: #00008B;">Welcome to Awakened Imagination Group of Projects</h1>
-  <br>
-  <iframe src="https://github.com/sponsors/genidma/button" title="Sponsor genidma" height="32" width="114"
-    style="border: 0; border-radius: 6px;"></iframe>
-  <br>
-  <iframe src="https://github.com/sponsors/genidma/card" title="Sponsor genidma" height="225" width="600"
-    style="border: 0;"></iframe>
-</header>
-<!-- Main content section -->
-<main>
+<body>
+  <nav>
+    <a href="/index/">Home</a>
+    <a href="/effort/">Effort</a>
+    <a href="/imagine/">Imagine</a>
+  </nav>
 
-  <section>
-    <section id="unified-mission" style="margin-top: 40px;">
-      <p style="font-size: 1.1em; line-height: 1.8; color: #333; max-width: 900px;">
-        Developing outer space is the pivotal requirement for humanity to secure the **Age of Abundance**. At the Awake
-        Group, we coordinate this evolution through the **Wikipedia Model**—establishing a radically transparent,
-        collaborative structure for orbital development and AI safety. As a **Public Benefit Organization**, our focus
-        is
-        the collective healing of the biosphere and the advancement of sentient life across the solar system.
+  <header>
+    <h1>Welcome to Awakened Imagination Group of Projects</h1>
+    <div class="sponsorship-links">
+      <iframe src="https://github.com/sponsors/genidma/button" title="Sponsor genidma" height="32" width="114"
+        style="border: 0; border-radius: 6px;"></iframe>
+      <br><br>
+      <iframe src="https://github.com/sponsors/genidma/card" title="Sponsor genidma" height="225" width="600"
+        style="border: 0;"></iframe>
+    </div>
+  </header>
+
+  <main>
+    <section id="unified-mission">
+      <p>
+        Developing outer space is the pivotal requirement for humanity to secure the <strong>Age of Abundance</strong>.
+        At the Awake Group, we coordinate this evolution through the <strong>Wikipedia Model</strong>—establishing a
+        radically transparent, collaborative structure for orbital development and AI safety. As a <strong>Public
+          Benefit
+          Organization</strong>, our focus is the collective healing of the biosphere and the advancement of sentient
+        life across the solar system.
       </p>
 
-      <div
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 30px;">
+      <div class="grid-3 mission-highlights">
         <!-- I. Orbital Stewardship -->
-        <div
-          style="background: #ffffff; padding: 25px; border-radius: 16px; border-top: 6px solid #00008B; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-          <h3 style="margin-top: 0; color: #00008B; letter-spacing: 1px;">I. ORBITAL STEWARDSHIP</h3>
-          <p style="font-size: 0.9em; color: #666; font-style: italic;">"Securing the Silent Sea"</p>
-          <ul style="padding-left: 20px; font-size: 0.95em; line-height: 1.6;">
-            <li>**Domain Security**: Establishing civilian protocols to defend, clean, and maintain orbital environments
-              as a peaceful common heritage.</li>
-            <li>**Legal Kinship**: Pioneering international treaties for debris management and the preemptive prevention
-              of unwarranted conflict.</li>
-            <li>**Radical Transparency**: Operating as a public benefit ledger to ensure all resource sharing is
-              equitable, ethical, and universally beneficial.</li>
+        <article class="glass-card">
+          <h3>I. ORBITAL STEWARDSHIP</h3>
+          <p class="tagline">"Securing the Silent Sea"</p>
+          <ul>
+            <li><strong>Domain Security</strong>: Establishing civilian protocols to defend, clean, and maintain orbital
+              environments as a peaceful common heritage.</li>
+            <li><strong>Legal Kinship</strong>: Pioneering international treaties for debris management and the
+              preemptive prevention of unwarranted conflict.</li>
+            <li><strong>Radical Transparency</strong>: Operating as a public benefit ledger to ensure all resource
+              sharing is equitable, ethical, and universally beneficial.</li>
           </ul>
-        </div>
+        </article>
 
         <!-- II. Planetary Life Support -->
-        <div
-          style="background: #ffffff; padding: 25px; border-radius: 16px; border-top: 6px solid #00008B; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-          <h3 style="margin-top: 0; color: #00008B; letter-spacing: 1px;">II. PLANETARY LIFE SUPPORT</h3>
-          <p style="font-size: 0.9em; color: #666; font-style: italic;">"Nurturing the Biosphere"</p>
-          <ul style="padding-left: 20px; font-size: 0.95em; line-height: 1.6;">
-            <li>**High-Yield Habitats**: Developing O'Neill cylinder clusters engineered for multi-generational
-              stability
-              and unparalleled agricultural yields.</li>
-            <li>**Heritage & Nutrition**: Solving global scarcity via large-scale and cellular agriculture, preserving
-              Earth's heritage in orbiting greenhouses.</li>
-            <li>**Orbital Healing**: Eliminating planetary healthcare burdens through zero-gravity organ manufacturing
-              and
-              advanced medical research.</li>
+        <article class="glass-card">
+          <h3>II. PLANETARY LIFE SUPPORT</h3>
+          <p class="tagline">"Nurturing the Biosphere"</p>
+          <ul>
+            <li><strong>High-Yield Habitats</strong>: Developing O'Neill cylinder clusters engineered for
+              multi-generational stability and unparalleled agricultural yields.</li>
+            <li><strong>Heritage & Nutrition</strong>: Solving global scarcity via large-scale and cellular
+              agriculture, preserving Earth's heritage in orbiting greenhouses.</li>
+            <li><strong>Orbital Healing</strong>: Eliminating planetary healthcare burdens through zero-gravity organ
+              manufacturing and advanced medical research.</li>
           </ul>
-        </div>
+        </article>
 
         <!-- III. Interplanetary Foundations -->
-        <div
-          style="background: #ffffff; padding: 25px; border-radius: 16px; border-top: 6px solid #00008B; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-          <h3 style="margin-top: 0; color: #00008B; letter-spacing: 1px;">III. INTERPLANETARY FOUNDATIONS</h3>
-          <p style="font-size: 0.9em; color: #666; font-style: italic;">"Laying the Galactic Spines"</p>
-          <ul style="padding-left: 20px; font-size: 0.95em; line-height: 1.6;">
-            <li>**Deep Space Industrialization**: Constructing the logistical and manufacturing backbone of the solar
-              system, from Mars to the Asteroid Belt.</li>
-            <li>**Superabundance Alignment**: Harmonizing exponential growth with the ethical upliftment of all human
-              and
-              substrate-independent life.</li>
-            <li>**Type III Genesis**: Initiating the long-term foundations for a galaxy-spanning civilization that
-              honors
-              the sanctity of all sentient existence.</li>
+        <article class="glass-card">
+          <h3>III. INTERPLANETARY FOUNDATIONS</h3>
+          <p class="tagline">"Laying the Galactic Spines"</p>
+          <ul>
+            <li><strong>Deep Space Industrialization</strong>: Constructing the logistical and manufacturing backbone
+              of the solar system, from Mars to the Asteroid Belt.</li>
+            <li><strong>Superabundance Alignment</strong>: Harmonizing exponential growth with the ethical upliftment
+              of all human and substrate-independent life.</li>
+            <li><strong>Type III Genesis</strong>: Initiating the long-term foundations for a galaxy-spanning
+              civilization that honors the sanctity of all sentient existence.</li>
           </ul>
-        </div>
+        </article>
       </div>
-      <!-- Visionary Gallery Highlights -->
-      <h2 style="margin-top: 60px; color: #00008B; text-align: center;">Visions of the Future</h2>
+
+      <h2>Visions of the Future</h2>
       <div class="gallery">
         <div class="gallery-item">
           <img src="img/imagine/space_garden.png" alt="O'Neill Colony Garden - Olive and Peach Trees">
@@ -142,641 +139,202 @@
           <img src="img/imagine/space_jellyfish.png" alt="Space Jellyfish Debris Cleanup Swarm">
           <div class="gallery-caption">
             <strong>Space Environmentalism</strong>: Bio-inspired 'Aura Sweepers' cleaning Earth's orbit, inspired by
-            Dr.
-            Moriba Jah.
+            Dr. Moriba Jah.
           </div>
         </div>
       </div>
+    </section>
 
+    <section id="origin-story">
+      <hr>
+      <p>
+        In 2018, inspired by W. Patrick McCray's book <a
+          href="https://www.amazon.com/Visioneers-Scientists-Colonies-Nanotechnologies-Limitless/dp/0691139830"
+          target="_blank">The Visioneers</a>, I began exploring the <a
+          href="https://www.youtube.com/watch?v=_Lc2GkuP1nc" target="_blank">'responsibility of our creations'</a> and
+        the profound impact of our interactions with
+        technology.
+        Having worked in the technology sector, I have always been fascinated by how these interactions shape our
+        reality.
+        As a dreamer, I meditated on the possibility that unlocking the inner solar system's potential could address
+        many
+        of Earth's greatest challenges.
+      </p>
+
+      <p>
+        As a parent, I dream of a future where generations rise above earthly struggles and reach for the stars to build
+        a
+        better world. This vision hinges on a collaborative, safe, sustainable, and ethical approach. Driven by this
+        mission, I sketched an initial diagram in 2018, which you can view below in its original form.
+      </p>
+
+      <p>
+        With a mindset of greatness, we can achieve more than we ever imagined. As Les Brown says, "Shoot for the stars.
+        Even if you miss, you'll land on the moon." Or, as the late Neil Armstrong envisioned, we must strive to "go to
+        places beyond belief."
+      </p>
+
+      <img src="img/Inner-Solar-System-Vision-2018.jpg" alt="Awake Aerospace - The vision" class="center-img"
+        style="width: 60%;">
+    </section>
+
+    <section id="manufacturing">
+      <h3>The Architecture of Abundance: The 3-Stage AMU</h3>
+      <p>
+        Below: A semi-autonomous manufacturing site that can make copies of itself. As well, help manufacture inventions
+        by
+        approved vendors and customers. This is a proposed design for an invention and as of right now, Awake Aerospace
+        has
+        pioneered simple designs to enable this reality.
+      </p>
+      <img src="img/portfolio/Awake_RG_AMU01.png" alt="Awake Aerospace AMUs or Autonomous Manufacturing Units"
+        class="center-img" style="width: 50%;">
+
+      <p>
+        Our design for the Government of Canada's <strong>Deep Space Food Challenge</strong> envisions millions of
+        non-terrestrial facilities providing high-yield, carcinogen-free nutrition. While it pushed the boundaries of
+        the
+        competition's constraints, it remains our foundational blueprint for solving global food scarcity and anchoring
+        future O'Neill colonies.
+      </p>
+      <img src="img/portfolio/Awake_RG_AMU_Orbiting_Greenhouses.png" alt="Awake Aerospace Orbiting Greenhouse."
+        class="center-img" style="width: 50%;">
+
+      <ul class="glass-card">
+        <li><strong>MMS (Main Manufacturing Site)</strong>: An adaptive platform designed for self-replication and rapid
+          reconfiguration.</li>
+        <li><strong>The Logistics Core</strong>: Integrated fuel reserves and high-cadence transporters engineered for
+          the precision movement of essential goods.</li>
+        <li><strong>Nutritional Integrity</strong>: All produce is washed, dried, and flash-frozen <em>in-situ</em>
+          without chemical additives.</li>
+      </ul>
+    </section>
+
+    <section id="security-legal">
+      <h2>Security, Integrity, and The Legal Commons</h2>
+      <div class="grid-3">
+        <article class="glass-card">
+          <h3>The Orbital Compute Layer</h3>
+          <p>We are deploying an off-world computing platform to handle high-density blockchain verification and
+            computer vision. This "Orbital Sentry" automatically initiates security protocols if unauthorized
+            interference is detected.</p>
+        </article>
+        <article class="glass-card">
+          <h3>Protecting the Blueprint</h3>
+          <p>While our ethos is rooted in open collaboration (the Wikipedia Model), we are raising capital to establish
+            the <strong>First Interplanetary Legal Framework</strong>.</p>
+        </article>
+        <article class="glass-card">
+          <h3>Strategic Peace Mandate</h3>
+          <p>Our stance against the placement of heavy weaponry in the orbital commons is absolute. Any violation will
+            trigger universal and permanent sanctions.</p>
+        </article>
+      </div>
+      <div class="glass-card" style="margin-top: 2rem;">
+        <h3>Evolutionary Governance & Enforcement</h3>
+        <p>We advocate for the perpetual reevaluation of the Outer Space Treaty. We will be relentless in the pursuit
+          and prosecution of any actors whose behavior jeopardizes the potential of outer space.</p>
       </div>
     </section>
-  </section>
-</main>
 
+    <section id="invitation" class="glass-card" style="background: rgba(100, 255, 218, 0.05);">
+      <h3 style="color: var(--accent-cyan);">An Invitation to Unity</h3>
+      <p style="color: var(--text-silver);">
+        Beyond the mandates and the legal frameworks, we extend an open hand of friendship to all who reach for the
+        stars.
+        In the coming <strong>Age of Abundance</strong>, our solar system offers more than enough resources to uplift
+        every sentient life. Let us work together.
+      </p>
+    </section>
 
-<body>
-  <hr width="50%">
-  <p>
-    In 2018, inspired by W. Patrick McCray's book <a
-      href="https://www.amazon.com/Visioneers-Scientists-Colonies-Nanotechnologies-Limitless/dp/0691139830/ref=sr_1_1?dib=eyJ2IjoiMSJ9.a94V7WcBMemuiPPMeemevw.f1puM_k0PFb8Tl1tgc5YAsMkH14w5JzsXXSepV6dz8s&dib_tag=se&keywords=visioneers+patrick&qid=1730525586&sr=8-1"
-      target="_blank">The Visioneers</a>, I began exploring the <a href="https://www.youtube.com/watch?v=_Lc2GkuP1nc"
-      target="_blank">'responsibility of our creations'</a> and the profound impact of our interactions with technology.
-    Having worked in the technology sector, I have always been fascinated by how these interactions shape our reality.
-    As a dreamer, I meditated on the possibility that unlocking the inner solar system's potential could address many of
-    Earth's greatest challenges.
-  </p>
+    <section id="areas-of-interest">
+      <h2>Primary Areas of Interest</h2>
+      <div class="row">
+        <article class="glass-card">
+          <h3>I. Foundations for a Type III Civilization</h3>
+          <p>Our trajectory is set toward the secure, sustainable, and ethically conscious deployment of multi-planetary
+            infrastructure.</p>
+        </article>
+        <article class="glass-card">
+          <h3>II. Orbital Swarm Factories</h3>
+          <p>We deploy our modular '3-stage' AMU architecture for high-yield orbital agriculture and manufacturing of
+            complex habitats.</p>
+        </article>
+        <article class="glass-card">
+          <h3>III. Deep Space Horizons</h3>
+          <p>Expansion into Europa, Titan, & Venus with a focus on hygienic, non-invasive exploration.</p>
+        </article>
+      </div>
+    </section>
 
-  <p>
-    As a parent, I dream of a future where generations rise above earthly struggles and reach for the stars to build a
-    better world. This vision hinges on a collaborative, safe, sustainable, and ethical approach. Driven by this
-    mission, I sketched an initial diagram in 2018, which you can view below in its original form.
-  </p>
+    <section id="team">
+      <h2>Technical Leadership & Visionaries</h2>
+      <div class="row">
+        <div class="column">
+          <div class="card">
+            <img src="img/AK-04-29-2021.jpeg" alt="Adeel Khan">
+            <div class="container">
+              <a href="https://www.linkedin.com/in/adeelkhan1/" target="_blank">
+                <h2>Adeel Khan</h2>
+              </a>
+              <p class="title">Founder</p>
+              <p>Father, serial entrepreneur, chief instigator, explorer | "The singularity is near."</p>
+            </div>
+          </div>
+        </div>
 
-  <p>
-    With a mindset of greatness, we can achieve more than we ever imagined. As Les Brown says, "Shoot for the stars.
-    Even if you miss, you'll land on the moon." Or, as the late Neil Armstrong envisioned, we must strive to "go to
-    places beyond belief."
-  </p>
+        <div class="column">
+          <div class="card">
+            <img src="img/ethics.png" alt="Lead Ethicist">
+            <div class="container">
+              <h2>Lead Ethicist</h2>
+              <p class="title">Governance & Policy</p>
+              <p>Leading the development of policies and frameworks for the Outer Space Treaty amendments and solar
+                system hygiene.</p>
+            </div>
+          </div>
+        </div>
 
-  <center>
-    <img src="img/Inner-Solar-System-Vision-2018.jpg" alt="Awake Aerospace - The vision" style="width:42%">
-  </center>
-
-
-
-
-
-  <p>
-    Below: A semi-autonomous manufacturing site that can make copies of itself. As well, help manufacture inventions by
-    approved vendors and customers. This is a proposed design for an invention and as of right now, Awake Aerospace has
-    pioneered simple designs to enable this reality. Would love to collaborate with other robotic companies in the
-    future.
-  </p>
-  <img src="img/portfolio/Awake_RG_AMU01.png" alt="Awake Aerospace AMUs or Autonomous Manufacturing Units"
-    style="width:42%">
-  <br>
-
-  <p>
-    Our design for the Government of Canada's <strong>Deep Space Food Challenge</strong> envisions millions of
-    non-terrestrial facilities providing high-yield, carcinogen-free nutrition. While it pushed the boundaries of the
-    competition's constraints, it remains our foundational blueprint for solving global food scarcity and anchoring
-    future O'Neill colonies. We continue to iterate on this architecture as a catalyst for human migration into the
-    solar system.
-  </p>
-  <br>
-  <img src="img/portfolio/Awake_RG_AMU_Orbiting_Greenhouses.png" alt="Awake Aerospace Orbiting Greenhouse."
-    style="width:42%">
-  <br>
-  <h3>The Architecture of Abundance: The 3-Stage AMU</h3>
-  <p>
-    Our <strong>Semi-Autonomous Manufacturing Units (AMUs)</strong> serve as the modular cellular units of the solar
-    system. Each unit is a finely-tuned, 3-stage ecosystem:
-  </p>
-  <ul>
-    <li><strong>MMS (Main Manufacturing Site)</strong>: An adaptive platform designed for self-replication and rapid
-      reconfiguration—capable of shifting from heavy manufacturing to complex biological synthesis in real-time.</li>
-    <li><strong>The Logistics Core</strong>: Integrated fuel reserves and high-cadence transporters engineered for the
-      precision movement of essential goods and services.</li>
-    <li><strong>Nutritional Integrity</strong>: All produce is washed, dried, and flash-frozen <em>in-situ</em> without
-      chemical additives—preserving Earth’s heritage at the atomic level.</li>
-  </ul>
-
-  <h3>The Harvest Loop: From Orbit to Doorstep</h3>
-  <p>
-    We close the distance between the stars and the kitchen table through a seamless, automated delivery cycle:
-  </p>
-  <ol>
-    <li><strong>Orbital Cultivation</strong>: High-yield crops managed via hybrid remote/autonomous protocols.</li>
-    <li><strong>The Hand-off</strong>: Specialized transporters dock with orbital hubs for precision cargo transfer.
-    </li>
-    <li><strong>Descent & Last-Mile</strong>: Coordinated re-entry to commercial ports, followed by autonomous robotic
-      delivery—providing nutritional security directly to the contributor.</li>
-  </ol>
-
-  <h3>Security, Integrity, and The Legal Commons</h3>
-  <p>
-    In the <strong>Age of Superabundance</strong>, stewardship requires a "Digital Spinal Cord."
-  </p>
-  <ul>
-    <li><strong>The Orbital Compute Layer</strong>: We are deploying an off-world computing platform to handle
-      high-density blockchain verification and computer vision. This "Orbital Sentry" automatically initiates security
-      and law-enforcement protocols if unauthorized interference is detected.</li>
-    <li><strong>Protecting the Blueprint</strong>: While our ethos is rooted in open collaboration (the Wikipedia
-      Model), we are raising capital to establish the <strong>First Interplanetary Legal Framework</strong>—ensuring our
-      designs remain dedicated to their sacred purpose: feeding the world, manufacturing vital organs, and uplifting
-      all sentient life.</li>
-    <li><strong>The Strategic Peace Mandate</strong>: Our stance against the placement of heavy weaponry in the orbital
-      commons is absolute. Any violation will trigger universal and permanent sanctions, enforced both terrestrially
-      and across the solar system, ensuring the enduring sanctity of the new frontier.</li>
-    <li><strong>Evolutionary Governance & Enforcement</strong>: We advocate for the perpetual reevaluation and evolution
-      of the Outer Space Treaty and its associated norms to meet the needs of an expanding civilization. We will be
-      relentless in the pursuit and prosecution of any actors whose behavior jeopardizes the potential of outer space to
-      preserve and flourish life on and off the planet. While we will exhaust diplomacy, the legal and other structures
-      must be ready, should a situation arise where diplomacy fails.</li>
-  </ul>
-
-  <div
-    style="margin-top: 40px; padding: 30px; background: #f0fff0; border-radius: 16px; border-left: 8px solid #006400; box-shadow: 0 4px 12px rgba(0,100,0,0.05);">
-    <h3 style="margin-top: 0; color: #006400;">An Invitation to Unity</h3>
-    <p style="font-size: 1.1em; color: #004d00; line-height: 1.8; margin-bottom: 0;">
-      Beyond the mandates and the legal frameworks, we extend an open hand of friendship to all who reach for the stars.
-      In the coming <strong>Age of Abundance</strong>, our solar system offers more than enough resources to uplift
-      every sentient life. Let us work together. Let us ensure that our collective actions never lead to the poisoning
-      of the well upon which we all depend. The future is vast, and it is collaborative.
-    </p>
-  </div>
-  <br>
-  <img src="img/portfolio/AMU.jpg" alt="AMUs - Autonomous Manufacturing Units in the orbit of Venus" style="width:42%">
-  <br>
-
-
-
-  <h2>Primary Areas of Interest</h2>
-  <section
-    style="background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 40px;">
-    <h3>I. Foundations for a Type III Civilization</h3>
-    <p>
-      Our trajectory is set toward the secure, sustainable, and ethically conscious deployment of multi-planetary
-      infrastructure. We coordinate with all entities committed to universal norms of behavior—pioneering a legal and
-      technical framework required to detect, deter, and hold accountable any actions that jeopardize the shared orbital
-      commons.
-    </p>
-
-    <h3>II. Orbital Swarm Factories</h3>
-    <p>
-      Upon the convergence of economic viability and domain security, we will deploy our modular '3-stage' AMU
-      architecture—designs refined since 2021 through the focused synthesis of visionary engineering. Our industrial
-      focus spans from high-yield orbital agriculture to the manufacturing of complex habitats like <strong>O'Neill
-        Colonies</strong> and <strong>Stanford Toruses</strong>. We operate on the principle of "coopetition": foster
-      world peace through shared prosperity and universal healing, ensuring no heavy weaponry ever defiles the new
-      frontier.
-    </p>
-
-    <h3>III. Deep Space Horizons: Europa, Titan, & Venus</h3>
-    <p>
-      We are architecting the expansion into the deep solar system with a focus on hygienic, non-invasive exploration
-      of celestial bodies like <strong>Europa</strong> and <strong>Titan</strong>. Given the probability of indigenous
-      life in these environments, we prioritize biological integrity over resource extraction—ensuring our presence is
-      strictly observational and non-disruptive.
-    </p>
-    <p>
-      In 2021, honoring the probability of indigenous life in the Venusian atmosphere (as proposed by Dr. Sara Seager),
-      we pivoted our Venusian terraforming framework. Our focus is now the reverse-engineering of atmospheric
-      sequestration technologies—deploying the CO2-capture mechanisms on Earth.
-    </p>
-
-    <h3>IV. Swarm Intelligence & Blockchain Autonomy</h3>
-    <p>
-      Our long-term vector leverages decentralized "Swarms" operating on high-fidelity blockchain protocols. These
-      self-regulating clusters identify and reward meaningful contributions from individuals globally, bypassing legacy
-      hierarchies to expedite innovation cycles. This mechanism is designed to mitigate existential risk and address
-      global healthcare disparities—ensuring that every contributor is prioritized through the equitable return of the
-      "Abundance Dividend."
-    </p>
-  </section>
-
-  <!--- Commenting this image out for now. As I will be placing a gallery on here on 09-23-2021
- <img src="img/masai.jpeg" alt="Masai tribe, courtesy of https://unsplash.com/photos/osXl4JI3vcQ." style="width:42%"> --->
-
-
-
-  <h2> Sister companies</h2>
-  <ul>
-    <li><a href="https://auh.surge.sh/" target="_blank"> Awake Universal Healthcare (AUH): For the purpose of enabling a
-        quality healthcare infrastructure for the solar system. </a></li> | <b>Note:</b> Initially, it is our intention
-    that proceeds from the Aerospace side of things will help fund the healthcare side of things. Till a point arrives
-    whereby the efficiencies can help the healthcare side of things thrive on their own.
-    <li><a href="https://github.com/Shangrila-VHP/shangrila-vhp" target="_blank">Shangrila-VHP (Veterans Healing
-        Places):</a> OKR - Objective and Key Results for enabling hope & healing for veterans & first-responders |
-      Mostly using earthen materials. Eventually to help solve affordable housing using sustainable resources.</li>
-
-    <ul>
-      <li><a href="https://github.com/Shangrila-VHP/shangrila-vhp/wiki" target="_blank">Shangrila-VHP - Wiki based
-          updates</a></li>
-    </ul>
-  </ul>
-
-  <h2> Values</h2>
-  <ul>
-    <li>Radical transparency.</li>
-    <li>Trust.</li>
-    <li>Help reduce and to eventually eliminate all unnecessary suffering.</li>
-    <li>Promoting freedoms.</li>
-    <li>Leave a place better than we experienced it.</li>
-  </ul>
-
-  <img src="img/heart_tiny.png" &lt;img class="my-icon" /&gt;></i>
-  Placed here to make you smile.
-
-
-  <h2> Team</h2>
-  <div class="row">
-
-    <div class="column">
-      <div class="card">
-        <img src="img/AK-04-29-2021.jpeg" alt="Adeel" style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <a href="https://www.linkedin.com/in/adeelkhan1/" target="_blank">
-            <h2>Adeel Khan</h2>
-          </a>
-          <p class="title">Founder</p>
-          <p>Father, serial entrepreneur, chief instigator, explorer | "The singularity is near."</p>
-
-
+        <div class="column">
+          <div class="card">
+            <img src="img/toroidal-colony.jpeg" alt="Habitat Designer">
+            <div class="container">
+              <h2>Habitat Designer</h2>
+              <p class="title">Architectural Visionary</p>
+              <p>Lead for designing physical and virtual spaces that enhance the well-being of O'Neill colony
+                inhabitants.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="column">
-      <div class="card">
-        <img src="img/ethics.png" alt="Lead ethicist - Your name here"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Lead ethicist - Your name here</h2>
-          <p class="title">Lead ethicist</p>
-          <p>Lead the development of policies and frameworks. With a core focus on the (including but not limited to)
-            specificity and amendments that may be required on the <a
-              href="https://www.unoosa.org/oosa/en/ourwork/spacelaw/treaties/introouterspacetreaty.html"> Outer Space
-              Treaty</a> side of things, maintaining hygiene - solar system wide, making sure that we do not make the
-            same mistakes on other habitats. </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img src="img/toroidal-colony.jpeg"
-          alt="Toroidal colony. Since I couldn't find a copyright free image for an O'Neill Colony. Art work: Rick Guidice.Credit: NASA Ames Research Center..NASA ID AC75-1086-1. Circa 1970."
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Habitat designer - Your name here</h2>
-          <p class="title">Habitat designer.</p>
-          <p>An architect by trade. Part sociologist, with a background in psychology. A keen observer of primate
-            behaviour. You are going to be the primary lead for designing and for helping design physical and virtual
-            spaces. Whereby the <a href="http://https://youtu.be/eDS42C32xTU" target="_blank">design of these spaces</a>
-            is going to result into the <i>overall</i> well-being of the inhabitants. You are going to play a pivotal
-            role towards helping Gerard K. O'Neill's vision come true. In orbit (ONeill structures) and also across the
-            inner solar system.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img src="img/garden.jpeg" alt="Looking for a new age Frank Cabot!."
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Gardener of the Galaxy - Your name here</h2>
-          <p class="title">Gardener</p>
-          <p>We want you to plant and help plant gardens, polyculture agricultural installations here on earth. As well,
-            help transform deserts and also do all of this on non-terrestrial habitats. In the spirit of succession
-            planning, we'd like for you to spend at-least 20 percent of your work-hours coaching, mentoring, guiding and
-            training gardeners & horticulturists of the future. As well, educating the general population on the best
-            sustainable practices that are vital and crucial for maintaining our ecosystems. You are inspired by the
-            work that the many wonderful gardeners have done, throughout the history of our species. At the same time,
-            you have a respectable disregard for the traditions of the past. You are not afraid to make use of new and
-            novel approaches, in order to cultivate unique, vibrant, joyous experiences. Ideally, you are part <a
-              href="https://www.cbc.ca/news/canada/montreal/award-winning-film-the-gardener-offers-rare-glimpse-into-hidden-gem-in-la-malbaie-que-1.4234315"
-              target="_blank"> Frank Cabot</a> and part 'Doc' from the Back to the Future series. Bonus points for being
-            <i>slightly crazy</i>, in a good way.
-          </p>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="column">
-      <div class="card">
-        <img src="img/material-science.jpeg" alt="Materials science"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Materials Scientist - Your name here</h2>
-          <p class="title">Materials Scientist</p>
-          <p>A PhD in materials science, chemistry (more so focused on the materials side of things), nanotechnology.
-            You are intimately familiar with the 'emerging technology' arena in the wider material science landscape.
-            You will be working closely with the chief architect(s), lead engineers and others. Your goal will be to
-            help develop physical habitats that are completely safe to live in and have resiliency against a variety of
-            different stressors. Including but not limited to: gravitational effects, radiation, heat, cold, orbital
-            entry/escape e.t.c </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img src="img/comms.png" alt="Global Communications Lead - Your name here"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Global Communications Lead - Your name here</h2>
-          <p class="title">Global Communications Lead</p>
-          <p>Develop policies, procedures and frameworks required. Maintain clear and open lines of communications with
-            a global list of stakeholders. Conduct scenario specific exercises and drills. Work closely with
-            relationship managers in order to foster an environment of clear communications and open sharing of
-            knowledge. For peaceful purposes only. </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img src="img/comms.png" alt="Global Communications Lead - Your name here"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Global Communications Lead - Your name here</h2>
-          <p class="title">Global Communications Lead</p>
-          <p>Develop policies, procedures and frameworks required. Maintain clear and open lines of communications with
-            a global list of stakeholders. Conduct scenario specific exercises and drills. Work closely with
-            relationship managers in order to foster an environment of clear communications and open sharing of
-            knowledge. For peaceful purposes only. </p>
-
-        </div>
-      </div>
-    </div>
-
-
-    <div class="column">
-      <div class="card">
-        <img src="img/pegasus-tribal.png" alt="Communications Lead for Indigenous Affairs - Your name here"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Communications Lead for Indigenous Affairs - Your name here</h2>
-          <p class="title">Global Communications Lead</p>
-          <p>Work hand in hand with the 'Global Communications Lead'. Your core focus would be to identify the needs of
-            and problems being experienced across the world's indigenous communities. You will engage with and maintain
-            regular lines of communications with represenatives from the various indigenous communities around the
-            world. Particularly from regions, where the community may not have a voice on the table and as it relates to
-            the formulation of laws that are/may impact the quality of life of inhabitants in that community. You will
-            also be consulting with and regularly updating leaders and stakeholders from the community on space based
-            programs and initiatives. Seeking their approval and also input and wisdom on how we could do better.</p>
-
-        </div>
-      </div>
-    </div>
-
-
-    <div class="column">
-      <div class="card">
-        <img src="img/analog-phones.jpeg" alt="Liaison officer" style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Liaison officer - Your name here</h2>
-          <p class="title">Liaison officer</p>
-          <p>Responsible for <b>actively</b> managing and nurturing open lines of communications with government and
-            DoD. Preference will be given to someone who has served in the military, intelligence, law-enforcement (From
-            a <a href="https://www.nato.int/cps/en/natolive/topics_52044.htm" target="_blank">NATO member country</a>)
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-
-    <div class="column">
-      <div class="card">
-        <img src="img/shields.png" alt="Director of security" style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Director of security - Your name here</h2>
-          <p class="title">Director of security</p>
-          <p>Responsible for architecting policies, frameworks, protocols, procedures for ensuring the security of
-            staff, contractors and key personnel. Help secure assets (Physical, digital, virtual, financial,
-            intellectual property designs in the works ++). Work closely with the CCO - Chief compliance officer.
-            Preference will be given to someone who has served in the military, intelligence, law-enforcement (From a <a
-              href="https://www.nato.int/cps/en/natolive/topics_52044.htm" target="_blank">NATO member country</a>)</p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img src="img/compliance.png" alt="CCO - Chief compliance officer"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>CCO - Chief compliance officer - Your name here</h2>
-          <p class="title">CCO - Chief compliance officer</p>
-          <p>Responsible for making sure that the organization is meeting or exceeding all compliance related audits.
-            Across the board. Includes compliance specific measures on the <a
-              href="https://en.wikipedia.org/wiki/International_Traffic_in_Arms_Regulations" target="_blank">ITAR (US
-              Government)</a> and <a
-              href="https://www.tradecommissioner.gc.ca/sell2usgov-vendreaugouvusa/procurement-marches/export-cont-export.aspx?lang=eng"
-              target="_blank">Export Control on the government of Canada</a> side of things.</p>
-
-        </div>
-      </div>
-    </div>
-
-
-
-
-    <div class="column">
-      <div class="card">
-        <img src="img/astrobiology.jpeg" alt="Lead Astrobiologist at the Awake Group of companies"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Lead Astrobiologist - Your name here</h2>
-          <p class="title">Lead Astrobiologist</p>
-          <p>Responsible for initiating, maintaining and helping select programs: Geared towards the specific purpose of
-            making sure that life thrives on non-terrestrial habitats. Activities will include but will not be limited
-            to: a) Simulating different conditions and seeing what kind of lifeforms will be required b) Engineer the
-            initial conditions c) Closely work with climate scientists and geneticists. d) Ensure that there is a very
-            high rate of survival in domed facilities e) Help develop functional plans and procedures for terraforming
-            the climate to be ideal for human needs.</p>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="column">
-      <div class="card">
-        <img src="img/fluid-d.jpeg" alt="Lead climate scientist, modeller, engineer at the Awake Group of companies"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Lead climate [scientist, modeler, engineer] - Your name here</h2>
-          <p class="title">Lead climate [scientist, modeler, engineer]</p>
-          <p>Adept at setting up and running detailed simulations. Building models. Background in environmental science,
-            chemistry, mathematics. </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img src="img/dna-vector-icon.png" alt="Lead geneticist at the Awake Group of companies"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Lead geneticist - Your name here</h2>
-          <p class="title">Lead geneticist at the Awake Group of companies</p>
-          <p>Background in genetics and synthethic biology. Track record of turning basic research into useful
-            therapies, products and services. </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img src="img/modern-farming.jpeg" alt="Lead New-Age/Modern farmer at the Awake Group of companies"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>New age farmer - Your name here</h2>
-          <p class="title">Growing food on non-terrestrial habitats</p>
-          <p>Background in Ag-tech. Demonstrated track record at inventing designs, innovations, solutions. Basically
-            the <a href="https://en.wikipedia.org/wiki/Burt_Rutan" target="_blank">Burt Rutan</a> of farming.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card">
-        <img
-          src="https://c.pxhere.com/photos/56/c3/fractal_digital_art_computer_graphics_fantasy_cosmos_space_abstract-1107093.jpg!d"
-          alt="Artist(s) in residence - Image courtesy of https://pxhere.com/en/photo/1107093 | Artist has not been verified via the link"
-          style="width:100%; height:450px ;object-fit: cover;">
-        <div class="container">
-          <h2>Artist(s) in residence - Your name here</h2>
-          <p class="title">Artist(s) in residence</p>
-          <p>Inspire and guide a whole new generation of (in random order) scientists, explorers, dreamers, builders,
-            ethicists, reformers, researchers, human-rights and also animal rights activists ++. You will have full
-            artistic freedom. You will choose the medium. You will own the rights to your creation. Including any NFTs
-            (potentially speaking) that you are going to be working on.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <p></p>
-
-  <h2> For Future partners (employees) at Awake</h2>
-  We offer:
-  <ul>
-    <li>A collaborative, open, inclusive work environment. Where ideas > heirarchy</li>
-    <li>Base salary</li>
-    <li>Shares in the organization are going to be allocated based on a) A vesting schedule and b) The human population
-      will actually determine what the individual contributor's share should be. This is something that we are currently
-      evaluating. As well, this is something that we are going to build on top of a public/private blockchain.
-      Effectively speaking, the organization and the original founding team is not going to have control over how the
-      shares are allocated.</li>
-    <li>Benefits. Including but not limited to: Health insurance, basic dental related service (for now), mental health,
-      vision care (eyeglasses and eye exams for now), sick days (physiological, psychological, emotional well-being).
-      <b>Note:</b> Everything is super basic right now. As we do not have sales and we have not raised any money.
-    </li>
-    <li>Schedule: I (Adeel Khan) work almost all the time. I get 8 to 9 hours of sleep and dedicate quality time for
-      exercise and socializing. This is a startup and so you are expected to work almost all the time. Suffice to say,
-      you must enjoy the work that you are doing and you should be working almost all the time. Within reason. If you
-      like to work, are eager to learn, have a growth mindset, possess a good work ethic --> then you can be trained in
-      most areas. I personally invest a lot of time with new hires. We have an evolving process in place. Happy to share
-      the details.
-    </li>
-    <li>Open to suggestions. What else should be added to this list?</li>
-  </ul>
-
-
-  <h2> Our work to date</h2>
-
-  <p></p>
-
-  <h2> Problems/Opportunities space</h2>
-  <ul>
-    <li>Technical</li>
-    <ul>
-      <li>No <a href="https://en.wikipedia.org/wiki/Interstellar_travel" target="_blank">known technology</a> exists at
-        <a href="https://en.wikipedia.org/wiki/Technology_readiness_level" target="_blank">TRL Level 9</a>. That can
-        safely take (and bring back) humans or machines to the destination of choice.
-      <li>Many problems will need to be solved, before an autonomous or semi-autonomous manufacturing facility can be
-        launched in the orbit of a planetary body. Some of these very issues, and in various domains have been
-        highlighted below. However, this is definitely not a comprehensive list. It is critical to highlight that
-        placing larger structures in Earth's orbit can cause a whole host of security and safety related issues. Now and
-        in the future. As well, if compromised this can create some serious vulnerabilities for global safety. This is
-        the reason why the development of deep space is being advocated. This way, goods and material can be moved
-        throughout the solar system by leveraging the <a
-          href="https://en.wikipedia.org/wiki/Interplanetary_Transport_Network" target="_blank">ITN (Interplanetary
-          Transport Network)</a>. Also considering the financial and other costs involved, reusable rocket-propulsion
-        technology will not suffice in order to move larger amounts of mass to and from orbit. In a manner whereby
-        security and safety hazards and pollution is not left after some years of activity. This is why the proposition
-        of non-rocket based propulsion technologies being developed is necessary.
-      </li>
-    </ul>
-    <li>Financial</li>
-    <ul>
-      <li>As of this point in time. The following costs are not known:
-        <ul>
-          <li>Actual cost towards successfully completing specific milestones is not yet known. Hence, the overall cost
-            is also something that is not known as of this point in time.</li>
-        </ul>
-      <li>The platform enabled on top of the <a href="https://en.wikipedia.org/wiki/Smart_contract"
-          target="_blank">'smart contract'</a> technology is yet to be developed. We anticipate a world where
-        anyone/anywhere can contribute towards the enablement of this project. And be adequately compensated for doing
-        so. Provided the work is of sufficient quality.
-    </ul>
-    <li>Economic</li>
-    <li>Will a for-profit mechanism still be operational. Why or why not.</li>
-    <ul>
-      <li>It is said that asteroid <b>Psyche</b> alone contains, quote: 'US$700 quintillion worth of gold, enough for
-        every person on earth to receive about US$93 billion.' Source: <a
-          href="https://hir.harvard.edu/economics-of-the-stars/" target="_blank">link</a>
-      </li>
-    </ul>
-
-
-    <li>Ethical</li>
-    <ul>
-      <li>Security: Provisions against ensuring that the technology is not abused and weaponized.</li>
-      <li>Life on other planets: As highlighted above, there is evidence to suggest that there could be life on other
-        planets within the solar system. We should focus on enabling structures that are manufactured by humans.
-        Terraforming existing planets does not set a good precedent in the short, mid or longer term. Particularly for
-        the the time range when we aim to explore the next star systems. However far away in the future that may be.
-      </li>
-      <li>What will humans do in a world of Superabundance? What provisions must exist so that problems of ennui do not
-        become chronic problems. What measures must be under-taken in order to think about and mitigate from the harmful
-        effects of Superabundance & the need to start today. Two videos that I (Adeel Khan) have posted on my channel on
-        Youtube on November the 1st, 2024 are on topic here. <a href="https://www.youtube.com/c/AdeelKhan1/videos"
-          target="_blank"> </li>link</a>
-    </ul>
-
-    <li>Legal</li>
-    <ul>
-      <li>The lack of a global framework for governance may pose challenges. On the other hand, a very strict regulatory
-        framework may prevent new ideas from being tested and/or may perpetuate a monopolistic framework. A monopolistic
-        framework that isn't good for the common good of all life.</li>
-      <li>A structure for ensuring that further amendments and as it relates to the <a
-          href="https://www.unoosa.org/oosa/en/ourwork/spacelaw/treaties/introouterspacetreaty.html"
-          target="_blank">Outer Space Treaty</a> are the set of changes that are going to be good (in a universal sense
-        of the word imaginable) for the majority of life on this planet.</li>
-      <li>What sort of a legal framework/structure must organizations and individuals adhere to.</li>
-
-      <li>Sustainability</li>
-      <ul>
-        <li>The issue of debris in space or space-debris has already gotten quite acute. The primary reason for this are
-          a lack of a legal structure whereby players can be held accountable. This issue is compounded when
-          nation-states and now private players treat Earth's orbit as an infinite resource, which it is not. The
-          launches since the 60's have clutter the different orbits. In the past couple of years, ASAT testing
-          (anti-satellite attacks against one's own satellites) have resulted into a lot of debris. This debris can be
-          very small, down to the mm (millimetre scale). The debris of varying sizes, travelling at high velocities has
-          already started causing problems for infrastructure in outer space.</li>
-
-
-
-      </ul>
-
-      <p></p>
+    <section id="quotes">
       <blockquote class="quote">
         If you want to go fast, go alone. If you want to go far, go together.
+        <cite>Source unknown</cite>
       </blockquote>
-      <cite>Source unknown</cite>
 
       <blockquote class="quote">
         The only limit to our realization of tomorrow will be our doubts of today.
+        <cite>Franklin D. Roosevelt</cite>
       </blockquote>
-      <cite>Franklin D. Roosevelt</cite>
-
-      <blockquote class="quote">
-        Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will
-        be successful.
-      </blockquote>
-      <cite>Albert Schweitzer</cite>
 
       <blockquote class="quote">
         The quieter you become, the more you can hear.
+        <cite>Kali Linux</cite>
       </blockquote>
-      <cite>Kali Linux</cite>
+    </section>
+  </main>
 
+  <footer>
+    <p>&copy; 2024 Awakened Imagination Group of Projects</p>
+    <div id="sun"
+      style="position: fixed; width: 100px; height: 100px; background: yellow; border-radius: 50%; bottom: 20px; right: 20px; box-shadow: 0 0 50px yellow; opacity: 0.3; pointer-events: none;">
+    </div>
+  </footer>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-
-
-
-
-
-
-      <footer>
-        <p>Copyright 'Awakened Imagination Group of Projects'</p>
-      </footer>
-
+  <script src="script.js"></script>
 </body>
 
 </html>

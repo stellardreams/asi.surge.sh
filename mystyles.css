@@ -1,244 +1,253 @@
+:root {
+  --primary-navy: #0a192f;
+  --bg-navy: #020c1b;
+  --accent-cyan: #64ffda;
+  --text-silver: #ccd6f6;
+  --text-gray: #8892b0;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background-color: #d2f8d2;
+  background-color: var(--bg-navy);
+  color: var(--text-silver);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-h1 {
-  color: navy;
-  margin-left: 20px;
+/* Typography Overrides */
+h1, h2, h3 {
+  color: var(--text-silver);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-h2 {
-  color: black;
-  margin-left: 2px;
-}
-
-/* Three columns side by side */
-.column {
-  float: left;
-  width: 30%;
-  margin-bottom: 16px;
-  padding: 0 8px;
-}
-
-/* Display the columns below each other instead of side by side on small screens */
-@media screen and (max-width: 650px) {
-  .column {
-    width: 100%;
-    display: block;
-  }
-}
-
-/* Add some shadows to create a card effect */
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
-}
-
-.card .container {
-  height: 410px;
-}
-
-/* Some left and right padding inside the container */
-.container {
-  padding: 0 16px;
-  text-align: justify;
-}
-
-/* Clear floats */
-.container::after,
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.title {
-  color: grey;
-}
-
-.button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-}
-
-.button:hover {
-  background-color: #555;
-}
-
-/* This is for the heart shaped icon under the 'Mentors we'd love to work with.' section. Instruction via https://css-tricks.com/forums/topic/icon-sizes-how-can-i-resize-them/ */
-
-.my-icon {
-  width: 20px;
-  height: 20px;
-}
-
-section {
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-blockquote {
-  background: #87CEFA;
-  border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-
-blockquote:before {
-  color: #ccc;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.25em;
-  vertical-align: -0.4em;
-}
-
-blockquote p {
-  display: inline;
-}
-
-/* This code was added on 07-01-2021 (July 01st) as it was recommended by RG (Rusith). This is what this code does --> Aligning the text to 'justify' for lists and paragraphs */
-li {
-  text-align: justify;
-}
+h1 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--accent-cyan); }
+h2 { font-size: 2rem; margin: 3rem 0 1.5rem; text-align: center; }
+h3 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--accent-cyan); }
 
 p {
-  text-align: justify;
+  color: var(--text-gray);
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+}
+
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Layout */
+header, main, footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+header {
+  text-align: center;
+  padding-top: 4rem;
 }
 
 nav {
-  display: block;
-}
-
-/* Add styles to make the text look better on imagine.html */
-p {
-  font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  margin: 20px 0;
-}
-
-/* css for quotes/blockquotes towards the end of the index.html file */
-blockquote {
-  font-family: 'Georgia', serif;
-  /* Nice font style */
-  font-size: 1.2em;
-  /* Font size */
-  color: #333;
-  /* Text color */
-  border-left: 5px solid #007BFF;
-  /* Left border */
-  padding: 10px 20px;
-  /* Padding */
-  margin: 20px 0;
-  /* Margin */
-  background-color: #f9f9f9;
-  /* Background color */
-  border-radius: 5px;
-  /* Rounded corners */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* Shadow */
-}
-
-.quote {
-  quotes: "“" "”" "‘" "’";
-  /* Define quotation marks for styling */
-}
-
-.quote:before {
-  content: open-quote;
-  /* Add opening quote */
-}
-
-.quote:after {
-  content: close-quote;
-  /* Add closing quote */
-}
-
-cite {
-  display: block;
-  /* Make it a block element */
-  font-style: italic;
-  /* Italicize for differentiation */
-  font-size: 0.9em;
-  /* Slightly smaller font size */
-  color: #555;
-  /* Slightly lighter text color */
-  margin-top: 5px;
-  /* Space above the citation */
-}
-
-/* Add styles for the footer */
-footer {
+  padding: 1rem;
   text-align: center;
-  padding: 10px;
-  background-color: #eaffea;
-  color: #2e7d32;
-  border-radius: 5px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-
-
-#mr-rogers-img {
-  max-width: 100%;
-  /* Ensures the image won't exceed the container's width */
-  width: 400px;
-  /* Set the width you prefer (e.g., 400px) */
-  height: auto;
-  /* Maintains the aspect ratio */
+nav a {
+  margin: 0 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
 }
 
-/* Imagine Gallery Styles */
-.gallery {
+/* Components */
+section {
+  padding: 4rem 0;
+  border: none;
+  background: transparent;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: var(--transition-smooth);
+  height: 100%;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-cyan);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Grid Layouts */
+.grid-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 40px;
-  padding-bottom: 40px;
+  gap: 2rem;
+}
+
+.column {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.card {
+  height: 100%;
+  background: var(--glass-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+}
+
+.card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  filter: grayscale(20%);
+  transition: var(--transition-smooth);
+}
+
+.card:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+.card .container {
+  padding: 1.5rem;
+  height: auto;
+}
+
+/* Gallery Extensions */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .gallery-item {
-  position: relative;
-  overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-  transform: translateY(-5px);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .gallery-caption {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 15px;
-  font-size: 0.9em;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  background: rgba(2, 12, 27, 0.9);
+  padding: 1rem;
+  width: 100%;
+  transform: translateY(100%);
+  transition: var(--transition-smooth);
 }
 
 .gallery-item:hover .gallery-caption {
-  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Utilities */
+hr {
+  border: 0;
+  border-top: 1px solid var(--glass-border);
+  margin: 3rem auto;
+  width: 50%;
+}
+
+blockquote {
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  border-left: 4px solid var(--accent-cyan);
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+  background: var(--glass-bg);
+  border-radius: 0 8px 8px 0;
+}
+
+cite {
+  display: block;
+  text-align: right;
+  color: var(--accent-cyan);
+  font-style: normal;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 4rem 0;
+  border-top: 1px solid var(--glass-border);
+  color: var(--text-gray);
+  font-size: 0.9rem;
+}
+
+/* Center utility */
+.center-img {
+  display: block;
+  margin: 2rem auto;
+  border-radius: 12px;
+  max-width: 100%;
+  border: 1px solid var(--glass-border);
+}
+
+/* Mission Specifics from HTML */
+#unified-mission {
+  margin-top: 2rem;
+}
+
+.mission-highlights {
+  margin-top: 2rem;
+}
+
+/* Team section rows */
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Sun animation */
+#sun {
+  z-index: -1;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  .grid-3 { grid-template-columns: 1fr; }
 }
