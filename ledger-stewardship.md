@@ -37,6 +37,7 @@ Relevant:
 
 Time-bound:
 - Operational by Q4 2026.
+  - Note: A bit ambitious there, Gemini. But let's see!
 
 ## Actionable Tasks
 1. [ ] **Protocol Design**: Finalize "Aura" swarm coordination logic and collision avoidance (Month 1).
