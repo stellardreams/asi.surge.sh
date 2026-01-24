@@ -28,7 +28,7 @@ ASI is dedicated to unlocking the potential of the inner solar system to address
 - **Architecture**: 
   - Designed for radical transparency and eventual blockchain-based regulation of swarms. 
   - smaller units designed to enable and equip pre-approved modular realms in a post AGI world (Artificial General Intelligence).
-  - it the the hope that the depth and fidelity of simulations will improve with the increased availability of computational power.
+  - it is the hope that the depth and fidelity of simulations will improve with the increased availability of computational power.
   - separately, I will be advocating for the rights for intelligences that are independent of a substrate. only then can the simulations begin to evolve in an organic manner
 
 ## 🌐 Deployment
