@@ -33,11 +33,13 @@ h2 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
 }
 
+.card .container {
+  height: 410px;
+}
+
 /* Some left and right padding inside the container */
 .container {
   padding: 0 16px;
-  /* Important:  This line controls how long the box is going to be for the roles that have been identified. */
-  height: 410px;
   text-align: justify;
 }
 
