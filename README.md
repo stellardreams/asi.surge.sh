@@ -14,7 +14,7 @@ ASI is dedicated to unlocking the potential of the inner solar system to address
 
 ## 🚀 Key Projects
 
-- **AMU (Autonomous Manufacturing Units)**: 3-stage semi-autonomous factories designed for orbiting greenhouses and decentralized manufacturing.
+- **AMU (Autonomous Manufacturing Units)**: 3-stage semi-autonomous factories designed for orbiting greenhouses and decentralized manufacturing. [snapshot](https://asi.surge.sh/effort) each AMU can make a copy of itself to scale production. each AMU can reorient itself to make a manufacturing unit of choosing. TRL [Technology Readiness Level](https://en.wikipedia.org/wiki/Technology_readiness_level) level is between TRL 1 and TRL 2
 - **AUH (Awake Universal Healthcare)**: Developing quality healthcare infrastructure for the solar system.
 - **Shangrila-VHP**: Veterans Healing Places using earthen materials and sustainable resources.
 
