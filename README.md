@@ -10,6 +10,7 @@ ASI is dedicated to unlocking the potential of the inner solar system to address
 - **Orbital Manufacturing**: Enabling semi-autonomous factories in space.
 - **Biotech in Orbit**: Growing organs (hearts, lungs) in zero-gravity environments.
 - **Space Colonies**: Supporting the creation of sustainable O'Neill colonies for future generations.
+- **Space Agriculture**: Cultivating high-quality polyculture crops—such as olive trees and peaches—within orbiting greenhouses, on the Moon and in O'Neill colonies in order to provide nutritious food and a piece of Earth's heritage to space inhabitants. As well, solve our food scarcity problem here on Earth.
 - **AI & Space Safety**: Promoting norms and behaviors for peaceful space development and mitigating the harmful effects of superabundance.
 
 ## 🚀 Key Projects
