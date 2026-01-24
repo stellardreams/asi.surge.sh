@@ -35,5 +35,7 @@ Time-bound:
 - Talk to Jim @ offworld (no affiliation as of yet)
 - Materials Scientists
 - Logistical Core Engineers
+  - - Former contact via AECOM via LSIC, not responding to emails as of year 2024. Call him.
 - Economic Strategists
 - AMU Production Swarms
+  - - Request 5 letter agency if tech can be repurposed for civilian purposes. 
