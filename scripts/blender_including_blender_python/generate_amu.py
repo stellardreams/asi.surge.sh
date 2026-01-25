@@ -123,6 +123,6 @@ def create_amu():
 
 if __name__ == "__main__":
     setup_units()
-    delete_default_objects()
+    #delete_default_objects()
     create_amu()
     print("AMU Model Generated Successfully.")
