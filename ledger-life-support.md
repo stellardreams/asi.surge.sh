@@ -4,8 +4,8 @@
 Specific:
 - the set of plans here are really to enable/equip/empower and support the next generation and successive generation Space Appleseeds
 - ISS will be decommissioned in 2030
-- Get first unit up on ISS, keeping decommissioning of ISS timelines
-- Creation of the first organ manufactured in orbit. (but which organ? and does it matter?)
+- Keeping decommissioning of ISS timelines into consideration. To test units on ISS or to bypass altogether?
+- What is needed is, the creation of the first organ manufactured in orbit. (a lot of different questions here)
 - Before organ manufacturing is scaled 100 organs/month as a further milestone. A lot of questions remain. Most important of which is successful and longterm grafting of organs without any infections or longterm health issues.
 - Establish self-sustaining polyculture greenhouses in O'Neill cylinders. (I feel this should be split up. So that it can be built up inside of the plan or a separate plan)
 
