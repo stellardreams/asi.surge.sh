@@ -25,7 +25,7 @@ Time-bound:
 
 ## Actionable Tasks
 1. [ ] **Bioreactor Iteration**: Optimize Stage-2 AMU for large-scale cellular scaffolding (Month 2).
-2. [ ] **Heritage Seed Bank**: Collect and digitize Earth's heritage polyculture seeds for orbital catalogs (Month 3). As a note on the side, the Svalbard people are really really nice! Svalbard Tourism sent me a postcard during covid and all I had to do was ask them!
+2. [ ] **Non-Terrestrial Seed Bank (working with Svalbard)**: See issue 23 for an initial proposed plan link is [here](https://github.com/stellardreams/asi.surge.sh/issues/23) Collect and digitize Earth's heritage polyculture seeds for orbital catalogs (Month 3). As a note on the side, the Svalbard people are really really nice! Svalbard Tourism sent me a postcard during covid and all I had to do was ask them!
 3. [ ] **Nutrition Sprints**: Solve high-yield carcinogen-free crop cycles in a simulated O'Neill environment (Month 6).
 4. [ ] **Clinical Trials**: Partner with AUH (sister organization) for initial human health span research (Month 12). | Reach out to Knouse lab again (Did not hear back the first time)
 5. [ ] **Greenhouse Deployment**: Launch the first 10 modular Greenhouse units (Month 18). (terrestrial and see location in other plans for non-terrestrial)
