@@ -23,7 +23,8 @@ Specific:
   - - - - - - - Also, if risks converge (other than the risks mentioned) then decline could be permanent. E.L.E As one catastrophic risk could either lead to E.L.E or trigger subsequent risks to civilization or existential risks.
   - Important note: I must highlight that considering the gravity of the situation. This is not my ego. AMUs and these plans may not be what is needed. That being said and based on my rudimentary assessment, the safe/hygienic and equitable development of outer space could save us. 
   - - However, this is also where the Great Filter theory applies. I think. So if humans can somehow cross the Great Filter. Then a post-scarcity outcome seem likely. Which, in and of itself doesn't mean that warfare will come to an end. No gurantee of that. 
-  
+  - - - So humans could have to constantly ratify different areas and treaties in order to prevent disastrous outcomes, which will come about as a result of human actions. There is an abbreviation here and if you trace the development of certain sciences. Particularly since the 1960's.
+
 
 
 Measurable:
