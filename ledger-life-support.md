@@ -131,9 +131,5 @@
 - Distributed database architecture specialists (recommended by GitHub Copilot - for multi-location redundant systems)
 - Cybersecurity firms with space heritage (recommended by GitHub Copilot - for biosecurity and data protection)
 
-Separately:
-- Lead Astrobiologists
-- Geneticists
-- New Age Farmers
-- AUH Medical Staff
-- Materials Scientists
+**Roles & Responsibilities**
+- To be identified directly inside of the issues. See issue #23 and #24 as samples (linked above)
