@@ -9,7 +9,7 @@ Specific:
 - - - - - **if** and when dust and finer particles accrete in orbit, humans and all life on this planet will have a **immensely serious problem on our hands.** 
 - - - - - - Note: This is a problem that the Artemis mission folks are also not recognizing. Itsa was right to point this out. That **dust is going to sit as a halo around the Moon for a very long time and cause all sorts of longer term issues.** You cannot vaccuum dust in orbit.
 - - - Creation of facility that will be akin to a shipyard. I am not sure which orbit it will be placed in
-- - - - **Big problem** If this facility blows up, then we will have a massive problem. As the Kessler Syndrome will most probably take on the form of experience a pandemic. Bad example. But the shards will spread and depending on how the facility disintegrates and/or is compromised 
+- - - - **Big problem** If this facility blows up (different scenarios here), then we will have a massive problem. As the Kessler Syndrome is bad as it is, but post incident, it VUCA for KS will go exponential.Dust and shards will spread and depending on how the facility disintegrates and/or is compromised. No current estimates on how long clean-up will take and/or if it can even be accomplished. No technology exists to extract dust from orbit. (again, there is no air, for it to be sucked into a filter) 
 - - - - A facility akin to a shipyard will be needed though. I am not sure where it will be placed. Only then can material be moved in larger and hygienic amounts between Earth and AMUs
 - - - - Space elevator contact. Limited emails exchanged. Have not followed up since 2021. (No excuse.)
 - - - - - Will refrain from initial assessment e.t.c As I have not reviewed any documentation
