@@ -29,6 +29,7 @@ Time-bound:
 3. [ ] **Nutrition Sprints**: Solve high-yield carcinogen-free crop cycles in a simulated O'Neill environment (Month 6).
 4. [ ] **Clinical Trials**: Partner with AUH (sister organization) for initial human health span research (Month 12). | Reach out to Knouse lab again (Did not hear back the first time)
 5. [ ] **Greenhouse Deployment**: Launch the first 10 modular Greenhouse units (Month 18). (terrestrial and see location in other plans for non-terrestrial)
+6. [ ] **Non-Terrestrial DNA Bank**: See, initial plan version 2.1 here [link](https://github.com/stellardreams/asi.surge.sh/issues/24)
 
 ## Key Milestones
 - **M1**: First heart-scaffold successfully grown in zero-g simulation.
