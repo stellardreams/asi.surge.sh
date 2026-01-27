@@ -13,6 +13,10 @@ Specific:
 - - - - A facility akin to a shipyard will be needed though. I am not sure where it will be placed. Only then can material be moved in larger and hygienic amounts between Earth and AMUs
 - - - - Space elevator contact. Limited emails exchanged. Have not followed up since 2021. (No excuse.)
 - - - - - Will refrain from initial assessment e.t.c As I have not reviewed any documentation
+- NRS most likely needed
+- - Initial assessment as a fly on the wall and non-engineering background.
+- - - Unless this many expendable rockets can be launched (which the space elevators people have done their math on), ability to develop and sustain Artemis missions alone are questionable. So forget structure (somewhere) and then structure to AMUs
+- - - - So either space elevator takes off (see note above) or NRS is expedited, as only expendable rocket is sitting at TRL 9 [link](https://en.wikipedia.org/wiki/Non-rocket_spacelaunch#Comparison_of_space_launch_methods) 
 
 
 Measurable:
