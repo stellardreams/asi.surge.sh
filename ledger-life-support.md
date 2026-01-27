@@ -61,7 +61,7 @@
 ## Actionable Tasks
 
 ### Phase 1: Core Infrastructure & Bioreactor Development
-1. [ ] **Bioreactor Iteration**: Optimize Stage-2 AMU for large-scale cellular scaffolding (Month 2).
+1. [ ] **Bioreactor Iteration**: Optimize Stage-2 AMU for large-scale cellular scaffolding (Month 2). See [issue #12](https://github.com/stellardreams/asi.surge.sh/issues/12)
 
 ### Phase 2: Biological Preservation Systems
 
