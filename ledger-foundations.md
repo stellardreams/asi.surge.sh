@@ -21,6 +21,9 @@ Specific:
 - - - - - - My assessment, as someone who is not trained and does not deploy rigorous mathematical approaches to model risks (within reason) and not that I don't want to do this for climate modelling and other risks. Based on my assessment, if outer space doesn't open up safely, then human civilization will experience irreversible decline. And less ability to deal with coming VUCA (climate, rapid climate change, climate migration, water security, food security and secondary tier effects). 
  - - - - - - With no plan to store knowledge or reboot civilization. No quantatitive measure can be attached RTO (Recovery Time Objective) or even beginning to think that civilizational RTO could be this. 
   - - - - - - - Also, if risks converge (other than the risks mentioned) then decline could be permanent. E.L.E As one catastrophic risk could either lead to E.L.E or trigger subsequent risks to civilization or existential risks.
+  - Important note: I must highlight that considering the gravity of the situation. This is not my ego. AMUs and these plans may not be what is needed. That being said and based on my rudimentary assessment, the safe/hygienic and equitable development of outer space could save us. 
+  - - However, this is also where the Great Filter theory applies. I think. So if humans can somehow cross the Great Filter. Then a post-scarcity outcome seem likely. Which, in and of itself doesn't mean that warfare will come to an end. No gurantee of that. 
+  
 
 
 Measurable:
