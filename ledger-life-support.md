@@ -65,7 +65,7 @@
 
 ### Phase 2: Biological Preservation Systems
 
-#### Non-Terrestrial Seed Bank (working with Svalbard)
+1. [ ]Non-Terrestrial Seed Bank (working with Svalbard) - See initial proposed plan: [issue #23](https://github.com/stellardreams/asi.surge.sh/issues/23) 
 
 - [ ] **Heritage Seed Bank Initiative**: Collect and digitize Earth's heritage polyculture seeds for orbital catalogs (Month 3). See initial proposed plan: [issue #23](https://github.com/stellardreams/asi.surge.sh/issues/23) 
   - 
