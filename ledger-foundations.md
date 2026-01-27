@@ -5,8 +5,13 @@ Specific:
 - Construct the primary logistical spine and manufacturing backbone between Mars and the Asteroid Belt.
 
 Measurable:
-- ITN (Interplanetary Transport Network) traversable by <insert date>
-- Direct transport (point to point) not feasible, considering larger volumes. Unless fusion power achieved or SBSP opens up. In general energy costs plummet exponentially
+- ITN (Interplanetary Transport Network) traversable by (insert date)
+  - - ITN would have to be mapped first. 
+  - - - Preliminary set of emails unanswered
+- Direct transport (point to point) not feasible, considering larger volumes across distances.
+- -  Unless fusion power achieved or SBSP opens up.
+- - - SBSP main leaders, historic in US, but ambitious plans by China and Middle Eatern countries investing heavily (surface level scan)
+- -  In general energy costs plummet exponentially
 - a number of problems to solve, prior to 10 operational AMU Factory Hubs in the Belt.
 - talk to Lewicki (no affiliation as of yet) about identifcation of real estate via mapping. PR did some work here
 - Establish the Interplanetary Legal Ledger on the blockchain
