@@ -20,8 +20,10 @@ Measurable:
   - - ITN would have to be mapped first. 
   - - - Preliminary set of emails unanswered
 - Direct transport (point to point) not feasible, considering larger volumes across distances.
-- -  Unless fusion power achieved or SBSP opens up.
-- - - SBSP main leaders, historic in US, but ambitious plans by China and Middle Eastern countries investing heavily (surface level scan)
+- -  Unless f. power achieved
+- - i. thrusters development takes hold during successive Artemis missions 
+- - or SB.P opens up.
+- - - SB.P main leaders, historic in US, but ambitious plans by China and Middle Eastern countries investing heavily (surface level scan)
 - - - - Ideal scenario, everyone works together to cleanup and secure outer space.
 - -  In general, point to point travel in outer space (what we refer to as deep space right now across the solar system) can only happen if energy costs plummet exponentially
 - - - exception, deep space travel possible for smaller scale vessels (size of credit card). but it's one way
