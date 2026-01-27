@@ -10,7 +10,8 @@ Measurable:
   - - - Preliminary set of emails unanswered
 - Direct transport (point to point) not feasible, considering larger volumes across distances.
 - -  Unless fusion power achieved or SBSP opens up.
-- - - SBSP main leaders, historic in US, but ambitious plans by China and Middle Eatern countries investing heavily (surface level scan)
+- - - SBSP main leaders, historic in US, but ambitious plans by China and Middle Eastern countries investing heavily (surface level scan)
+- - - - Ideal scenario, everyone works together to cleanup and secure outer space.
 - -  In general energy costs plummet exponentially
 - a number of problems to solve, prior to 10 operational AMU Factory Hubs in the Belt.
 - talk to Lewicki (no affiliation as of yet) about identifcation of real estate via mapping. PR did some work here
