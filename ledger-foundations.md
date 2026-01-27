@@ -16,7 +16,7 @@ Measurable:
   - Prepare workforce for the long haul. 
 
 Achievable:
-- Utilizing self-replicating AMU clusters and autonomous deep-space transport. - Detailed plan via [isse 5](https://github.com/stellardreams/asi.surge.sh/issues/5) and sub-tasks
+- Utilizing self-replicating AMU clusters and autonomous deep-space transport. - Detailed plan via [issue 5](https://github.com/stellardreams/asi.surge.sh/issues/5) and sub-tasks
 
 Relevant:
 - Forms the base for long-term galactic expansion.
