@@ -12,7 +12,9 @@ Measurable:
 - -  Unless fusion power achieved or SBSP opens up.
 - - - SBSP main leaders, historic in US, but ambitious plans by China and Middle Eastern countries investing heavily (surface level scan)
 - - - - Ideal scenario, everyone works together to cleanup and secure outer space.
-- -  In general energy costs plummet exponentially
+- -  In general, point to point travel in outer space (what we refer to as deep space right now across the solar system) can only happen if energy costs plummet exponentially
+- - - exception, deep space travel possible for smaller scale vessels (size of credit card). but it's one way
+- - - - I had some ideas here actually
 - a number of problems to solve, prior to 10 operational AMU Factory Hubs in the Belt.
 - talk to Lewicki (no affiliation as of yet) about identifcation of real estate via mapping. PR did some work here
 - Establish the Interplanetary Legal Ledger on the blockchain
