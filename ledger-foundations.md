@@ -19,6 +19,8 @@ Specific:
 - - - - So either space elevator takes off (see note above and I am not in approval of or in opposition to this or any other endeavor!) and that comment being highlighted...it'll either be space elevator or NRS is expedited, as only expendable rocket is sitting at TRL 9 [link](https://en.wikipedia.org/wiki/Non-rocket_spacelaunch#Comparison_of_space_launch_methods) 
 - - - - - **Lack of rules/norms/behaviors codified into legal structure greatly increases emergence of catastrophic risk**
 - - - - - - My assessment, as someone who is not trained and does not deploy rigorous mathematical approaches to model risks (within reason) and not that I don't want to do this for climate modelling and other risks. Based on my assessment, if outer space doesn't open up safely, then human civilization will experience irreversible decline. And less ability to deal with coming VUCA (climate, rapid climate change, climate migration, water security, food security and secondary tier effects). 
+ - - - - - - With no plan to store knowledge or reboot civilization. No quantatitive measure can be attached RTO (Recovery Time Objective) or even beginning to think that civilizational RTO could be this. 
+  - - - - - - - Also, if risks converge (other than the risks mentioned) then decline could be permanent. E.L.E As one catastrophic risk could either lead to E.L.E or trigger subsequent risks to civilization or existential risks.
 
 
 Measurable:
