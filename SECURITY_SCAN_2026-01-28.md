@@ -148,7 +148,7 @@ surge . --project asi.surge.sh
 - [ ] Test image assets load correctly (`/img/` paths)
 - [ ] Verify all cross-page navigation works
 - [ ] Check robots.txt is appropriate for public visibility
-- [ ] Consider backing up old backup_files/ to separate storage
+- [x] Consider backing up old backup_files/ to separate storage. moved to backup-history branch via [issue #33](https://github.com/stellardreams/asi.surge.sh/issues/33)
 - [ ] Confirm no git history leaks (surge.sh doesn't expose .git folder)
 
 ---
