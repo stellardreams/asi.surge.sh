@@ -5,7 +5,7 @@
 ### Specific
 
 **Organizational & Infrastructure**
-- The set of plans here are designed to enable, equip, empower and support the next generation and successive generations of Space Appleseeds.
+- The set of plans here are designed to enable, equip, empower and support the next generation and successive generations of Project-009.
 - ISS will be decommissioned in 2030. Keep decommissioning timelines into consideration when planning orbital unit deployment.
 - Determine deployment strategy: test units on ISS before full deployment, or bypass ISS and proceed with alternative platforms?
 
@@ -15,7 +15,7 @@
 - Establish successful and long-term organ grafting protocols without infection or health complications.
 
 **Agricultural & Food Systems**
-- Establish self-sustaining polyculture greenhouses in O'Neill cylinders (may warrant a separate detailed plan).
+- Establish self-sustaining polyculture greenhouses in Project-002 habitats (may warrant a separate detailed plan).
 - Preserve and digitize Earth's heritage polyculture seed varieties in orbital catalogs.
 - Develop high-yield, carcinogen-free crop cycles suitable for simulated O'Neill environments.
 
@@ -27,7 +27,7 @@
 - Establish robust protocols addressing unintended consequences (market pressures, organ availability inequality, etc.).
 
 **Nutritional Self-Sufficiency**
-- Achieve 100% nutritional self-sufficiency for initial O'Neill colony prototypes.
+- Achieve 100% nutritional self-sufficiency for initial Project-002 colony prototypes.
 - Document and maintain genetic diversity baseline (10,000+ heritage seed varieties).
 - Establish redundant food production systems across multiple orbital and terrestrial facilities.
 
@@ -35,7 +35,7 @@
 
 **Core Technology Platforms**
 - Leverage zero-gravity bioreactors for organ manufacturing.
-- Utilize V8 Greenhouse AMUs for agricultural production.
+- Utilize V8 Greenhouse Project-001 units for agricultural production.
 - Implement distributed DNA preservation systems (orbital, deep underground, terrestrial backup facilities).
 
 **Biodiversity Preservation Infrastructure**
@@ -92,7 +92,7 @@
 
 **Medical & Agricultural Production**
 - **M4**: First 100 organs manufactured in orbit and successful transplant protocols established (zero infection rate).
-- **M5**: First "Abundance Harvest" from Greenhouse AMU with 100% nutritional self-sufficiency metrics achieved.
+- **M5**: First "Abundance Harvest" from Greenhouse Project-001 with 100% nutritional self-sufficiency metrics achieved.
 - **M6**: Clinical trials with AUH complete; human health span metrics demonstrating measurable longevity gains.
 
 **Scale & Sustainability**

@@ -40,16 +40,16 @@ Measurable:
 - -  In general, point to point travel in outer space (what we refer to as deep space right now across the solar system) can only happen if energy costs plummet exponentially
 - - - exception, deep space travel possible for smaller scale vessels (size of credit card). but it's one way
 - - - - I had some ideas here actually
-- a number of problems to solve, prior to 10 operational AMU Factory Hubs in the Belt.
+- a number of problems to solve, prior to 10 operational Project-001 Factory Hubs in the Belt.
 - talk to Lewicki (no affiliation as of yet) about identifcation of real estate via mapping. PR did some work here
-- Establish the Interplanetary Legal Ledger on the blockchain
+- Establish the Project-008 on the blockchain
 - Anticipate pushback from specific circles. Pre-empt.
   - Design plans to integrate. Prepare offers in advance. 
   - Design plans to anticipate outcomes in the kubler ross sense. [link](https://en.wikipedia.org/wiki/Five_stages_of_grief)
   - Prepare workforce for the long haul. 
 
 Achievable:
-- Utilizing self-replicating AMU clusters and autonomous deep-space transport. - Detailed plan via [issue 5](https://github.com/stellardreams/asi.surge.sh/issues/5) and sub-tasks
+- Utilizing self-replicating Project-001 clusters and autonomous deep-space transport. - Detailed plan via [issue 5](https://github.com/stellardreams/asi.surge.sh/issues/5) and sub-tasks
 
 Relevant:
 - Forms the base for long-term galactic expansion.
@@ -66,8 +66,8 @@ Time-bound:
 5. [ ] **Governance Node**: Establish the Wikipedia Model for project-wide real-time auditing (Month 30).
 
 ## Key Milestones
-- **M1**: Interplanetary Ledger Genesis Block.
-- **M2**: First successful AMU-to-AMU replication in transit. (first on surface and then in orbit) | Suffice to say, this is a huge undertaking and should be initiated today for TRL 9 to be achieved sooner than later
+- **M1**: Project-008 Genesis Block.
+- **M2**: First successful Project-001-to-Project-001 replication in transit. (first on surface and then in orbit) | Suffice to say, this is a huge undertaking and should be initiated today for TRL 9 to be achieved sooner than later
 - **M3**: Logistical Spine operational between Earth and Mars orbit.
 
 ## Resources
