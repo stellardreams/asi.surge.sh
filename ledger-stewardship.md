@@ -20,14 +20,14 @@ Specific:
   - Asking how to communicate with other space agencies
   - Asking other space agencies on how to avoid miscommunication (in an era of ASAT and other space weaponization like satellite recon/trailing formations)
   - Communicating plans to the public and relevant stakeholders.
-  - Deployment of "Aura Sweeper" in swarm clusters for debris removal.
-  - Establish the "Orbital Sentry" compute layer.
+  - Deployment of "Project-005" in swarm clusters for debris removal.
+  - Establish the "Project-004" compute layer.
 
 Measurable:
 - Reduction of tracked mm-scale debris by 40% in LEO/MEO.
 
 Achievable:
-- Utilizing 3-stage AMU self-replicating swarms.
+- Utilizing 3-stage Project-001 self-replicating swarms.
 - I am not sure, but I think the deployment will be in MEO? Fuel costs will be a determinant. Unless, ion thruster can be secured/licensed.
 
 Relevant:
@@ -40,21 +40,21 @@ Time-bound:
   - Note: A bit ambitious there, Gemini. But let's see!
 
 ## Actionable Tasks
-1. [ ] **Protocol Design**: Finalize "Aura" swarm coordination logic and collision avoidance (Month 1).
-2. [ ] **Hardware Iteration**: Prototype mm-debris collection mesh for AMU stage-2 (Month 3).
-3. [ ] **Sentry Deployment**: Launch initial 3 blockchain verification nodes for the Orbital Compute Layer (Month 6).
+1. [ ] **Protocol Design**: Finalize "Project-003" swarm coordination logic and collision avoidance (Month 1).
+2. [ ] **Hardware Iteration**: Prototype mm-debris collection mesh for Project-001 stage-2 (Month 3).
+3. [ ] **Sentry Deployment**: Launch initial 3 blockchain verification nodes for the Project-004 (Month 6).
 4. [ ] **Legal Ratification**: Publicly release the "Strategic Peace Mandate" via the Wikipedia Model for community edit/audit (Month 8).
 5. [ ] **Swarm Launch**: Initiate the first flight of 100 sweeper units (Month 12).
 
 ## Key Milestones
 - **M1**: Debris cataloging interface live.
 - **M2**: First autonomous mesh deployment in a simulation.
-- **M3**: Live domain security protocol active.
+- **M3**: Live Project-003 domain security protocol active.
 
 ## Resources
 - Privateer via Dr. Jah
 - Existing Space Debris Catalog/Players (US, EU active)
-- AMU Factory Nodes
+- Project-001 Factory Nodes
 - Blockchain Developers
 - Lead Ethicists
 - Computer Vision Specialists

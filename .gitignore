@@ -1,2 +1,3 @@
 .vs/
-prompts_for_AI/
+prompts_for_AI/# Private mapping file - never commit
+../private/project-mapping.txt
