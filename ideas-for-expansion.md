@@ -42,5 +42,5 @@ The project is designed to be a truly global initiative that transcends politica
 
 **Authorship & Acknowledgements**: 
 - Primary author: Lingma (AI Assistant)
-- Idea recommended by: genidma (Co-author)
+- Ideas recommended by: @genidma (Co-author) marked separately
 - Note: This document was expanded based on collaborative discussions about enhancing the ASI project.
