@@ -154,15 +154,6 @@ To secure the **Age of Abundance** through the development of outer space, heali
 - Ethical oversight and public engagement with human participation
 - Human-centered design to minimize error potential
 
-
-## Learning from History: The Challenger Incident
-
-The Challenger Shuttle disaster of January 28, 1986, stands as a solemn reminder of the critical importance of safety protocols in space operations. The loss of all seven crew members - Francis R. Scobee, Michael J. Smith, Ronald McNair, Ellison Onizuka, Judith Resnik, Gregory Jarvis, and Christa McAuliffe - was a tragedy that deeply affected the global community and the future of space exploration.
-
-This incident should never ever repeat in human history. We must remember those who lost their lives in this incident and ensure that their sacrifice serves as a constant reminder of the paramount importance of rigorous safety standards, thorough testing protocols, and the courage to delay missions when safety concerns exist.
-
-As we pursue the Age of Abundance through space development, we honor their memory by committing to the highest standards of safety, transparency, and responsible engineering practices.
-
 ## Success Metrics (Safety-Focused)
 
 ### Quantitative Measures
