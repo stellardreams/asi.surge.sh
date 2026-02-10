@@ -4,7 +4,7 @@
 
 Based on the ASI project structure and goals, here are additional ideas that could enhance the initiative:
 
-| Idea | Description | Originator | Links to Plans or Containers |
+| Idea | Description | Originator | Potentially reside under |
 |------|-------------|------------|-----------------------------|
 | Simulation Environment | Create interactive 3D visualizations of the AMU operations using Three.js to demonstrate swarm coordination in the asteroid belt | @lingma by Alibaba Cloud Technologies | [Interplanetary Foundations](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) |
 | Community Contributions Dashboard | Develop a real-time dashboard showing community contributions, forks, and improvements to the tactical ledgers | @lingma by Alibaba Cloud Technologies | [Effort Container](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) |
