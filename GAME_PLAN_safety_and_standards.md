@@ -1,10 +1,3 @@
----
-
-*Document Version: 1.1*
-*Last Updated: February 10th, 2026*
-*Next Review: Quarterly*
-
-
 ## Safety Governance
 
 ### 1. Oversight Bodies
@@ -393,3 +386,8 @@ graph TD
     style D2 fill:#66ff66
     style D3 fill:#66ff66
 ```
+---
+
+*Document Version: 1.1*
+*Last Updated: February 10th, 2026*
+*Next Review: Quarterly*
