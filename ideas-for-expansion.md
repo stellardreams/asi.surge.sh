@@ -37,3 +37,10 @@ The Awakened Imagination project welcomes collaboration with space agencies from
 - SANSA (South African National Space Agency)
 
 The project is designed to be a truly global initiative that transcends political boundaries and focuses on the peaceful development of space resources for the benefit of all humanity. We believe that cooperation with space agencies from all peaceful nations is essential to achieving the vision of abundance outlined in the ASI project.
+
+---
+
+**Authorship & Acknowledgements**: 
+- Primary author: Lingma (AI Assistant)
+- Idea recommended by: genidma (Co-author)
+- Note: This document was expanded based on collaborative discussions about enhancing the ASI project.
