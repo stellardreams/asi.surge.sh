@@ -44,6 +44,30 @@ The **Plans** page acts as a living bridge between the abstract vision and tacti
 3.  **[Planetary Life Support](ledger-life-support.md)**: Orbital health span research and bio-scarcity elimination (ISS decommissioning alignment).
 4.  **[Global Prosperity](ledger-prosperity.md)**: Transitioning heavy industry off-world to allow Earth's biosphere to heal.
 
+## 🏗️ Hierarchical Organization
+
+We've recently restructured the project with a clearer hierarchy to improve navigation and execution:
+
+### Core Tiers
+- **Tier 1: Core Foundation** - Essential infrastructure and governance
+- **Tier 2: Infrastructure Development** - Building the backbone for operations
+- **Tier 3: Application & Expansion** - Implementation and scaling activities
+
+### Status Tracking
+Each component tracks its progress with these statuses:
+- **Conceptual** - Initial idea phase
+- **In planning** - Detailed planning underway
+- **Being developed** - Active development
+- **Implemented** - Completed and operational
+- **Completed** - Fully finished
+
+### Priority Levels
+- **High** - Critical path items requiring immediate attention
+- **Medium** - Important but not blocking other developments
+- **Low** - Valuable but lower urgency items
+
+For detailed roadmap information, see our [ROADMAP.md](ROADMAP.md) file.
+
 ## 🛠️ The Architecture of Abundance (AMUs)
 
 Our foundational technology is the **3-stage AMU (Autonomous Manufacturing Unit)**: 
