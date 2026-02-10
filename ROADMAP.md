@@ -69,7 +69,7 @@ This document provides a visual roadmap showing how different elements of the AS
 ```
 Tier 1: Core Foundation
     ↓ (Required by)
-Tier 2: Infrastructure Development
+Tier 2: Infrastructure Development  
     ↓ (Required by)
 Tier 3: Application & Expansion
     ↓ (Required by)
@@ -89,6 +89,44 @@ Legend:
 █ Active Development
 ░ Planned Development
 ○ Milestone/Key Event
+```
+
+## Long-term Actions
+
+1. Refine the hierarchical structure based on feedback
+2. Iterate on the modular approach to optimize for parallel development
+3. Continuously evaluate and adjust priorities based on progress and external factors
+
+```mermaid
+graph TD
+    A[Long-term Actions] --> B[Refine Hierarchical Structure]
+    A --> C[Iterate Modular Approach]
+    A --> D[Evaluate & Adjust Priorities]
+    
+    B --> B1[Collect Feedback]
+    B --> B2[Analyze Usage Data]
+    B --> B3[Update Documentation]
+    
+    C --> C1[Parallel Dev Optimization]
+    C --> C2[Module Independence]
+    C --> C3[Integration Points]
+    
+    D --> D1[Progress Review]
+    D --> D2[External Factors]
+    D --> D3[Priority Adjustment]
+    
+    B1 --> E[Improved Structure]
+    C1 --> E
+    D1 --> E
+    
+    E --> F[Implementation Cycle]
+    
+    style A fill:#ff9999
+    style B fill:#99ccff
+    style C fill:#99ccff
+    style D fill:#99ccff
+    style E fill:#66ff66
+    style F fill:#ffcc66
 ```
 
 ## Implementation Notes
