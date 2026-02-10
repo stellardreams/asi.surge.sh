@@ -1,4 +1,5 @@
 # Ledger: Lamport Systems Engineering & Distributed Computing
+# v1.0
 
 ## SMART Goal: Formal Verification and Coordination of Distributed Space Systems
 Specific:
