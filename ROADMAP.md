@@ -93,9 +93,10 @@ Legend:
 
 ## Long-term Actions
 
-1. Refine the hierarchical structure based on feedback
+1. Refine the hierarchical structure based on a. PDCA+CI (continous innovation) and b. feedback and c. teachings by s.blank
 2. Iterate on the modular approach to optimize for parallel development
 3. Continuously evaluate and adjust priorities based on progress and external factors
+4. There should be plans in place, in the situation that the time-lines are crunched. Like an impending catastrophe. However, to manufacture such a catastrophe would not only be highly immoral, but could cause severe problems and potentially irreperable harm on Earth (panic and potential of nuclear war...plus) 
 
 ```mermaid
 graph TD
