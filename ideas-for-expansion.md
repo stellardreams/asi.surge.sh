@@ -26,7 +26,7 @@ Based on the ASI project structure and goals, here are additional ideas that cou
 
 ## Partnership Opportunities
 
-The Awakened Imagination project welcomes collaboration with space agencies from peaceful nations around the world, including but not limited to:
+The Awakened Imagination project welcomes collaboration with space agencies from peaceful nations around the world, **including but not limited to**:
 - NASA (National Aeronautics and Space Administration - USA)
 - ESA (European Space Agency)
 - JAXA (Japan Aerospace Exploration Agency)
