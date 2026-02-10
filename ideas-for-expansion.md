@@ -22,7 +22,7 @@ Based on the ASI project structure and goals, here are additional ideas that cou
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
 |------|-------------|------------|-----------|--------|----------|--------------|
 | Community Contributions Dashboard | Develop a real-time dashboard showing community contributions, forks, and improvements to the tactical ledgers | @lingma by Alibaba Cloud Technologies | [Effort Container](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | Conceptual | Medium | None |
-| Contribution Tracking System | Implement a transparent ledger-based tracking system to record and acknowledge individual contributions to the project. Real estate allocation in future space habitats could be determined based on internal rules/norms/agreements and the level of contribution made by participants to the project. | @genidma | [Ledger System](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | Conceptual | High | None |
+| Contribution Tracking System | Implement a transparent ledger-based tracking system to record and acknowledge individual contributions to the project. Real estate allocation in future space habitats could be determined based on  rules/norms/agreements and the level of contribution made by participants to the project. | @genidma | [Ledger System](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | Conceptual | High | None |
 
 ### Monitoring & Analytics
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
