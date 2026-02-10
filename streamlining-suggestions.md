@@ -1,5 +1,7 @@
 # Suggestions for Streamlining the ASI Project Plans
 
+Note: work effort tracked in [issue 38](https://github.com/stellardreams/asi.surge.sh/issues/38)
+
 ## Current Complexity Issues
 
 The ASI project plans have become increasingly complex with multiple interconnected elements, making it difficult to prioritize and execute effectively.
