@@ -1,4 +1,4 @@
-# Cinematic Vision Strategy (Episode #7)
+# Visual Creation Strategy (Episode #7)
 
 **Goal**: To achieve Sora-grade visual storytelling for the Awakened Imagination mission without subscriptions or proprietary AI video tools.
 
