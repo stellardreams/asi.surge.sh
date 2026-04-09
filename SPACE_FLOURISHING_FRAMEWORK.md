@@ -16,6 +16,8 @@
 
 **Kilo Credit:** Kilo (AI assistant) synthesized the user's feedback with existing space exploration knowledge to produce this enhanced framework.
 
+**Document Creation Credit:** This document was created by Kilo (AI assistant) based on the user's feedback and synthesis of space exploration knowledge.
+
 **Nemotron Credit:** The underlying reasoning and knowledge synthesis was powered by NVIDIA's nemotron-3-super-120b model.
 
 **Note:** This issue documents incorporated feedback. I (the user) have yet to review this in depth and may have additional suggestions after careful review.
