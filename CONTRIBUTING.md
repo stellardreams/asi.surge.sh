@@ -4,7 +4,11 @@ Thank you for your interest in contributing to Awakened Imagination! This docume
 
 ## Project Overview
 
-Awakened Imagination is a visionary space development initiative focused on orbital stewardship, interplanetary foundations, planetary life support, and global prosperity. The project is implemented as a static website with HTML, CSS, and JavaScript.
+Awakened Imagination (Awake Space) is a collaborative space development initiative focused on orbital stewardship, interplanetary foundations, planetary life support, and global prosperity. 
+
+The project is inspired having observed the emergence of the wikinomics model. The core emphasis is to ensure that this newer reality that is emerging is not deployed to do any harm. 
+
+The project here is implemented as a static website with HTML, CSS, and JavaScript. This was done to keep budget to a minimum, as well to ensure that the website can render on virtually any device (even an older Amazon Kindle from the year 2010). This making the website accessible to all reaches of the planet. 
 
 ## How to Contribute
 
