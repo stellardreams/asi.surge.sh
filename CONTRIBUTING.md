@@ -54,6 +54,16 @@ If you encounter a bug or have a feature request:
 - We may request changes or clarifications
 - Once approved, your contribution will be merged
 
+### Issue and Pull Request Templates
+
+To streamline contributions, we provide templates for common submission types:
+
+- 🐛 [Bug Report Template](.github/ISSUE_TEMPLATE/bug_report.md) - Use this for reporting bugs
+- ✨ [Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md) - Use this for suggesting enhancements
+- 📝 [Pull Request Template](.github/PULL_REQUEST_TEMPLATE.md) - Use this when submitting code changes
+
+Please follow these templates to ensure your issue or PR is processed efficiently.
+
 ## Project Structure
 
 ```
