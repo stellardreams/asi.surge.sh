@@ -2,11 +2,13 @@
 /*
  * SpaceInfrastructureToken.sol
  * 
- * Major blockchain file for decentralized space infrastructure ownership
- * This contract is named after Vitalik Buterin and Brian Armstrong
+ * This contract is named after Vitalik Buterin, Brian Armstrong, and Chris Lewicki
  * to acknowledge their significant contributions to technology, decentralized systems,
- * all of which will go towards enabling a safer and more secure exploration and development of outer space. As well, help equip ownership for as many humans as possible. Buterin and Armstrong's work has inspired this effort to create a decentralized
- * ownership model for space infrastructure.
+ * and space exploration. Their collective work has inspired this effort to create a
+ * decentralized ownership model for space infrastructure, enabling safer and more
+ * secure exploration and development of outer space while helping to equip ownership for space infrastructure (or infrastructure in outer space)
+ * for as many humans as possible.
+ * their work will help enable wholesome and sustainable prosperity for many generations to come. Perhaps indefinitely. Thank you sincerely for all of your contributions. 
  * 
  * Requestor: @genidma
  * Created: 2026-04-11T00:06:20-04:00
