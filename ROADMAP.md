@@ -13,6 +13,7 @@ This document provides a visual roadmap showing how different elements of the AS
     - Secure funding for Project-005 debris removal
     - Establish "Orbital Sentry" compute layer
     - Consult with Dr. Moriba Jah on debris situation
+    - **Launch initial 3 blockchain verification nodes for Project-004** (from ledger-stewardship.md)
 
 ### Tier 2: Infrastructure Development (Status: In Planning)
 - **Interplanetary Foundations**
@@ -24,6 +25,17 @@ This document provides a visual roadmap showing how different elements of the AS
     - Establish 3-stage AMU backbone in the Asteroid Belt
     - Implement Lamport timestamp mechanisms for distributed operations
     - Launch first 100 AMU units
+    - **Establish Project-008 on the blockchain** (from ledger-foundations.md)
+    - **Deploy the v1 Interplanetary Legal Framework on a public blockchain** (from ledger-foundations.md)
+
+- **Blockchain Infrastructure**
+  - Status: In planning
+  - Priority: High
+  - Timeline: 2027-2028
+  - Dependencies: Orbital Stewardship completion
+  - Key milestones:
+    - Develop blockchain consensus mechanisms for deep space
+    - Create interplanetary blockchain network architecture
 
 ### Tier 3: Application & Expansion (Status: Conceptual)
 - **Planetary Life Support**
@@ -45,6 +57,17 @@ This document provides a visual roadmap showing how different elements of the AS
     - Transition top 5 terrestrial industries off-world
     - Extract 1,000 tons of refined materials from Psyche-class asteroids
     - Begin rewilding programs on former industrial sites
+    - **Implement blockchain-based tracking system for asteroid materials** (from ideas-for-expansion.md)
+
+- **Blockchain Ecosystem**
+  - Status: Conceptual
+  - Priority: Medium
+  - Timeline: 2028-2032
+  - Dependencies: Interplanetary Foundations completion
+  - Key milestones:
+    - Create decentralized autonomous organizations (DAOs) for space governance
+    - Develop tokenomics for resource allocation
+    - Implement smart contracts for interplanetary trade
 
 ## Priority Matrix
 
@@ -54,6 +77,8 @@ This document provides a visual roadmap showing how different elements of the AS
 - Open Source Hardware Designs publication
 - Resource Tracking System implementation
 - Risk Assessment Matrix development
+- **Blockchain Infrastructure Development** (new)
+- **Orbital Blockchain Verification Nodes deployment** (new)
 
 ### Medium Priority Items
 - Community Contributions Dashboard
