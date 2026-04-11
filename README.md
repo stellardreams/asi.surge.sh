@@ -84,5 +84,17 @@ This project follows the **Wikipedia Model**—it is a collaborative, radically 
 
 Support our mission via [GitHub Sponsors](https://github.com/sponsors/genidma).
 
+## 📝 Contributing Guidelines
+
+This is an open-source project and we welcome contributions from the community!
+
+**To get started:**
+- Read our **[CONTRIBUTING.md](CONTRIBUTING.md)** for detailed contribution guidelines
+- Review our **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** to understand our community standards
+- Check out the **[issue templates](.github/ISSUE_TEMPLATE/)** for consistent issue reporting
+- Use the **[pull request template](.github/PULL_REQUEST_TEMPLATE.md)** when submitting changes
+
+**Note**: We are currently deciding on an open-source license. See the [license decision issue](.github/ISSUE_TEMPLATE/license_decision.md) for details.
+
 ---
 *Vision co-conceived by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
