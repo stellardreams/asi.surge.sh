@@ -98,6 +98,8 @@ This is an open-source project and we welcome contributions from the community!
 
 ## 🏗️ Wikinomics Code Structure
 
+**Disclaimer**: This code has yet to be verified by the project developers.
+
 This repository implements a **decentralized ownership and governance system** for space infrastructure, inspired by Don Tapscott's wikinomics principles. Here's how it works:
 
 ### 1. Smart Contracts for Collective Ownership
