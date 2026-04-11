@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  hardhat:
+    build: .
+    command: npm test
+    volumes:
+      - .:/app
+    environment:
+      - HARDHAT_NETWORK=localhost
+      - GAS_LIMIT=12000000
+    depends_on:
+      - ganache
+
+  ganache:
+    image: trufflesuite/ganache:latest
+    command: ["-p", "8545", "-m", "candy maple cake sugar pepper hidden evil spoil decay corn face puzzle brink lamp belt zom"]
+    ports:
+      - "8545:8545"
+    volumes:
+      - ganache_data:/ganache
+
+volumes:
+  ganache_data:

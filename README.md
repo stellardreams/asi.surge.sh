@@ -154,3 +154,61 @@ asi.surge.sh/
 ├── package.json           # Contribution tracking
 └── ...
 ```
+
+## 🛠️ Development Setup
+
+### Prerequisites
+- Node.js 18+ and npm
+- Docker (optional, for containerized development)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/stellardreams/asi.surge.sh.git
+   cd asi.surge.sh
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Compile contracts:
+   ```bash
+   npx hardhat compile
+   ```
+
+### Running Tests
+
+```bash
+# Run all tests
+npx hardhat test
+
+# Run specific test
+npx hardhat test test/SpaceInfrastructureToken.test.js
+```
+
+### Local Development with Docker
+
+```bash
+# Start development environment
+docker-compose up
+
+# Run tests in container
+docker-compose run hardhat npm test
+```
+
+### Smart Contract Development
+
+- Edit contracts in `contracts/` directory
+- Add tests in `test/` directory
+- Configure Hardhat in `hardhat.config.js`
+- Use OpenZeppelin contracts for security best practices
+
+### Contributing
+
+We welcome contributions from the community! Please follow our [CONTRIBUTING.md](CONTRIBUTING.md) guidelines and review our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before submitting pull requests.
+
+---
+*Vision co-conceived by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
