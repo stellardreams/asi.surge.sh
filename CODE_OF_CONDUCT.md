@@ -38,7 +38,7 @@ We take violations of this code of conduct seriously. Reports will be reviewed b
 
 ## Reporting
 
-If you experience or witness unacceptable behavior, please report it immediately by contacting the project leads at [insert contact email] or through GitHub's reporting tools.
+If you experience or witness unacceptable behavior, please report it immediately by contacting us through our [contact form](https://karmaconscience.org/contact) or through GitHub's reporting tools.
 
 Your report will be handled with discretion and seriousness.
 
