@@ -1,0 +1,34 @@
+name: Validate AMU Design
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm install ipfs-http-client @opentrons/api@^3.0.0
+    
+    - name: Validate AMU Design
+      run: node scripts/validate-design.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        IPFS_API_KEY: ${{ secrets.IPFS_API_KEY }}
+
+    - name: Upload validation results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: validation-results
+        path: |
+          validation-reports/
+          test-results/
+          logs/

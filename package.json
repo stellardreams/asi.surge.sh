@@ -1,0 +1,45 @@
+{
+  "name": "awakened-imagination-core",
+  "version": "1.0.0",
+  "description": "Core infrastructure for collective space ownership",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "validate": "node scripts/validate-design.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stellardreams/asi.surge.sh.git"
+  },
+  "contributors": [
+    {
+      "name": "Adeel Khan",
+      "email": "adeel@example.com",
+      "github": "@adeelkhan",
+      "contribution": "Project vision and initial architecture",
+      "sharesAwarded": 1000
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://spdx.org/licenses/MIT.json"
+    },
+    {
+      "type": "Apache-2.0",
+      "url": "https://spdx.org/licenses/Apache-2.0.json"
+    }
+  ],
+  "funding": [
+    {
+      "github": "https://github.com/sponsors/genidma"
+    }
+  ],
+  "keywords": [
+    "space",
+    "blockchain",
+    "governance",
+    "decentralized",
+    "ownership"
+  ]
+}

@@ -96,5 +96,59 @@ This is an open-source project and we welcome contributions from the community!
 
 **Note**: We are currently deciding on an open-source license. See the [license decision issue](.github/ISSUE_TEMPLATE/license_decision.md) for details.
 
----
-*Vision co-conceived by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
+## 🏗️ Wikinomics Code Structure
+
+This repository implements a **decentralized ownership and governance system** for space infrastructure, inspired by Don Tapscott's wikinomics principles. Here's how it works:
+
+### 1. Smart Contracts for Collective Ownership
+- `contracts/SpaceInfrastructureToken.sol` - Ethereum smart contract for token-based ownership and governance
+- Enables transparent, code-enforced ownership shares and voting rights
+- Anyone can verify and participate in governance
+
+### 2. Open Source Collaboration
+- All hardware designs and software are open source
+- GitHub Actions automatically validate AMU designs (`.github/workflows/validate-designs.yml`)
+- IPFS storage for immutable, versioned blueprints (`scripts/ipfs-storage.js`)
+- Contribution tracking in `package.json` rewards community members with ownership shares
+
+### 3. Decentralized Resource Allocation
+- `scripts/resource-allocator.py` - Transparent resource distribution based on ownership shares
+- Blockchain-based dividend distribution ensures fair compensation
+- All transactions are publicly verifiable
+
+### 4. Automated Validation
+- `scripts/validate-design.js` - Validates AMU designs against technical requirements
+- Ensures quality and safety while enabling open collaboration
+- Design files stored on IPFS for permanent, tamper-proof records
+
+### 5. Transparent Governance
+- Ownership shares grant voting rights on project decisions
+- Proposals and voting are managed through smart contracts
+- All actions are recorded on the blockchain for accountability
+
+This structure enables **true collective ownership** of space infrastructure, where anyone can contribute, own, and govern. The code is fully open source, allowing anyone to verify, fork, or contribute to the project.
+
+## 📁 Repository Structure
+
+```
+asi.surge.sh/
+├── contracts/              # Smart contracts for governance
+│   └── SpaceInfrastructureToken.sol
+├── scripts/                # Utility scripts
+│   ├── ipfs-storage.js     # IPFS-based blueprint storage
+│   ├── validate-design.js  # Design validation
+│   └── resource-allocator.py  # Resource allocation
+├── .github/                # GitHub workflows and templates
+│   ├── workflows/
+│   │   └── validate-designs.yml
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md
+│       ├── feature_request.md
+│       ├── license_decision.md
+│       └── pull_request.md
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── package.json           # Contribution tracking
+└── ...
+```
