@@ -55,6 +55,11 @@ Core implementation complete: smart contract, development environment, and docum
     - Discuss potential collaboration on space governance DAOs
     - Investigate funding opportunities through their network
 
+8. **Talk to Eva about integrating her tech** (New)
+    - Identify Eva's relevant technology (e.g., AI, biotech, comms)
+    - Explore integration opportunities with the decentralized ownership platform
+    - Assess synergies between Eva's tech and space infrastructure vision
+
 ### 📋 Tasks
 
 - [ ] Schedule security audit with a firm
