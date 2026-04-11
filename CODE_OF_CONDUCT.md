@@ -1,6 +1,6 @@
 # Code of Conduct
 
-Awakened Imagination is dedicated to creating a safe, respectful, and inclusive community. We expect all contributors and participants to adhere to this code of conduct at all times.
+Awakened Imagination (Awake Space) is dedicated to creating a safe, respectful, and inclusive community. We expect all contributors and participants to adhere to this code of conduct at all times.
 
 ## Our Standards
 
