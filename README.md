@@ -102,19 +102,28 @@ This is an open-source project and we welcome contributions from the community!
 
 This repository implements a **decentralized ownership and governance system** for space infrastructure, inspired by Don Tapscott's wikinomics principles. Here's how it works:
 
-### Core Principles
+### Core Principles: The "Brick and Documentation" Framework
 
-1. **Modularity (The "Bricks" Approach)**: 
-   - We focus on creating high-quality, reusable components (or "bricks") that can be easily assembled, tested, and maintained.
-   - Each module has a single responsibility and clear interfaces.
-   - This approach enables parallel development, easier testing, and better scalability.
+#### 1. The "Brick" (Modular Atomic Units)
+Instead of writing long, intertwined scripts, we build **"Bricks"** - atomic, single-task units that serve as reusable components:
+- **Definition:** Every function or class is designed to perform one task exceptionally well.
+- **Purpose:** These bricks act as a system of reusable components. Once built and tested, they become "solved problems" that can be assembled into larger, complex projects without rewriting logic.
+- **The Goal:** Shifting from a "hacker" mindset to an "architect" mindset—building a high-leverage library rather than one-off tools.
 
-2. **Comprehensive Documentation**:
-   - All code, configurations, and processes are thoroughly documented.
-   - Documentation is written for both humans and AI assistants, ensuring transparency and knowledge transfer.
-   - Every module includes: purpose, usage examples, API references, and change logs.
+#### 2. Documentation as the "Contract"
+Documentation isn't just an afterthought; it's the **API contract** between you and the machine:
+- **Strict Type Hints:** Essential for the code to be self-documenting and for AI agents to understand exactly what data is moving through the system.
+- **Docstrings:** Every "Brick" must have a clear description of its intent, inputs, and outputs.
+- **Standard Operating Procedures (SOPs):** This is a **global protocol** for all repositories, ensuring any technical asset follows the same high-standard, repeatable pattern.
+
+#### 3. The Human/AI Orchestration
+With perfect documentation and modular "Bricks," it becomes exponentially easier for an AI (or another developer) to help build or refactor:
+- You provide the high-level architecture, and the "Bricks" handle the heavy lifting.
+- This creates a **foundation of certainty** so that when scaling into complex projects (space industry, AI ethics), the base layer of your tech stack is rock solid.
 
 ### Implementation Structure
+
+The project follows a decentralized architecture with these key components:
 
 The project follows a decentralized architecture with these key components:
 
