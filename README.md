@@ -102,6 +102,50 @@ This is an open-source project and we welcome contributions from the community!
 
 This repository implements a **decentralized ownership and governance system** for space infrastructure, inspired by Don Tapscott's wikinomics principles. Here's how it works:
 
+### Core Principles
+
+1. **Modularity (The "Bricks" Approach)**: 
+   - We focus on creating high-quality, reusable components (or "bricks") that can be easily assembled, tested, and maintained.
+   - Each module has a single responsibility and clear interfaces.
+   - This approach enables parallel development, easier testing, and better scalability.
+
+2. **Comprehensive Documentation**:
+   - All code, configurations, and processes are thoroughly documented.
+   - Documentation is written for both humans and AI assistants, ensuring transparency and knowledge transfer.
+   - Every module includes: purpose, usage examples, API references, and change logs.
+
+### Implementation Structure
+
+The project follows a decentralized architecture with these key components:
+
+1. **Smart Contracts for Collective Ownership**
+   - `contracts/SpaceInfrastructureToken.sol` - Ethereum smart contract for token-based ownership and governance
+   - Enables transparent, code-enforced ownership shares and voting rights
+   - Anyone can verify and participate in governance
+
+2. **Open Source Collaboration**
+   - All hardware designs and software are open source
+   - GitHub Actions automatically validate AMU designs (`.github/workflows/validate-designs.yml`)
+   - IPFS storage for immutable, versioned blueprints (`scripts/ipfs-storage.js`)
+   - Contribution tracking in `package.json` rewards community members with ownership shares
+
+3. **Decentralized Resource Allocation**
+   - `scripts/resource-allocator.py` - Transparent resource distribution based on ownership shares
+   - Blockchain-based dividend distribution ensures fair compensation
+   - All transactions are publicly verifiable
+
+4. **Automated Validation**
+   - `scripts/validate-design.js` - Validates AMU designs against technical requirements
+   - Ensures quality and safety while enabling open collaboration
+   - Design files stored on IPFS for permanent, tamper-proof records
+
+5. **Transparent Governance**
+   - Ownership shares grant voting rights on project decisions
+   - Proposals and voting are managed through smart contracts
+   - All actions are recorded on the blockchain for accountability
+
+This structure enables **true collective ownership** of space infrastructure, where anyone can contribute, own, and govern. The code is fully open source, allowing anyone to verify, fork, or contribute to the project.
+
 ### 1. Smart Contracts for Collective Ownership
 - `contracts/SpaceInfrastructureToken.sol` - Ethereum smart contract for token-based ownership and governance
 - Enables transparent, code-enforced ownership shares and voting rights
