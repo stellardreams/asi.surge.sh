@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The AMU — Awakened Imagination</title>
+  <meta name="description" content="The Autonomous Manufacturing Unit (AMU) — flagship technology of the Awakened Imagination Group. A self-replicating, orbital manufacturing platform designed to unlock the Age of Abundance.">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="mystyles.css">
+
+  <style>
+    /* ── Hero Video ── */
+    .amu-hero {
+      position: relative;
+      width: 100%;
+      max-height: 80vh;
+      overflow: hidden;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .amu-hero video {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: cover;
+      display: block;
+    }
+
+    .amu-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(2,12,27,0.15) 0%, rgba(2,12,27,0.7) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .amu-hero-overlay h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 20px rgba(100, 255, 218, 0.4);
+    }
+
+    .amu-hero-overlay p {
+      font-size: 1.1rem;
+      color: var(--text-silver);
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .amu-badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border: 1px solid var(--accent-cyan);
+      border-radius: 999px;
+      color: var(--accent-cyan);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Stat Bar ── */
+    .stat-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.4rem;
+    }
+
+    /* ── Stage Cards ── */
+    .stage-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: var(--transition-smooth);
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .stage-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .stage-number {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .stage-card h3 {
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Gallery ── */
+    .amu-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .amu-gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition-smooth);
+    }
+
+    .amu-gallery-item:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-4px);
+    }
+
+    .amu-gallery-item img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .amu-gallery-caption {
+      padding: 1rem 1.25rem;
+      background: var(--glass-bg);
+    }
+
+    .amu-gallery-caption strong {
+      color: var(--accent-cyan);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .amu-gallery-caption p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* ── Quote pull ── */
+    .founder-quote {
+      text-align: center;
+      padding: 3rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .founder-quote blockquote {
+      border-left: none;
+      background: transparent;
+      font-size: 1.4rem;
+      color: var(--text-silver);
+    }
+
+    .founder-quote cite {
+      text-align: center;
+    }
+  </style>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2TGX86LYD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-F2TGX86LYD');
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script>
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i + "?ref=bwt";
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "pkp1yhekrs");
+  </script>
+</head>
+
+<body>
+  <nav>
+    <a href="/index/">Home</a>
+    <a href="/amu/">AMU</a>
+    <a href="/effort/">Effort</a>
+    <a href="/imagine/">Imagine</a>
+    <a href="/plans/">Plans</a>
+  </nav>
+
+  <!-- ── Hero Video ── -->
+  <div class="amu-hero">
+    <video
+      id="amu-hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="img/portfolio/amu/amu-render-01.png">
+      <source src="img/portfolio/amu/amu-animation-v1.mp4" type="video/mp4">
+      <!-- Fallback for browsers that don't support video -->
+      <img src="img/portfolio/amu/amu-render-01.png" alt="Autonomous Manufacturing Unit">
+    </video>
+    <div class="amu-hero-overlay">
+      <span class="amu-badge">Flagship Technology</span>
+      <h1>The Autonomous Manufacturing Unit</h1>
+      <p>A self-replicating orbital platform designed to industrialize the inner solar system and secure the Age of Abundance.</p>
+    </div>
+  </div>
+
+  <!-- ── Stat Bar ── -->
+  <div class="stat-bar">
+    <div class="stat-item">
+      <span class="stat-value">3</span>
+      <span class="stat-label">Stages</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">TRL 1</span>
+      <span class="stat-label">Current Readiness</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">∞</span>
+      <span class="stat-label">Replication Factor</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">2018</span>
+      <span class="stat-label">Concept Origin</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">0</span>
+      <span class="stat-label">Debris Tolerance</span>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ── Concept ── -->
+    <section id="amu-concept">
+      <h2>The Core Concept</h2>
+      <div class="glass-card">
+        <p>
+          The AMU is the foundational technology of the Awakened Imagination Group. It is conceived as a
+          <strong style="color: var(--accent-cyan);">semi-autonomous, self-replicating orbital manufacturing platform</strong> —
+          capable of producing copies of itself and manufacturing approved inventions for vendors and customers across the solar system.
+        </p>
+        <p>
+          Unlike existing space manufacturing concepts, the AMU was never designed for re-entry or low Earth orbit.
+          It is conceived for the asteroid belt and deep space — operating in the gravity wells and resource-rich
+          environments where scale and abundance become possible.
+        </p>
+        <p style="margin-bottom: 0;">
+          The AMU has the potential to be the most disruptive technology since the printing press. By manufacturing
+          in space rather than on Earth, we can transition heavy industry off-world and allow Earth's biosphere to heal.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 3 Stages ── -->
+    <section id="amu-stages">
+      <h2>The 3-Stage Architecture</h2>
+      <div class="grid-3">
+        <div class="stage-card">
+          <p class="stage-number">Stage 01</p>
+          <h3>Main Manufacturing Site (MMS)</h3>
+          <p>The adaptive core platform. Designed for self-replication and rapid on-orbit reconfiguration.
+            Once deployed, a single MMS can produce copies of itself, enabling exponential scale without
+            additional launch costs.</p>
+        </div>
+        <div class="stage-card">
+          <p class="stage-number">Stage 02</p>
+          <h3>The Logistics Core</h3>
+          <p>Integrated fuel reserves and high-cadence transporters engineered for the precision movement
+            of manufactured goods, raw materials, and personnel across the Interplanetary Transport Network (ITN).</p>
+        </div>
+        <div class="stage-card">
+          <p class="stage-number">Stage 03</p>
+          <h3>Reorientation & Re-tasking</h3>
+          <p>Capable of on-orbit re-tasking for diverse manufacturing needs — from orbital greenhouses and
+            bioreactors to compute infrastructure and habitat components. Strict hygienic protocol ensures
+            zero-debris resource recovery.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Design Gallery ── -->
+    <section id="amu-designs">
+      <h2>Design Log</h2>
+      <div class="amu-gallery">
+        <div class="amu-gallery-item">
+          <img src="img/portfolio/amu/amu-render-01.png" alt="AMU Primary Render">
+          <div class="amu-gallery-caption">
+            <strong>AMU Genesis Render</strong>
+            <p>Initial core concept visualisation of the 3-stage AMU, developed in collaboration with the founding team.</p>
+          </div>
+        </div>
+        <div class="amu-gallery-item">
+          <img src="img/portfolio/amu/amu-orbiting-greenhouses.png" alt="AMU Orbiting Greenhouses">
+          <div class="amu-gallery-caption">
+            <strong>Orbital Greenhouse Configuration</strong>
+            <p>Stage-2 AMU configured as a non-terrestrial food production facility. Submitted to Canada's Deep Space Food Challenge.</p>
+          </div>
+        </div>
+        <div class="amu-gallery-item">
+          <img src="img/portfolio/effort/AMUs.png" alt="AMU Engineering Detail">
+          <div class="amu-gallery-caption">
+            <strong>TRL 1 Engineering Detail</strong>
+            <p>Early-stage technical breakdown of the AMU structure. Bridging from concept to simulation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Founder Quote ── -->
+    <section id="amu-quote">
+      <div class="founder-quote">
+        <blockquote class="quote">
+          "The concept of the AMU has the potential to be the most revolutionary and disruptive idea since the
+          creation of the printing press."
+          <cite>— Adeel Khan, Founder</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section id="amu-cta">
+      <div class="glass-card" style="text-align: center;">
+        <h2 style="margin-top: 0;">Get Involved</h2>
+        <p style="margin: 0 auto 2rem;">
+          The AMU is an open-source endeavour. Engineers, ethicists, and visionaries are welcome to
+          contribute to the design, simulation, and governance of this technology.
+        </p>
+        <a href="/effort/" class="cta-link" style="margin-right: 1rem;">View Engineering Log →</a>
+        <a href="https://github.com/sponsors/genidma" class="cta-link" target="_blank" rel="noopener noreferrer">Sponsor the Mission →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Awakened Imagination Group of Projects</p>
+    <div id="sun"
+      style="position: fixed; width: 100px; height: 100px; background: yellow; border-radius: 50%; bottom: 20px; right: 20px; box-shadow: 0 0 50px yellow; opacity: 0.3; pointer-events: none;">
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
