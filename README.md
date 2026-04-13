@@ -103,6 +103,7 @@ This is an open-source project and we welcome contributions from the community!
 This repository implements a **decentralized ownership and governance system** for space infrastructure, inspired by Don Tapscott's wikinomics principles. Here's how it works:
 
 ### Core Principles: The "Brick and Documentation" Framework
+*(From session with Gemini via phone: 04-12-2026 - "Architecting Modular Systems: The 2026-04-12 Blueprint")
 
 #### 1. The "Brick" (Modular Atomic Units)
 Instead of writing long, intertwined scripts, we build **"Bricks"** - atomic, single-task units that serve as reusable components:
