@@ -11,74 +11,80 @@
  * their work will help enable wholesome and sustainable prosperity for many generations to come. Perhaps indefinitely. Thank you sincerely for all of your contributions. 
  * 
  * Requestor: @genidma
+ * Lead Developer: KiloAI via Trinity Large Thinking Model via Arcee AI
  * Created: 2026-04-11T00:06:20-04:00
  * 
  * This code is for prototyping and requires security audit before production use.
  */
 
-pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/lifecycle/Pausable.sol";
-
 /**
- * @title Space Infrastructure Ownership Token
- * @dev A governance token for collective ownership of space infrastructure
- */
-contract SpaceInfrastructureToken is Ownable, Pausable {
-    struct OwnershipUnit {
-        address owner;
-        uint256 shares;
-        bool active;
-        uint256 blockNumber;
-    }
-    
-    struct Proposal {
-        uint256 proposalId;
-        address proposer;
-        string description;
-        uint256 targetShares;
-        uint256 forVotes;
-        uint256 againstVotes;
-        bool executed;
-        uint256 deadline;
-    }
-    
-    // Events
-    event OwnershipTransferred(address indexed from, address indexed to, uint256 shares, uint256 timestamp);
-    event NewParticipant(address indexed participant, uint256 initialShares, uint256 timestamp);
-    event ShareConsolidated(address indexed participant, uint256 oldShares, uint256 newShares, uint256 timestamp);
-    event ProposalCreated(uint256 proposalId, address indexed proposer, string description, uint256 targetShares);
-    event VoteCast(address indexed voter, uint256 proposalId, bool support, uint256 shares, uint256 timestamp);
-    event ProposalExecuted(uint256 proposalId, bool passed);
-    event Paused(address account);
-    event Unpaused(address account);
-    
-    // State
-    mapping(address => OwnershipUnit[]) public ownershipRegistry;
-    uint256 public totalShares;
-    uint256 public nextProposalId;
-    mapping(uint256 => Proposal) public proposals;
-    mapping(uint256 => mapping(address => bool)) public hasVoted;
-    
-    // Configuration
-    uint256 public constant SHARE_DECIMALS = 10 ** 18;
-    uint256 public constant PROPOSAL_DURATION_BLOCKS = 1000; // ~4 hours at 15s blocks
-    uint256 public constant QUORUM_PERCENTAGE = 20; // 20% of total shares must participate
-    uint256 public constant MIN_PROPOSAL_SHARES = 1000; // Minimum shares required to create proposal
+     * @title Space Infrastructure Ownership Token
+     * @dev A governance token for collective ownership of space infrastructure
+     */
+    contract SpaceInfrastructureToken is Ownable, Pausable {
+        struct OwnershipUnit {
+            address owner;
+            uint256 shares;
+            bool active;
+            uint256 blockNumber;
+        }
+        
+        struct Proposal {
+            uint256 proposalId;
+            address proposer;
+            string description;
+            uint256 targetShares;
+            uint256 forVotes;
+            uint256 againstVotes;
+            bool executed;
+            uint256 deadline;
+        }
+        
+        // Events
+        event OwnershipTransferred(address indexed from, address indexed to, uint256 shares, uint256 timestamp);
+        event NewParticipant(address indexed participant, uint256 initialShares, uint256 timestamp);
+        event ShareConsolidated(address indexed participant, uint256 oldShares, uint256 newShares, uint256 timestamp);
+        event ProposalCreated(uint256 proposalId, address indexed proposer, string description, uint256 targetShares);
+        event VoteCast(address indexed voter, uint256 proposalId, bool support, uint256 shares, uint256 timestamp);
+        event ProposalExecuted(uint256 proposalId, bool passed);
+        event Paused(address account);
+        event Unpaused(address account);
+        
+        // State
+        mapping(address => OwnershipUnit[]) public ownershipRegistry;
+        uint256 public totalShares;
+        uint256 public nextProposalId;
+        mapping(uint256 => Proposal) public proposals;
+        mapping(uint256 => mapping(address => bool)) public hasVoted;
+        
+// Configuration
+uint256 public constant SHARE_DECIMALS = 10 ** 18;
+uint256 public constant PROPOSAL_DURATION_BLOCKS = 1000; // ~4 hours at 15s blocks
+uint256 public constant QUORUM_PERCENTAGE = 20; // 20% of total shares must participate
+uint256 public constant MIN_PROPOSAL_SHARES = 1000; // Minimum shares required to create proposal
+
+// Modifiers
+modifier onlyActive() {
+    require(!paused(), "Contract is paused");
+    _;
+}
+
+modifier onlyOwnerOrProposer() {
+    require(msg.sender == owner() || msg.sender == proposals[proposalId].proposer, "Not authorized");
+    _;
+}
     
     /**
      * @dev Constructor - deployer gets initial shares
      */
     constructor() {
         ownershipRegistry[msg.sender].push(OwnershipUnit({
-            shares: 1000000 * SHARE_DECIMALS,
+            shares: 100000 * SHARE_DECIMALS,
             blockNumber: block.number,
             active: true
         }));
-        totalShares = 1000000 * SHARE_DECIMALS;
-        emit OwnershipTransferred(address(0), msg.sender, 1000000 * SHARE_DECIMALS, block.number);
+        totalShares = 100000 * SHARE_DECIMALS;
+        emit OwnershipTransferred(address(0), msg.sender, 100000 * SHARE_DECIMALS, block.number);
     }
     
     /**
@@ -88,6 +94,7 @@ contract SpaceInfrastructureToken is Ownable, Pausable {
      * @param shares Amount of shares to transfer
      */
     function transferOwnership(address from, address to, uint256 shares) external onlyActive returns (bool) {
+        require(from != to, "Cannot transfer to self");
         require(from != address(0) && to != address(0), "Invalid address");
         require(shares > 0, "Shares must be positive");
         
@@ -149,6 +156,8 @@ contract SpaceInfrastructureToken is Ownable, Pausable {
      * @return proposalId
      */
     function createProposal(string memory description, uint256 targetShares) external onlyActive returns (uint256) {
+        require(bytes(description).length > 0, "Description cannot be empty");
+        require(targetShares > 0, "Target shares must be positive");
         require(msg.sender != address(0), "Invalid sender");
         require(targetShares >= MIN_PROPOSAL_SHARES, "Insufficient proposal shares");
         require(getVoterShares(msg.sender) >= targetShares, "Sender does not have enough shares");
@@ -176,7 +185,7 @@ contract SpaceInfrastructureToken is Ownable, Pausable {
      */
     function vote(uint256 proposalId, bool support) external onlyActive {
         Proposal storage p = proposals[proposalId];
-        require(block.number > p.deadline, "Voting still open");
+        require(block.number <= p.deadline, "Voting period ended"); // Fixed: voting open during deadline
         require(!p.executed, "Proposal already executed");
         require(!hasVoted[msg.sender][proposalId], "Already voted");
         
@@ -197,10 +206,10 @@ contract SpaceInfrastructureToken is Ownable, Pausable {
      * @dev Execute a proposal if it passes
      * @param proposalId Proposal identifier
      */
-    function executeProposal(uint256 proposalId) external onlyActive {
+    function executeProposal(uint256 proposalId) external onlyOwnerOrProposer {
         Proposal storage p = proposals[proposalId];
-        require(block.number > p.deadline, "Deadline not reached");
         require(!p.executed, "Proposal already executed");
+        require(block.number > p.deadline, "Deadline not reached");
         
         uint256 totalVotes = p.forVotes + p.againstVotes;
         uint256 totalShares = getTotalShares();
