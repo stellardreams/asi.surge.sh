@@ -12,6 +12,7 @@
  * 
  * Requestor: @genidma
  * Lead Developer: KiloAI via Trinity Large Thinking Model via Arcee AI
+ * Original Implementation: KiloAI with Trinity Large Thinking Model via Arcee AI
  * Created: 2026-04-11T00:06:20-04:00
  * 
  * This code is for prototyping and requires security audit before production use.
