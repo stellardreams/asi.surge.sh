@@ -3,3 +3,28 @@ prompts_for_AI/# Private mapping file - never commit
 ../private/project-mapping.txt
 node_modules/
 package-lock.json
+
+# Hardhat
+cache/
+artifacts/
+typechain-types/
+
+# Ethereum/Blockchain
+*.env
+.env.local
+.env.*.local
+secrets.json
+
+# Coverage
+coverage/
+coverage.json
+
+# Test artifacts
+test-results/
+*.log
+
+# Deployment artifacts
+deployments/
+
+# Hardhat migrations
+migrations/
