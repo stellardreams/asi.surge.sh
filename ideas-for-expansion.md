@@ -7,22 +7,22 @@ Based on the ASI project structure and goals, here are additional ideas that cou
 ### Core Infrastructure
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
 |------|-------------|------------|-----------|--------|----------|--------------|
-| Simulation Environment | Create interactive 3D visualizations of the AMU operations using Three.js to demonstrate swarm coordination in the asteroid belt | @lingma by Alibaba Cloud Technologies | [Interplanetary Foundations](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | Conceptual | High | None |
-| Open Source Hardware Designs | Publish detailed CAD files and manufacturing instructions for standardized AMU components to enable collaborative development | @lingma by Alibaba Cloud Technologies | [Interplanetary Foundations](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | In planning | High | None |
-| Cross-Platform Integration | Enable interoperability with other space agencies' APIs (NASA, ESA, JAXA, CNSA, CSA, SANSA) to ensure ASI's efforts complement existing space initiatives. The project is open to space agencies from all peaceful space-faring nations. | @lingma by Alibaba Cloud Technologies | [Master Plans](https://github.com/stellardreams/asi.surge.sh/blob/master/plans.html) | Conceptual | Medium | None |
+| Simulation Environment | Create interactive 3D visualizations of the AMU operations using Three.js to demonstrate swarm coordination in the asteroid belt | @lingma by Alibaba Cloud Technologies | [Interplanetary Foundations](plans/plan-foundations.md) | Conceptual | High | None |
+| Open Source Hardware Designs | Publish detailed CAD files and manufacturing instructions for standardized AMU components to enable collaborative development | @lingma by Alibaba Cloud Technologies | [Interplanetary Foundations](plans/plan-foundations.md) | In planning | High | None |
+| Cross-Platform Integration | Enable interoperability with other space agencies' APIs (NASA, ESA, JAXA, CNSA, CSA, SANSA) to ensure ASI's efforts complement existing space initiatives. The project is open to space agencies from all peaceful space-faring nations. | @lingma by Alibaba Cloud Technologies | [Master Plans](plans.html) | Conceptual | Medium | None |
 
 ### Governance & Ethics
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
 |------|-------------|------------|-----------|--------|----------|--------------|
-| Ethics Review Board | Establish a transparent, public ethics review process for controversial technologies like self-replicating systems and orbital manufacturing | @lingma by Alibaba Cloud Technologies | [Stewardship Plan](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-stewardship.md) | Conceptual | High | None |
-| Collaborative Governance Model | Develop liquid democracy mechanisms for decentralized decision-making among contributors worldwide | @lingma by Alibaba Cloud Technologies | [Interplanetary Foundations](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | Conceptual | Medium | Ethics Review Board |
-| Risk Assessment Matrix | Add a quantitative risk assessment framework for each phase of the AMU deployment, including failure modes and mitigation strategies | @lingma by Alibaba Cloud Technologies | [Stewardship Plan](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-stewardship.md) | Conceptual | High | None |
+| Ethics Review Board | Establish a transparent, public ethics review process for controversial technologies like self-replicating systems and orbital manufacturing | @lingma by Alibaba Cloud Technologies | [Stewardship Plan](plans/plan-stewardship.md) | Conceptual | High | None |
+| Collaborative Governance Model | Develop liquid democracy mechanisms for decentralized decision-making among contributors worldwide | @lingma by Alibaba Cloud Technologies | [Interplanetary Foundations](plans/plan-foundations.md) | Conceptual | Medium | Ethics Review Board |
+| Risk Assessment Matrix | Add a quantitative risk assessment framework for each phase of the AMU deployment, including failure modes and mitigation strategies | @lingma by Alibaba Cloud Technologies | [Stewardship Plan](plans/plan-stewardship.md) | Conceptual | High | None |
 
 ### Community & Contributions
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
 |------|-------------|------------|-----------|--------|----------|--------------|
-| Community Contributions Dashboard | Develop a real-time dashboard showing community contributions, forks, and improvements to the tactical ledgers | @lingma by Alibaba Cloud Technologies | [Effort Container](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | Conceptual | Medium | None |
-| Contribution Tracking System | Implement a transparent ledger-based tracking system to record and acknowledge individual contributions to the project. Real estate allocation in future space habitats could be determined based on  rules/norms/agreements and the level of contribution made by participants to the project. | @genidma | [Ledger System](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-foundations.md) | Conceptual | High | None |
+| Community Contributions Dashboard | Develop a real-time dashboard showing community contributions, forks, and improvements to the tactical ledgers | @lingma by Alibaba Cloud Technologies | [Effort Container](plans/plan-foundations.md) | Conceptual | Medium | None |
+| Contribution Tracking System | Implement a transparent ledger-based tracking system to record and acknowledge individual contributions to the project. Real estate allocation in future space habitats could be determined based on  rules/norms/agreements and the level of contribution made by participants to the project. | @genidma | [Ledger System](plans/plan-foundations.md) | Conceptual | High | None |
 
 ### Monitoring & Analytics
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
@@ -32,12 +32,12 @@ Based on the ASI project structure and goals, here are additional ideas that cou
 ### Education & Outreach
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
 |------|-------------|------------|-----------|--------|----------|--------------|
-| Educational Modules | Create simplified versions of the technical concepts for student outreach programs, potentially partnering with universities for credit-bearing capstone projects | @lingma by Alibaba Cloud Technologies | [Life Support Plan](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-life-support.md) | Conceptual | Low | None |
+| Educational Modules | Create simplified versions of the technical concepts for student outreach programs, potentially partnering with universities for credit-bearing capstone projects | @lingma by Alibaba Cloud Technologies | [Life Support Plan](plans/plan-life-support.md) | Conceptual | Low | None |
 
 ### Resource Management
 | Idea | Description | Originator | Plan Area | Status | Priority | Dependencies |
 |------|-------------|------------|-----------|--------|----------|--------------|
-| Resource Tracking System | Implement a blockchain-based tracking system for materials extracted from asteroids, ensuring transparent allocation across different manufacturing hubs | @lingma by Alibaba Cloud Technologies | [Prosperity Plan](https://github.com/stellardreams/asi.surge.sh/blob/master/ledger-prosperity.md) | Conceptual | High | None |
+| Resource Tracking System | Implement a blockchain-based tracking system for materials extracted from asteroids, ensuring transparent allocation across different manufacturing hubs | @lingma by Alibaba Cloud Technologies | [Prosperity Plan](plans/plan-prosperity.md) | Conceptual | High | None |
 
 ## Partnership Opportunities
 
