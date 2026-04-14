@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Infrastructure Token Dashboard</title>
+    <link rel="stylesheet" href="mystyles.css">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent-cyan: #00d9ff;
+            --text-silver: #e0e0e0;
+            --text-gray: #a0a0a0;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-silver);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+        
+        .nav-links a {
+            color: var(--text-silver);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--accent-cyan);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h2 {
+            margin-top: 0;
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+        
+        .balance {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: white;
+        }
+        
+        .label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .proposal-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .proposal-item {
+            background: rgba(0, 217, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent-cyan);
+        }
+        
+        .proposal-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .proposal-votes {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .vote-button {
+            background: var(--accent-cyan);
+            color: black;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .vote-button:hover {
+            background: #00c4e0;
+        }
+        
+        .connect-wallet {
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .connect-wallet:hover {
+            background: var(--accent-cyan);
+            color: black;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-gray);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">SIT Dashboard</div>
+        <div class="nav-links">
+            <a href="/index.html">Home</a>
+            <a href="/token-dashboard.html">Dashboard</a>
+            <button id="connectWallet" class="connect-wallet">Connect Wallet</button>
+        </div>
+    </nav>
+
+    <main class="dashboard">
+        <!-- Balance Card -->
+        <div class="card">
+            <h2>My Tokens</h2>
+            <div class="label">Balance</div>
+            <div class="balance" id="balance">0 SIT</div>
+            <div class="label">Total Supply</div>
+            <div id="totalSupply">0 SIT</div>
+        </div>
+
+        <!-- Proposals Card -->
+        <div class="card">
+            <h2>Active Proposals</h2>
+            <ul class="proposal-list" id="proposalList">
+                <!-- Proposals will be loaded here -->
+            </ul>
+        </div>
+
+        <!-- Voting Power Card -->
+        <div class="card">
+            <h2>Voting Power</h2>
+            <div class="balance" id="votingPower">0</div>
+            <div class="label">Your voting shares</div>
+            <div class="label">Quorum required: 20%</div>
+        </div>
+
+        <!-- Contribution Card -->
+        <div class="card">
+            <h2>Contributions</h2>
+            <div id="contributions">
+                <div class="loading">Loading contributions...</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Space Infrastructure Token Dashboard &copy; 2026</p>
+        <p>Empowering collective ownership of space infrastructure</p>
+    </footer>
+
+    <!-- Include ethers.js for web3 interaction -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script>
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const connectButton = document.getElementById('connectWallet');
+            const balanceElement = document.getElementById('balance');
+            const totalSupplyElement = document.getElementById('totalSupply');
+            const votingPowerElement = document.getElementById('votingPower');
+            const proposalListElement = document.getElementById('proposalList');
+            const contributionsElement = document.getElementById('contributions');
+            
+            let provider;
+            let signer;
+            let tokenContract;
+            let account;
+            
+            // Token contract ABI (simplified for demo)
+            const tokenABI = [
+                "function balanceOf(address) view returns (uint256)",
+                "function totalSupply() view returns (uint256)",
+                "function transfer(address to, uint256 amount) returns (bool)",
+                "function name() view returns (string memory)",
+                "function symbol() view returns (string memory)",
+                "function decimals() view returns (uint8)",
+                "function allowance(address owner, address spender) view returns (uint256)",
+                "function approve(address spender, uint256 amount) returns (bool)",
+                "function transferFrom(address from, address to, uint256 amount) returns (bool)",
+                "event Transfer(address indexed from, address indexed to, uint256 value)",
+                "event Approval(address indexed owner, address indexed spender, uint256 value)"
+            ];
+            
+            // Governance contract ABI (simplified)
+            const governanceABI = [
+                "function proposals(uint256) view returns (Proposal memory)",
+                "function nextProposalId() view returns (uint256)",
+                "function createProposal(string memory, uint256) returns (uint256)",
+                "function vote(uint256, bool) returns (bool)",
+                "function executeProposal(uint256)",
+                "event ProposalCreated(uint256 indexed proposalId, address indexed proposer, string description, uint256 targetAmount)",
+                "event VoteCast(address indexed voter, uint256 proposalId, bool support, uint256 amount)",
+                "event ProposalExecuted(uint256 proposalId, bool passed)"
+            ];
+            
+            // Connect wallet function
+            connectButton.addEventListener('click', async () => {
+                if (typeof window.ethereum !== 'undefined') {
+                    try {
+                        provider = new ethers.providers.Web3Provider(window.ethereum);
+                        await provider.send("eth_requestAccounts", []);
+                        account = await provider.getSigner().getAddress();
+                        signer = provider.getSigner();
+                        
+                        // Initialize token contract
+                        const tokenAddress = "0x..."; // TODO: Replace with actual token address
+                        tokenContract = new ethers.Contract(tokenAddress, tokenABI, signer);
+                        
+                        connectButton.textContent = `Connected: ${account.substring(0, 6)}...`;
+                        connectButton.disabled = true;
+                        
+                        // Load data
+                        await loadData();
+                        
+                    } catch (error) {
+                        console.error("Error connecting wallet:", error);
+                        alert("Failed to connect wallet. Please try again.");
+                    }
+                } else {
+                    alert("Please install a wallet extension like MetaMask");
+                }
+            });
+            
+            // Load data from contracts
+            async function loadData() {
+                if (!tokenContract) return;
+                
+                try {
+                    // Load token balance and total supply
+                    const balance = await tokenContract.balanceOf(account);
+                    const totalSupply = await tokenContract.totalSupply();
+                    
+                    balanceElement.textContent = `${ethers.utils.formatUnits(balance, 18)} SIT`;
+                    totalSupplyElement.textContent = `${ethers.utils.formatUnits(totalSupply, 18)} SIT`;
+                    
+                    // Load voting power (same as balance in current implementation)
+                    votingPowerElement.textContent = `${ethers.utils.formatUnits(balance, 18)}`;
+                    
+                    // Load proposals
+                    loadProposals();
+                    
+                    // Load contributions (mock data for now)
+                    contributionsElement.innerHTML = `
+                        <div class="contribution-item">
+                            <div class="contribution-title">Initial Airdrop</div>
+                            <div class="contribution-amount">100 SIT</div>
+                            <div class="contribution-date">2026-04-11</div>
+                        </div>
+                        <div class="contribution-item">
+                            <div class="contribution-title">Community Grant</div>
+                            <div class="contribution-amount">50 SIT</div>
+                            <div class="contribution-date">2026-04-15</div>
+                        </div>
+                    `;
+                    
+                } catch (error) {
+                    console.error("Error loading data:", error);
+                }
+            }
+            
+            // Load active proposals
+            async function loadProposals() {
+                if (!tokenContract) return;
+                
+                try {
+                    const proposalCount = await tokenContract.nextProposalId();
+                    
+                    if (proposalCount === 0) {
+                        proposalListElement.innerHTML = '<li class="loading">No active proposals</li>';
+                        return;
+                    }
+                    
+                    proposalListElement.innerHTML = '';
+                    
+                    for (let i = 0; i < proposalCount; i++) {
+                        const proposal = await tokenContract.proposals(i);
+                        
+                        // Only show active proposals (not executed and before deadline)
+                        if (!proposal.executed) {
+                            const proposalElement = document.createElement('li');
+                            proposalElement.className = 'proposal-item';
+                            proposalElement.innerHTML = `
+                                <div class="proposal-title">${proposal.description}</div>
+                                <div class="label">Target: ${ethers.utils.formatUnits(proposal.targetAmount, 18)} SIT</div>
+                                <div class="proposal-votes">
+                                    <span>For: ${ethers.utils.formatUnits(proposal.forVotes, 18)}</span>
+                                    <span>Against: ${ethers.utils.formatUnits(proposal.againstVotes, 18)}</span>
+                                </div>
+                                <button class="vote-button" onclick="vote(${i}, true)">Vote For</button>
+                                <button class="vote-button" onclick="vote(${i}, false)">Vote Against</button>
+                            `;
+                            proposalListElement.appendChild(proposalElement);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error loading proposals:", error);
+                    proposalListElement.innerHTML = '<li class="loading">Failed to load proposals</li>';
+                }
+            }
+            
+            // Vote function (exposed globally)
+            window.vote = async (proposalId, support) => {
+                if (!tokenContract) {
+                    alert("Please connect wallet first");
+                    return;
+                }
+                
+                try {
+                    const tx = await tokenContract.vote(proposalId, support);
+                    await tx.wait();
+                    alert(`Vote cast successfully!`);
+                    await loadData();
+                } catch (error) {
+                    console.error("Error voting:", error);
+                    alert("Failed to cast vote. Please check your connection and try again.");
+                }
+            };
+        });
+    </script>
+</body>
+</html>

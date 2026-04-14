@@ -33,6 +33,7 @@ graph TD
 - **[Home](https://asi.surge.sh/)**: main page highlighting the primary areas of interest +
 - **[The Effort](https://asi.surge.sh/effort)**: TRL 1 designs of autonomous swarm units (AMUs) and some other designs.
 - **[Imagine](https://asi.surge.sh/imagine)**: original vision
+- **[Token Dashboard](https://asi.surge.sh/token-dashboard.html)**: governance token dashboard for Space Infrastructure Token (SIT)
 - **[Master Plans](https://asi.surge.sh/plans)**: "back of the envelope" plans. 
 
 ## 🚀 Tactical Ledger Integration
@@ -74,6 +75,23 @@ Our foundational technology is the **3-stage AMU (Autonomous Manufacturing Unit)
 - **Self-Replication**: Designed for exponential scale.
 - **Reorientation**: Capable of on-orbit re-tasking for diverse manufacturing needs.
 - **TRL Target**: We are currently bridging the gap from TRL 1 to TRL 9 for orbital deployment.
+
+## 🪙 Space Infrastructure Token (SIT)
+
+The **Space Infrastructure Token (SIT)** is the governance token for the Awakened Imagination ecosystem. It enables collective ownership and decision-making for space infrastructure development.
+
+- **Purpose**: Governance and utility token for space infrastructure projects
+- **Total Supply**: 1,000,000,000 SIT (1 billion)
+- **Standard**: ERC-20 compatible on Ethereum
+- **Features**: Governance voting, staking rewards, access rights
+
+### Token Dashboard
+View your token balance, governance proposals, and voting power at the [Token Dashboard](https://asi.surge.sh/token-dashboard.html).
+
+### Smart Contracts
+- **Token Contract**: `EnhancedSpaceInfrastructureToken.sol` in `/contracts/`
+- **Test Coverage**: Available in `/test/`
+- **Deployment**: Configured for mainnet via Hardhat
 
 ## 🤝 Join the Effort
 

@@ -4,6 +4,7 @@
 
 require("@nomicfoundation/hardhat-toolbox");
 require('dotenv').config();
+require("@nomicfoundation/hardhat-upgrades");
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -29,6 +30,12 @@ module.exports = {
       accounts: {
         mnemonic: process.env.MNEMONIC || "test test test test test test test test test test test junk"
       }
+    },
+    mainnet: {
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: {
+        mnemonic: process.env.MNEMONIC
+      }
     }
   },
   solidity: {
@@ -49,5 +56,9 @@ module.exports = {
   },
   mocha: {
     timeout: 100000
+  },
+  upgrades: {
+    type: "proxies",
+    impl: "transparent"
   }
 };
