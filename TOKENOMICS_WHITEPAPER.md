@@ -1,31 +1,37 @@
 # Space Infrastructure Token (SIT) Tokenomics
 
-## Version 1.0
+## Version 2.0
 
 ### 1. Executive Summary
 
-The Space Infrastructure Token (SIT) is a governance and utility token for the Awakened Imagination ecosystem, designed to enable collective ownership and decision-making for space infrastructure development. SIT aligns incentives between contributors, investors, and users while promoting the long-term sustainability of space exploration.
+The Space Infrastructure Token (SIT) is a governance and utility token for the Awakened Imagination ecosystem, designed to enable collective ownership and decision-making for space infrastructure development. With a total supply of 20 billion tokens, SIT aligns incentives between contributors, investors, and users while promoting the long-term sustainability of space exploration. The token is designed for universal allocation - every planetary inhabitant and substrate-independent intelligence (per Lucid Accords) can participate in the wikinomics-inspired model of mass collaboration.
 
 ### 2. Token Utility
 
 - **Governance**: SIT holders can propose and vote on key decisions about the project's direction, funding allocation, and technical upgrades.
+- **Rotating Governance**: All governance roles rotate on 18-month cycles (RPA-style) to prevent concentration of power
 - **Access Rights**: Tokens grant access to exclusive features, services, and data within the ecosystem.
 - **Staking**: SIT can be staked to earn rewards and participate in network security.
 - **Payment**: Used for transaction fees, service payments, and resource allocation within the platform.
 
 ### 3. Token Distribution
 
-- **Community & Ecosystem**: 50% (500 million tokens)
+- **Community & Ecosystem**: 80% (16 billion tokens)
+  - Universal allocation to planetary inhabitants
+  - Substrate-independent intelligences (per Lucid Accords)
   - Airdrops to early adopters and contributors
   - Rewards for ecosystem participation
   - Liquidity mining and staking rewards
-- **Team & Advisors**: 20% (200 million tokens)
+- **Team & Advisors**: 5% (1 billion tokens)
   - Subject to 3-year vesting with 1-year cliff
-- **Investors**: 20% (200 million tokens)
+  - Performance-based bonus pool
+- **Investors**: 5% (1 billion tokens)
   - Private sale rounds with varying vesting schedules
-- **Treasury**: 10% (100 million tokens)
+  - Strategic partners and ecosystem supporters
+- **Treasury**: 10% (2 billion tokens)
   - Reserved for future development, partnerships, and unexpected opportunities
   - Managed by decentralized governance
+  - Includes safeguarding mechanisms (see Issue #51)
 
 ### 4. Vesting Schedules
 
@@ -47,6 +53,7 @@ The Space Infrastructure Token (SIT) is a governance and utility token for the A
 SIT holders can participate in governance through:
 - **Proposal Creation**: Minimum 1,000 SIT required to submit a proposal
 - **Voting**: 1 SIT = 1 vote; voting period of 3 days
+- **Rotating Roles**: All governance roles (proposers, validators, executors) rotate on 18-month cycles to prevent power concentration
 - **Quorum**: 20% of circulating supply required for validity
 - **Execution**: Successful proposals are executed via smart contracts
 
@@ -98,4 +105,4 @@ This document is for informational purposes only and does not constitute financi
 ---
 
 **Last Updated**: 2026-04-14  
-**Version**: 1.0
+**Version**: 2.0
