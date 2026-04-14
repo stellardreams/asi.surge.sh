@@ -2,21 +2,15 @@
  * Hardhat configuration for Space Infrastructure Token project
  */
 
-require("@nomicfoundation/hardhat-toolbox");
-require('dotenv').config();
-require("@nomicfoundation/hardhat-upgrades");
+import "@nomicfoundation/hardhat-toolbox";
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-module.exports = {
+export default {
   networks: {
     hardhat: {
       chainId: 1337,
-      forking: {
-        url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-        blockNumber: 20000000
-      },
       accounts: {
         count: 10,
         balance: 10000000000000000000 // 10 ETH each
@@ -24,18 +18,6 @@ module.exports = {
     },
     localhost: {
       url: "http://127.0.0.1:8545"
-    },
-    testnet: {
-      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: {
-        mnemonic: process.env.MNEMONIC || "test test test test test test test test test test test junk"
-      }
-    },
-    mainnet: {
-      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: {
-        mnemonic: process.env.MNEMONIC
-      }
     }
   },
   solidity: {
@@ -56,9 +38,5 @@ module.exports = {
   },
   mocha: {
     timeout: 100000
-  },
-  upgrades: {
-    type: "proxies",
-    impl: "transparent"
   }
 };

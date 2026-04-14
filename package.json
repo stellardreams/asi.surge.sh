@@ -1,6 +1,7 @@
 {
   "name": "awakened-imagination-core",
   "version": "1.0.0",
+  "type": "module",
   "description": "Core infrastructure for collective space ownership",
   "main": "index.js",
   "scripts": {
@@ -43,7 +44,7 @@
     "ownership"
   ],
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^7.0.0",
-    "hardhat": "^3.3.0"
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.19.0"
   }
 }

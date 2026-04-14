@@ -23,17 +23,15 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Mintable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
-import "@openzeppelin/contracts/access/RoleAdmin.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable {
-    using RoleAdmin for RoleAdmin.AdminRole;
+contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
     
     // Roles
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 public constant BURNING_ROLE = keccak256("BURNING_ROLE");
+    bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
     bytes32 public constant VOTING_ROLE = keccak256("VOTING_ROLE");
     
     // Governance parameters
@@ -103,33 +101,34 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable {
      * Deploys the token with initial supply and sets up roles
      */
     constructor() ERC20("SpaceInfrastructureToken", "SIT") {
-        // Initialize roles
-        _setupRole(MINTER_ROLE, address(this));
-        _setupRole(VOTING_ROLE, address(this));
-        
         // Deployer gets initial supply (100,000 tokens)
         _mint(msg.sender, 100000 * 10 ** decimals());
         emit OwnershipTransferred(address(0), msg.sender, 100000 * 10 ** decimals(), block.number);
+        
+        // Grant deployer all roles
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
+        _grantRole(BURNER_ROLE, msg.sender);
     }
     
     /**
-     * @dev Transfer tokens from one address to another
-     * @param from Source address
-     * @param to Destination address
+     * @dev Transfer tokens from one address to another (ERC-20 standard)
+     * @param sender Source address (the owner of the tokens)
+     * @param recipient Destination address
      * @param amount Amount of tokens to transfer
      */
-    function transferFrom(address from, address to, uint256 amount) external override onlyActive returns (bool) {
-        // This is the ERC-20 transferFrom - we need to implement it
-        // We'll use the allowance system
-        require(from != to, "Cannot transfer to self");
-        require(from != address(0) && to != address(0), "Invalid address");
+    function transferFrom(address sender, address recipient, uint256 amount) external override onlyActive returns (bool) {
+        require(sender != recipient, "Cannot transfer to self");
+        require(sender != address(0) && recipient != address(0), "Invalid address");
         require(amount > 0, "Amount must be positive");
         
-        uint256 allowance = _allowances[from][msg.sender];
-        require(allowance >= amount, "Allowance exceeded");
+        uint256 currentAllowance = allowance(sender, msg.sender);
+        require(currentAllowance >= amount, "Allowance exceeded");
         
-        _transferFrom(from, to, amount);
-        _approve(msg.sender, amount, from); // Reset allowance
+        _transfer(sender, recipient, amount);
+        _spendAllowance(sender, msg.sender, amount);
+        
+        emit OwnershipTransferred(sender, recipient, amount, block.number);
         return true;
     }
     
@@ -223,7 +222,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable {
      * @param endBlock Block when vesting ends
      * @param amount Total amount to vest
      */
-    function createVestingSchedule(address beneficiary, uint256 startBlock, uint256 endBlock, uint256 amount) external onlyOwner {
+    function createVestingSchedule(address beneficiary, uint256 startBlock, uint256 endBlock, uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
         require(startBlock < endBlock, "Invalid vesting period");
         require(amount > 0, "Amount must be positive");
         require(totalVestingAmount + amount <= totalSupply(), "Insufficient supply");
@@ -272,7 +271,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable {
     /**
      * @dev Revoke a vesting schedule and return remaining tokens to owner
      */
-    function revokeVesting(address beneficiary) external onlyOwner {
+    function revokeVesting(address beneficiary) external onlyRole(DEFAULT_ADMIN_ROLE) {
         uint256 vestingId = getVestingId(beneficiary);
         VestingSchedule storage vesting = vestingScheduleDetails[vestingId];
         
@@ -299,16 +298,16 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable {
     /**
      * @dev Add minter role
      */
-    function addMinter(address account) public onlyOwner {
-        _grantRole(MINTER_ROLE, account);
+    function addMinter(address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        grantRole(MINTER_ROLE, account);
         emit MinterAdded(account);
     }
     
     /**
      * @dev Remove minter role
      */
-    function removeMinter(address account) public onlyOwner {
-        _revokeRole(MINTER_ROLE, account);
+    function removeMinter(address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        revokeRole(MINTER_ROLE, account);
         emit MinterRemoved(account);
     }
     
@@ -321,10 +320,10 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable {
     }
     
     /**
-     * @dev Burn tokens (only burning role)
+     * @dev Burn tokens (only burner role)
      */
-    function burn(address from, uint256 amount) public onlyRole(BURNING_ROLE) {
-        _burn(from, amount);
+    function burn(uint256 amount) public onlyRole(BURNER_ROLE) {
+        _burn(msg.sender, amount);
     }
     
     /**
