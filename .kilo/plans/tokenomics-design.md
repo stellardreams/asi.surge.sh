@@ -10,6 +10,71 @@
 
 ---
 
+## Document Flow
+
+```mermaid
+flowchart TD
+    subgraph Design
+        A[TOKENOMICS_WHITEPAPER.md] --> B[Phase 1: Tokenomics & Legal]
+        B --> C[Phase 2: Technical Prep]
+        C --> D[Phase 3: Community & Launch]
+    end
+
+    subgraph Implementation
+        E[SpaceInfrastructureToken.sol] --> E2[SpaceInfrastructureTokenV2.sol]
+        E2 --> F[Staking Contract]
+        F --> G[Burn Mechanism]
+        G --> H[Treasury]
+    end
+
+    subgraph Governance
+        I[Proposals] --> J[Voting]
+        J --> K[Execution]
+    end
+
+    A --> E
+    B --> E2
+    C --> F
+    D --> H
+
+    style A fill:#f9f,stroke:#333
+    style E2 fill:#bbf,stroke:#333
+    style K fill:#bfb,stroke:#333
+```
+
+## Implementation Roadmap
+
+```mermaid
+gantt
+    title Tokenomics Implementation Timeline
+    dateFormat  YYYY-MM-DD
+    section Phase 1
+    Legal Review           :a1, 2026-04-15, 30d
+    Token Classification   :a2, after a1, 14d
+    
+    section Phase 2
+    Contract Audit        :b1, 2026-05-15, 21d
+    Deployment Setup       :b2, after b1, 14d
+    Multisig Config        :b3, after b2, 7d
+    
+    section Phase 3
+    Governance Launch      :c1, 2026-06-01, 30d
+    Staking Integration     :c2, after c1, 21d
+    Community Airdrop      :c3, after c2, 14d
+```
+
+## Token Distribution
+
+```mermaid
+pie title SIT Distribution (1B Total)
+    Community & Ecosystem : 50
+    Team & Advisors : 20
+    Investors : 20
+    Treasury : 10
+```
+
+---
+
 ## Context
 - Vision: "Wikipedia model" for space infrastructure - anyone can own/co-develop, contributors rewarded for management, maintenance, security, and keeping space accessible
 - Current state: Has a governance token contract (`SpaceInfrastructureToken.sol`) with basic ownership and voting
