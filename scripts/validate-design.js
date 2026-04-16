@@ -1,5 +1,10 @@
-const IPFSBlueprintStorage = require('../scripts/ipfs-storage');
-const fs = require('fs');
+import fs from 'fs';
+
+// Stub IPFS for now - full IPFS integration later
+class IPFSBlueprintStorage {
+    async init() {}
+    async getBlueprint() { return null; }
+}
 
 class DesignValidator {
     constructor() {
@@ -91,11 +96,19 @@ class DesignValidator {
             { path: "designs/O'Neill-v1.json" }
         ];
         
+        let hasDesigns = false;
+        
         for (const blueprint of blueprints) {
             if (fs.existsSync(blueprint.path)) {
+                hasDesigns = true;
                 const result = await this.validateDesignFile(blueprint.path);
                 results.push(result);
             }
+        }
+        
+        if (!hasDesigns) {
+            console.log('No design files found. Skipping validation.');
+            return results;
         }
         
         return results;
@@ -106,6 +119,11 @@ class DesignValidator {
 (async () => {
     const validator = new DesignValidator();
     const results = await validator.validateAllBlueprints();
+    
+    if (results.length === 0) {
+        console.log('No design files found. Validation skipped.');
+        process.exit(0);
+    }
     
     let allValid = true;
     let report = [];

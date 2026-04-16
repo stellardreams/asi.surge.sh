@@ -44,7 +44,7 @@
     "ownership"
   ],
   "dependencies": {
-    "ipfs-http-client": "^60.0.0"
+    "kubo": "^0.40.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^7.0.0",

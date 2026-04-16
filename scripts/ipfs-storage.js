@@ -1,4 +1,5 @@
-const IPFS = require('ipfs');
+// IPFS module - requires kubo or external IPFS daemon
+// Use: npm install kubo-rpc-client
 
 class IPFSBlueprintStorage {
     constructor() {
