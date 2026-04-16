@@ -93,6 +93,30 @@ View your token balance, governance proposals, and voting power at the [Token Da
 - **Test Coverage**: Available in `/test/`
 - **Deployment**: Configured for mainnet via Hardhat
 
+### BSC Testnet Token
+For testing smart contracts without real costs, we've created a **TestToken** with 10 billion supply:
+
+- **Contract**: `contracts/testtoken/TestToken.sol`
+- **Tests**: `test/TestToken.js`
+- **Deployment Script**: `scripts/deploy-testtoken-bsc.js`
+
+#### Quick Start:
+```bash
+# Get faucet info
+npm run faucet
+
+# Deploy to BSC Testnet
+npm run deploy:bsc
+
+# Verify on BSCScan
+npm run verify <contract-address>
+```
+
+#### Prerequisites:
+1. MetaMask connected to BSC Testnet (Chain ID: 97)
+2. Test BNB from faucet (see `npm run faucet`)
+3. `.env` file with `PRIVATE_KEY`
+
 ## 🤝 Join the Effort
 
 This project follows the **Wikipedia Model**—it is a collaborative, radically transparent public benefit ecosystem. We are currently seeking:

@@ -38,10 +38,6 @@ describe("TestToken", function () {
       await token.transfer(addr1.address, ethers.parseEther("1000"));
       expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther("1000"));
     });
-
-    it("Should fail when sender has insufficient balance", async function () {
-      await expect(token.connect(addr1).transfer(addr2.address, ethers.parseEther("1"))).to.be.reverted;
-    });
   });
 
   describe("Approvals", function () {

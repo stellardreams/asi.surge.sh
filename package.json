@@ -5,7 +5,12 @@
   "description": "Core infrastructure for collective space ownership",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx hardhat test",
+    "test:local": "npx hardhat test",
+    "deploy:bsc": "npx hardhat run scripts/deploy-testtoken-bsc.js --network bscTestnet",
+    "faucet": "node scripts/bsc-faucet-info.js",
+    "verify": "node scripts/verify-bsc.js",
+    "compile": "npx hardhat compile",
     "validate": "node scripts/validate-design.js"
   },
   "repository": {

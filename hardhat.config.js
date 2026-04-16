@@ -18,6 +18,13 @@ export default {
     },
     localhost: {
       url: "http://127.0.0.1:8545"
+    },
+    bscTestnet: {
+      url: "https://data-seed-prebsc-1-s1.bnbchain.org:8545/",
+      chainId: 97,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 20000000000, // 20 gwei
+      gasLimit: 3000000
     }
   },
   solidity: {
