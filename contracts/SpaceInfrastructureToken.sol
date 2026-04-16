@@ -51,8 +51,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
         event ProposalCreated(uint256 proposalId, address indexed proposer, string description, uint256 targetShares);
         event VoteCast(address indexed voter, uint256 proposalId, bool support, uint256 shares, uint256 timestamp);
         event ProposalExecuted(uint256 proposalId, bool passed);
-        event Paused(address account);
-        event Unpaused(address account);
+
         
         // State
         mapping(address => OwnershipUnit[]) public ownershipRegistry;
@@ -83,9 +82,10 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
      */
     constructor() {
         ownershipRegistry[msg.sender].push(OwnershipUnit({
+            owner: msg.sender,
             shares: 100000 * SHARE_DECIMALS,
-            blockNumber: block.number,
-            active: true
+            active: true,
+            blockNumber: block.number
         }));
         totalShares = 100000 * SHARE_DECIMALS;
         emit OwnershipTransferred(address(0), msg.sender, 100000 * SHARE_DECIMALS, block.number);
@@ -142,9 +142,10 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
         // If receiver has no active entry, create new one
         if (!foundActive) {
             ownershipRegistry[to].push(OwnershipUnit({
+                owner: to,
                 shares: shares,
-                blockNumber: block.number,
-                active: true
+                active: true,
+                blockNumber: block.number
             }));
             emit NewParticipant(to, shares, block.number);
         }
@@ -159,7 +160,7 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
      * @param targetShares Minimum shares required to pass
      * @return proposalId
      */
-    function createProposal(string memory description, uint256 targetShares) external onlyActive returns (uint256) {
+    function createProposal(string memory description, uint256 targetShares) external onlyActive virtual returns (uint256) {
         require(bytes(description).length > 0, "Description cannot be empty");
         require(targetShares > 0, "Target shares must be positive");
         require(msg.sender != address(0), "Invalid sender");
@@ -187,11 +188,11 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
      * @param proposalId Proposal identifier
      * @param support Vote in favor (true) or against (false)
      */
-    function vote(uint256 proposalId, bool support) external onlyActive {
+    function vote(uint256 proposalId, bool support) external onlyActive virtual {
         Proposal storage p = proposals[proposalId];
         require(block.number <= p.deadline, "Voting period ended"); // Fixed: voting open during deadline
         require(!p.executed, "Proposal already executed");
-        require(!hasVoted[msg.sender][proposalId], "Already voted");
+        require(!hasVoted[proposalId][msg.sender], "Already voted");
         
         uint256 voterShares = getVoterShares(msg.sender);
         require(voterShares > 0, "No voting shares");
@@ -202,7 +203,7 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
             p.againstVotes += voterShares;
         }
         
-        hasVoted[msg.sender][proposalId] = true;
+        hasVoted[proposalId][msg.sender] = true;
         emit VoteCast(msg.sender, proposalId, support, voterShares, block.number);
     }
     
@@ -260,7 +261,7 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
     /**
      * @dev Pause all operations in case of emergency
      */
-    function pauseContract() public onlyOwner {
+    function pauseContract() public onlyOwner virtual {
         _pause();
         emit Paused(msg.sender);
     }
@@ -268,7 +269,7 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
     /**
      * @dev Unpause operations
      */
-    function unpauseContract() public onlyOwner {
+    function unpauseContract() public onlyOwner virtual {
         _unpause();
         emit Unpaused(msg.sender);
     }

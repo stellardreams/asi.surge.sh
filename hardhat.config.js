@@ -39,7 +39,7 @@ export default {
   paths: {
     artifacts: "./artifacts",
     cache: "./cache",
-    sources: "./contracts/testtoken",
+    sources: "./contracts",
     tests: "./test",
     migrations: "./migrations"
   },

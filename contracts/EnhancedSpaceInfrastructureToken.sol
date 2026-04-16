@@ -29,9 +29,7 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
     bytes32 public constant VOTING_ROLE = keccak256("VOTING_ROLE");
     
     // Governance parameters (matching original)
-    uint256 public constant PROPOSAL_DURATION_BLOCKS = 1000; // ~4 hours at 15s blocks
-    uint256 public constant QUORUM_PERCENTAGE = 20; // 20% of total shares must participate
-    uint256 public constant MIN_PROPOSAL_SHARES = 1000; // Minimum shares required to create proposal
+
     
     // Vesting parameters
     struct VestingSchedule {
@@ -46,14 +44,8 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
     // Events (including ERC-20 events)
     event ERC20Transfer(address indexed from, address indexed to, uint256 value);
     event ERC20Approval(address indexed owner, address indexed spender, uint256 value);
-    event OwnershipTransferred(address indexed from, address indexed to, uint256 amount, uint256 timestamp);
-    event NewParticipant(address indexed participant, uint256 initialAmount, uint256 timestamp);
-    event ShareConsolidated(address indexed participant, uint256 oldAmount, uint256 newAmount, uint256 timestamp);
-    event ProposalCreated(uint256 proposalId, address indexed proposer, string description, uint256 targetAmount);
-    event VoteCast(address indexed voter, uint256 proposalId, bool support, uint256 amount, uint256 timestamp);
-    event ProposalExecuted(uint256 proposalId, bool passed);
-    event Paused(address account);
-    event Unpaused(address account);
+
+
     event MinterAdded(address indexed account);
     event MinterRemoved(address indexed account);
     event VestingCreated(address indexed beneficiary, uint256 startBlock, uint256 endBlock, uint256 amount);
@@ -64,9 +56,7 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
     mapping(address => uint256[]) public vestingSchedules;
     mapping(uint256 => VestingSchedule) public vestingScheduleDetails;
     uint256 public totalVestingAmount;
-    uint256 public nextProposalId;
-    mapping(uint256 => Proposal) public proposals;
-    mapping(uint256 => mapping(address => bool)) public hasVoted;
+
     mapping(uint256 => mapping(address => uint256)) public votingPowerAtProposal;
     
     // Override ERC-20 name, symbol, decimals
@@ -94,49 +84,38 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
         emit OwnershipTransferred(address(0), msg.sender, 100000 * 10 ** 18, block.number);
     }
     
-    // Override transfer to emit both ERC-20 and custom events
+    // Override transfer to emit custom events (ERC-20 Transfer already emitted)
     function transfer(address to, uint256 value) public override onlyActive returns (bool) {
         bool success = super.transfer(to, value);
         if (success) {
-            emit ERC20Transfer(msg.sender, to, value);
             emit OwnershipTransferred(msg.sender, to, value, block.number);
         }
         return success;
     }
-    
-    // Override transferFrom to work with allowance
+
+    // Override transferFrom to emit custom events
     function transferFrom(address from, address to, uint256 value) public override onlyActive returns (bool) {
         bool success = super.transferFrom(from, to, value);
         if (success) {
-            emit ERC20Transfer(from, to, value);
             emit OwnershipTransferred(from, to, value, block.number);
         }
         return success;
     }
     
-    // Override approve to emit event
-    function approve(address spender, uint256 value) public override onlyActive returns (bool) {
-        bool success = super.approve(spender, value);
-        if (success) {
-            emit ERC20Approval(msg.sender, spender, value);
-        }
-        return success;
-    }
-    
     // Create proposal (same as original but with ERC-20 amounts)
-    function createProposal(string memory description, uint256 targetAmount) external onlyActive returns (uint256) {
+    function createProposal(string memory description, uint256 targetShares) external onlyActive override returns (uint256) {
         require(bytes(description).length > 0, "Description cannot be empty");
-        require(targetAmount > 0, "Target amount must be positive");
+        require(targetShares > 0, "Target shares must be positive");
         require(msg.sender != address(0), "Invalid sender");
-        require(targetAmount >= MIN_PROPOSAL_SHARES, "Insufficient proposal amount");
-        require(balanceOf(msg.sender) >= targetAmount, "Sender does not have enough tokens");
+        require(targetShares >= MIN_PROPOSAL_SHARES, "Insufficient proposal shares");
+        require(balanceOf(msg.sender) >= targetShares, "Sender does not have enough tokens");
         
         uint256 proposalId = nextProposalId++;
         proposals[proposalId] = Proposal({
             proposalId: proposalId,
             proposer: msg.sender,
             description: description,
-            targetAmount: targetAmount,
+            targetShares: targetShares,
             forVotes: 0,
             againstVotes: 0,
             executed: false,
@@ -146,16 +125,16 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
         // Snapshot voting power at proposal creation
         votingPowerAtProposal[proposalId][msg.sender] = balanceOf(msg.sender);
 
-        emit ProposalCreated(proposalId, msg.sender, description, targetAmount);
+        emit ProposalCreated(proposalId, msg.sender, description, targetShares);
         return proposalId;
     }
     
     // Vote (uses ERC-20 balance)
-    function vote(uint256 proposalId, bool support) external onlyActive {
+    function vote(uint256 proposalId, bool support) external onlyActive override {
         Proposal storage p = proposals[proposalId];
         require(block.number <= p.deadline, "Voting period ended");
         require(!p.executed, "Proposal already executed");
-        require(!hasVoted[msg.sender][proposalId], "Already voted");
+        require(!hasVoted[proposalId][msg.sender], "Already voted");
         
         uint256 voterAmount = votingPowerAtProposal[proposalId][msg.sender];
         require(voterAmount > 0, "No voting amount");
@@ -166,12 +145,12 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
             p.againstVotes += voterAmount;
         }
         
-        hasVoted[msg.sender][proposalId] = true;
+        hasVoted[proposalId][msg.sender] = true;
         emit VoteCast(msg.sender, proposalId, support, voterAmount, block.number);
     }
     
     // Execute proposal (same as original)
-    function executeProposal(uint256 proposalId) external onlyOwnerOrProposer(proposalId) {
+    function executeProposal(uint256 proposalId) external onlyOwnerOrProposer(proposalId) override {
         Proposal storage p = proposals[proposalId];
         require(!p.executed, "Proposal already executed");
         require(block.number > p.deadline, "Deadline not reached");
@@ -188,7 +167,7 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
         }
         
         // Check if for votes meet target
-        if (p.forVotes >= p.targetAmount) {
+        if (p.forVotes >= p.targetShares) {
             p.executed = true;
             emit ProposalExecuted(proposalId, true);
         } else {
@@ -220,46 +199,43 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
         emit VestingCreated(beneficiary, startBlock, endBlock, amount);
     }
     
-    function claimVesting(address beneficiary) external onlyActive {
-        uint256 vestingId = getVestingId(beneficiary);
+    function claimVesting(uint256 vestingId) external onlyActive {
         VestingSchedule storage vesting = vestingScheduleDetails[vestingId];
-        
-        require(vesting.beneficiary == beneficiary, "Not a beneficiary");
+
+        require(vesting.beneficiary == msg.sender, "Not a beneficiary");
         require(block.number >= vesting.startBlock, "Vesting not started");
         require(!vesting.revoked, "Vesting revoked");
-        
+
         uint256 elapsedBlocks = block.number - vesting.startBlock;
         uint256 totalBlocks = vesting.endBlock - vesting.startBlock;
         uint256 vestedAmount = (vesting.amount * elapsedBlocks) / totalBlocks;
         uint256 claimable = vestedAmount - vesting.claimed;
-        
+
         require(claimable > 0, "No claimable amount");
-        
+
         vesting.claimed += claimable;
-        _transfer(address(this), beneficiary, claimable);
-        
-        emit VestingClaimed(beneficiary, claimable);
+        _transfer(address(this), msg.sender, claimable);
+
+        emit VestingClaimed(msg.sender, claimable);
     }
     
-    function revokeVesting(address beneficiary) external onlyOwner {
-        uint256 vestingId = getVestingId(beneficiary);
+    function revokeVesting(uint256 vestingId) external onlyRole(DEFAULT_ADMIN_ROLE) {
         VestingSchedule storage vesting = vestingScheduleDetails[vestingId];
-        
-        require(vesting.beneficiary == beneficiary, "Not a beneficiary");
+
+        require(vesting.beneficiary != address(0), "Vesting does not exist");
         require(!vesting.revoked, "Vesting already revoked");
-        
+
         uint256 elapsedBlocks = block.number - vesting.startBlock;
         uint256 totalBlocks = vesting.endBlock - vesting.startBlock;
         uint256 vestedAmount = (vesting.amount * elapsedBlocks) / totalBlocks;
-        
+
         vesting.revoked = true;
-        _transfer(beneficiary, address(this), vestedAmount);
-        emit VestingRevoked(beneficiary, vestedAmount);
+        _transfer(vesting.beneficiary, address(this), vestedAmount);
+        emit VestingRevoked(vesting.beneficiary, vestedAmount);
     }
     
-    function getVestingId(address beneficiary) public view returns (uint256) {
-        require(vestingSchedules[beneficiary].length > 0, "No vesting schedule");
-        return vestingSchedules[beneficiary][0];
+    function getVestingIds(address beneficiary) public view returns (uint256[] memory) {
+        return vestingSchedules[beneficiary];
     }
     
     // Minter functions
@@ -283,12 +259,12 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
     }
     
     // Pause/unpause
-    function pauseContract() public onlyOwner {
+    function pauseContract() public onlyOwner override {
         _pause();
         emit Paused(msg.sender);
     }
     
-    function unpauseContract() public onlyOwner {
+    function unpauseContract() public onlyOwner override {
         _unpause();
         emit Unpaused(msg.sender);
     }

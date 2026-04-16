@@ -56,8 +56,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
     event ProposalCreated(uint256 proposalId, address indexed proposer, string description, uint256 targetAmount);
     event VoteCast(address indexed voter, uint256 proposalId, bool support, uint256 amount, uint256 timestamp);
     event ProposalExecuted(uint256 proposalId, bool passed);
-    event Paused(address account);
-    event Unpaused(address account);
+
     event MinterAdded(address indexed account);
     event MinterRemoved(address indexed account);
     event VestingCreated(address indexed beneficiary, uint256 startBlock, uint256 endBlock, uint256 amount);
@@ -118,7 +117,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
      * @param recipient Destination address
      * @param amount Amount of tokens to transfer
      */
-    function transferFrom(address sender, address recipient, uint256 amount) external override onlyActive returns (bool) {
+    function transferFrom(address sender, address recipient, uint256 amount) public override onlyActive returns (bool) {
         require(sender != recipient, "Cannot transfer to self");
         require(sender != address(0) && recipient != address(0), "Invalid address");
         require(amount > 0, "Amount must be positive");
@@ -174,7 +173,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
         Proposal storage p = proposals[proposalId];
         require(block.number <= p.deadline, "Voting period ended");
         require(!p.executed, "Proposal already executed");
-        require(!hasVoted[msg.sender][proposalId], "Already voted");
+        require(!hasVoted[proposalId][msg.sender], "Already voted");
         
         uint256 voterAmount = votingPowerAtProposal[proposalId][msg.sender];
         require(voterAmount > 0, "No voting amount");
@@ -185,7 +184,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
             p.againstVotes += voterAmount;
         }
         
-        hasVoted[msg.sender][proposalId] = true;
+        hasVoted[proposalId][msg.sender] = true;
         emit VoteCast(msg.sender, proposalId, support, voterAmount, block.number);
     }
     
@@ -249,54 +248,51 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
     }
     
     /**
-     * @dev Claim vested tokens for a beneficiary
+     * @dev Claim vested tokens for a specific vesting schedule
      */
-    function claimVesting(address beneficiary) external onlyActive {
-        uint256 vestingId = getVestingId(beneficiary);
+    function claimVesting(uint256 vestingId) external onlyActive {
         VestingSchedule storage vesting = vestingScheduleDetails[vestingId];
-        
-        require(vesting.beneficiary == beneficiary, "Not a beneficiary");
+
+        require(vesting.beneficiary == msg.sender, "Not a beneficiary");
         require(block.number >= vesting.startBlock, "Vesting not started");
         require(!vesting.revoked, "Vesting revoked");
-        
+
         uint256 elapsedBlocks = block.number - vesting.startBlock;
         uint256 totalBlocks = vesting.endBlock - vesting.startBlock;
         uint256 vestedAmount = (vesting.amount * elapsedBlocks) / totalBlocks;
         uint256 claimable = vestedAmount - vesting.claimed;
-        
+
         require(claimable > 0, "No claimable amount");
-        
+
         vesting.claimed += claimable;
-        _transfer(address(this), beneficiary, claimable);
-        
-        emit VestingClaimed(beneficiary, claimable);
+        _transfer(address(this), msg.sender, claimable);
+
+        emit VestingClaimed(msg.sender, claimable);
     }
     
     /**
      * @dev Revoke a vesting schedule and return remaining tokens to owner
      */
-    function revokeVesting(address beneficiary) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        uint256 vestingId = getVestingId(beneficiary);
+    function revokeVesting(uint256 vestingId) external onlyRole(DEFAULT_ADMIN_ROLE) {
         VestingSchedule storage vesting = vestingScheduleDetails[vestingId];
-        
-        require(vesting.beneficiary == beneficiary, "Not a beneficiary");
+
+        require(vesting.beneficiary != address(0), "Vesting does not exist");
         require(!vesting.revoked, "Vesting already revoked");
-        
+
         uint256 elapsedBlocks = block.number - vesting.startBlock;
         uint256 totalBlocks = vesting.endBlock - vesting.startBlock;
         uint256 vestedAmount = (vesting.amount * elapsedBlocks) / totalBlocks;
-        
+
         vesting.revoked = true;
-        _transfer(beneficiary, address(this), vestedAmount);
-        emit VestingRevoked(beneficiary, vestedAmount);
+        _transfer(vesting.beneficiary, address(this), vestedAmount);
+        emit VestingRevoked(vesting.beneficiary, vestedAmount);
     }
     
     /**
      * @dev Get the vesting ID for a beneficiary
      */
-    function getVestingId(address beneficiary) public view returns (uint256) {
-        require(vestingSchedules[beneficiary].length > 0, "No vesting schedule");
-        return vestingSchedules[beneficiary][0]; // Simplified: only one vesting per address
+    function getVestingIds(address beneficiary) public view returns (uint256[] memory) {
+        return vestingSchedules[beneficiary];
     }
     
     /**
