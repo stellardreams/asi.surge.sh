@@ -44,10 +44,11 @@
     "ownership"
   ],
   "dependencies": {
+    "@openzeppelin/contracts": "^4.9.5",
     "kubo": "^0.40.1"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^7.0.0",
-    "hardhat": "^3.3.0"
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
   }
 }

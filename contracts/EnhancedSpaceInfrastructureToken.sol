@@ -17,14 +17,11 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Mintable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
-import "@openzeppelin/contracts/access/RoleAdmin.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./SpaceInfrastructureToken.sol";
 
-contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ownable, Pausable {
-    using RoleAdmin for RoleAdmin.AdminRole;
+contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ownable, Pausable, AccessControl {
     
     // Roles
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");

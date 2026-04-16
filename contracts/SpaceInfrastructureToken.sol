@@ -18,6 +18,9 @@
  * This code is for prototyping and requires security audit before production use.
  */
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+
 /**
      * @title Space Infrastructure Ownership Token
      * @dev A governance token for collective ownership of space infrastructure
