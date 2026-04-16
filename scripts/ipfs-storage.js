@@ -1,5 +1,4 @@
 const IPFS = require('ipfs');
-const fs = require('fs');
 
 class IPFSBlueprintStorage {
     constructor() {
