@@ -21,7 +21,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./SpaceInfrastructureToken.sol";
 
-contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ownable, Pausable, AccessControl {
+contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, AccessControl {
     
     // Roles
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -67,6 +67,7 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ow
     uint256 public nextProposalId;
     mapping(uint256 => Proposal) public proposals;
     mapping(uint256 => mapping(address => bool)) public hasVoted;
+    mapping(uint256 => mapping(address => uint256)) public votingPowerAtProposal;
     
     // Override ERC-20 name, symbol, decimals
     function name() public view override returns (string memory) {
@@ -84,9 +85,10 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ow
     // Constructor
     constructor() ERC20("SpaceInfrastructureToken", "SIT") {
         // Initialize roles
-        _setupRole(MINTER_ROLE, address(this));
-        _setupRole(VOTING_ROLE, address(this));
-        
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
+        _grantRole(BURNING_ROLE, msg.sender);
+
         // Deployer gets initial supply (100,000 tokens)
         _mint(msg.sender, 100000 * 10 ** 18);
         emit OwnershipTransferred(address(0), msg.sender, 100000 * 10 ** 18, block.number);
@@ -140,7 +142,10 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ow
             executed: false,
             deadline: block.number + PROPOSAL_DURATION_BLOCKS
         });
-        
+
+        // Snapshot voting power at proposal creation
+        votingPowerAtProposal[proposalId][msg.sender] = balanceOf(msg.sender);
+
         emit ProposalCreated(proposalId, msg.sender, description, targetAmount);
         return proposalId;
     }
@@ -152,7 +157,7 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ow
         require(!p.executed, "Proposal already executed");
         require(!hasVoted[msg.sender][proposalId], "Already voted");
         
-        uint256 voterAmount = balanceOf(msg.sender);
+        uint256 voterAmount = votingPowerAtProposal[proposalId][msg.sender];
         require(voterAmount > 0, "No voting amount");
         
         if (support) {
@@ -258,12 +263,12 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ow
     }
     
     // Minter functions
-    function addMinter(address account) public onlyOwner {
+    function addMinter(address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
         _grantRole(MINTER_ROLE, account);
         emit MinterAdded(account);
     }
-    
-    function removeMinter(address account) public onlyOwner {
+
+    function removeMinter(address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
         _revokeRole(MINTER_ROLE, account);
         emit MinterRemoved(account);
     }

@@ -73,7 +73,7 @@ modifier onlyActive() {
     _;
 }
 
-modifier onlyOwnerOrProposer() {
+modifier onlyOwnerOrProposer(uint256 proposalId) {
     require(msg.sender == owner() || msg.sender == proposals[proposalId].proposer, "Not authorized");
     _;
 }
@@ -210,7 +210,7 @@ modifier onlyOwnerOrProposer() {
      * @dev Execute a proposal if it passes
      * @param proposalId Proposal identifier
      */
-    function executeProposal(uint256 proposalId) external onlyOwnerOrProposer {
+    function executeProposal(uint256 proposalId) external onlyOwnerOrProposer(proposalId) {
         Proposal storage p = proposals[proposalId];
         require(!p.executed, "Proposal already executed");
         require(block.number > p.deadline, "Deadline not reached");

@@ -71,6 +71,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
     uint256 public nextProposalId;
     mapping(uint256 => Proposal) public proposals;
     mapping(uint256 => mapping(address => bool)) public hasVoted;
+    mapping(uint256 => mapping(address => uint256)) public votingPowerAtProposal;
     
     // Proposal struct (same as original)
     struct Proposal {
@@ -156,7 +157,10 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
             executed: false,
             deadline: block.number + PROPOSAL_DURATION_BLOCKS
         });
-        
+
+        // Snapshot voting power at proposal creation
+        votingPowerAtProposal[proposalId][msg.sender] = balanceOf(msg.sender);
+
         emit ProposalCreated(proposalId, msg.sender, description, targetAmount);
         return proposalId;
     }
@@ -172,7 +176,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
         require(!p.executed, "Proposal already executed");
         require(!hasVoted[msg.sender][proposalId], "Already voted");
         
-        uint256 voterAmount = balanceOf(msg.sender);
+        uint256 voterAmount = votingPowerAtProposal[proposalId][msg.sender];
         require(voterAmount > 0, "No voting amount");
         
         if (support) {
