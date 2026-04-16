@@ -256,18 +256,6 @@
                 "event Approval(address indexed owner, address indexed spender, uint256 value)"
             ];
             
-            // Connect wallet function
-            connectButton.addEventListener('click', async () => {
-                if (typeof window.ethereum !== 'undefined') {
-                    try {
-                        provider = new ethers.providers.Web3Provider(window.ethereum);
-                        await provider.send("eth_requestAccounts", []);
-                        account = await provider.getSigner().getAddress();
-                        signer = provider.getSigner();
-                        
-                        // Initialize token contract
-                        const tokenAddress = "0x..."; // TODO: Replace with actual token address
-                        tokenContract = new ethers.Contract(tokenAddress, tokenABI, signer);
                         
                         connectButton.textContent = `Connected: ${account.substring(0, 6)}...`;
                         connectButton.disabled = true;
