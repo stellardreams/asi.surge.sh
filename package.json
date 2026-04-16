@@ -43,6 +43,9 @@
     "decentralized",
     "ownership"
   ],
+  "dependencies": {
+    "ipfs-http-client": "^60.0.0"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^7.0.0",
     "hardhat": "^3.3.0"
