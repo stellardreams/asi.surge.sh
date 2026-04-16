@@ -39,6 +39,3 @@ jobs:
       with:
         name: contracts-artifacts
         path: artifacts/
-```
-
-I'll create a GitHub Actions workflow that automatically tests the token contracts on every push to main. This ensures code quality and catches issues early in the development process.
