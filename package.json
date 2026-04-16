@@ -51,7 +51,6 @@
   "dependencies": {
     "@helia/unixfs": "^3.0.0",
     "@openzeppelin/contracts": "^4.9.5",
-    "ethers": "^6.16.0",
     "helia": "^4.0.0"
   },
   "devDependencies": {
