@@ -50,7 +50,8 @@
   ],
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.5",
-    "kubo": "^0.40.1"
+    "helia": "^4.0.0",
+    "@helia/unixfs": "^3.0.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",

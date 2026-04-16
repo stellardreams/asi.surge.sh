@@ -1,24 +1,23 @@
-// IPFS module - requires kubo or external IPFS daemon
-// Use: npm install kubo-rpc-client
+// IPFS module using Helia - modern IPFS implementation
+// No external daemon required
+
+import { createHelia } from 'helia';
+import { unixfs } from '@helia/unixfs';
 
 class IPFSBlueprintStorage {
     constructor() {
-        this.node = null;
+        this.helia = null;
+        this.fs = null;
         this.init();
     }
 
     async init() {
         try {
-            this.node = await IPFS.create({
-                repo: './ipfs-repo',
-                multiaddr: '/ip4/127.0.0.1/tcp/4001',
-                peerstore: {
-                    store: new(require('peer-store'))()
-                }
-            });
-            console.log('IPFS node initialized');
+            this.helia = await createHelia();
+            this.fs = unixfs(this.helia);
+            console.log('Helia IPFS node initialized');
         } catch (error) {
-            console.error('Failed to initialize IPFS node:', error);
+            console.error('Failed to initialize Helia IPFS node:', error);
         }
     }
 
@@ -28,10 +27,11 @@ class IPFSBlueprintStorage {
     async storeBlueprint(blueprint) {
         try {
             const content = JSON.stringify(blueprint, null, 2);
-            const result = await this.node.add(content);
-            
-            console.log(`Stored blueprint: ${result.path}, CID: ${result.cid.toString()}`);
-            return result.cid.toString();
+            const bytes = new TextEncoder().encode(content);
+            const cid = await this.fs.addBytes(bytes);
+
+            console.log(`Stored blueprint: CID: ${cid.toString()}`);
+            return cid.toString();
         } catch (error) {
             console.error('Failed to store blueprint:', error);
             throw error;
@@ -44,11 +44,11 @@ class IPFSBlueprintStorage {
     async getBlueprint(cid) {
         try {
             const chunks = [];
-            for await (const chunk of this.node.get(cid)) {
+            for await (const chunk of this.fs.cat(cid)) {
                 chunks.push(chunk);
             }
-            
-            const content = Buffer.concat(chunks).toString();
+
+            const content = new TextDecoder().decode(Buffer.concat(chunks));
             return JSON.parse(content);
         } catch (error) {
             console.error('Failed to retrieve blueprint:', error);
@@ -86,4 +86,4 @@ class IPFSBlueprintStorage {
     }
 }
 
-module.exports = IPFSBlueprintStorage;
+export default IPFSBlueprintStorage;
