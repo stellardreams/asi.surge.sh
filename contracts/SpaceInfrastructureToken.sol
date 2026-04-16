@@ -25,7 +25,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
      * @title Space Infrastructure Ownership Token
      * @dev A governance token for collective ownership of space infrastructure
      */
-    contract SpaceInfrastructureToken is Ownable, Pausable {
+    abstract contract SpaceInfrastructureToken is Ownable, Pausable {
         struct OwnershipUnit {
             address owner;
             uint256 shares;
@@ -211,7 +211,7 @@ modifier onlyOwnerOrProposer(uint256 proposalId) {
      * @dev Execute a proposal if it passes
      * @param proposalId Proposal identifier
      */
-    function executeProposal(uint256 proposalId) external onlyOwnerOrProposer(proposalId) {
+    function executeProposal(uint256 proposalId) external onlyOwnerOrProposer(proposalId) virtual {
         Proposal storage p = proposals[proposalId];
         require(!p.executed, "Proposal already executed");
         require(block.number > p.deadline, "Deadline not reached");
