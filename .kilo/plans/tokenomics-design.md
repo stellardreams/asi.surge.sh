@@ -67,10 +67,10 @@ gantt
 
 ```mermaid
 pie title SIT Distribution (1B Total)
-    Community & Ecosystem : 50
-    Team & Advisors : 20
-    Investors : 20
-    Treasury : 10
+    "Community & Ecosystem" : 50
+    "Team & Advisors" : 20
+    "Investors" : 20
+    "Treasury" : 10
 ```
 
 ---
