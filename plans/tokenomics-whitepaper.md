@@ -16,22 +16,32 @@ The Space Infrastructure Token (SIT) is a governance and utility token for the A
 
 ### 3. Token Distribution
 
-- **Community & Ecosystem**: 80% (16 billion tokens)
-  - Universal allocation to planetary inhabitants
-  - Substrate-independent intelligences (per Lucid Accords)
-  - Airdrops to early adopters and contributors
-  - Rewards for ecosystem participation
-  - Liquidity mining and staking rewards
-- **Team & Advisors**: 5% (1 billion tokens)
+- **Community & Ecosystem**: 75% (15 billion tokens)
+  - Universal allocation to planetary inhabitants: 35% (7 billion tokens)
+  - Substrate-independent intelligences (per Lucid Accords): 5% (1 billion tokens)
+  - Airdrops to early adopters and contributors: 20% (4 billion tokens)
+  - Rewards for ecosystem participation and governance: 10% (2 billion tokens)
+  - Liquidity mining and staking rewards: 5% (1 billion tokens)
+- **Public Sale**: 5% (1 billion tokens)
+  - Fair launch with no minimum purchase requirements
+  - Progressive pricing to ensure broad accessibility
+- **Presale**: 3% (600 million tokens)
+  - For strategic supporters with 12-month vesting
+- **Team & Advisors**: 4% (800 million tokens)
   - Subject to 3-year vesting with 1-year cliff
   - Performance-based bonus pool
-- **Investors**: 5% (1 billion tokens)
+- **Investors**: 3% (600 million tokens)
   - Private sale rounds with varying vesting schedules
   - Strategic partners and ecosystem supporters
 - **Treasury**: 10% (2 billion tokens)
   - Reserved for future development, partnerships, and unexpected opportunities
   - Managed by decentralized governance
   - Includes safeguarding mechanisms (see Issue #51)
+
+**Anti-Whale Measures:**
+- Maximum wallet limit: 0.1% of total supply (20 million SIT)
+- Quadratic voting in governance to amplify smaller holders
+- Progressive staking rewards favoring long-term, smaller participants
 
 ### 4. Vesting Schedules
 
@@ -104,5 +114,5 @@ This document is for informational purposes only and does not constitute financi
 
 ---
 
-**Last Updated**: 2026-04-14  
-**Version**: 2.0
+**Last Updated**: 2026-04-16  
+**Version**: 2.1
