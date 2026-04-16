@@ -10,7 +10,7 @@ class DesignValidator {
                 { check: 'reorientation', required: true },
                 { check: 'TRL', min: 1, max: 9 }
             ],
-            'O'Neill-cylinder': [
+            "O'Neill-cylinder": [
                 { check: 'length', min: 10, max: 100 },
                 { check: 'radius', min: 1, max: 20 },
                 { check: 'rotationSpeed', max: 3 } // RPM
@@ -88,7 +88,7 @@ class DesignValidator {
         const blueprints = [
             { path: 'designs/AMU-v1.json' },
             { path: 'designs/AMU-v2.json' },
-            { path: 'designs/O'Neill-v1.json' }
+            { path: "designs/O'Neill-v1.json" }
         ];
         
         for (const blueprint of blueprints) {
