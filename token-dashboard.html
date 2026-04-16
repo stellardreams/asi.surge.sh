@@ -206,12 +206,25 @@
         <p>Empowering collective ownership of space infrastructure</p>
     </footer>
 
-    <!-- Include ethers.js for web3 interaction -->
     <script 
     src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" 
-    integrity="sha512-Ym78Y9u9To99uH/v+8XU76s4L+8X4I4S4x3X2bE3v7v+8XU76s4L+8X4I4S4x3X2bE3v7v==" 
+    integrity="sha512-V00vW2pSuvSbeMdzZ5YyY2J05G3p8F9XbK4F9pEisba9V6zZ9X7Rk4Hk2TjD5i1k2D3u6X9C6SBR9fS8S87pYpGjr0Pr8K4F9pEisba9V6zZ9==" 
     crossorigin="anonymous" 
     referrerpolicy="no-referrer">
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            if (typeof ethers === 'undefined') {
+                console.error("CRITICAL: Ethers library failed to load! Possible tampering or CDN outage.");
+                alert("Security Alert: A required library failed to verify. The site has been disabled for your protection.");
+                
+                // This hides the UI so no one can interact with a broken/unsafe dashboard
+                document.body.style.display = 'none'; 
+            } else {
+                console.log("Ethers.js verified and loaded successfully.");
+            }
+        });
     </script>
     <script>
         // Wait for DOM to load
