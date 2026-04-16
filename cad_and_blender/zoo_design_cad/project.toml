@@ -1,0 +1,11 @@
+[settings.meta]
+id = "27411d37-fb40-4f38-afe2-3c6b6e148485"
+
+[settings.app]
+zookeeper_mode = "thoughtful"
+
+[settings.modeling]
+
+[settings.text_editor]
+
+[settings.command_bar]

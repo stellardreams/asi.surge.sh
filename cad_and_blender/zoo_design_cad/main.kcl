@@ -1,0 +1,345 @@
+// AMU Modular Assembly
+// Industrial DIN-rail housing with terminals, cooling fins, and threaded surge module.
+
+@settings(defaultLengthUnit = mm)
+
+housingWidth = 100mm
+housingDepth = 80mm
+housingHeight = 180mm
+housingChamfer = 4mm
+
+terminalDiameter = 35mm
+terminalRadius = terminalDiameter / 5
+terminalLength = 16mm
+terminalPitchX = 32mm
+terminalPitchZ = 42mm
+terminalOriginX = housingWidth / 2 - terminalPitchX / 2
+terminalOriginZ = housingHeight / 2 - terminalPitchZ / 2
+
+finThickness = 3mm
+finGap = 3mm
+finPitch = finThickness + finGap
+finCount = 25
+finSlotCount = finCount - 1
+finInsetY = 8mm
+finSpanY = housingDepth - 2 * finInsetY
+finFieldHeight = finCount * finThickness + (finCount - 1) * finGap
+finBaseZ = (housingHeight - finFieldHeight) / 2
+firstSlotBottomZ = finBaseZ + finThickness
+finSlotDepth = 7mm
+
+clipRecessWidth = 54mm
+clipRecessHeight = 82mm
+clipRecessDepth = 8mm
+clipRecessLeftX = (housingWidth - clipRecessWidth) / 2
+clipRecessBottomZ = (housingHeight - clipRecessHeight) / 2
+clipBossWidth = 46mm
+clipBossHeight = 64mm
+clipHookHeight = 12mm
+clipSpineWidth = 16mm
+clipBossLeftX = (housingWidth - clipBossWidth) / 2
+clipBossBottomZ = (housingHeight - clipBossHeight) / 2
+clipReliefWidth = (clipBossWidth - clipSpineWidth) / 2
+clipBossUnionOverlap = 0.1mm
+clipBossDepth = 5mm + clipBossUnionOverlap
+
+surgeBodyDiameter = 40mm
+surgeBodyRadius = surgeBodyDiameter / 2
+surgeBodyLength = 40mm
+surgeStudOverlap = 0.1mm
+studLength = 20mm
+studMajorDiameter = 12mm
+studMajorRadius = studMajorDiameter / 2
+studPitch = 1.75mm
+studCoreDiameter = 9.853mm
+studCoreRadius = studCoreDiameter / 2
+threadLeadRelief = 1mm
+threadStartZ = surgeBodyLength + threadLeadRelief
+threadLength = studLength - 2 * threadLeadRelief
+threadUnionOverlap = 0.05mm
+threadBaseRadius = studCoreRadius - threadUnionOverlap
+threadHeight = studMajorRadius - threadBaseRadius
+threadFlankRun = threadHeight / tan(60deg)
+threadCrestWidth = studPitch / 8
+threadToothSpan = 2 * threadFlankRun + threadCrestWidth
+
+housingSketch = sketch(on = XY) {
+  rearEdge = line(start = [var 0mm, var 0mm], end = [var 100mm, var 0mm])
+  rightEdge = line(start = [var 100mm, var 0mm], end = [var 100mm, var 80mm])
+  frontEdge = line(start = [var 100mm, var 80mm], end = [var 0mm, var 80mm])
+  leftEdge = line(start = [var 0mm, var 80mm], end = [var 0mm, var 0mm])
+
+  coincident([rearEdge.end, rightEdge.start])
+  coincident([rightEdge.end, frontEdge.start])
+  coincident([frontEdge.end, leftEdge.start])
+  coincident([leftEdge.end, rearEdge.start])
+  coincident([rearEdge.start, ORIGIN])
+
+  horizontal(rearEdge)
+  vertical(rightEdge)
+  horizontal(frontEdge)
+  vertical(leftEdge)
+
+  horizontalDistance([rearEdge.start, rearEdge.end]) == housingWidth
+  verticalDistance([rightEdge.start, rightEdge.end]) == housingDepth
+}
+
+housingRegion = region(point = [housingWidth / 2, housingDepth / 2], sketch = housingSketch)
+housingBlock = extrude(housingRegion, length = housingHeight, tagStart = $housingBottomFace, tagEnd = $housingTopFace)
+housingChamfered = chamfer(
+  housingBlock,
+  length = housingChamfer,
+  tags = [
+    getCommonEdge(faces = [housingRegion.tags.rearEdge, housingBottomFace]),
+    getCommonEdge(faces = [housingRegion.tags.rightEdge, housingBottomFace]),
+    getCommonEdge(faces = [housingRegion.tags.frontEdge, housingBottomFace]),
+    getCommonEdge(faces = [housingRegion.tags.leftEdge, housingBottomFace]),
+    getCommonEdge(faces = [housingRegion.tags.rearEdge, housingTopFace]),
+    getCommonEdge(faces = [housingRegion.tags.rightEdge, housingTopFace]),
+    getCommonEdge(faces = [housingRegion.tags.frontEdge, housingTopFace]),
+    getCommonEdge(faces = [housingRegion.tags.leftEdge, housingTopFace])
+  ],
+)
+hiddenHousingSketch = hide(housingSketch)
+
+leftFinSlotSketch = sketch(on = YZ) {
+  bottomEdge = line(start = [var 8mm, var 19.5mm], end = [var 72mm, var 19.5mm])
+  rightEdge = line(start = [var 72mm, var 19.5mm], end = [var 72mm, var 22.5mm])
+  topEdge = line(start = [var 72mm, var 22.5mm], end = [var 8mm, var 22.5mm])
+  leftEdge = line(start = [var 8mm, var 22.5mm], end = [var 8mm, var 19.5mm])
+
+  coincident([bottomEdge.end, rightEdge.start])
+  coincident([rightEdge.end, topEdge.start])
+  coincident([topEdge.end, leftEdge.start])
+  coincident([leftEdge.end, bottomEdge.start])
+
+  horizontal(bottomEdge)
+  vertical(rightEdge)
+  horizontal(topEdge)
+  vertical(leftEdge)
+
+  horizontalDistance([ORIGIN, bottomEdge.start]) == finInsetY
+  verticalDistance([ORIGIN, bottomEdge.start]) == firstSlotBottomZ
+  horizontalDistance([bottomEdge.start, bottomEdge.end]) == finSpanY
+  verticalDistance([rightEdge.start, rightEdge.end]) == finGap
+}
+
+leftFinSlotRegion = region(point = [finInsetY + finSpanY / 2, firstSlotBottomZ + finGap / 2], sketch = leftFinSlotSketch)
+leftFinSlot = extrude(leftFinSlotRegion, length = finSlotDepth)
+hiddenLeftFinSlotSketch = hide(leftFinSlotSketch)
+leftFinSlots = patternLinear3d(leftFinSlot, instances = finSlotCount, distance = finPitch, axis = Z)
+housingWithLeftFins = subtract(housingChamfered, tools = leftFinSlots)
+
+rightFinSlotPlane = offsetPlane(YZ, offset = housingWidth)
+rightFinSlotSketch = sketch(on = rightFinSlotPlane) {
+  bottomEdge = line(start = [var 8mm, var 19.5mm], end = [var 72mm, var 19.5mm])
+  rightEdge = line(start = [var 72mm, var 19.5mm], end = [var 72mm, var 22.5mm])
+  topEdge = line(start = [var 72mm, var 22.5mm], end = [var 8mm, var 22.5mm])
+  leftEdge = line(start = [var 8mm, var 22.5mm], end = [var 8mm, var 19.5mm])
+
+  coincident([bottomEdge.end, rightEdge.start])
+  coincident([rightEdge.end, topEdge.start])
+  coincident([topEdge.end, leftEdge.start])
+  coincident([leftEdge.end, bottomEdge.start])
+
+  horizontal(bottomEdge)
+  vertical(rightEdge)
+  horizontal(topEdge)
+  vertical(leftEdge)
+
+  horizontalDistance([ORIGIN, bottomEdge.start]) == finInsetY
+  verticalDistance([ORIGIN, bottomEdge.start]) == firstSlotBottomZ
+  horizontalDistance([bottomEdge.start, bottomEdge.end]) == finSpanY
+  verticalDistance([rightEdge.start, rightEdge.end]) == finGap
+}
+
+rightFinSlotRegion = region(point = [finInsetY + finSpanY / 2, firstSlotBottomZ + finGap / 2], sketch = rightFinSlotSketch)
+rightFinSlot = extrude(rightFinSlotRegion, length = -finSlotDepth)
+hiddenRightFinSlotSketch = hide(rightFinSlotSketch)
+rightFinSlots = patternLinear3d(rightFinSlot, instances = finSlotCount, distance = finPitch, axis = Z)
+housingWithSideFins = subtract(housingWithLeftFins, tools = rightFinSlots)
+
+clipRecessSketch = sketch(on = XZ) {
+  bottomEdge = line(start = [var 23mm, var 49mm], end = [var 77mm, var 49mm])
+  rightEdge = line(start = [var 77mm, var 49mm], end = [var 77mm, var 131mm])
+  topEdge = line(start = [var 77mm, var 131mm], end = [var 23mm, var 131mm])
+  leftEdge = line(start = [var 23mm, var 131mm], end = [var 23mm, var 49mm])
+
+  coincident([bottomEdge.end, rightEdge.start])
+  coincident([rightEdge.end, topEdge.start])
+  coincident([topEdge.end, leftEdge.start])
+  coincident([leftEdge.end, bottomEdge.start])
+
+  horizontal(bottomEdge)
+  vertical(rightEdge)
+  horizontal(topEdge)
+  vertical(leftEdge)
+
+  horizontalDistance([ORIGIN, bottomEdge.start]) == clipRecessLeftX
+  verticalDistance([ORIGIN, bottomEdge.start]) == clipRecessBottomZ
+  horizontalDistance([bottomEdge.start, bottomEdge.end]) == clipRecessWidth
+  verticalDistance([rightEdge.start, rightEdge.end]) == clipRecessHeight
+}
+
+clipRecessRegion = region(point = [housingWidth / 2, housingHeight / 2], sketch = clipRecessSketch)
+clipRecessCutter = extrude(clipRecessRegion, length = -clipRecessDepth)
+hiddenClipRecessSketch = hide(clipRecessSketch)
+housingRecessed = subtract(housingWithSideFins, tools = clipRecessCutter)
+
+clipBossPlane = offsetPlane(XZ, offset = -(clipRecessDepth + clipBossUnionOverlap))
+clipBossSketch = sketch(on = clipBossPlane) {
+  lowerBar = line(start = [var 27mm, var 58mm], end = [var 73mm, var 58mm])
+  lowerRight = line(start = [var 73mm, var 58mm], end = [var 73mm, var 70mm])
+  lowerInset = line(start = [var 73mm, var 70mm], end = [var 58mm, var 70mm])
+  spineRight = line(start = [var 58mm, var 70mm], end = [var 58mm, var 110mm])
+  upperInset = line(start = [var 58mm, var 110mm], end = [var 73mm, var 110mm])
+  upperRight = line(start = [var 73mm, var 110mm], end = [var 73mm, var 122mm])
+  upperBar = line(start = [var 73mm, var 122mm], end = [var 27mm, var 122mm])
+  upperLeft = line(start = [var 27mm, var 122mm], end = [var 27mm, var 110mm])
+  upperInsetLeft = line(start = [var 27mm, var 110mm], end = [var 42mm, var 110mm])
+  spineLeft = line(start = [var 42mm, var 110mm], end = [var 42mm, var 70mm])
+  lowerInsetLeft = line(start = [var 42mm, var 70mm], end = [var 27mm, var 70mm])
+  lowerLeft = line(start = [var 27mm, var 70mm], end = [var 27mm, var 58mm])
+
+  coincident([lowerBar.end, lowerRight.start])
+  coincident([lowerRight.end, lowerInset.start])
+  coincident([lowerInset.end, spineRight.start])
+  coincident([spineRight.end, upperInset.start])
+  coincident([upperInset.end, upperRight.start])
+  coincident([upperRight.end, upperBar.start])
+  coincident([upperBar.end, upperLeft.start])
+  coincident([upperLeft.end, upperInsetLeft.start])
+  coincident([upperInsetLeft.end, spineLeft.start])
+  coincident([spineLeft.end, lowerInsetLeft.start])
+  coincident([lowerInsetLeft.end, lowerLeft.start])
+  coincident([lowerLeft.end, lowerBar.start])
+
+  horizontal(lowerBar)
+  vertical(lowerRight)
+  horizontal(lowerInset)
+  vertical(spineRight)
+  horizontal(upperInset)
+  vertical(upperRight)
+  horizontal(upperBar)
+  vertical(upperLeft)
+  horizontal(upperInsetLeft)
+  vertical(spineLeft)
+  horizontal(lowerInsetLeft)
+  vertical(lowerLeft)
+
+  horizontalDistance([ORIGIN, lowerBar.start]) == clipBossLeftX
+  verticalDistance([ORIGIN, lowerBar.start]) == clipBossBottomZ
+  horizontalDistance([lowerBar.start, lowerBar.end]) == clipBossWidth
+  verticalDistance([lowerRight.start, lowerRight.end]) == clipHookHeight
+  horizontalDistance([lowerInset.end, lowerInset.start]) == clipReliefWidth
+  verticalDistance([spineRight.start, spineRight.end]) == clipBossHeight - 2 * clipHookHeight
+  equalLength([lowerBar, upperBar])
+  equalLength([lowerRight, upperRight, upperLeft, lowerLeft])
+  equalLength([lowerInset, upperInset, upperInsetLeft, lowerInsetLeft])
+  equalLength([spineRight, spineLeft])
+}
+
+clipBossRegion = region(point = [housingWidth / 2, housingHeight / 2], sketch = clipBossSketch)
+clipBoss = extrude(clipBossRegion, length = clipBossDepth)
+hiddenClipBossSketch = hide(clipBossSketch)
+housingWithClip = union([housingRecessed, clipBoss])
+housingFinished = appearance(housingWithClip, color = "#e6e8eb", metalness = 95, roughness = 35)
+
+terminalSketch = sketch(on = XZ) {
+  terminalCircle = circle(start = [var 7.5mm, var 0mm], center = [var 0mm, var 0mm])
+  coincident([terminalCircle.center, ORIGIN])
+  diameter(terminalCircle) == terminalDiameter
+  horizontalDistance([terminalCircle.center, terminalCircle.start]) == terminalRadius
+  verticalDistance([terminalCircle.center, terminalCircle.start]) == 0mm
+}
+
+terminalRegion = region(segments = [terminalSketch.terminalCircle])
+terminalRaw = extrude(terminalRegion, length = -terminalLength, tagStart = $terminalBaseFace, tagEnd = $terminalTipFace)
+hiddenTerminalSketch = hide(terminalSketch)
+terminalChamfered = chamfer(
+  terminalRaw,
+  length = housingChamfer,
+  tags = [
+    getCommonEdge(faces = [terminalRegion.tags.terminalCircle, terminalBaseFace]),
+    getCommonEdge(faces = [terminalRegion.tags.terminalCircle, terminalTipFace])
+  ],
+)
+terminalPair = patternLinear3d(terminalChamfered, instances = 2, distance = terminalPitchX, axis = X)
+terminalGrid = patternLinear3d(terminalPair, instances = 2, distance = terminalPitchZ, axis = Z)
+terminalsPlaced = translate(terminalGrid, xyz = [terminalOriginX, housingDepth, terminalOriginZ], global = true)
+terminalsFinished = appearance(terminalsPlaced, color = "#b66f3a", metalness = 100, roughness = 22)
+
+surgeBodySketch = sketch(on = XY) {
+  surgeBodyCircle = circle(start = [var 20mm, var 0mm], center = [var 0mm, var 0mm])
+  coincident([surgeBodyCircle.center, ORIGIN])
+  diameter(surgeBodyCircle) == surgeBodyDiameter
+  horizontalDistance([surgeBodyCircle.center, surgeBodyCircle.start]) == surgeBodyRadius
+  verticalDistance([surgeBodyCircle.center, surgeBodyCircle.start]) == 0mm
+}
+
+surgeBodyRegion = region(segments = [surgeBodySketch.surgeBodyCircle])
+surgeBody = extrude(surgeBodyRegion, length = surgeBodyLength)
+hiddenSurgeBodySketch = hide(surgeBodySketch)
+
+studPlane = offsetPlane(XY, offset = surgeBodyLength - surgeStudOverlap)
+studCoreSketch = sketch(on = studPlane) {
+  studCoreCircle = circle(start = [var 2.9265mm, var 0mm], center = [var 0mm, var 0mm])
+  coincident([studCoreCircle.center, ORIGIN])
+  diameter(studCoreCircle) == studCoreDiameter
+  horizontalDistance([studCoreCircle.center, studCoreCircle.start]) == studCoreRadius
+  verticalDistance([studCoreCircle.center, studCoreCircle.start]) == 0mm
+}
+
+studCoreRegion = region(segments = [studCoreSketch.studCoreCircle])
+studCore = extrude(studCoreRegion, length = studLength + surgeStudOverlap)
+hiddenStudCoreSketch = hide(studCoreSketch)
+
+threadHelix = helix(
+  axis = Z,
+  radius = threadBaseRadius,
+  length = threadLength,
+  revolutions = threadLength / studPitch,
+  angleStart = 0deg,
+  ccw = true,
+)
+
+threadToothSketch = sketch(on = XZ) {
+  flankRise = line(start = [var 3.8765mm, var 0mm], end = [var 6mm, var 0.6488mm])
+  crestFace = line(start = [var 3mm, var 0.6488mm], end = [var 6mm, var 0.8676mm])
+  flankFall = line(start = [var 3mm, var 0.8676mm], end = [var 4.8765mm, var 1.5164mm])
+  rootFace = line(start = [var 2.8765mm, var 1.5164mm], end = [var 4.8765mm, var 0mm])
+
+  coincident([flankRise.end, crestFace.start])
+  coincident([crestFace.end, flankFall.start])
+  coincident([flankFall.end, rootFace.start])
+  coincident([rootFace.end, flankRise.start])
+
+  vertical(crestFace)
+  vertical(rootFace)
+
+  horizontalDistance([ORIGIN, flankRise.start]) == threadBaseRadius
+  verticalDistance([ORIGIN, flankRise.start]) == 0mm
+  horizontalDistance([flankRise.start, flankRise.end]) == threadHeight
+  verticalDistance([flankRise.start, flankRise.end]) == threadFlankRun
+  verticalDistance([crestFace.start, crestFace.end]) == threadCrestWidth
+  horizontalDistance([flankFall.end, flankFall.start]) == threadHeight
+  verticalDistance([flankFall.start, flankFall.end]) == threadFlankRun
+}
+
+threadToothRegion = region(point = [threadBaseRadius + threadHeight / 2, threadToothSpan / 2], sketch = threadToothSketch)
+threadRidgeLocal = sweep(threadToothRegion, path = threadHelix)
+threadRidge = translate(threadRidgeLocal, z = threadStartZ, global = true)
+hiddenThreadToothSketch = hide(threadToothSketch)
+hiddenThreadHelix = hide([threadHelix])
+
+surgeModuleRaw = union([surgeBody, studCore, threadRidge])
+surgeModuleFinishedLocal = appearance(surgeModuleRaw, color = "#12d3ad", metalness = 85, roughness = 38)
+surgeModuleFlipped = rotate(surgeModuleFinishedLocal, axis = X, angle = 180deg, global = false)
+surgeModulePlaced = translate(surgeModuleFlipped, xyz = [housingWidth / 4, housingDepth / 2, -(surgeBodyLength + studLength)], global = true)
+
+assemblyMinZ = -(surgeBodyLength + studLength)
+assemblyMaxZ = housingHeight
+assemblyCenterZ = (assemblyMinZ + assemblyMaxZ) / 2
+
+amuAssemblyLocal = [housingFinished, terminalsFinished, surgeModulePlaced]
+amuAssembly = translate(amuAssemblyLocal, xyz = [-housingWidth / 2, -housingDepth / 2, -assemblyCenterZ], global = true)
