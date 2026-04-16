@@ -256,18 +256,6 @@
                 "event Approval(address indexed owner, address indexed spender, uint256 value)"
             ];
             
-            // Governance contract ABI (simplified)
-            const governanceABI = [
-                "function proposals(uint256) view returns (Proposal memory)",
-                "function nextProposalId() view returns (uint256)",
-                "function createProposal(string memory, uint256) returns (uint256)",
-                "function vote(uint256, bool) returns (bool)",
-                "function executeProposal(uint256)",
-                "event ProposalCreated(uint256 indexed proposalId, address indexed proposer, string description, uint256 targetAmount)",
-                "event VoteCast(address indexed voter, uint256 proposalId, bool support, uint256 amount)",
-                "event ProposalExecuted(uint256 proposalId, bool passed)"
-            ];
-            
             // Connect wallet function
             connectButton.addEventListener('click', async () => {
                 if (typeof window.ethereum !== 'undefined') {
