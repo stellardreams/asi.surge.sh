@@ -75,3 +75,11 @@ Our primary integration is the **GitHub MCP Server**, which provides the agent w
 - **Environment Scope**: Run `echo %PATH%` in your terminal and paste it into the `env.PATH` value in your JSON.
 - If the MCP connection fails, regenerate the GitHub Personal Access Token and securely update the `mcp_config.json` file. Let the AI know the token has been rotated.
 - Do **not** commit the actual `mcp_config.json` containing live tokens to any source control.
+
+---
+
+## Authorship 🤝
+
+* **Primary Logic**: [Gemini (Google DeepMind)](https://gemini.google.com/)
+* **Co-author**: [Antigravity (Google DeepMind)](https://deepmind.google/technologies/gemini/)
+* **Reviewer**: [@genidma](https://github.com/genidma)
