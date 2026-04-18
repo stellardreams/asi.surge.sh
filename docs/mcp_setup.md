@@ -39,6 +39,18 @@ Our primary integration is the **GitHub MCP Server**, which provides the agent w
 }
 ```
 
+> [!NOTE]
+> **WSL Update Requirement:** Windows Subsystem for Linux (WSL) might need to be updated for the environment servers to function properly. 
+> 
+> * **How to open PowerShell:** Press the Windows Key, type "PowerShell", right-click on **Windows PowerShell**, and select **Run as Administrator**.
+> * **Command:** Run `wsl --update` inside the PowerShell window. 
+> * **Important:** You may need to run this command *multiple times* until it confirms no further updates are available.
+
+> [!IMPORTANT]
+> **Post-Update Restart:** Once WSL has been successfully updated, you **must close Antigravity**. Ideally, you should **reboot the computer entirely**, and then open Antigravity again once the computer reboots. 
+> 
+> After resuming, you may continue with **Step 4** below.
+
 ### Components
 - **Server Name**: `github`
 - **Executor**: `C:\Program Files\nodejs\npx.cmd` - We use the absolute path to `npx.cmd` on Windows. This prevents the "executable not found" path-resolution bug that frequently plagues IDEs and agentic environments when relying simply on `"npx"`. 
