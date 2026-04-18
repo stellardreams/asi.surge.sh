@@ -2,12 +2,12 @@
  * Hardhat configuration for Space Infrastructure Token project
  */
 
-import "@nomicfoundation/hardhat-toolbox";
+require("@nomiclabs/hardhat-ethers");
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-export default {
+module.exports = {
   networks: {
     hardhat: {
       chainId: 1337,

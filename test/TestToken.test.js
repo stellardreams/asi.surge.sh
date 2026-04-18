@@ -1,4 +1,5 @@
-import { expect } from "chai";
+import chai from "chai";
+const { expect } = chai;
 
 describe("TestToken", function () {
   let TestToken, token, owner, addr1;
@@ -7,7 +8,7 @@ describe("TestToken", function () {
     TestToken = await ethers.getContractFactory("TestToken");
     [owner, addr1] = await ethers.getSigners();
     token = await TestToken.deploy();
-    await token.waitForDeployment();
+    await token.deployed();
   });
 
   it("Should have correct name and symbol", async function () {

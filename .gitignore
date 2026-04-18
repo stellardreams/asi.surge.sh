@@ -22,6 +22,7 @@ coverage.json
 # Test artifacts
 test-results/
 *.log
+4.5.0
 
 # Deployment artifacts
 deployments/

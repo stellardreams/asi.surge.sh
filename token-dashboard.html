@@ -192,6 +192,32 @@
             <div class="label">Quorum required: 20%</div>
         </div>
 
+        <!-- Staking Card -->
+        <div class="card">
+            <h2>Staking</h2>
+            <div class="label">Staked Amount</div>
+            <div class="balance" id="stakedAmount">0 SIT</div>
+            <div class="label">Pending Rewards</div>
+            <div id="pendingRewards">0 SIT</div>
+            <input type="number" id="stakeAmount" placeholder="Amount to stake" min="0" step="0.01">
+            <button id="stakeButton" class="vote-button">Stake</button>
+            <button id="unstakeButton" class="vote-button" style="background: #ff4444;">Unstake</button>
+            <button id="claimRewardsButton" class="vote-button" style="background: #44ff44;">Claim Rewards</button>
+        </div>
+
+        <!-- Locking Card -->
+        <div class="card">
+            <h2>Token Locking</h2>
+            <div class="label">Locked Amount</div>
+            <div id="lockedAmount">0 SIT</div>
+            <div class="label">Unlocked Balance</div>
+            <div id="unlockedBalance">0 SIT</div>
+            <input type="number" id="lockAmount" placeholder="Amount to lock" min="0" step="0.01">
+            <input type="datetime-local" id="unlockTime">
+            <button id="lockButton" class="vote-button">Lock Tokens</button>
+            <button id="unlockButton" class="vote-button" style="background: #ffaa00;">Unlock Tokens</button>
+        </div>
+
         <!-- Contribution Card -->
         <div class="card">
             <h2>Contributions</h2>
@@ -235,6 +261,18 @@
             const votingPowerElement = document.getElementById('votingPower');
             const proposalListElement = document.getElementById('proposalList');
             const contributionsElement = document.getElementById('contributions');
+            const stakedAmountElement = document.getElementById('stakedAmount');
+            const pendingRewardsElement = document.getElementById('pendingRewards');
+            const stakeAmountInput = document.getElementById('stakeAmount');
+            const stakeButton = document.getElementById('stakeButton');
+            const unstakeButton = document.getElementById('unstakeButton');
+            const claimRewardsButton = document.getElementById('claimRewardsButton');
+            const lockedAmountElement = document.getElementById('lockedAmount');
+            const unlockedBalanceElement = document.getElementById('unlockedBalance');
+            const lockAmountInput = document.getElementById('lockAmount');
+            const unlockTimeInput = document.getElementById('unlockTime');
+            const lockButton = document.getElementById('lockButton');
+            const unlockButton = document.getElementById('unlockButton');
             
             let provider;
             let signer;
