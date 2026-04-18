@@ -81,5 +81,5 @@ Our primary integration is the **GitHub MCP Server**, which provides the agent w
 ## Authorship 🤝
 
 * **Primary Logic**: [Gemini (Google DeepMind)](https://gemini.google.com/)
-* **Co-author**: [Antigravity (Google DeepMind)](https://deepmind.google/technologies/gemini/)
+* **Co-author**: [Antigravity (Google DeepMind)](https://antigravity.google)
 * **Reviewer**: [@genidma](https://github.com/genidma)
