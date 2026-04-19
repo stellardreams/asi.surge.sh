@@ -85,6 +85,9 @@ If you encounter a "failed to connect to the docker API" or a named pipe (`npipe
 
 ## Local NPX-Based Configuration Alternative
 
+> [!CAUTION]
+> **Security Sandbox Warning:** Executing agentic server tools directly on the host machine using `npx` provides **zero isolation or sandboxing**. In the event of a supply chain attack (e.g., a poisoned `npm` package) or an indirect prompt injection attack against the AI agent, the `npx` process will execute with your user's full system privileges. This could allow malicious actors to quietly read and exfiltrate proprietary source code, local environment variables, and private keys. We strongly advise utilizing the Docker container infrastructure in Step 4.
+
 If Docker is absolutely unavailable, you can adapt the logic above to use a local `npx` installation. 
 
 ```json
