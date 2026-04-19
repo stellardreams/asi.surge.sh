@@ -23,7 +23,7 @@ While the store provides pre-built templates, resilient enterprise use requires 
 Before configuring the GitHub MCP server, you must generate a Fine-grained Personal Access Token (PAT). Please follow the [official GitHub Guidelines for generating a fine-grained PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token).
 * **Expiration Date:** Ensure the token is time-bound (e.g., 30, 60, or 90 days) for security.
 * **Permissions:** Select **Only select repositories** (e.g., `stellardreams/asi.surge.sh`) and grant **Repository Permissions** necessary for the agent to function (e.g., Read/Write access for Issues, Pull Requests, Contents, Commit statuses, and Metadata).
-* **Secure Storage:** The generated Personal Access Token will only be demonstrated to the user for a brief moment. Once you close the user interface in GitHub, the token will be gone forever. The user is entirely responsible for storing their keys in a secure manner (such as in a secure password manager).
+* **Secure Storage:** The generated Personal Access Token will only be demonstrated to the user for a brief moment. Once you close the user interface in GitHub, the token will be gone forever. The user is entirely responsible for storing their keys in a secure manner, best to consult with a world-class and accredited computer and network security professional.
 
 ### Step 4: Configure for Use (GitHub Docker Server Example)
 Our primary integration relies on the **Docker-Based GitHub MCP Server** to provide the agent with the ability to read, search, and modify the GitHub repository natively out of a secure sandbox. A resilient configuration block looks like this:
@@ -117,6 +117,9 @@ If Docker is absolutely unavailable, you can adapt the logic above to use a loca
 - Do **not** commit the actual `mcp_config.json` containing live tokens to any source control.
 
 ---
+
+## Legal Disclaimer ⚖️
+None of the individuals, entities, or group of companies mentioned in this document (including `@genidma`, Google, Gemini, and DeepMind) are responsible or liable for how the user implements these suggestions or configurations. The user assumes full responsibility and liability for their own technical, local, and network security.
 
 ## Authorship 🤝
 
