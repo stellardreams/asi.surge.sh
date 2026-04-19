@@ -122,9 +122,12 @@ If Docker is absolutely unavailable, you can adapt the logic above to use a loca
 ---
 
 ## Legal Disclaimer ⚖️
-None of the individuals, entities, or group of companies mentioned in this document (including `@genidma`, Google, Gemini, and DeepMind) are responsible or liable for how the user implements these suggestions or configurations. The user assumes full responsibility and liability for their own technical, local, and network security.
+1. `@genidma` and any names, entities, or group of companies mentioned in this document (including Google, Gemini, and DeepMind) are not responsible in any way for the manner through which this information is implemented.
+2. This information is being documented strictly for internal use only, hosted on a repository that `@genidma` has chosen to make fully public (and within reason).
+3. There is no official alliance or formal affiliation between `@genidma` and any organization mentioned in this document, particularly Google or Alphabet Inc., at this time.
+4. By continuing to use this information (which is available via Google and other search engines), you absolve us of any and all responsibility and liability in any court of law, anywhere.
 
-## Authorship 🤝
+## Authorship
 
 * **Primary Logic**: [Gemini (Google DeepMind)](https://gemini.google.com/)
 * **Co-author**: [Antigravity (Google DeepMind)](https://antigravity.google)
