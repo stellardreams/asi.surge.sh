@@ -98,6 +98,20 @@ While the `npx` method above is highly functional for local environments, standa
 > [!TIP]
 > Make sure the Docker Daemon (Docker Desktop) is actively running in the background before you refresh or open Antigravity if you choose this alternative.
 
+### Troubleshooting: Docker Backend Setup
+If you transition to the Docker alternative in the future and encounter a "failed to connect to the docker API" or a named pipe (`npipe`) connection error, verify these three critical settings in Docker Desktop:
+
+1. **Expose Daemon on TCP (Crucial Fix)**
+   * **Location:** Settings > General
+   * **Setting:** Check "Expose daemon on tcp://localhost:2375 without TLS".
+   * **Why:** This gives the agent's internal machinery a standard network port to talk to the Docker daemon, bypassing unreliable native Windows pipes.
+2. **WSL 2 Backend Integration**
+   * **Location:** Settings > General
+   * **Setting:** Ensure "Use the WSL 2 based engine" is enabled.
+   * **Why:** Modern workflows rely on the faster, properly integrated Linux kernel rather than the legacy Hyper-V engine.
+3. **Host File Entries (Optional)**
+   * We typically recommend keeping "Add the `.docker.internal` names to the host's `/etc/hosts` file" **unchecked** to avoid constant administrator privilege prompts during your workflow, unless absolutely required for complex custom DNS.
+
 ## Future References for Developers
 - **Resilient Execution**: Never rely on shorthand `npx`. Ensure you run `where npx` in your terminal to find your exact Node.js installation path to replace the generic `command` value.
 - **Environment Scope**: Run `echo %PATH%` in your terminal and paste it into the `env.PATH` value in your JSON.
