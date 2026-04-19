@@ -71,6 +71,33 @@ Our primary integration is the **GitHub MCP Server**, which provides the agent w
 * Go back to the **Manage MCP Servers** screen in Antigravity and click **Refresh**.
 * Verify the connection: A green indicator (or active status) should appear next to the server name, and its tools will be available for the agent to use in the chat.
 
+## Docker-Based Configuration Alternative
+
+While the `npx` method above is highly functional for local environments, standard containerized workflows may prefer executing the MCP server via Docker. If Docker Desktop is installed, you can adapt the GitHub Server block in `mcp_config.json` to leverage the Docker-native command structure:
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "mcp/github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<REDACTED_FOR_SECURITY>"
+      }
+    }
+  }
+}
+```
+> [!TIP]
+> Make sure the Docker Daemon (Docker Desktop) is actively running in the background before you refresh or open Antigravity if you choose this alternative.
+
 ## Future References for Developers
 - **Resilient Execution**: Never rely on shorthand `npx`. Ensure you run `where npx` in your terminal to find your exact Node.js installation path to replace the generic `command` value.
 - **Environment Scope**: Run `echo %PATH%` in your terminal and paste it into the `env.PATH` value in your JSON.
