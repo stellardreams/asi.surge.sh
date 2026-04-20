@@ -43,3 +43,13 @@ This Constitution governs four operational nodes. Every tactical plan or workflo
 *The ultimate push outward—achieving indefinite biological lifespans and the intergalactic habitation of both carbon-based and silicon-based life.*
 - **Logic & Heart:** Leveraging the output of the prior three pillars to ultimately defeat enforced mortality and expand the footprint of conscious intelligence. 
 - **Active Strategic Ledger:** [Life Support Plan](../plans/plan-life-support.md)
+## Critical Thinking and Avoiding Echo Chambers
+
+AI systems are designed to assist, but their effectiveness depends on the quality of interaction. Users should actively encourage diverse perspectives and critical evaluation rather than passive agreement.
+
+To achieve this:
+- Ask for alternative viewpoints
+- Request objective and constructive feedback
+- Avoid reinforcing only confirming responses
+
+This approach helps maintain balanced reasoning and prevents the formation of echo chambers.
