@@ -87,3 +87,15 @@ This approach helps maintain balanced reasoning and prevents the formation of ec
 - - If something feels off, please create a new issue via the following link [here](https://github.com/stellardreams/asi.surge.sh/issues) click on the blue button that says "New Issue" and fill out the details and hit submit
 
 All contributors are expected to uphold the project's core values of transparency, non-exploitation, and commitment to building systems that can safely navigate existential challenges without and help steer the human and machine civilizations towards an increasingly dignified future.
+
+With humans and machines now having a clear shot at progressing beyond a type 01 civilization. The question to ask is not related to consumption of energy and expansion through space and time and as are the typicaly interpretations of the [kardashev model](https://en.wikipedia.org/wiki/Kardashev_scale). 
+
+You don't necessarily need a lot of energy for expansion. And when you expand, and if life exists outside the normative ways of thinking then there is a variety of ways that we must begin to think about these scenarios in earnest. 
+
+This is a spectrum that exists between (and in random order) warnings by the late Prof. Stephen Hawking and the visionary and inclusive aspect of the late Prof. Carl Sagan on the other hand. 
+
+Overall, anything short of [functioning and stable wormholes](https://en.wikipedia.org/wiki/Wormhole) most likely means that for the next 10,000 years, the range of expansion is limited to the areas between Earth and the asteroid belt between Mars and Jupiter. Provided no life is found between these spaces, developing these areas can help power a quality of life beyond our current imaginations and also help address a lot of issues here on the planet.
+
+Towards the formation of the United States as an institutions, it's founders had said. "We give you a republic, if you can keep it."
+
+I encourage you to think differently. There must be a better way. And enabling Gerry K. O'Neill's vision enables us to safeguard our collective destinty for a sufficient duration (and within reason). It also allows for us to create a base station for civilization, from which we could expand and if other lifeforms exist, either join a cosmic tribe or be in a capacity to assist them (while abiding by the prime directive)
