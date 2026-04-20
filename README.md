@@ -131,6 +131,7 @@ Support our mission via [GitHub Sponsors](https://github.com/sponsors/genidma).
 This is an open-source project and we welcome contributions from the community!
 
 **To get started:**
+- Read our **[CONSTITUTION.md](docs/CONSTITUTION.md)** for the project's philosophical and organizational framework
 - Read our **[CONTRIBUTING.md](CONTRIBUTING.md)** for detailed contribution guidelines
 - Review our **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** to understand our community standards
 - Check out the **[issue templates](.github/ISSUE_TEMPLATE/)** for consistent issue reporting

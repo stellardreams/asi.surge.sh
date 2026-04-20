@@ -127,7 +127,7 @@ class DesignValidator {
     
     let allValid = true;
     let report = [];
-    
+
     for (const result of results) {
         if (!result.isValid) {
             allValid = false;
@@ -137,7 +137,40 @@ class DesignValidator {
             report.push(`✅ Design ${result.blueprint?.name || 'unknown'} is valid`);
         }
     }
-    
+
+    // Create validation reports directory and write results
+    if (!fs.existsSync('validation-reports')) {
+        fs.mkdirSync('validation-reports');
+    }
+    fs.writeFileSync('validation-reports/validation-summary.json', JSON.stringify({
+        timestamp: new Date().toISOString(),
+        allValid: allValid,
+        results: results.map(r => ({
+            name: r.blueprint?.name || 'unknown',
+            isValid: r.isValid,
+            errors: r.errors
+        }))
+    }, null, 2));
+
+    // Create test-results directory with dummy content
+    if (!fs.existsSync('test-results')) {
+        fs.mkdirSync('test-results');
+    }
+    fs.writeFileSync('test-results/design-validation-tests.xml', `<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Design Validation" tests="${results.length}" failures="${results.filter(r => !r.isValid).length}">
+${results.map((result, index) => `    <testcase name="Validate ${result.blueprint?.name || 'unknown'}" classname="DesignValidator">
+${result.isValid ? '' : result.errors.map(e => `      <failure message="${e}"/>`).join('\n')}
+    </testcase>`).join('\n')}
+  </testsuite>
+</testsuites>`);
+
+    // Create logs directory
+    if (!fs.existsSync('logs')) {
+        fs.mkdirSync('logs');
+    }
+    fs.writeFileSync('logs/validation.log', report.join('\n') + '\n' + (allValid ? 'All designs validated successfully!' : 'Validation failed!'));
+
     if (!allValid) {
         console.error('Validation failed:');
         console.error(report.map(line => line.toString()).join('\n'));
