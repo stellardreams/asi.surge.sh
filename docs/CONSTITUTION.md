@@ -76,7 +76,7 @@ This approach helps maintain balanced reasoning and prevents the formation of ec
 
 ### Support
 - **docs: add section on critical thinking to avoid echo chambers** via [issue #70](https://github.com/stellardreams/asi.surge.sh/pull/70) by Harshit Gupta [Ashusf90](https://github.com/Ashusf90) 
-- - note: modified sinc then by @genidma
+- - note: modified since then by @genidma
 
 ### How to Contribute
 - Review and improve documentation
