@@ -53,3 +53,20 @@ To achieve this:
 - Avoid reinforcing only confirming responses
 
 This approach helps maintain balanced reasoning and prevents the formation of echo chambers.
+
+## Contributors for the Constitution
+
+### Core Contributors
+- **initiated by** @genidma
+
+### Support
+- **docs: add section on critical thinking to avoid echo chambers** via #70 by Harshit Gupta @Ashusf90 
+
+### How to Contribute
+- Review and improve documentation
+- Participate in governance discussions
+- Develop and test infrastructure components
+- Support community education and outreach
+- Contribute to the strategic plans in the `/plans` directory
+
+All contributors are expected to uphold the project's core values of transparency, non-exploitation, and commitment to building systems that can safely navigate existential challenges without causing civilizational collapse.
