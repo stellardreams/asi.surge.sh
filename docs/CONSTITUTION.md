@@ -67,6 +67,8 @@ This approach helps maintain balanced reasoning and prevents the formation of ec
 - Participate in governance [discussions](https://github.com/stellardreams/asi.surge.sh/discussions)
 - Develop and test infrastructure components
 - Support community education and outreach
-- Contribute to the strategic plans in the `/plans` directory
+- Contribute to the strategic plans in the [`/plans`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) directory and intercept work in progress plans via the following [link](https://github.com/stellardreams/asi.surge.sh/tree/master/.kilo/plans) and evaluate each item (word by word and line by line critically and yet respectful to the contributor. ideas are open to critical evaluation during all times)
+- With newer frontier models in the works (no affiliation), developments and realms will (outside of the control of this project) be developed and deployed for all kinds of purposes. For these reasons and more:
+- - If something feels off, please create a new issue via the following link [here](https://github.com/stellardreams/asi.surge.sh/issues) click on the blue button that says "New Issue" and fill out the details and hit submit
 
-All contributors are expected to uphold the project's core values of transparency, non-exploitation, and commitment to building systems that can safely navigate existential challenges without causing civilizational collapse.
+All contributors are expected to uphold the project's core values of transparency, non-exploitation, and commitment to building systems that can safely navigate existential challenges without and help steer the human and machine civilizations towards an increasingly dignified future.
