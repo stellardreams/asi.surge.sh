@@ -57,10 +57,10 @@ This approach helps maintain balanced reasoning and prevents the formation of ec
 ## Contributors for the Constitution
 
 ### Core Contributors
-- **initiated by** @genidma
+- **initiated by** [@genidma](https://github.com/genidma)
 
 ### Support
-- **docs: add section on critical thinking to avoid echo chambers** via #70 by Harshit Gupta @Ashusf90 
+- **docs: add section on critical thinking to avoid echo chambers** via #70 by Harshit Gupta [@Ashusf90](https://github.com/Ashusf90) 
 
 ### How to Contribute
 - Review and improve documentation
