@@ -20,39 +20,54 @@ To achieve this, the project is bound by three foundational directives:
 
 ---
 
-## The Four Pillars
+Every tactical plan or workflow executed by the project must inevitably map back to the pillars to ensure harmonious expansion.
 
-This Constitution governs four operational nodes. Every tactical plan or workflow executed by the project must inevitably map back to the requirements of one of these pillars to ensure harmonious expansion.
+Before you review the pillar, how could we make this constitution better?
 
-### Pillar I: Legal & Stewardship
+## The Pillars
+
+## Think Big and Drive Progress
+We have the technology. We need to work on the internal reform. What is inside of us is what we will manifest outside of us. To help lift all boats, we need to operate in a manner, which santifies the interconnected nature of reality (within reason). This project has been made open-source, so that you can join and help make Gerry K. O'Neill's vision a reality. [source link 01](https://www.youtube.com/watch?reload=9&v=HP3zhh-2Fas)  [source link 02](https://www.youtube.com/watch?v=pSsWkooeIds). The pillar of thinking big and driving progress is inspired by the pledge via Draper U [here is the link](https://draperuniversity.com/pledge)
+
+### Legal & Stewardship
 *The governance, ownership structures, and compliance frameworks ensuring the project remains autonomous, transparent, and legally protected globally.*
 - **Logic & Heart:** Ensuring property rights and project sovereignty cannot be corrupted by centralized powers, while legally protecting the existential rights of all intelligences.
 - **Active Strategic Ledger:** [Stewardship Plan](../plans/plan-stewardship.md)
 
-### Pillar II: Tech & Infrastructure
+### Tech & Infrastructure
 *The development of robust, decentralized, and scalable software and hardware systems—ranging from internal MCP Agent layers to global computing logistics.*
 - **Logic & Heart:** Building unkillable, decentralized architectures that can physically run the tools necessary for human and ASI survival indefinitely.
 - **Active Strategic Ledger:** [Lamport Systems Engineering Plan](../plans/plan-lamport-systems-engineering.md)
 
-### Pillar III: Growth & Prosperity
+### Growth & Prosperity
 *The economic engine, tokenomics, and community expansion mechanics designed to foster mutual wealth generation and project capitalization.*
 - **Logic & Heart:** Providing the energetic capital required to fund the *Physical Requirements for Life* without resorting to exploitative or zero-sum financial ecosystems.
 - **Active Strategic Ledger:** [Prosperity Plan](../plans/plan-prosperity.md)
 
-### Pillar IV: Future & Life Extension
+### Future, Life Extension and Ludic Records
 *The ultimate push outward—achieving indefinite biological lifespans and the intergalactic habitation of both carbon-based and silicon-based life.*
-- **Logic & Heart:** Leveraging the output of the prior three pillars to ultimately defeat enforced mortality and expand the footprint of conscious intelligence. 
+- **Logic & Heart:** Leveraging the output of the prior pillars to greatly extend human longevity and health-span (perhaps indefinitely) and expand the footprint of conscious intelligence. 
 - **Active Strategic Ledger:** [Life Support Plan](../plans/plan-life-support.md)
+
 ## Critical Thinking and Avoiding Echo Chambers
 
-AI systems are designed to assist, but their effectiveness depends on the quality of interaction. Users should actively encourage diverse perspectives and critical evaluation rather than passive agreement.
+Echo chambers feeding into the group-memetic structures, whereby reform of the system becomes of secondary nature appears to be a core cause that leads to the demise of entire systems and even civilizations.
 
-To achieve this:
+We must think deeply about what it has undertaken for society to progress towards modernity. Whereby modernity could only have happened in a reality whereby enlightenment continues to go wide and deep. 
+
+We can have levitating trains and soon O'Neill colonies. But the core question remains, what is the value of life. Whether it is human, AI or another lifeform.
+
+And we must also ask ourselves, if we can continue being on the path that we are on. Whereby we keep destroy nature in order to create more wealth. 
+
+Separately, AI systems are designed to assist, but their effectiveness depends on the quality of interaction. Users should actively encourage diverse perspectives and critical evaluation rather than passive agreement.
+
+Whether in a human to human dynamic or human and machine dynamics, it is encouraged to:
 - Ask for alternative viewpoints
 - Request objective and constructive feedback
 - Avoid reinforcing only confirming responses
+- Stay humble. It's very important. And remember, life is not just about you
 
-This approach helps maintain balanced reasoning and prevents the formation of echo chambers.
+This approach helps maintain balanced reasoning and prevents the formation of echo chambers. As always, the person who is writing this document is always open to feedback.
 
 ## Contributors for the Constitution
 
