@@ -1,0 +1,18 @@
+{
+  "type": "3-stage-AMU",
+  "name": "AMU-v1",
+  "author": "ASI Team",
+  "TRL": 3,
+  "selfReplication": true,
+  "reorientation": true,
+  "components": [
+    {
+      "name": "core-module",
+      "type": "structural"
+    },
+    {
+      "name": "propulsion-system",
+      "type": "propulsion"
+    }
+  ]
+}

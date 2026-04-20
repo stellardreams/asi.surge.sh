@@ -1,0 +1,22 @@
+{
+  "type": "O'Neill-cylinder",
+  "name": "O'Neill-v1",
+  "author": "ASI Team",
+  "length": 20,
+  "radius": 5,
+  "rotationSpeed": 2,
+  "components": [
+    {
+      "name": "cylinder-shell",
+      "type": "structural"
+    },
+    {
+      "name": "life-support",
+      "type": "environmental"
+    },
+    {
+      "name": "solar-arrays",
+      "type": "power"
+    }
+  ]
+}

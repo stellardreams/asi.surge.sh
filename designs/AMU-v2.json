@@ -1,0 +1,22 @@
+{
+  "type": "3-stage-AMU",
+  "name": "AMU-v2",
+  "author": "ASI Team",
+  "TRL": 4,
+  "selfReplication": true,
+  "reorientation": true,
+  "components": [
+    {
+      "name": "enhanced-core",
+      "type": "structural"
+    },
+    {
+      "name": "advanced-propulsion",
+      "type": "propulsion"
+    },
+    {
+      "name": "navigation-module",
+      "type": "navigation"
+    }
+  ]
+}
