@@ -107,10 +107,10 @@ class DesignValidator {
         }
         
         if (!hasDesigns) {
-            console.log('No design files found. Skipping validation.');
-            return results;
+            console.log('No design files found. Validation skipped.');
+            process.exit(1); // Exit with error code
         }
-        
+                
         return results;
     }
 }
