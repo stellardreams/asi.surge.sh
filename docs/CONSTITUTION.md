@@ -64,7 +64,7 @@ This approach helps maintain balanced reasoning and prevents the formation of ec
 
 ### How to Contribute
 - Review and improve documentation
-- Participate in governance discussions
+- Participate in governance [discussions](https://github.com/stellardreams/asi.surge.sh/discussions)
 - Develop and test infrastructure components
 - Support community education and outreach
 - Contribute to the strategic plans in the `/plans` directory
