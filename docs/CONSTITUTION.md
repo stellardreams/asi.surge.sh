@@ -26,7 +26,7 @@ Before you review the pillar, how could we make this constitution better?
 
 ## The Pillars
 
-## Think Big and Drive Progress
+### Think Big and Drive Progress
 We have the technology. We need to work on the internal reform. What is inside of us is what we will manifest outside of us. To help lift all boats, we need to operate in a manner, which santifies the interconnected nature of reality (within reason). This project has been made open-source, so that you can join and help make Gerry K. O'Neill's vision a reality. [source link 01](https://www.youtube.com/watch?reload=9&v=HP3zhh-2Fas)  [source link 02](https://www.youtube.com/watch?v=pSsWkooeIds). The pillar of thinking big and driving progress is inspired by the pledge via Draper U [here is the link](https://draperuniversity.com/pledge)
 
 ### Legal & Stewardship
