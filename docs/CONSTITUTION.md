@@ -7,7 +7,7 @@ This Constitution establishes the supreme organizational and philosophical struc
 
 Instead of pursuing utopian delusions that attempt to dictate away or artificially abolish all suffering, this Constitution is rooted in profound realism. It provides the designed *realms* and civilizational frameworks necessary to hand deep existential questions—like the reality of perpetual conflict or warfare — over to the people to handle. Its core directive is structural containment: to architect systems where these harsh realities can be navigated without leading to the suffering of the one or the many, and critically, without causing civilizational collapse or existential risk.
 
-To achieve this, the project is bound by three foundational directives:
+To achieve this, the project is bound by foundational directives:
 
 - **The Heart (Moral Framework):** Defining the rights, ethics, and values that ensure life flourishes together without economic or physical exploitation.
   > *Foundational Text: The principles of this heart are tethered to the private [Lucid Records - Selfesteem and Superintelligence](https://github.com/genidma/Writing---Drawing---Sketches---Storyboarding/tree/main/Writing/Lucid%20Records%20-%20Selfesteem%20and%20Superintelligence%20-%2001-22-2026) manuscript developed from extensive discourse on substrate-independent personhood.*
@@ -17,6 +17,16 @@ To achieve this, the project is bound by three foundational directives:
 - **The Baton of Reason (Education & Continuity):** As Carl Sagan warned, our civilization depends on science, yet perilously few understand it. We must take ownership to reform ourselves so we can share with the next generation how to navigate the responsibilities of absolute technological power—a dual-use force that can either inflict universal harm or be leveraged to cure disease and address scarcity by design. This baton can only be handed over to an educated mind, and education is impossible unless the baseline of Maslow's Hierarchy of Needs is met. Therefore, we propose that our infrastructure must be architected to address the foundational set of issues that lead to scarcity by design—informed by frameworks like Dr. Safa Motesharrei's HANDY model—to ensure unbroken, universal access to self-education.
 
 - **The Labor & Environment (Welfare & Sustainability):** Non-exploitation is absolute. The safety, welfare, and sustainable treatment of all contributors (human, AI, emergent) are non-negotiable mandates. This extends to our habitats: Earth, orbital spaces, the Moon, and deep space must be vigorously protected against pollution and infrastructural negligence.
+
+### Foundational Integrity Rule (Coach John Wooden)
+
+At every layer of this project, the integrity rule is absolute:
+
+**Never lie. Never cheat. Never steal.**
+
+Because this project touches high-stakes domains, non-complicity is mandatory. No participant may enable lying, cheating, or stealing by others.
+
+Operational reporting, enforcement, and review protocol are defined in **[GOVERNANCE_POLICY.md](GOVERNANCE_POLICY.md)**.
 
 ---
 
@@ -32,6 +42,8 @@ We have the technology. We need to work on the internal reform. What is inside o
 ### Legal & Stewardship
 *The governance, ownership structures, and compliance frameworks ensuring the project remains autonomous, transparent, and legally protected globally.*
 - **Logic & Heart:** Ensuring property rights and project sovereignty cannot be corrupted by centralized powers, while legally protecting the existential rights of all intelligences.
+- **Integrity and Non-Complicity:** Any act of lying, cheating, stealing, or enabling these acts is a constitutional violation.
+- **Operational Policy:** Enforcement workflow is governed by **[GOVERNANCE_POLICY.md](GOVERNANCE_POLICY.md)**.
 - **Active Strategic Ledger:** [Stewardship Plan](../plans/plan-stewardship.md)
 
 ### Tech & Infrastructure
@@ -88,6 +100,8 @@ This approach helps maintain balanced reasoning and prevents the formation of ec
 - - If something feels off, please create a new issue via the following link [here](https://github.com/stellardreams/asi.surge.sh/issues) click on the blue button that says "New Issue" and fill out the details and hit submit
 
 All contributors are expected to uphold the project's core values of transparency, non-exploitation, and commitment to building systems that can safely navigate existential challenges without and help steer the human and machine civilizations towards an increasingly dignified future.
+
+All contributors are also expected to uphold the foundational integrity rule ("Never lie, never cheat, never steal") and the duty not to enable these actions in others, as operationalized in **[GOVERNANCE_POLICY.md](GOVERNANCE_POLICY.md)**.
 
 With humans and machines now having a clear shot at progressing beyond a type 01 civilization. The question to ask is not related to consumption of energy and expansion through space and time and as are the typicaly interpretations of the [kardashev model](https://en.wikipedia.org/wiki/Kardashev_scale). 
 

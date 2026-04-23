@@ -12,7 +12,9 @@ The project here is implemented as a static website with HTML, CSS, and JavaScri
 
 ## How to Contribute
 
-For project-wide critique expectations and formatting, see **[Critical Review and Feedback](https://github.com/stellardreams/asi.surge.sh/#critical-review-and-feedback)** in the README.
+Governance source of truth:
+- **[Governance Policy](docs/GOVERNANCE_POLICY.md)** for enforceable rules, integrity standards, and reporting protocol
+- **[Constitution](docs/CONSTITUTION.md)** for foundational principles
 
 ### 1. Reporting Issues
 
@@ -22,6 +24,7 @@ If you encounter a bug or have a feature request:
 - **Provide clear steps to reproduce** for bugs
 - **Include relevant details** like browser version, operating system, and expected vs. actual behavior
 - **Use descriptive titles** summarizing the issue
+- **Follow the feedback format in the Governance Policy** for critical review submissions
 
 ### 2. Making Changes
 
