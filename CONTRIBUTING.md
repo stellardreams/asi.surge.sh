@@ -12,6 +12,8 @@ The project here is implemented as a static website with HTML, CSS, and JavaScri
 
 ## How to Contribute
 
+For project-wide critique expectations and formatting, see **[Critical Review and Feedback](https://github.com/stellardreams/asi.surge.sh/#critical-review-and-feedback)** in the README.
+
 ### 1. Reporting Issues
 
 If you encounter a bug or have a feature request:
