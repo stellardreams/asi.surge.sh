@@ -1,4 +1,4 @@
-import { ethers } from "hardhat";
+import { ethers } from "ethers";
 import chai from "chai";
 const { expect } = chai;
 
