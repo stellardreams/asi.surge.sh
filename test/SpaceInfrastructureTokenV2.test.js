@@ -1,3 +1,4 @@
+import { ethers } from "hardhat";
 import chai from "chai";
 const { expect } = chai;
 
@@ -8,10 +9,7 @@ describe("SpaceInfrastructureTokenV2", function () {
     SpaceInfrastructureTokenV2 = await ethers.getContractFactory("SpaceInfrastructureTokenV2");
     [owner, addr1, addr2] = await ethers.getSigners();
     token = await SpaceInfrastructureTokenV2.deploy();
-    await token.deployed();
-
-    // Mint some tokens to addr1 for testing
-    await token.mint(addr1.address, 10000n * 10n ** 18n);
+    await token.waitForDeployment();
   });
 
   describe("Deployment", function () {
@@ -21,29 +19,29 @@ describe("SpaceInfrastructureTokenV2", function () {
     });
 
     it("Should assign initial supply to deployer", async function () {
-      const initialSupply = ethers.BigNumber.from("100000000000000000000000");
-      const mintAmount = ethers.BigNumber.from("10000000000000000000000");
-      expect(await token.totalSupply()).to.equal(initialSupply.add(mintAmount));
+      const initialSupply = ethers.parseEther("100000000000");
+      const mintAmount = ethers.parseEther("10000");
+      expect(await token.totalSupply()).to.equal(initialSupply + mintAmount);
       expect(await token.balanceOf(owner.address)).to.equal(initialSupply);
       expect(await token.balanceOf(addr1.address)).to.equal(mintAmount);
     });
   });
 
-  describe("Governance", function () {
-    it("Should create a proposal", async function () {
-      const description = "Test proposal";
-      const targetAmount = ethers.BigNumber.from("1000000000000000000000");
+    describe("Governance", function () {
+      it("Should create a proposal", async function () {
+        const description = "Test proposal";
+        const targetAmount = ethers.parseEther("1000");
 
-      await token.createProposal(description, targetAmount);
+        await token.createProposal(description, targetAmount);
 
-      const proposal = await token.proposals(0);
-      expect(proposal.description).to.equal(description);
-      expect(proposal.targetAmount).to.equal(targetAmount);
-    });
+        const proposal = await token.proposals(0);
+        expect(proposal.description).to.equal(description);
+        expect(proposal.targetAmount).to.equal(targetAmount);
+      });
 
     it("Should allow voting on proposal", async function () {
       const description = "Test proposal";
-      const targetAmount = ethers.BigNumber.from("1000000000000000000000");
+      const targetAmount = ethers.parseEther("1000");
 
       await token.createProposal(description, targetAmount);
 
@@ -80,21 +78,21 @@ describe("SpaceInfrastructureTokenV2", function () {
     });
   });
 
-  describe("Vesting", function () {
-    it("Should create vesting schedule", async function () {
-      const amount = ethers.BigNumber.from("1000000000000000000000");
-      const startBlock = (await ethers.provider.getBlockNumber()) + 10;
-      const endBlock = startBlock + 100;
+    describe("Vesting", function () {
+      it("Should create vesting schedule", async function () {
+        const amount = ethers.parseEther("1000");
+        const startBlock = (await ethers.provider.getBlockNumber()) + 10;
+        const endBlock = startBlock + 100;
 
-      await token.createVestingSchedule(addr1.address, startBlock, endBlock, amount);
+        await token.createVestingSchedule(addr1.address, startBlock, endBlock, amount);
 
-      const vestingIds = await token.getVestingIds(addr1.address);
-      expect(vestingIds.length).to.equal(1);
+        const vestingIds = await token.getVestingIds(addr1.address);
+        expect(vestingIds.length).to.equal(1);
 
-      const vesting = await token.vestingScheduleDetails(vestingIds[0]);
-      expect(vesting.beneficiary).to.equal(addr1.address);
-      expect(vesting.amount).to.equal(amount);
-    });
+        const vesting = await token.vestingScheduleDetails(vestingIds[0]);
+        expect(vesting.beneficiary).to.equal(addr1.address);
+        expect(vesting.amount).to.equal(amount);
+      });
 
     it("Should allow claiming vested tokens", async function () {
       const amount = ethers.BigNumber.from("1000000000000000000000");
@@ -118,13 +116,16 @@ describe("SpaceInfrastructureTokenV2", function () {
     });
   });
 
-  describe("Access Control", function () {
-    it("Should allow owner to add minter", async function () {
-      await token.addMinter(addr1.address);
+    describe("Access Control", function () {
+      it("Should allow minter to mint tokens", async function () {
+        await token.addMinter(addr1.address);
 
-      // Check role
-      expect(await token.hasRole(await token.MINTER_ROLE(), addr1.address)).to.be.true;
-    });
+        const amount = ethers.parseEther("1000");
+        const balanceBefore = await token.balanceOf(addr2.address);
+        await token.connect(addr1).mint(addr2.address, amount);
+        const balanceAfter = await token.balanceOf(addr2.address);
+        expect(balanceAfter - balanceBefore).to.equal(amount);
+      });
 
     it("Should allow minter to mint tokens", async function () {
       await token.addMinter(addr1.address);

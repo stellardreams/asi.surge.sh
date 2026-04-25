@@ -1,5 +1,4 @@
-import pkg from "hardhat";
-const { ethers } = pkg;
+import { ethers } from "hardhat";
 import chai from "chai";
 const { expect } = chai;
 
@@ -12,6 +11,7 @@ describe("TestToken", function () {
   before(async function () {
     const TestToken = await ethers.getContractFactory("TestToken");
     token = await TestToken.deploy();
+    await token.waitForDeployment();
     [owner, addr1, addr2] = await ethers.getSigners();
   });
 
@@ -26,31 +26,31 @@ describe("TestToken", function () {
 
     it("Should have 10 billion supply", async function () {
       const totalSupply = await token.totalSupply();
-      expect(totalSupply).to.equal(ethers.utils.parseEther("10000000000"));
+      expect(totalSupply).to.equal(ethers.parseEther("10000000000"));
     });
 
     it("Should assign total supply to owner", async function () {
-      expect(await token.balanceOf(owner.address)).to.equal(ethers.utils.parseEther("10000000000"));
+      expect(await token.balanceOf(owner.address)).to.equal(ethers.parseEther("10000000000"));
     });
   });
 
   describe("Transfers", function () {
     it("Should transfer tokens between accounts", async function () {
-      await token.transfer(addr1.address, ethers.utils.parseEther("1000"));
-      expect(await token.balanceOf(addr1.address)).to.equal(ethers.utils.parseEther("1000"));
+      await token.transfer(addr1.address, ethers.parseEther("1000"));
+      expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther("1000"));
     });
   });
 
   describe("Approvals", function () {
     it("Should approve spender", async function () {
-      await token.approve(addr1.address, ethers.utils.parseEther("500"));
-      expect(await token.allowance(owner.address, addr1.address)).to.equal(ethers.utils.parseEther("500"));
+      await token.approve(addr1.address, ethers.parseEther("500"));
+      expect(await token.allowance(owner.address, addr1.address)).to.equal(ethers.parseEther("500"));
     });
 
     it("Should transfer from approved account", async function () {
-      await token.transfer(owner.address, ethers.utils.parseEther("1000"));
-      await token.connect(addr1).transferFrom(owner.address, addr2.address, ethers.utils.parseEther("500"));
-      expect(await token.balanceOf(addr2.address)).to.equal(ethers.utils.parseEther("500"));
+      await token.transfer(owner.address, ethers.parseEther("1000"));
+      await token.connect(addr1).transferFrom(owner.address, addr2.address, ethers.parseEther("500"));
+      expect(await token.balanceOf(addr2.address)).to.equal(ethers.parseEther("500"));
     });
   });
 });
