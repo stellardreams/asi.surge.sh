@@ -22,13 +22,13 @@ describe("SpaceInfrastructureTokenV2", function () {
   
   it("Should assign initial supply to deployer (mock)", function () {
     // Initial supply (100,000) + minted for addr1 (10,000) = 110,000
-    const initialSupply = ethers.parseEther("100000");
-    const mintAmount = ethers.parseEther("10000");
-    const totalSupply = initialSupply + mintAmount;
+    const initialSupply = ethers.parseEther("100000"); // 100,000 tokens = 100000 * 10^18
+    const mintAmount = ethers.parseEther("10000");     // 10,000 tokens = 10000 * 10^18
+    const totalSupply = initialSupply + mintAmount;    // 110,000 tokens = 110000 * 10^18
     
-    expect(initialSupply.toString()).to.equal("100000000000000000000000000000");
-    expect(mintAmount.toString()).to.equal("10000000000000000000000");
-    expect(totalSupply.toString()).to.equal("110000000000000000000000000000");
+    expect(initialSupply.toString()).to.equal("100000000000000000000000"); // 23 digits
+    expect(mintAmount.toString()).to.equal("10000000000000000000000");   // 20 digits
+    expect(totalSupply.toString()).to.equal("110000000000000000000000000000"); // 24 digits
   });
   
   it("Should create a proposal (mock)", function () {
