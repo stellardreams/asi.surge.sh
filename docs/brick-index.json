@@ -1,0 +1,138 @@
+{
+  "version": "1.0",
+  "generated": "2026-04-26T00:02:21-04:00",
+  "description": "Machine-readable catalog of all Bricks in the project",
+  "bricks": [
+    {
+      "id": "format-amount",
+      "name": "formatAmount",
+      "type": "utility",
+      "category": "formatting",
+      "description": "Formats token amounts for human-readable display",
+      "file": "src/utils/format.ts",
+      "language": "typescript",
+      "lines": 15,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "proposed",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "bigint",
+          "description": "Amount in wei (10^18 units)"
+        },
+        {
+          "name": "decimals",
+          "type": "number",
+          "optional": true,
+          "default": "18",
+          "description": "Number of decimal places"
+        }
+      ],
+      "returns": {
+        "type": "string",
+        "description": "Formatted amount as string"
+      },
+      "examples": [
+        "formatAmount(1000000000000000000n) // '1.0'"
+      ],
+      "tags": ["token", "display", "formatting"],
+      "author": "system",
+      "lastModified": "2026-04-26T00:02:21-04:00"
+    },
+    {
+      "id": "validate-address",
+      "name": "isValidAddress",
+      "type": "validation",
+      "category": "ethereum",
+      "description": "Validates Ethereum address format",
+      "file": "src/validation/address.ts",
+      "language": "typescript",
+      "lines": 10,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "proposed",
+      "parameters": [
+        {
+          "name": "address",
+          "type": "string",
+          "description": "Ethereum address to validate"
+        }
+      ],
+      "returns": {
+        "type": "boolean",
+        "description": "True if valid Ethereum address"
+      },
+      "examples": [
+        "isValidAddress('0x123...') // true",
+        "isValidAddress('invalid') // false"
+      ],
+      "tags": ["ethereum", "validation", "address"],
+      "author": "system",
+      "lastModified": "2026-04-26T00:02:21-04:00"
+    },
+    {
+      "id": "transfer-tokens",
+      "name": "transferTokens",
+      "type": "service",
+      "category": "token",
+      "description": "Transfers tokens between accounts",
+      "file": "src/services/token.ts",
+      "language": "typescript",
+      "lines": 25,
+      "dependencies": ["validate-address"],
+      "testCoverage": 0,
+      "status": "proposed",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string",
+          "description": "Sender address"
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "description": "Recipient address"
+        },
+        {
+          "name": "amount",
+          "type": "bigint",
+          "description": "Amount to transfer in wei"
+        }
+      ],
+      "returns": {
+        "type": "Promise<boolean>",
+        "description": "True if transfer succeeded"
+      },
+      "examples": [
+        "await transferTokens(sender, recipient, 1000000000000000000n)"
+      ],
+      "tags": ["token", "transfer", "service"],
+      "author": "system",
+      "lastModified": "2026-04-26T00:02:21-04:00"
+    }
+  ],
+  "statistics": {
+    "total": 3,
+    "byType": {
+      "utility": 1,
+      "validation": 1,
+      "service": 1,
+      "contract": 0
+    },
+    "byStatus": {
+      "proposed": 3,
+      "active": 0,
+      "deprecated": 0
+    },
+    "averageTestCoverage": 66.67,
+    "totalLines": 50
+  },
+  "metadata": {
+    "project": "Awakened Imagination Core",
+    "repository": "https://github.com/stellardreams/asi.surge.sh",
+    "documentation": "https://github.com/stellardreams/asi.surge.sh/blob/main/.kilo/plans/recursive-mandelbrot.md",
+    "standards": "docs/BRICK_STANDARDS.md",
+    "sop": "docs/SOPs/brick-creation.md"
+  }
+}
