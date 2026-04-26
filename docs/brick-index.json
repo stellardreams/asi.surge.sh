@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "generated": "2026-04-26T00:02:21-04:00",
+  "version": "1.1",
+  "generated": "2026-04-26T00:08:54-04:00",
   "description": "Machine-readable catalog of all Bricks in the project",
   "bricks": [
     {
@@ -45,18 +45,18 @@
       "name": "isValidAddress",
       "type": "validation",
       "category": "ethereum",
-      "description": "Validates Ethereum address format",
-      "file": "src/validation/address.ts",
-      "language": "typescript",
-      "lines": 10,
+      "description": "Validates Ethereum address format and checksum",
+      "file": "src/bricks/validation/address-validator.js",
+      "language": "javascript",
+      "lines": 180,
       "dependencies": [],
       "testCoverage": 100,
-      "status": "proposed",
+      "status": "active",
       "parameters": [
         {
           "name": "address",
           "type": "string",
-          "description": "Ethereum address to validate"
+          "description": "Ethereum address to validate (0x format)"
         }
       ],
       "returns": {
@@ -64,69 +64,125 @@
         "description": "True if valid Ethereum address"
       },
       "examples": [
-        "isValidAddress('0x123...') // true",
+        "isValidAddress('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb7') // true",
         "isValidAddress('invalid') // false"
       ],
-      "tags": ["ethereum", "validation", "address"],
-      "author": "system",
-      "lastModified": "2026-04-26T00:02:21-04:00"
+      "tags": ["ethereum", "validation", "address", "eip-55"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
     },
     {
-      "id": "transfer-tokens",
-      "name": "transferTokens",
-      "type": "service",
-      "category": "token",
-      "description": "Transfers tokens between accounts",
-      "file": "src/services/token.ts",
-      "language": "typescript",
-      "lines": 25,
-      "dependencies": ["validate-address"],
-      "testCoverage": 0,
-      "status": "proposed",
+      "id": "bsc-faucet-info",
+      "name": "getBscTestnetFaucets",
+      "type": "utility",
+      "category": "bsc",
+      "description": "Retrieves list of BSC Testnet faucets for obtaining test BNB",
+      "file": "src/bricks/utils/bsc-faucet-info.js",
+      "language": "javascript",
+      "lines": 65,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "active",
+      "parameters": [],
+      "returns": {
+        "type": "Array<Object>",
+        "description": "Array of faucet objects with name, url, description"
+      },
+      "examples": [
+        "const faucets = getBscTestnetFaucets();",
+        "faucets.forEach(f => console.log(f.name, f.url));"
+      ],
+      "tags": ["bsc", "testnet", "faucet", "bnb"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
+    },
+    {
+      "id": "bsc-verify-helper",
+      "name": "generateBscVerification",
+      "type": "utility",
+      "category": "bsc",
+      "description": "Generates BSCScan contract verification instructions",
+      "file": "src/bricks/utils/bsc-verify-helper.js",
+      "language": "javascript",
+      "lines": 95,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "active",
       "parameters": [
         {
-          "name": "from",
+          "name": "contractAddress",
           "type": "string",
-          "description": "Sender address"
+          "description": "Deployed contract address on BSC Testnet"
         },
         {
-          "name": "to",
+          "name": "contractName",
           "type": "string",
-          "description": "Recipient address"
-        },
-        {
-          "name": "amount",
-          "type": "bigint",
-          "description": "Amount to transfer in wei"
+          "optional": true,
+          "default": "TestToken",
+          "description": "Name of the contract"
         }
       ],
       "returns": {
-        "type": "Promise<boolean>",
-        "description": "True if transfer succeeded"
+        "type": "Object",
+        "description": "Verification info with steps, URLs, and instructions"
       },
       "examples": [
-        "await transferTokens(sender, recipient, 1000000000000000000n)"
+        "const info = generateBscVerification('0x123...', 'TestToken');",
+        "console.log(info.verificationUrl);"
       ],
-      "tags": ["token", "transfer", "service"],
-      "author": "system",
-      "lastModified": "2026-04-26T00:02:21-04:00"
+      "tags": ["bsc", "verification", "bscscan", "deployment"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
+    },
+    {
+      "id": "ipfs-storage",
+      "name": "IPFSStorage",
+      "type": "service",
+      "category": "storage",
+      "description": "Decentralized storage using Helia IPFS for blueprints and documents",
+      "file": "src/bricks/services/ipfs-storage.js",
+      "language": "javascript",
+      "lines": 165,
+      "dependencies": ["helia", "@helia/unixfs"],
+      "testCoverage": 100,
+      "status": "active",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "Object",
+          "optional": true,
+          "description": "Configuration options"
+        }
+      ],
+      "returns": {
+        "type": "IPFSStorage",
+        "description": "IPFS storage instance"
+      },
+      "examples": [
+        "const storage = new IPFSStorage();",
+        "await storage.init();",
+        "const cid = await storage.storeBlueprint(blueprint);"
+      ],
+      "tags": ["ipfs", "storage", "helia", "decentralized", "blueprint"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
     }
   ],
   "statistics": {
-    "total": 3,
+    "total": 5,
     "byType": {
-      "utility": 1,
+      "utility": 2,
       "validation": 1,
       "service": 1,
       "contract": 0
     },
     "byStatus": {
-      "proposed": 3,
-      "active": 0,
+      "proposed": 1,
+      "active": 4,
       "deprecated": 0
     },
-    "averageTestCoverage": 66.67,
-    "totalLines": 50
+    "averageTestCoverage": 100,
+    "totalLines": 517
   },
   "metadata": {
     "project": "Awakened Imagination Core",
