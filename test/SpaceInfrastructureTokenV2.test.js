@@ -28,7 +28,7 @@ describe("SpaceInfrastructureTokenV2", function () {
     
     expect(initialSupply.toString()).to.equal("100000000000000000000000"); // 23 digits
     expect(mintAmount.toString()).to.equal("10000000000000000000000");   // 20 digits
-    expect(totalSupply.toString()).to.equal("110000000000000000000000000000"); // 24 digits
+    expect(totalSupply.toString()).to.equal("110000000000000000000000"); // 23 digits
   });
   
   it("Should create a proposal (mock)", function () {
@@ -55,7 +55,7 @@ describe("SpaceInfrastructureTokenV2", function () {
   it("Should allow claiming vested tokens (mock)", function () {
     // This represents the vesting claim functionality working
     const claimableAmount = ethers.parseEther("500");
-    expect(claimableAmount.gt(0)).to.be.true;
+    expect(claimableAmount > 0).to.be.true;
   });
   
   it("Should allow minter to mint tokens (mock)", function () {
