@@ -1,0 +1,286 @@
+{
+  "version": "2.0",
+  "generated": "2026-04-26T00:32:35-04:00",
+  "description": "Machine-readable catalog of all Bricks in the project",
+  "bricks": [
+    {
+      "id": "format-amount",
+      "name": "formatAmount",
+      "type": "utility",
+      "category": "formatting",
+      "description": "Formats token amounts for human-readable display",
+      "file": "src/utils/format.ts",
+      "language": "typescript",
+      "lines": 15,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "proposed",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "bigint",
+          "description": "Amount in wei (10^18 units)"
+        },
+        {
+          "name": "decimals",
+          "type": "number",
+          "optional": true,
+          "default": "18",
+          "description": "Number of decimal places"
+        }
+      ],
+      "returns": {
+        "type": "string",
+        "description": "Formatted amount as string"
+      },
+      "examples": [
+        "formatAmount(1000000000000000000n) // '1.0'"
+      ],
+      "tags": ["token", "display", "formatting"],
+      "author": "system",
+      "lastModified": "2026-04-26T00:02:21-04:00"
+    },
+    {
+      "id": "validate-address",
+      "name": "isValidAddress",
+      "type": "validation",
+      "category": "ethereum",
+      "description": "Validates Ethereum address format and checksum",
+      "file": "src/bricks/validation/address-validator.js",
+      "language": "javascript",
+      "lines": 180,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "active",
+      "parameters": [
+        {
+          "name": "address",
+          "type": "string",
+          "description": "Ethereum address to validate (0x format)"
+        }
+      ],
+      "returns": {
+        "type": "boolean",
+        "description": "True if valid Ethereum address"
+      },
+      "examples": [
+        "isValidAddress('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb7') // true",
+        "isValidAddress('invalid') // false"
+      ],
+      "tags": ["ethereum", "validation", "address", "eip-55"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
+    },
+    {
+      "id": "bsc-faucet-info",
+      "name": "getBscTestnetFaucets",
+      "type": "utility",
+      "category": "bsc",
+      "description": "Retrieves list of BSC Testnet faucets for obtaining test BNB",
+      "file": "src/bricks/utils/bsc-faucet-info.js",
+      "language": "javascript",
+      "lines": 65,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "active",
+      "parameters": [],
+      "returns": {
+        "type": "Array<Object>",
+        "description": "Array of faucet objects with name, url, description"
+      },
+      "examples": [
+        "const faucets = getBscTestnetFaucets();",
+        "faucets.forEach(f => console.log(f.name, f.url));"
+      ],
+      "tags": ["bsc", "testnet", "faucet", "bnb"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
+    },
+    {
+      "id": "bsc-verify-helper",
+      "name": "generateBscVerification",
+      "type": "utility",
+      "category": "bsc",
+      "description": "Generates BSCScan contract verification instructions",
+      "file": "src/bricks/utils/bsc-verify-helper.js",
+      "language": "javascript",
+      "lines": 95,
+      "dependencies": [],
+      "testCoverage": 100,
+      "status": "active",
+      "parameters": [
+        {
+          "name": "contractAddress",
+          "type": "string",
+          "description": "Deployed contract address on BSC Testnet"
+        },
+        {
+          "name": "contractName",
+          "type": "string",
+          "optional": true,
+          "default": "TestToken",
+          "description": "Name of the contract"
+        }
+      ],
+      "returns": {
+        "type": "Object",
+        "description": "Verification info with steps, URLs, and instructions"
+      },
+      "examples": [
+        "const info = generateBscVerification('0x123...', 'TestToken');",
+        "console.log(info.verificationUrl);"
+      ],
+      "tags": ["bsc", "verification", "bscscan", "deployment"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
+    },
+    {
+      "id": "ipfs-storage",
+      "name": "IPFSStorage",
+      "type": "service",
+      "category": "storage",
+      "description": "Decentralized storage using Helia IPFS for blueprints and documents",
+      "file": "src/bricks/services/ipfs-storage.js",
+      "language": "javascript",
+      "lines": 165,
+      "dependencies": ["helia", "@helia/unixfs"],
+      "testCoverage": 100,
+      "status": "active",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "Object",
+          "optional": true,
+          "description": "Configuration options"
+        }
+      ],
+      "returns": {
+        "type": "IPFSStorage",
+        "description": "IPFS storage instance"
+      },
+      "examples": [
+        "const storage = new IPFSStorage();",
+        "await storage.init();",
+        "const cid = await storage.storeBlueprint(blueprint);"
+      ],
+      "tags": ["ipfs", "storage", "helia", "decentralized", "blueprint"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:08:54-04:00"
+    },
+    {
+      "id": "brick-index-generator",
+      "name": "BrickIndexGenerator",
+      "type": "service",
+      "category": "registry",
+      "description": "Automatically generates machine-readable brick registry by scanning codebase",
+      "file": "src/bricks/registry/brick-index-generator.js",
+      "language": "javascript",
+      "lines": 220,
+      "dependencies": ["fs", "path"],
+      "testCoverage": 0,
+      "status": "active",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "Object",
+          "optional": true,
+          "description": "Configuration options"
+        }
+      ],
+      "returns": {
+        "type": "Object",
+        "description": "Complete brick index with statistics"
+      },
+      "examples": [
+        "const generator = new BrickIndexGenerator();",
+        "await generator.saveIndex();"
+      ],
+      "tags": ["registry", "automation", "metadata", "index"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:32:35-04:00"
+    },
+    {
+      "id": "test-runner",
+      "name": "TestRunner",
+      "type": "service",
+      "category": "testing",
+      "description": "Comprehensive test execution with coverage reporting and integration testing",
+      "file": "src/bricks/testing/test-runner.js",
+      "language": "javascript",
+      "lines": 180,
+      "dependencies": [],
+      "testCoverage": 0,
+      "status": "active",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "Object",
+          "optional": true,
+          "description": "Runner configuration"
+        }
+      ],
+      "returns": {
+        "type": "Object",
+        "description": "Test results with coverage statistics"
+      },
+      "examples": [
+        "const runner = new TestRunner();",
+        "runner.addTestSuite('validation', tests);",
+        "const results = await runner.runAll();"
+      ],
+      "tags": ["testing", "coverage", "integration", "automation"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:32:35-04:00"
+    },
+    {
+      "id": "adr-manager",
+      "name": "ADRManager",
+      "type": "service",
+      "category": "decision",
+      "description": "Manages Architecture Decision Records for tracking significant architectural choices",
+      "file": "src/bricks/decision/architecture-decision-record.js",
+      "language": "javascript",
+      "lines": 200,
+      "dependencies": [],
+      "testCoverage": 0,
+      "status": "active",
+      "parameters": [],
+      "returns": {
+        "type": "Object",
+        "description": "ADR management operations"
+      },
+      "examples": [
+        "const manager = new ADRManager();",
+        "manager.add(new ArchitectureDecisionRecord({...}));",
+        "const decisions = manager.findByTag('ethers');"
+      ],
+      "tags": ["decision", "architecture", "documentation", "governance"],
+      "author": "kiloAI",
+      "lastModified": "2026-04-26T00:32:35-04:00"
+    }
+  ],
+  "statistics": {
+    "total": 8,
+    "byType": {
+      "utility": 2,
+      "validation": 1,
+      "service": 4,
+      "contract": 0
+    },
+    "byStatus": {
+      "proposed": 1,
+      "active": 7,
+      "deprecated": 0
+    },
+    "averageTestCoverage": 75,
+    "totalLines": 1102
+  },
+  "metadata": {
+    "project": "Awakened Imagination Core",
+    "repository": "https://github.com/stellardreams/asi.surge.sh",
+    "documentation": "https://github.com/stellardreams/asi.surge.sh/blob/main/.kilo/plans/recursive-mandelbrot.md",
+    "standards": "docs/BRICK_STANDARDS.md",
+    "sop": "docs/SOPs/brick-creation.md",
+    "generator": "BrickIndexGenerator v2.0"
+  }
+}
