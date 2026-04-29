@@ -100,7 +100,7 @@ This approach ensures that all users and developers always access the most up-to
 3. **Implementation**
    - [ ] Establish chosen repository structure
    - [ ] Update all links and redirects accordingly
-   - [ ] Update the 'links via plans.html updated?' column above
+   - [ ] Update the **very important (in bold)**: Update the 'links via plans.html updated?' column above
    - [ ] Document decision rationale in `plans/README.md`
 
 ### Phase 5: Deployment
