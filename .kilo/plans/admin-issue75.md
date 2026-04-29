@@ -1,4 +1,4 @@
-# Plan: Credit Antigravity Integration
+# Plan: admin-issue75
 
 GitHub Issue: https://github.com/stellardreams/asi.surge.sh/issues/75
 
