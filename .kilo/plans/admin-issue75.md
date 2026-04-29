@@ -27,7 +27,7 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 | Group | Local Path [Source Code] | Local File Name | Status | GitHub Counterpart (master/plans) | investigation output by kilo/inclusionai/ling-2.6-1t:free | duplicate removed from root? | links via plans.html updated? |
 | :---: | :--- | :--- | :--- | :--- | :--- | :---: | :---: |
 | 🔵 | `plans/` | `plan-foundations.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-foundations.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ❌ | ❌ |
-| 🔵 | Root | `ledger-foundations.md` | **Duplicate** | *(Links to Group 🔵 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ❌ | ❌ |
+| 🔵 | Root | `ledger-foundations.md` | **Duplicate** | *(Links to Group 🔵 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | ❌ |
 | 🟢 | `plans/` | `plan-life-support.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-life-support.md) | — | ❌ | ❌ |
 | 🟢 | Root | `ledger-life-support.md` | **Duplicate** | *(Links to Group 🟢 Above)* | — | ❌ | ❌ |
 | 🟡 | `plans/` | `plan-prosperity.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-prosperity.md) | — | ❌ | ❌ |
@@ -157,11 +157,12 @@ This approach ensures that all users and developers always access the most up-to
 
 ### Deletion Log
 
-> **Note**: This deletion log is mapped to the *1. Audit of Duplicate Files* section above. Entries here correspond to the removal of duplicate rows identified in that audit.
+> **Note**: This deletion log is mapped to the *1. Audit of Duplicate Files* section above.
 
 | Timestamp (Eastern) | Timestamp (UTC) | Deleted Item | Requested By | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | 2026-04-29 18:01 | 2026-04-29 22:01 | `ledger-foundations.md` (Root duplicate row from audit table) | @genidma | Completed |
+| 2026-04-29 18:08 | 2026-04-29 22:08 | `ledger-foundations.md` (file removed from root) | @genidma | Completed |
 
 ## Timeline
 - [x] Completed: 2026-04-29 17:10 Eastern / 21:10 UTC ✅
