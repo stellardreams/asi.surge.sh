@@ -35,7 +35,7 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 | 🔴 | `plans/` | `plan-stewardship.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-stewardship.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | n/a | ❌ |
 | 🔴 | Root | `ledger-stewardship.md` | **Duplicate** | *(Links to Group 🔴 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | n/a |
 | 🟣 | `plans/` | `plan-lamport-systems-engineering.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-lamport-systems-engineering.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | n/a | ❌ |
-| 🟣 | Root | `ledger-lamport-systems-engineering.md` | **Duplicate** | *(Links to Group 🟣 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ❌ | ❌ |
+| 🟣 | Root | `ledger-lamport-systems-engineering.md` | **Duplicate** | *(Links to Group 🟣 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | n/a |
 | ⚪ | `plans/` | `tokenomics-whitepaper.md` | Unique | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/tokenomics-whitepaper.md) | — | N/A | ❌ |
 
 ### 2. Proposed Resolution Strategy
@@ -172,6 +172,7 @@ This approach ensures that all users and developers always access the most up-to
 | 2026-04-29 18:24 | 2026-04-29 22:24 | `ledger-life-support.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | duplicate of plans/plan-life-support.md removed |
 | 2026-04-29 19:24 | 2026-04-29 23:24 | `ledger-prosperity.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | duplicate of plans/plan-prosperity.md removed |
 | 2026-04-29 19:36 | 2026-04-29 23:36 | `ledger-stewardship.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | duplicate of plans/plan-stewardship.md removed |
+| 2026-04-29 19:49 | 2026-04-29 23:49 | `ledger-lamport-systems-engineering.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | duplicate of plans/plan-lamport-systems-engineering.md removed |
 
 ## Timeline
 - [x] Completed: 2026-04-29 17:10 Eastern / 21:10 UTC ✅
