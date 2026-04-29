@@ -1,6 +1,7 @@
 # Plan: [Title]
 
 ---
+link to this issue in github (or another resource): 
 plan code name: [code name]
 version: [version string]
 author: [agent name]
