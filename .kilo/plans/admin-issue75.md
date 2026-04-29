@@ -103,9 +103,11 @@ This approach ensures that all users and developers always access the most up-to
    - [ ] Update the **very important (in bold)**: Update the 'links via plans.html updated?' column above
    - [ ] Document decision rationale in `plans/README.md`
 
-### Phase 5: Deployment
+### Phase 5: Deployment and Cleanup
 1. **Hosting**
    - [ ] Push to hosting provider once all steps above completed successfully
+   - [ ] Review container https://github.com/stellardreams/asi.surge.sh/issues/75 and close it when issue completed successfully
+   - [ ] Update www/wcbi via issue 26: https://github.com/stellardreams/asi.surge.sh/discussions/26
 
 ## Technical Stack
 - [x] Markdown documentation ✅
