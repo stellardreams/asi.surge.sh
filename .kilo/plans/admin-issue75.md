@@ -111,10 +111,8 @@ This approach ensures that all users and developers always access the most up-to
    - [ ] Update www/wcbi via issue 26: https://github.com/stellardreams/asi.surge.sh/discussions/26
 
 ## Technical Stack
-- [x] Markdown documentation ✅
-- [x] GitHub Issues integration ✅
-- [ ] README redirection setup
-- [ ] HTML updates for GitHub linking
+ - [x] Markdown documentation ✅
+ - [x] GitHub Issues integration ✅
 
 ## Deliverables
 - [x] Admin plan document with full attribution ✅
