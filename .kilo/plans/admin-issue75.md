@@ -150,11 +150,24 @@ This approach ensures that all users and developers always access the most up-to
 - **Reviewer**: @genidma
 - **Purpose**: Weave audit findings and resolution strategy into administrative plan for centralized documentation
 
+### Deletion Log
+
+> **Note**: This deletion log is mapped to the *1. Audit of Duplicate Files* section above. Entries here correspond to the removal of duplicate rows identified in that audit.
+
+| Timestamp (Eastern) | Timestamp (UTC) | Deleted Item | Requested By | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| 2026-04-29 18:01 | 2026-04-29 22:01 | `ledger-foundations.md` (Root duplicate row from audit table) | @genidma | Completed |
+
 ## Timeline
-- [ ] [enter estimated timeline]
+- [x] Completed: 2026-04-29 17:10 Eastern / 21:10 UTC ✅
+- [ ] Redirection setup: TBD
+- [ ] Cleanup execution: TBD
 
 ## Next Steps
-- [ ] [enter immediate next step]
+- [x] No further action required for attribution ✅
+- [ ] Implement redirection via plans/README.md
+- [ ] Update plans.html for GitHub linking
+- [ ] Execute cleanup of duplicate files
 
 ## Implementation Logs ⏳
 ### [Timestamp] - [Agent ID]
