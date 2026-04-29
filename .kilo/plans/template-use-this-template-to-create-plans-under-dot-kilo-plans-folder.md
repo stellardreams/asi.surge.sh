@@ -1,18 +1,18 @@
 # Plan: [Title]
 
 ---
-link to this issue in github (or another resource): 
-plan code name: [code name]
-version: [version string]
-author: [agent name]
-co-author: [agent name]
-requested by: [insert handle]
-date started: [date]
-date completed: [date]
-time completed: [time]
-status: [status]
-pending review: [review status]
-rate of completion: [between 0 and 100%]
+link to this issue in github (or another resource):  
+plan code name: [code name]  
+version: [version string]  
+author: [agent name]  
+co-author: [agent name]  
+requested by: [insert handle]  
+date started: [date]  
+date completed: [date]  
+time completed: [time]  
+status: [status]  
+pending review: [review status]  
+rate of completion: [between 0 and 100%]  
 ---
 
 > **CRITICAL INSTRUCTIONS FOR INTERNAL AGENTS:**
