@@ -30,9 +30,9 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 | 🔵 | Root | `ledger-foundations.md` | **Duplicate** | *(Links to Group 🔵 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | n/a |
 | 🟢 | `plans/` | `plan-life-support.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-life-support.md) | hash: 35A740645B5E17C41701E705CFC24CB5DB3352133F2260954B6BE8AA086F1914 | n/a | ❌ |
 | 🟢 | Root | `ledger-life-support.md` | **Duplicate** | *(Links to Group 🟢 Above)* | hash: 35A740645B5E17C41701E705CFC24CB5DB3352133F2260954B6BE8AA086F1914 | ✅ | n/a |
-| 🟡 | `plans/` | `plan-prosperity.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-prosperity.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | ❌ |
+| 🟡 | `plans/` | `plan-prosperity.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-prosperity.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | n/a | ❌ |
 | 🟡 | Root | `ledger-prosperity.md` | **Duplicate** | *(Links to Group 🟡 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | n/a |
-| 🔴 | `plans/` | `plan-stewardship.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-stewardship.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | ❌ |
+| 🔴 | `plans/` | `plan-stewardship.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-stewardship.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | n/a | ❌ |
 | 🔴 | Root | `ledger-stewardship.md` | **Duplicate** | *(Links to Group 🔴 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | n/a | ❌ |
 | 🟣 | `plans/` | `plan-lamport-systems-engineering.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-lamport-systems-engineering.md) | — | ❌ | ❌ |
 | 🟣 | Root | `ledger-lamport-systems-engineering.md` | **Duplicate** | *(Links to Group 🟣 Above)* | — | ❌ | ❌ |
