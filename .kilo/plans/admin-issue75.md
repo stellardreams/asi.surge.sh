@@ -28,8 +28,8 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 | :---: | :--- | :--- | :--- | :--- | :--- | :---: | :---: |
 | 🔵 | `plans/` | `plan-foundations.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-foundations.md) | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ❌ | ❌ |
 | 🔵 | Root | `ledger-foundations.md` | **Duplicate/del (see del log below)** | *(Links to Group 🔵 Above)* | hash: 4A399C1D576ED893A642FD11B3ABD47C9487C875C534D77EF7A8030F6CDC74AF | ✅ | ❌ |
-| 🟢 | `plans/` | `plan-life-support.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-life-support.md) | hash: 35A740645B5E17C41701E705CFC24CB5DB3352133F2260954B6BE8AA086F1914 | ❌ | ❌ |
-| 🟢 | Root | `ledger-life-support.md` | **Duplicate** | *(Links to Group 🟢 Above)* | hash: 35A740645B5E17C41701E705CFC24CB5DB3352133F2260954B6BE8AA086F1914 | ❌ | ❌ |
+| 🟢 | `plans/` | `plan-life-support.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-life-support.md) | hash: 35A740645B5E17C41701E705CFC24CB5DB3352133F2260954B6BE8AA086F1914 | ❌ | ✅ |
+| 🟢 | Root | `ledger-life-support.md` | **Duplicate** | *(Links to Group 🟢 Above)* | hash: 35A740645B5E17C41701E705CFC24CB5DB3352133F2260954B6BE8AA086F1914 | ✅ | ❌ |
 | 🟡 | `plans/` | `plan-prosperity.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-prosperity.md) | — | ❌ | ❌ |
 | 🟡 | Root | `ledger-prosperity.md` | **Duplicate** | *(Links to Group 🟡 Above)* | — | ❌ | ❌ |
 | 🔴 | `plans/` | `plan-stewardship.md` | Plan File | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/plan-stewardship.md) | — | ❌ | ❌ |
@@ -164,6 +164,7 @@ This approach ensures that all users and developers always access the most up-to
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 2026-04-29 18:01 | 2026-04-29 22:01 | `ledger-foundations.md` (Root duplicate row from audit table) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | — |
 | 2026-04-29 18:08 | 2026-04-29 22:08 | `ledger-foundations.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | this file was added back because of miscommunication and that is why the duplicate had to be deleted twice |
+| 2026-04-29 18:24 | 2026-04-29 22:24 | `ledger-life-support.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | duplicate of plans/plan-life-support.md removed |
 
 ## Timeline
 - [x] Completed: 2026-04-29 17:10 Eastern / 21:10 UTC ✅
