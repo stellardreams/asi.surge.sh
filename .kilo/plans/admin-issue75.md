@@ -88,6 +88,20 @@ This approach ensures that all users and developers always access the most up-to
 3. **Cleanup**
    - [ ] Remove local `.md` duplicates from root and `plans/` directories
 
+### Phase 4: Repository Strategy Decision
+1. **Evaluate Locations**
+   - [ ] Assess `.kilo/plans/` vs root `plans/` repository for canonical plan storage
+   - [ ] Determine if plans should live in this repo or a dedicated `plans` repo
+   - [ ] Consider access control, versioning, and CI/CD implications
+2. **Decision Criteria**
+   - [ ] Single source of truth accessibility
+   - [ ] Edit/update workflow efficiency
+   - [ ] Cross-project reusability needs
+3. **Implementation**
+   - [ ] Establish chosen repository structure
+   - [ ] Update all links and redirects accordingly
+   - [ ] Document decision rationale in `plans/README.md`
+
 ## Technical Stack
 - [x] Markdown documentation ✅
 - [x] GitHub Issues integration ✅
