@@ -15,7 +15,7 @@ pending review: will be approved line by line
 rate of completion:30%  
 ---
 
-## Assessment of Duplicate Strategic Plans (Issue #75) via Antigravity by Google DeepMind (no affiliation with either, as of yet) 🙏 
+## Assessment of Duplicate Strategic Plans (Issue #75) via 01. Antigravity by Google DeepMind (no affiliation with either, as of yet) 🙏 and then 02. kilo/inclusionai/ling-2.6-1t:free (no affiliation) 
 
 To ensure a single source of truth and streamline the project structure, an audit has been performed:
 
