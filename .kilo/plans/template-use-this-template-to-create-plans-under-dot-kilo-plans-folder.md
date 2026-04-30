@@ -42,7 +42,20 @@ rate of completion: [between 0 and 100%]
 - [ ] [enter state item]
 - [ ] [enter state item]
 
-## Recommended Implementation - PDCA Cycle
+## Recommended Implementation - PDCA-CI Cycle
+
+```mermaid
+flowchart TD
+    A[Plan] --> B[Do]
+    B --> C[Check]
+    C --> D[Act]
+    D --> E[CI<br/>Continuous<br/>Innovation]
+    E --> A
+    E -->|Feedback<br/>Loop| B
+
+    style A fill:#4CAF50,color:#fff
+    style E fill:#2196F3,color:#fff
+```
 
 ### Plan Phase
 #### Define the issue
@@ -69,6 +82,14 @@ rate of completion: [between 0 and 100%]
 
 ### CI Phase (Continuous Integration/Innovation)
 [Insert continuous improvement and iteration details]
+
+**CI Logic:**
+- Analyze results from Act phase
+- Identify improvement opportunities
+- Implement lessons learned in next cycle
+- Update processes and documentation
+- Feed insights back to Planning phase for next iteration
+- Ensure sustainable, adaptive development approach
 
 ### Phase 1: [Phase Name]
 1. **[Category]**
