@@ -1,10 +1,10 @@
 # Plan: [Title]
 
-link to this issue in github (or another resource):
+**Issue Reference**: [Issue-TITLE - brief description](https://github.com/OWNER/REPO/issues/NUMBER)
+**Purpose**: Brief description of what this plan accomplishes
 
 ---
 
-link to this issue in github (or another resource):
 plan code name: [code name]
 version: [version string]
 author: [agent name]
@@ -17,6 +17,12 @@ status: [status]
 pending review: [review status]
 rate of completion: [between 0 and 100%]
 ---
+
+## Requirements - Follow the PDCA cycle (Plan, Do, Check, Act, CI (Continuous Integration or rinse and repeat))
+
+- [ ] [Requirement 1]
+- [ ] [Requirement 2]
+- [ ] [Requirement 3]
 
 > **CRITICAL INSTRUCTIONS FOR INTERNAL AGENTS:**
 > 1. Please ensure and this is very important: use this template to create any future plans under the `.kilo/plans/` folder.
@@ -34,7 +40,33 @@ rate of completion: [between 0 and 100%]
 - [ ] [enter state item]
 - [ ] [enter state item]
 
-## Recommended Implementation
+## Recommended Implementation - PDCA Cycle
+
+### Plan Phase
+#### Define the issue
+```bash
+# [insert example commands]
+```
+
+[Description of what this does]
+
+#### What, When, Where, Why
+```bash
+# [insert planning commands]
+```
+
+### Do Phase
+#### Development
+[What is to be done? Insert example commands and implementation details]
+
+### Check Phase
+[Insert validation and testing details]
+
+### Act Phase
+[Insert deployment and action details]
+
+### CI Phase (Continuous Integration/Innovation)
+[Insert continuous improvement and iteration details]
 
 ### Phase 1: [Phase Name]
 1. **[Category]**
@@ -75,6 +107,38 @@ rate of completion: [between 0 and 100%]
 
 ## Next Steps
 - [ ] [enter immediate next step]
+
+## Related Documentation
+
+**SOP**: `path/to/sop-document.md`
+**Related Issues**: [Issue #X](https://github.com/OWNER/REPO/issues/X)
+
+---
+
+**Admin Plan** | Issue #NUMBER | For Admin Purposes Only
+
+---
+
+requested by @genidma (or identify handle. remove this bracket when copying from template)
+
+**Built with**:
+[![inclusionAI/Ling via kilo code AI](https://img.shields.io/badge/Built_with-Ling-blue?style=flat-square)](https://kilo.ai/models/inclusionai-ling-2-6-1t-free)
+
+---
+
+**Created**: Eastern Time: YYYY-MM-DD HH:MM:SS EDT | UTC: YYYY-MM-DD HH:MM:SS UTC
+**Last Updated**: Eastern Time: YYYY-MM-DD HH:MM:SS EDT | UTC: YYYY-MM-DD HH:MM:SS UTC
+**AI Model**: inclusionai/ling-2.6-1t-free (Kilo AI Assistant)
+
+---
+
+**Template Notes**:
+- Replace all placeholders (OWNER, REPO, NUMBER, etc.)
+- Update checkboxes as requirements are completed
+- Add specific commands and configurations
+- Link to related SOP if applicable
+- Keep "For Admin Purposes Only" classification
+- Update timestamps on creation and modifications
 
 ## Implementation Logs ⏳
 ### [Timestamp] - [Agent ID]
