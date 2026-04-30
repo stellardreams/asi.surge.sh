@@ -7,7 +7,7 @@ see details for next steps below
 ## Plan Locations in Repository
 
 ### Strategic Plans (High-Level → Tactical Execution)
-**Location:** [`/plans/`](../plans/) - Main strategic plans directory
+**Location:** [`/plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) - Main strategic plans directory
 - Contains finalized strategic plans converted into tactical execution steps
 - These are the canonical, approved plans for the project
 - Includes: foundations, life-support, prosperity, stewardship, lamport-systems-engineering, tokenomics-whitepaper
