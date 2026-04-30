@@ -7,17 +7,17 @@
 
 > **Note:** When copying from template, add two trailing spaces (  ) to each line in the header section below for proper Markdown line breaks.
 
-plan code name: [code name]
-version: [version string]
-author: [agent name]
-co-author: [agent name]
-requested by: [insert handle]
-date started: [date]
-date completed: [date]
-time completed: [time]
-status: [status]
-pending review: [review status]
-rate of completion: [between 0 and 100%]
+plan code name: [code name]  
+version: [version string]  
+author: [agent name]  
+co-author: [agent name]  
+requested by: [insert handle]  
+date started: [date]  
+date completed: [date]  
+time completed: [time]  
+status: [status]  
+pending review: [review status]  
+rate of completion: [between 0 and 100%]  
 ---
 
 ## Requirements - Follow the PDCA cycle (Plan, Do, Check, Act, CI (Continuous Integration or rinse and repeat))
