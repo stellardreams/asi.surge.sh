@@ -8,7 +8,7 @@ see details for next steps below
 
 ### Strategic Plans (High-Level → Tactical Execution)
 **Location:** [`/plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) - Main strategic plans directory
-- Contains active and evolving strategic plans that need to be converted into tactical execution steps
+- Contains active and evolving strategic plans that need to be converted into tactical execution steps. Plans are promoted to the master `plan/` folder, after a sufficient amount of work has been under-taken and the PR has been approved.
 
 ### Administrative Plans (Work-in-Progress)
 **Location:** Current directory (`.kilo/plans/`) - draft planning area
@@ -35,11 +35,10 @@ flowchart TD
     B --> C[Promote to plans/]
 ```
 
-### Plan Movement & Promotion Process
+### Administrative Plans
 
-We take the plans from the `.kilo/plans` directory and either:
-- **Move them under `.kilo/plans/completed`** (if plan is administrative of a nature)
-- **Promote to official plan section** at the following link: [https://github.com/stellardreams/asi.surge.sh/tree/master/plans](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) (after a sufficient amount of work has been under-taken and the PR has been approved)
+- for administrative plans that don't require promotion to `plans/`, please move to `.kilo/plans/completed`
+- Promote to official plan section at the following link: [`plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans)
 
 ## Planning Process
 
