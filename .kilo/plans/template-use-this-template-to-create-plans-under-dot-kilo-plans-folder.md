@@ -89,6 +89,9 @@ rate of completion: [between 0 and 100%]
 2. **[Category]**
    - [ ] [enter task]
 
+### Phase 4: Continuous Innovation
+- [ ] Update www/wcbi via issue ([issue 26](https://github.com/stellardreams/asi.surge.sh/discussions/26))
+
 ## Technical Stack
 - [ ] [enter stack item]
 
