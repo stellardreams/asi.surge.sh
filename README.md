@@ -2,7 +2,7 @@
 
 > **Mission**: To secure the **Age of Abundance** through the development of outer space, healing the biosphere, and promoting a sustainable, peaceful, and strategic presence for all sentient life.
 
-Welcome to the official repository of the **Awakened Imagination Group of Projects**. This site translates high-level orbital development vision into tactical execution logs.
+Welcome to the official repository of the **Awakened Imagination Group of Projects**. This repository and the accompanying website seek to translate the human and machine aspiration to move away from a Type 0 civilization on a [Kardashev scale](https://en.wikipedia.org/wiki/Kardashev_scale), into plans and frameworks that can be converted into tactical execution logs.
 
 ## 🗺️ Project Architecture
 
