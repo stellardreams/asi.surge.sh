@@ -16,8 +16,15 @@ see details for next steps below
 
 ```mermaid
 flowchart TD
-    A[decision] --> B[plans<br/>strategic/final]
-    A --> C[.kilo/plans/<br/>admin/draft]
+    A[how we think we should be planning :thinking] --> B[plans<br/>strategic/final]
+    A --> C[.kilo/plans/<br/>draft]
+    C --> D{work<br/>sufficient?}
+    D -->|no| C
+    D -->|yes| E[PR for<br/>review & approval]
+    E --> F{approved?}
+    F -->|no| C
+    F -->|yes| B
+    C -.->|administrative| G[.kilo/plans/<br/>completed]
 ```
 
 - (`.kilo/plans/`) section is used for creating and refining new initiatives before they are moved to the main [`/plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) directory
