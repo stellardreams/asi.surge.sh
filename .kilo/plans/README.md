@@ -16,7 +16,7 @@ see details for next steps below
 
 ```mermaid
 flowchart TD
-    A[how we think we should be planning :thinking:] --> B[plans<br/>strategic/final]
+    A[how we think we should be planning] --> B[plans<br/>strategic/final]
     A --> C[.kilo/plans/<br/>draft]
     C --> D{work<br/>sufficient?}
     D -->|no| C
