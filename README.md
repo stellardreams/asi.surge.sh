@@ -317,3 +317,5 @@ We welcome contributions from the community! Please follow our [CONTRIBUTING.md]
 
 ---
 *Vision co-conceived by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*
+
+- In memory of the late Gerry K. O'Neill (please see the opening sequence of the documentary titled ['The High Frontier'](https://www.youtube.com/watch?v=pSsWkooeIds))
