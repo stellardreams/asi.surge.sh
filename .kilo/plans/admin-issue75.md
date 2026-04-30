@@ -40,9 +40,7 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 
 ### 2. Proposed Resolution Strategy
 
-#### 2.a Decision Time: 2029-04-29 20:30 Eastern / 2029-04-30 00:30 UTC
 
-The following steps are proposed to centralize these documents:
 
 1.  **Redirection**: Create a `plans/README.md` in the local repository that points directly to the `master/plans` branch on GitHub.
 2.  **Website Integration**: Update `plans.html` to link directly to the GitHub-hosted versions of each plan.
