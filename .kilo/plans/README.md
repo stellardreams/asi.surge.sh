@@ -51,7 +51,7 @@ flowchart TD
 
 3. **🚀 Promotion to Strategic Status**
    - **Anyone wishing to undertake work** must follow this recommendation
-   - **Create new PR requests** for proposed work to be reviewed and approved
+   - **Create new [PR](https://github.com/stellardreams/asi.surge.sh/pulls) requests** for proposed work to be reviewed and approved
    - **Approved plans get promoted** from `.kilo/plans/` to `/plans/` directory
    - **Strategic plans become** the foundation for tactical execution steps
 
