@@ -169,7 +169,7 @@ requested by @genidma (or identify handle. remove this bracket when copying from
 - Update checkboxes as requirements are completed
 - Add specific commands and configurations
 - Link to related SOP if applicable
-- Keep "For Admin Purposes Only" classification
+- Keep "For Admin Purposes Only" classification (if applicable)
 - Update timestamps on creation and modifications
 
 ## Implementation Logs ⏳
