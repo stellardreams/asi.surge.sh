@@ -64,7 +64,7 @@ flowchart TD
 1. **🔧 Day-to-Day Work Process**
    - **Create new plans** using the template: [`template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md`](template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)
    - **Develop your plan in the `.kilo/plans/` directory** for initial drafting and refinement. And seek active feedback from the other members who are active  in the project
-   - **Follow PDCA-CI methodology** (Plan-Do-Check-Act-Continuous Innovation cycle)
+   - Follow **PDCA-CI methodology** (Plan-Do-Check-Act-Continuous Innovation cycle)
    - Follow the **Planning Process** directly above, in order to promote your plan(s) up the chain
 
 2. **📋 Strategic Plans Location**
@@ -74,7 +74,7 @@ flowchart TD
 ## Available Templates & Plans
 
 - **[Planning Template](template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)** - Comprehensive template for new plan creation
-- **[admin-issue75.md](admin-issue75.md)** - Duplicate strategic plans audit and cleanup plan
+- **[admin-issue75.md](admin-issue75.md)** - leverage this administrative plan via [issue #75](https://github.com/stellardreams/asi.surge.sh/issues/75) in the situation that duplicate or stale plans emerge in the future. The structure inside of this plan and the corresponding issue, will help audit and cleanup the structure.
 - **[mysterious-propulsion.md](mysterious-propulsion.md)** - Advanced propulsion research initiative
 
 ## Guidelines
