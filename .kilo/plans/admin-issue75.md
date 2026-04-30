@@ -46,8 +46,8 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 
 ```mermaid
 flowchart TD
-    decision[decision] --> |'plans'|
-    decision --> |'.kilo/plans/'|
+    decision[decision] --> |plans|
+    decision --> |.kilo/plans/|
 ```
 
 #### 2.b Original Proposition
