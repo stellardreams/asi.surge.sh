@@ -42,13 +42,16 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 
 ### 2. Proposed Resolution Strategy
 
-> "Simplicity is the ultimate sophistication." - Leonardo da Vinci
+>[!Note]
+> okay, so I wasn't sure what the process should be. and so I asked intelligences independent of a substrate (exclusively) on what should be done. and I wasn't sure if it was the actual reference to text inside of this plan that was skewing the decision one way or another. and so I changed the text and the ordering and the answer was the same across 3 intelligences. 
+> so what I decided to do, was to create a [readme](https://github.com/stellardreams/asi.surge.sh/blob/master/.kilo/plans/README.md) under the .kilo/plans/ folder. it took more than 157 minutes, but we have a decent structure now. 
 
 ```mermaid
 flowchart TD
     A[decision] --> B[plans]
     A --> C[.kilo/plans/]
 ```
+> "Simplicity is the ultimate sophistication." - Leonardo da Vinci
 
 #### 2.b Original Proposition
 
