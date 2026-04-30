@@ -56,22 +56,19 @@ flowchart TD
     style F fill:#2196F3,color:#fff
 ```
 
-### Key Process Steps
+### Let's review the Key Process Steps
 
-1. **📋 Strategic Plans Location**
-   - **High-level strategic plans** that need to be converted into functional tactical execution steps are located in the [`/plans/`](../plans/) folder
-   - These represent the canonical, approved strategic direction for the project
+> [!Important]
+> Anyone wishing to undertake work must follow this recommendation
 
-2. **🔧 Day-to-Day Work Process**
+1. **🔧 Day-to-Day Work Process**
    - **Create new plans** using the template: [`template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md`](template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)
    - **Develop in this `.kilo/plans/` directory** for initial drafting and refinement
    - **Follow PDCA-CI methodology** (Plan-Do-Check-Act-Continuous Innovation cycle)
 
-3. **🚀 Promotion to Strategic Status**
-   - **Anyone wishing to undertake work** must follow this recommendation
-   - **Create new [PR](https://github.com/stellardreams/asi.surge.sh/pulls) requests** for proposed work to be reviewed and approved
-   - **Approved plans get promoted** from `.kilo/plans/` to `/plans/` directory
-   - **Strategic plans become** the foundation for tactical execution steps
+2. **📋 Strategic Plans Location**
+   - **High-level strategic plans** that need to be converted into functional tactical execution steps are located in the [`/plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) folder
+   - These represent the canonical, approved strategic direction for the project
 
 ## Available Templates & Plans
 
