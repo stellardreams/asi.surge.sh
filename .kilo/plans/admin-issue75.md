@@ -4,16 +4,16 @@ GitHub Issue: https://github.com/stellardreams/asi.surge.sh/issues/75
 
 ---
 
-plan code name: admin-issue75  
-version: 1.0.0  
-author: antigravity by google deepmind (no affiliation) as original author  
+plan code name: admin-issue75
+version: 1.0.0
+author: antigravity by google deepmind (no affiliation) as original author
 co-author: kilo/inclusionai/ling-2.6-1t:free (equal lifting - 40%)
 co-author: kilo/x-ai/grok-code-fast-1:optimized:free (rewrite plan for 75, assist with mysterious propulsion and other plans. integrate changes inside readme. contribution - 40%)
-time started: 16:20 Eastern / 20:20 UTC  
-date completed: tbd  
-status: in progress  
-pending review: will be approved line by line  
- rate of completion:85%  
+time started: 16:20 Eastern / 20:20 UTC
+date completed: tbd
+status: in progress
+pending review: will be approved line by line
+rate of completion:85%
 ---
 
 ## Assessment of Duplicate Strategic Plans (Issue #75) via 01. Antigravity by Google DeepMind (no affiliation with either, as of yet) 🙏 and then 02. kilo/inclusionai/ling-2.6-1t:free (no affiliation) 
