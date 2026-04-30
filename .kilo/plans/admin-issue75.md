@@ -39,6 +39,11 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 | ⚪ | `plans/` | `tokenomics-whitepaper.md` | Unique | [View on GitHub](https://github.com/stellardreams/asi.surge.sh/blob/master/plans/tokenomics-whitepaper.md) | — | N/A | ❌ |
 
 ### 2. Proposed Resolution Strategy
+
+#### 2.a Decision Time: 2029-04-29 20:30 Eastern / 2029-04-30 00:30 UTC
+**Location Decision:** Plans will live in `.kilo/plans/` (this repository's `.kilo/plans/` folder) as the canonical location.
+
+#### 2.b Original Proposition
 The following steps are proposed to centralize these documents:
 
 1.  **Redirection**: Create a `plans/README.md` in the local repository that points directly to the `master/plans` branch on GitHub.
