@@ -63,7 +63,7 @@ flowchart TD
 
 1. **🔧 Day-to-Day Work Process**
    - **Create new plans** using the template: [`template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md`](template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)
-   - **Develop in this `.kilo/plans/` directory** for initial drafting and refinement
+   - **Develop your plan in the `.kilo/plans/` directory** for initial drafting and refinement. And seek active feedback from the other members who are active  in the project
    - **Follow PDCA-CI methodology** (Plan-Do-Check-Act-Continuous Innovation cycle)
 
 2. **📋 Strategic Plans Location**
