@@ -27,13 +27,7 @@ flowchart TD
     C -.->|administrative| G[.kilo/plans/<br/>completed]
 ```
 
-- (`.kilo/plans/`) section is used for creating and refining new initiatives before they are moved to the main [`/plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) directory
-
-```mermaid
-flowchart TD
-    A[decision] --> B[plans<br/>strategic/final]
-    A --> C[.kilo/plans/<br/>admin/draft]
-```
+> **In a nutshell:** The draft plans from `.kilo/plans` flow to the `plans` folder (as long as the process is followed).
 
 ### Plan Movement & Promotion Process
 
