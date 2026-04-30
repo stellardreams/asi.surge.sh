@@ -65,6 +65,7 @@ flowchart TD
    - **Create new plans** using the template: [`template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md`](template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)
    - **Develop your plan in the `.kilo/plans/` directory** for initial drafting and refinement. And seek active feedback from the other members who are active  in the project
    - **Follow PDCA-CI methodology** (Plan-Do-Check-Act-Continuous Innovation cycle)
+   - **Follow the Planning Process** directly above, in order to promote your plan(s) up the chain
 
 2. **📋 Strategic Plans Location**
    - **High-level strategic plans** that need to be converted into functional tactical execution steps are located in the [`/plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) folder
