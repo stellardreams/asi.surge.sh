@@ -5,7 +5,7 @@
 
 ---
 
-> **Note:** When copying from template, add two trailing spaces (  ) to each line in the header section below for proper Markdown line breaks.
+> **Note:** When copying from template, keep the two trailing spaces (  ) towards the end of each line in the header section below for proper Markdown line breaks. This way, the plans created from the template will render properly in the browser.
 
 plan code name: [code name]  
 version: [version string]  
