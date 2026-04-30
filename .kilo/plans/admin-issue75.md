@@ -1,18 +1,18 @@
 # Plan: admin-issue75
 
-GitHub Issue: https://github.com/stellardreams/asi.surge.sh/issues/75
+GitHub Issue: [https://github.com/stellardreams/asi.surge.sh/issues/75](https://github.com/stellardreams/asi.surge.sh/issues/75)
 
 ---
 
-plan code name: admin-issue75  
-version: 1.0.0  
-author: antigravity by google deepmind (no affiliation) as original author  
-co-author: kilo/inclusionai/ling-2.6-1t:free (equal lifting - 40%)  
-co-author: kilo/x-ai/grok-code-fast-1:optimized:free (rewrite plan for 75, assist with mysterious propulsion and other plans. integrate changes inside readme. contribution - 40%)  
-time started: 16:20 Eastern / 20:20 UTC  
-date completed: tbd  
-status: in progress  
-pending review: will be approved line by line  
+plan code name: admin-issue75
+version: 1.0.0
+author: antigravity by google deepmind (no affiliation) as original author
+co-author: kilo/inclusionai/ling-2.6-1t:free (equal lifting - 40%)
+co-author: kilo/x-ai/grok-code-fast-1:optimized:free (rewrite plan for 75, assist with mysterious propulsion and other plans. integrate changes inside readme. contribution - 40%)
+time started: 16:20 Eastern / 20:20 UTC
+date completed: tbd
+status: in progress
+pending review: will be approved line by line
 rate of completion:85%
 ---
 
@@ -41,8 +41,6 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 
 ### 2. Proposed Resolution Strategy
 
-
-
 > "Simplicity is the ultimate sophistication." - Leonardo da Vinci
 
 ```mermaid
@@ -53,8 +51,8 @@ flowchart TD
 
 #### 2.b Original Proposition
 
-1.  **Website Integration**: Update `plans.html` to link directly to the GitHub-hosted versions of each plan.
-2.  **Cleanup**: Remove all local `.md` duplicates from the root and `plans/` directories to eliminate confusion.
+1. **Website Integration**: Update `plans.html` to link directly to the GitHub-hosted versions of each plan.
+2. **Cleanup**: Remove all local `.md` duplicates from the root and `plans/` directories to eliminate confusion.
 
 This approach ensures that all users and developers always access the most up-to-date strategic documents.
 
@@ -65,6 +63,7 @@ This approach ensures that all users and developers always access the most up-to
 > 4. Please ensure and this is very important: add an entry under the **Implementation Logs** section below. You must not over-write any information in the Implementation Logs. Also, please cite your name and model number if you happen to be an A.I (intelligence independent of a substrate). e.g: entry was made by 'kiloai\trinity arcee large preview: free at (this date) (the date and time should be in Eastern time and also in UTC)
 
 ## Goal
+
 - [x] Credit original author (antigravity by Google DeepMind) and secondary support agent with full model name, takeover timestamp recorded at 17:10 Eastern / 21:10 UTC ✅
 - [x] Audit duplicate strategic plans (Issue #75) and propose resolution strategy ✅
 
@@ -79,7 +78,7 @@ This approach ensures that all users and developers always access the most up-to
 
 ### Phase 1: Credit Attribution & Audit
 1. **Documentation**
-   - [x] Reference GitHub issue #75: https://github.com/stellardreams/asi.surge.sh/issues/75 ✅
+   - [x] Reference GitHub issue #75: [https://github.com/stellardreams/asi.surge.sh/issues/75](https://github.com/stellardreams/asi.surge.sh/issues/75) ✅
    - [x] Record primary author credit ✅
    - [x] Record secondary support agent with full model identifier ✅
    - [x] Perform duplicate file audit ✅
@@ -132,8 +131,8 @@ This approach ensures that all users and developers always access the most up-to
 1. **Hosting**
    - [ ] Push to hosting provider once all steps above completed successfully
    - [x] Review this plan here line by line, in order to ensure no item was missed. thank you. ✅
-   - [ ] Review container https://github.com/stellardreams/asi.surge.sh/issues/75 and close it when issue completed successfully
-   - [ ] Update www/wcbi via issue 26: https://github.com/stellardreams/asi.surge.sh/discussions/26
+   - [ ] Review container [https://github.com/stellardreams/asi.surge.sh/issues/75](https://github.com/stellardreams/asi.surge.sh/issues/75) and close it when issue completed successfully
+   - [ ] Update www/wcbi via issue 26: [https://github.com/stellardreams/asi.surge.sh/discussions/26](https://github.com/stellardreams/asi.surge.sh/discussions/26)
    - [x] Integrate `1776135859839-mighty-moon.md` plan into this plan (plan referencing issue 75 - this plan!) once done. ✅
 
 ## Technical Stack
@@ -154,7 +153,7 @@ This approach ensures that all users and developers always access the most up-to
 - [x] Cleanup completion: All duplicates removed ✅
 
 ## Dependencies
-- [x] GitHub issue #75: https://github.com/stellardreams/asi.surge.sh/issues/75 ✅
+- [x] GitHub issue #75: [https://github.com/stellardreams/asi.surge.sh/issues/75](https://github.com/stellardreams/asi.surge.sh/issues/75) ✅
 - [ ] Access to modify `plans.html`
 - [x] Access to create `plans/README.md` ✅
 
@@ -230,14 +229,13 @@ This approach ensures that all users and developers always access the most up-to
 | 2026-04-29 19:36 | 2026-04-29 23:36 | `ledger-stewardship.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | duplicate of plans/plan-stewardship.md removed |
 | 2026-04-29 19:49 | 2026-04-29 23:49 | `ledger-lamport-systems-engineering.md` (file removed from root) | @genidma | kilo/inclusionai/ling-2.6-1t:free | Completed | duplicate of plans/plan-lamport-systems-engineering.md removed |
 
-## Timeline
-- [x] Completed: 2026-04-29 17:10 Eastern / 21:10 UTC ✅
-- [ ] Redirection setup: TBD
-- [ ] Cleanup execution: TBD
+---
 
-## Next Steps
-- [x] No further action required for attribution ✅
-- [ ] Implement redirection via plans/README.md
-- [ ] Update plans.html for GitHub linking
-- [ ] Execute cleanup of duplicate files
+*"The Divine Light is always in man, presenting itself to the senses and to the comprehension, but man rejects it."* - Giordano Bruno
+
+*Note: Giordano Bruno was the first in recorded history to conceive of exoplanets, centuries ahead of modern astronomy. His visionary thinking about infinite universes and cosmic exploration continues to inspire propulsion and space exploration concepts.*
+
+---
+
+"Earth is the cradle of humanity, but one cannot live in a cradle forever." ― Konstantin Tsiolkovsky
 
