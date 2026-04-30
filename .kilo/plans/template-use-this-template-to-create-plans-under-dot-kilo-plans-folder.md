@@ -5,6 +5,8 @@
 
 ---
 
+> **Note:** When copying from template, add two trailing spaces (  ) to each line in the header section below for proper Markdown line breaks.
+
 plan code name: [code name]
 version: [version string]
 author: [agent name]
