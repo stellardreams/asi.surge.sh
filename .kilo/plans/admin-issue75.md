@@ -137,7 +137,7 @@ flowchart TD
    - [x] Review this plan here line by line, in order to ensure no item was missed. thank you. ✅
    - [ ] Review container [https://github.com/stellardreams/asi.surge.sh/issues/75](https://github.com/stellardreams/asi.surge.sh/issues/75) and close it when issue completed successfully
    - [ ] Update www/wcbi via issue 26: [https://github.com/stellardreams/asi.surge.sh/discussions/26](https://github.com/stellardreams/asi.surge.sh/discussions/26)
-   - [x] Integrate `1776135859839-mighty-moon.md` plan into this plan (plan referencing issue 75 - this plan!) once done. ✅
+   - [ ] can this plan `1776135859839-mighty-moon.md` be woven into this plan (..75.md) once done?
 
 ## Technical Stack
  - [x] Markdown documentation ✅
