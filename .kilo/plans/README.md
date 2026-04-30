@@ -38,7 +38,6 @@ flowchart TD
 ### Administrative Plans
 
 - for administrative plans that don't require promotion to `plans/`, please move to `.kilo/plans/completed`
-- Promote to official plan section at the following link: [`plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans)
 
 ## Planning Process
 
