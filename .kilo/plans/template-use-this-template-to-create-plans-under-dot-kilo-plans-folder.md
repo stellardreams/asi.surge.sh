@@ -121,7 +121,7 @@ rate of completion: [between 0 and 100%]
 
 requested by @genidma (or identify handle. remove this bracket when copying from template)
 
-**Built with**:
+**template built with**:  
 [![inclusionAI/Ling via kilo code AI](https://img.shields.io/badge/Built_with-Ling-blue?style=flat-square)](https://kilo.ai/models/inclusionai-ling-2-6-1t-free)
 
 ---
