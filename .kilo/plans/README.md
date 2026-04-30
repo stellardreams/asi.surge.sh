@@ -11,7 +11,7 @@ see details for next steps below
 - Contains active and evolving strategic plans that need to be converted into tactical execution steps
 
 ### Administrative Plans (Work-in-Progress)
-**Location:** Current directory (`.kilo/plans/`) - Administrative planning area
+**Location:** Current directory (`.kilo/plans/`) - draft planning area
 - Contains planning templates and draft plans (see next section for 'Plan Movement & Promotion Process' for high level process overview)
 
 ```mermaid
