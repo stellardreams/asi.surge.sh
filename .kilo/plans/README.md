@@ -1,6 +1,8 @@
 # .kilo/plans Directory
 
-This directory contains administrative planning templates and work-in-progress plans for the Awakened Imagination project.
+we create plans inside of .kilo/plans using the [template](https://github.com/stellardreams/asi.surge.sh/blob/master/.kilo/plans/template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)
+
+see details for next steps below
 
 ## Plan Locations in Repository
 
@@ -20,6 +22,12 @@ flowchart TD
     A[decision] --> B[plans<br/>strategic/final]
     A --> C[.kilo/plans/<br/>admin/draft]
 ```
+
+### Plan Movement & Promotion Process
+
+We take the plans from the `.kilo/plans` directory and either:
+- **Move them under `.kilo/plans/completed`** (if plan is administrative of a nature)
+- **Promote to official plan section** at the following link: [https://github.com/stellardreams/asi.surge.sh/tree/master/plans](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) (after a sufficient amount of work has been under-taken and the PR has been approved)
 
 ## Planning Process
 
