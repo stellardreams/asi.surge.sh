@@ -12,8 +12,15 @@ see details for next steps below
 
 ### Administrative Plans (Work-in-Progress)
 **Location:** Current directory (`.kilo/plans/`) - Administrative planning area
-- Contains planning templates and draft plans
-- Used for creating and refining new initiatives before promotion to main `/plans/` directory
+- Contains planning templates and draft plans (see next section for 'Plan Movement & Promotion Process' for high level process overview)
+
+```mermaid
+flowchart TD
+    A[decision] --> B[plans<br/>strategic/final]
+    A --> C[.kilo/plans/<br/>admin/draft]
+```
+
+- (`.kilo/plans/`) section is used for creating and refining new initiatives before they are moved to the main [`/plans/`](https://github.com/stellardreams/asi.surge.sh/tree/master/plans) directory
 
 ```mermaid
 flowchart TD
