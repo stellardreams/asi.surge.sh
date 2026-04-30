@@ -101,7 +101,9 @@ This approach ensures that all users and developers always access the most up-to
    - [ ] Remove local `.md` duplicates from root and `plans/` directories
 
 ### Phase 4: Repository Strategy Decision
-1. **Evaluate Locations**
+1. **Comprehensive Assessment**
+   - [ ] Do comprehensive assessment of all plans in .kilo plans folder and plans folder and map how they are highlighted on the website at asi.surge.sh
+2. **Evaluate Locations**
    - [ ] Assess `.kilo/plans/` vs root `plans/` repository for canonical plan storage
    - [ ] Determine if plans should live in this repo or a dedicated `plans` repo
    - [ ] Consider access control, versioning, and CI/CD implications
