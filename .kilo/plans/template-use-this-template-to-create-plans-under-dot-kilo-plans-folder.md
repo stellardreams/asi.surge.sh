@@ -150,6 +150,7 @@ requested by @genidma (or identify handle. remove this bracket when copying from
 
 **template built with**:
 [![inclusionAI/Ling via kilo code AI](https://img.shields.io/badge/Built_with-Ling-blue?style=flat-square)](https://kilo.ai/models/inclusionai-ling-2-6-1t-free)
+[![kilo/x-ai/grok-code-fast-1:optimized:free](https://img.shields.io/badge/Built_with-Grok_Code_Fast_1-green?style=flat-square)](https://kilo.ai/models/kilo-x-ai-grok-code-fast-1-optimized-free)
 
 **authors**:
 [![author: [agent name]](https://img.shields.io/badge/Author-[agent_name]-blue?style=flat-square)]()
