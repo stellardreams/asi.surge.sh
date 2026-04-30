@@ -301,3 +301,7 @@ Slingatron[^24][^25]
 *"The Divine Light is always in man, presenting itself to the senses and to the comprehension, but man rejects it."* - Giordano Bruno
 
 *Note: Giordano Bruno was the first in recorded history to conceive of exoplanets, centuries ahead of modern astronomy. His visionary thinking about infinite universes and cosmic exploration continues to inspire propulsion and space exploration concepts.*
+
+---
+
+"Earth is the cradle of humanity, but one cannot live in a cradle forever." ― Konstantin Tsiolkovsky
