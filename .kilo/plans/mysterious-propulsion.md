@@ -17,7 +17,7 @@ rate of completion:0%
 
 ## Snapshot: Non-Rocket Propulsion Wikipedia Comparison - 2026-04-29 21:59:27 EST / 2026-04-30 01:59:27 UTC
 
-- [x] This is simply an extract of what the 'comparison' section from the wikipedia page for https://en.wikipedia.org/wiki/Non-rocket_spacelaunch highlights as of today. ✅
+- [x] This is simply an extract of what the [comparison](https://en.wikipedia.org/wiki/Non-rocket_spacelaunch#Comparison_of_space_launch_methods) section from the wikipedia page for https://en.wikipedia.org/wiki/Non-rocket_spacelaunch highlights as of today. ✅
 
 > **Note:** For humans and machines to become an interplanetary civilization and safeguard their collective futures, it is highly likely (96%) that non-rocket propulsion technologies would have to be developed safely/securely/sustainably and equitably.
 
