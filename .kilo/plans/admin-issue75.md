@@ -44,7 +44,7 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 
 > "Simplicity is the ultimate sophistication." - Leonardo da Vinci
 
-``mermaid
+```mermaid
 flowchart TD
     A[decision] --> B[plans]
     A --> C[.kilo/plans/]
