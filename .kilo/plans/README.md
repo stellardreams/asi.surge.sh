@@ -29,6 +29,12 @@ flowchart TD
 
 > **In a nutshell:** The draft plans from `.kilo/plans` flow to the `plans` folder (as long as the process is followed).
 
+```mermaid
+flowchart TD
+    A[Draft in .kilo/plans] --> B[PR Review & Approval]
+    B --> C[Promote to plans/]
+```
+
 ### Plan Movement & Promotion Process
 
 We take the plans from the `.kilo/plans` directory and either:
