@@ -264,7 +264,7 @@ asi.surge.sh/
 
 ### Prerequisites
 - Node.js 18+ and npm
-- Docker (optional, for containerized development)
+- Docker (optional but highly recommended for issues related to safety and security, for containerized development)
 
 ### Installation
 
