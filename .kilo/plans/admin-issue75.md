@@ -93,6 +93,19 @@ This approach ensures that all users and developers always access the most up-to
    - [ ] Assess `.kilo/plans/` vs root `plans/` repository for canonical plan storage
    - [ ] Determine if plans should live in this repo or a dedicated `plans` repo
    - [ ] Consider access control, versioning, and CI/CD implications
+   - [ ] Reassess `tokenomics-whitepaper.md` from Section 1. [above](https://github.com/stellardreams/asi.surge.sh/blob/master/.kilo/plans/admin-issue75.md#1-audit-of-duplicate-files-with-updated-duplicate-mapping-color-coded)
+
+   **Details:** There are 5 references to tokenomics that may help help make this decision:
+
+   | # | File Path | Line | Content |
+   |---|-----------|------|---------|
+   | 1 | `plans.html` | 59 | `<a href='plans/tokenomics-whitepaper.md'` |
+   | 2 | `.kilo/plans/tokenomics-design.md` | 87 | `- [x] **TOKENOMICS_WHITEPAPER.md** - Full tokenomics design created` |
+   | 3 | `.kilo/plans/1776142149793-misty-eagle.md` | 7 | `- [ ] Understand why implementation of issue #49 (swarm management: wikinomics and tokenomics design) got stuck for 28+ minutes` |
+   | 4 | `.github/ISSUE_TEMPLATE/next_steps.md` | 49 | `    - Review tokenomics for regulatory compliance` |
+   | 5 | `ROADMAP.md` | 56 | `    - Develop tokenomics for resource allocation` |
+
+   **Key finding:** The `plans.html` file links to `plans/tokenomics-whitepaper.md`, but the admin-issue75.md audit table shows this file as "Unique" (not a duplicate). This is correct - there's no duplicate file found in the root directory for tokenomics-whitepaper.md, unlike the other plan files that had root duplicates (ledger-*.md files).
 2. **Decision Criteria**
    - [ ] Single source of truth accessibility
    - [ ] Edit/update workflow efficiency
