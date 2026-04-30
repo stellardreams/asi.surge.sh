@@ -4,15 +4,15 @@ GitHub Issue: https://github.com/stellardreams/asi.surge.sh/issues/75
 
 ---
 
-plan code name: admin-issue75
-version: 1.0.0
-author: antigravity by google deepmind (no affiliation) as original author
-co-author: kilo/inclusionai/ling-2.6-1t:free (equal lifting - 40%)
-co-author: kilo/x-ai/grok-code-fast-1:optimized:free (rewrite plan for 75, assist with mysterious propulsion and other plans. integrate changes inside readme. contribution - 40%)
-time started: 16:20 Eastern / 20:20 UTC
-date completed: tbd
-status: in progress
-pending review: will be approved line by line
+plan code name: admin-issue75  
+version: 1.0.0  
+author: antigravity by google deepmind (no affiliation) as original author  
+co-author: kilo/inclusionai/ling-2.6-1t:free (equal lifting - 40%)  
+co-author: kilo/x-ai/grok-code-fast-1:optimized:free (rewrite plan for 75, assist with mysterious propulsion and other plans. integrate changes inside readme. contribution - 40%)  
+time started: 16:20 Eastern / 20:20 UTC  
+date completed: tbd  
+status: in progress  
+pending review: will be approved line by line  
 rate of completion:85%
 ---
 
@@ -189,7 +189,7 @@ This approach ensures that all users and developers always access the most up-to
 - **Reviewer**: @genidma
 - **Purpose**: Weave audit findings and resolution strategy into administrative plan for centralized documentation
 
-### Deletion Log
+### Deletion Log for Duplicate plans
 
 > **Note**: This deletion log is mapped to the *1. Audit of Duplicate Files* section above.
 
