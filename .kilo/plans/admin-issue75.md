@@ -41,7 +41,16 @@ The markers in the **"Group"** column visually link each plan file to its duplic
 
 ### 2. Proposed Resolution Strategy
 
+#### 2.a Decision Time: 2029-04-29 20:30 Eastern / 2029-04-30 00:30 UTC
+**[decision]('https://www.youtube.com/shorts/bU-pwPhbOTw?reload=9')**: Plans will live in `'plans'` (root) vs `'.kilo/plans/'` as the canonical location.
 
+```mermaid
+flowchart TD
+    decision[decision] --> |'plans'|
+    decision --> |'.kilo/plans/'|
+```
+
+#### 2.b Original Proposition
 
 1.  **Redirection**: Create a `plans/README.md` in the local repository that points directly to the `master/plans` branch on GitHub.
 2.  **Website Integration**: Update `plans.html` to link directly to the GitHub-hosted versions of each plan.
