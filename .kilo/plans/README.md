@@ -59,7 +59,7 @@ flowchart TD
 ### Let's review the Key Process Steps
 
 > [!Important]
-> Anyone wishing to undertake work must follow this recommendation
+> Anyone wishing to undertake work must follow the recommendations made inside of this Readme. As the project scales, following this process will help ensure that the changes that are most relevant can be interwoven seamlessly.
 
 1. **🔧 Day-to-Day Work Process**
    - **Create new plans** using the template: [`template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md`](template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)
