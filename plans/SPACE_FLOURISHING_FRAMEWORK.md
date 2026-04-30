@@ -32,7 +32,7 @@
 - **Life Support**: Closed-loop recycling (air, water, waste), advanced hydroponics/aeroponics, atmospheric processing
 - **Energy**: Space-based solar, nuclear fission/fusion, beamed power
 - **In-Situ Resource Utilization (ISRU)**: Mining lunar/Martian water ice, extracting oxygen from regolith, asteroid mining for metals
-- **Non-Rocket Propulsion**: [See Wikipedia](https://en.wikipedia.org/wiki/Non-rocket_spacelaunch) - @genidma that technologies at certain TRL level can and should be incentivized
+- **Non-Rocket Propulsion**: [See Wikipedia](https://en.wikipedia.org/wiki/Non-rocket_spacelaunch) - @genidma that technologies at certain TRL level can and should be incentivized. See also: [mysterious-propulsion.md](mysterious-propulsion.md) for ongoing research into breakthrough propulsion concepts.
 
 #### 2. Biological & Human Systems
 - **Health**: Artificial gravity solutions (centrifuges/O'Neill cylinders), radiation countermeasures, telemedicine with AI support
