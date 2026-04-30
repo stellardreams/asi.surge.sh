@@ -75,7 +75,6 @@ flowchart TD
 
 - **[Planning Template](template-use-this-template-to-create-plans-under-dot-kilo-plans-folder.md)** - Comprehensive template for new plan creation
 - **[admin-issue75.md](admin-issue75.md)** - leverage this administrative plan via [issue #75](https://github.com/stellardreams/asi.surge.sh/issues/75) in the situation that duplicate or stale plans emerge in the future. The structure inside of this plan and the corresponding issue, will help audit and cleanup the structure.
-- **[mysterious-propulsion.md](mysterious-propulsion.md)** - Advanced propulsion research initiative
 
 ## Guidelines
 
