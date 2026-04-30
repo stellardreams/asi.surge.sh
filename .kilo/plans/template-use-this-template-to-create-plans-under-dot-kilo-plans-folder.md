@@ -112,6 +112,7 @@ flowchart TD
 
 ### Phase 4: Continuous Innovation
 - [ ] Update www/wcbi via issue ([issue 26](https://github.com/stellardreams/asi.surge.sh/discussions/26))
+- [ ] Structure time to review items from ([issue 26](https://github.com/stellardreams/asi.surge.sh/discussions/26)) and create issues to improve and advance the project further
 
 ## Technical Stack
 - [ ] [enter stack item]
