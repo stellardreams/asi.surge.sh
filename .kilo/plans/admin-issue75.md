@@ -109,6 +109,7 @@ This approach ensures that all users and developers always access the most up-to
    - [ ] Review this plan here line by line, in order to ensure no item was missed. thank you.
    - [ ] Review container https://github.com/stellardreams/asi.surge.sh/issues/75 and close it when issue completed successfully
    - [ ] Update www/wcbi via issue 26: https://github.com/stellardreams/asi.surge.sh/discussions/26
+   - [ ] Integrate 1776135859839-mighty-moon.md plan into 75 once done.
 
 ## Technical Stack
  - [x] Markdown documentation ✅
