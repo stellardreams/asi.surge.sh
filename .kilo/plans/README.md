@@ -81,8 +81,6 @@ flowchart TD
 - Use the template for all new plan creation
 - Follow PDCA-CI cycle methodology
 - Submit PRs for peer review before promotion to strategic status
-- Keep administrative work in this directory until approved
+- Completed plans focused on administrative work to be moved to the []`completed` sub-folder here](https://github.com/stellardreams/asi.surge.sh/tree/master/.kilo/plans/completed)
 
 ---
-
-*For questions about the planning process, see the [main repository README](../../README.md)*
