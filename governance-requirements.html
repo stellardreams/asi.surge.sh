@@ -1,0 +1,816 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Governance Requirements – Space Infrastructure Token (SIT) | Awakened Imagination</title>
+  <meta name="description" content="Essential requirements for the Space Infrastructure Token (SIT) project to enable large-scale, decentralized governance of space infrastructure. A prospectus for governments, agencies, and partners.">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" href="mystyles.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2TGX86LYD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-F2TGX86LYD');
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script>
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i + "?ref=bwt";
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "pkp1yhekrs");
+  </script>
+
+  <style>
+    /* ─── Page-specific enhancements ─── */
+
+    /* Starfield canvas */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Hero */
+    .gov-hero {
+      text-align: center;
+      padding: 5rem 1rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .gov-hero .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+      border-radius: 20px;
+      padding: 0.3rem 1rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(8px);
+      background: rgba(100, 255, 218, 0.05);
+    }
+
+    .gov-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #ccd6f6 0%, #64ffda 60%, #a8ffeb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gov-hero .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.75;
+    }
+
+    .gov-hero .meta-tag {
+      font-size: 0.82rem;
+      color: var(--text-gray);
+      opacity: 0.6;
+    }
+
+    /* Progress bar showing requirement count */
+    .req-counter {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 2.5rem 0 4rem;
+      flex-wrap: wrap;
+    }
+
+    .req-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(100, 255, 218, 0.15);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .req-dot.active {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px rgba(100, 255, 218, 0.6);
+    }
+
+    /* Section label */
+    .section-label {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-label h2 {
+      font-size: 1.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-label p {
+      color: var(--text-gray);
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    /* Requirements grid */
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.75rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Requirement card */
+    .req-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .req-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      background: radial-gradient(ellipse at top left, rgba(100, 255, 218, 0.07) 0%, transparent 70%);
+    }
+
+    .req-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(100, 255, 218, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(100, 255, 218, 0.1);
+    }
+
+    .req-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Accent stripe at top of card */
+    .req-card .card-stripe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 18px 18px 0 0;
+      background: linear-gradient(90deg, var(--accent-cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .req-card:hover .card-stripe {
+      opacity: 1;
+    }
+
+    .req-card .req-number {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      opacity: 0.6;
+    }
+
+    .req-card .req-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .req-card h3 {
+      font-size: 1.1rem;
+      color: var(--text-silver);
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+
+    .req-card p {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      line-height: 1.7;
+      margin-bottom: 0;
+      max-width: none;
+    }
+
+    .req-card .req-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .req-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+      border: 1px solid rgba(100, 255, 218, 0.2);
+      color: var(--accent-cyan);
+      background: rgba(100, 255, 218, 0.04);
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+
+    /* Status badge on card */
+    .req-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+      align-self: flex-start;
+      margin-top: auto;
+    }
+
+    .req-status.future {
+      background: rgba(255, 200, 87, 0.08);
+      border: 1px solid rgba(255, 200, 87, 0.25);
+      color: #ffc857;
+    }
+
+    .req-status.in-progress {
+      background: rgba(100, 255, 218, 0.08);
+      border: 1px solid rgba(100, 255, 218, 0.25);
+      color: var(--accent-cyan);
+    }
+
+    .req-status.critical {
+      background: rgba(255, 99, 99, 0.08);
+      border: 1px solid rgba(255, 99, 99, 0.25);
+      color: #ff6b6b;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Separator quote */
+    .prospectus-quote {
+      max-width: 760px;
+      margin: 5rem auto;
+      padding: 0 1rem;
+      text-align: center;
+    }
+
+    .prospectus-quote blockquote {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      font-style: italic;
+      border-left: none;
+      background: none;
+      border-radius: 0;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .prospectus-quote blockquote::before {
+      content: '"';
+      position: absolute;
+      top: -1rem;
+      left: 1rem;
+      font-size: 5rem;
+      color: var(--accent-cyan);
+      opacity: 0.15;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    /* Interconnection diagram (simple CSS) */
+    .interconnect-section {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 1rem;
+    }
+
+    .interconnect-section h2 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .interconnect-section > p {
+      text-align: center;
+      margin: 0 auto 3rem;
+      max-width: 600px;
+    }
+
+    .interconnect-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .interconnect-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .ic-node {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 1.2rem 0.8rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .ic-node:hover {
+      border-color: rgba(100, 255, 218, 0.5);
+      background: rgba(100, 255, 218, 0.06);
+      transform: scale(1.04);
+    }
+
+    .ic-node .ic-icon { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
+    .ic-node .ic-label {
+      font-size: 0.75rem;
+      color: var(--text-silver);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* CTA section */
+    .cta-section {
+      text-align: center;
+      padding: 5rem 1rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    .cta-section p {
+      margin: 0 auto 2rem;
+      color: var(--text-gray);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--accent-cyan);
+      color: var(--bg-navy);
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(100, 255, 218, 0.35);
+      text-decoration: none;
+    }
+
+    .cta-secondary {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border: 1px solid rgba(100, 255, 218, 0.4);
+      color: var(--accent-cyan);
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(100, 255, 218, 0.06);
+      border-color: var(--accent-cyan);
+      transform: translateY(-3px);
+      text-decoration: none;
+    }
+
+    /* Source note */
+    .source-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-gray);
+      opacity: 0.5;
+      padding: 0 1rem 2rem;
+    }
+
+    .source-note a {
+      opacity: 0.7;
+      font-size: 0.78rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .req-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gov-hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    /* Scroll reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Starfield background -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/index/">Home</a>
+    <a href="/amu/">AMU</a>
+    <a href="/effort/">Effort</a>
+    <a href="/imagine/">Imagine</a>
+    <a href="/plans/">Plans</a>
+    <a href="/governance-requirements/" style="color: var(--accent-cyan); border-bottom: 1px solid var(--accent-cyan); padding-bottom: 2px;">Governance</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="gov-hero reveal">
+    <span class="eyebrow">SIT · Governance Prospectus</span>
+    <h1>Essential Requirements for Space Infrastructure Governance</h1>
+    <p class="subtitle">
+      The Space Infrastructure Token (SIT) is innovative — but technical implementation alone is not enough.
+      These eight pillars define what must exist in the world for SIT-based governance of space infrastructure to succeed.
+    </p>
+    <p class="meta-tag">Issue <a href="https://github.com/stellardreams/asi.surge.sh/issues/63" target="_blank" rel="noopener noreferrer">#63</a> · Last updated June 2026 · Labels: enhancement, documentation, future-work</p>
+
+    <!-- 8 dots, one per requirement -->
+    <div class="req-counter" id="req-counter">
+      <div class="req-dot active" title="International Legal Frameworks"></div>
+      <div class="req-dot active" title="Advanced Automation & AI"></div>
+      <div class="req-dot active" title="Decentralized Governance Tools"></div>
+      <div class="req-dot active" title="Cybersecurity & Physical Security"></div>
+      <div class="req-dot active" title="Sustainable Funding Models"></div>
+      <div class="req-dot active" title="Global Collaboration Platforms"></div>
+      <div class="req-dot active" title="Education & Training Programs"></div>
+      <div class="req-dot active" title="Iterative Prototyping"></div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Requirements Grid -->
+    <section id="requirements" aria-label="Eight essential requirements">
+      <div class="section-label reveal">
+        <h2>The Eight Pillars</h2>
+        <p>Each requirement is interdependent. Weakness in any one area risks the integrity of the whole system.</p>
+      </div>
+
+      <div class="req-grid">
+
+        <!-- 1 -->
+        <article class="req-card reveal" id="req-1">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 01</span>
+          <div class="req-icon">⚖️</div>
+          <h3>Robust International Legal Frameworks</h3>
+          <p>
+            Binding agreements between nations and private entities establishing clear rules for ownership, liability, and operations in space. Without enforceable international law, tokenized governance of space assets remains legally ambiguous and unprotectable.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">Policy</span>
+            <span class="req-tag">Treaty</span>
+            <span class="req-tag">Sovereignty</span>
+          </div>
+          <span class="req-status critical"><span class="status-dot"></span>Critical Dependency</span>
+        </article>
+
+        <!-- 2 -->
+        <article class="req-card reveal" id="req-2">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 02</span>
+          <div class="req-icon">🤖</div>
+          <h3>Advanced Automation &amp; AI</h3>
+          <p>
+            Autonomous systems capable of maintenance, repair, and operations in space. Communication delays of minutes to hours make human-in-the-loop control impossible for real-time space asset management. AI-driven autonomy is not a feature — it is a prerequisite.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">AI</span>
+            <span class="req-tag">Robotics</span>
+            <span class="req-tag">Autonomy</span>
+          </div>
+          <span class="req-status critical"><span class="status-dot"></span>Critical Dependency</span>
+        </article>
+
+        <!-- 3 -->
+        <article class="req-card reveal" id="req-3">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 03</span>
+          <div class="req-icon">🗳️</div>
+          <h3>Decentralized Governance Tools</h3>
+          <p>
+            The SIT token's on-chain governance system — proposals, quorum, timelocks, delegation — must be validated through real-world testing and integrated with existing space treaties and regulatory bodies. Smart contracts alone do not equal governance.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">DAO</span>
+            <span class="req-tag">On-chain</span>
+            <span class="req-tag">Voting</span>
+          </div>
+          <span class="req-status in-progress"><span class="status-dot"></span>In Development</span>
+        </article>
+
+        <!-- 4 -->
+        <article class="req-card reveal" id="req-4">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 04</span>
+          <div class="req-icon">🔒</div>
+          <h3>Cybersecurity &amp; Physical Security</h3>
+          <p>
+            Multi-layered protection against hacking of control systems, electromagnetic pulse (EMP) threats, and orbital debris hazards. Space infrastructure is uniquely vulnerable: attacks are difficult to detect, and physical repairs are extraordinarily expensive.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">Cyber</span>
+            <span class="req-tag">EMP</span>
+            <span class="req-tag">Debris</span>
+          </div>
+          <span class="req-status critical"><span class="status-dot"></span>Critical Dependency</span>
+        </article>
+
+        <!-- 5 -->
+        <article class="req-card reveal" id="req-5">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 05</span>
+          <div class="req-icon">💰</div>
+          <h3>Sustainable Funding Models</h3>
+          <p>
+            Tokenomics designed to incentivize long-term investment in space infrastructure development and ongoing maintenance — not short-term speculation. Revenue models must account for multi-decade asset lifecycles and the high cost of space operations.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">Tokenomics</span>
+            <span class="req-tag">Treasury</span>
+            <span class="req-tag">Staking</span>
+          </div>
+          <span class="req-status in-progress"><span class="status-dot"></span>In Development</span>
+        </article>
+
+        <!-- 6 -->
+        <article class="req-card reveal" id="req-6">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 06</span>
+          <div class="req-icon">🌐</div>
+          <h3>Global Collaboration Platforms</h3>
+          <p>
+            Structured partnerships between government space agencies (NASA, ESA, JAXA, ISRO), commercial operators (SpaceX, Blue Origin, Rocket Lab), and international organizations. The coordination overhead of multi-stakeholder space governance demands dedicated infrastructure.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">Partnership</span>
+            <span class="req-tag">Diplomacy</span>
+            <span class="req-tag">Interop</span>
+          </div>
+          <span class="req-status future"><span class="status-dot"></span>Future Work</span>
+        </article>
+
+        <!-- 7 -->
+        <article class="req-card reveal" id="req-7">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 07</span>
+          <div class="req-icon">🎓</div>
+          <h3>Education &amp; Training Programs</h3>
+          <p>
+            Building a skilled workforce fluent in both space operations and blockchain governance. Today's talent gap between aerospace engineers and decentralized systems developers represents a systemic risk to any tokenized space infrastructure project.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">Workforce</span>
+            <span class="req-tag">Training</span>
+            <span class="req-tag">STEM</span>
+          </div>
+          <span class="req-status future"><span class="status-dot"></span>Future Work</span>
+        </article>
+
+        <!-- 8 -->
+        <article class="req-card reveal" id="req-8">
+          <div class="card-stripe"></div>
+          <span class="req-number">Requirement 08</span>
+          <div class="req-icon">🔬</div>
+          <h3>Iterative Prototyping</h3>
+          <p>
+            Begin with small-scale space assets — individual satellites, tethered platforms, small space stations — to test and progressively refine the SIT governance model before scaling to larger, more complex infrastructure. Validate assumptions early, fail small.
+          </p>
+          <div class="req-tags">
+            <span class="req-tag">MVP</span>
+            <span class="req-tag">Testnet</span>
+            <span class="req-tag">Iteration</span>
+          </div>
+          <span class="req-status in-progress"><span class="status-dot"></span>In Development</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Pull quote -->
+    <div class="prospectus-quote reveal">
+      <blockquote>
+        The project's blockchain approach is innovative, but success requires bridging technical implementation with real-world space challenges and international cooperation.
+        <cite>— Grok AI analysis via Kilo AI, April 2026</cite>
+      </blockquote>
+    </div>
+
+    <!-- Interconnection overview -->
+    <section class="interconnect-section reveal" aria-label="Stakeholder ecosystem">
+      <h2>The Ecosystem</h2>
+      <p>SIT governance touches every layer of the space industry. These are the key actors whose participation is essential.</p>
+      <div class="interconnect-grid">
+        <div class="ic-node">
+          <span class="ic-icon">🛰️</span>
+          <span class="ic-label">Space Agencies<br><small style="opacity:0.6">NASA · ESA · JAXA</small></span>
+        </div>
+        <div class="ic-node">
+          <span class="ic-icon">🏗️</span>
+          <span class="ic-label">Commercial Ops<br><small style="opacity:0.6">SpaceX · Blue Origin</small></span>
+        </div>
+        <div class="ic-node">
+          <span class="ic-icon">🏛️</span>
+          <span class="ic-label">Governments<br><small style="opacity:0.6">Treaties · Law</small></span>
+        </div>
+        <div class="ic-node">
+          <span class="ic-icon">⛓️</span>
+          <span class="ic-label">SIT Token<br><small style="opacity:0.6">On-chain Governance</small></span>
+        </div>
+        <div class="ic-node">
+          <span class="ic-icon">🔐</span>
+          <span class="ic-label">Security Layer<br><small style="opacity:0.6">Cyber · Physical</small></span>
+        </div>
+        <div class="ic-node">
+          <span class="ic-icon">🤖</span>
+          <span class="ic-label">AI Systems<br><small style="opacity:0.6">Autonomous Ops</small></span>
+        </div>
+        <div class="ic-node">
+          <span class="ic-icon">💡</span>
+          <span class="ic-label">Researchers<br><small style="opacity:0.6">Academia · Labs</small></span>
+        </div>
+        <div class="ic-node">
+          <span class="ic-icon">🌱</span>
+          <span class="ic-label">Token Holders<br><small style="opacity:0.6">Community · DAOs</small></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section reveal">
+      <h2>Want to Contribute?</h2>
+      <p>
+        These requirements define the roadmap for real-world SIT adoption. If you have expertise in space law, AI systems, cybersecurity, or decentralized governance — we want to hear from you.
+      </p>
+      <div class="cta-buttons">
+        <a href="https://github.com/stellardreams/asi.surge.sh/issues/63" target="_blank" rel="noopener noreferrer" id="btn-view-issue" class="cta-primary">View Issue #63 on GitHub</a>
+        <a href="/plans/" id="btn-view-plans" class="cta-secondary">Explore Plans</a>
+      </div>
+    </div>
+
+    <!-- Source note -->
+    <p class="source-note">
+      Analysis originally provided by <a href="https://github.com/stellardreams/asi.surge.sh/issues/63" target="_blank" rel="noopener noreferrer">Grok AI via Kilo AI</a>, April 18 2026 · Assigned to <a href="https://github.com/genidma" target="_blank" rel="noopener noreferrer">@genidma</a>
+    </p>
+
+  </main>
+
+  <footer>
+    <p style="margin: 0 auto; max-width: none;">
+      &copy; 2026 Awakened Imagination &mdash; Building the foundations for humanity's expansion into space.<br>
+      <a href="/index/">Home</a> &nbsp;·&nbsp;
+      <a href="https://github.com/stellardreams/asi.surge.sh" target="_blank" rel="noopener noreferrer">GitHub</a> &nbsp;·&nbsp;
+      <a href="https://github.com/stellardreams/asi.surge.sh/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+    </p>
+  </footer>
+
+  <script>
+    /* ── Starfield ── */
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 160;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function initStars() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.2,
+            alpha: Math.random() * 0.7 + 0.1,
+            speed: Math.random() * 0.3 + 0.05,
+            drift: (Math.random() - 0.5) * 0.05
+          });
+        }
+      }
+
+      function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(204, 214, 246, ${s.alpha})`;
+          ctx.fill();
+
+          // Subtle twinkle
+          s.alpha += (Math.random() - 0.5) * 0.02;
+          s.alpha = Math.max(0.05, Math.min(0.9, s.alpha));
+
+          // Slow drift
+          s.x += s.drift;
+          s.y += s.speed * 0.1;
+          if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+          if (s.x < 0) s.x = canvas.width;
+          if (s.x > canvas.width) s.x = 0;
+        });
+        requestAnimationFrame(drawStars);
+      }
+
+      window.addEventListener('resize', () => { resize(); initStars(); });
+      resize();
+      initStars();
+      drawStars();
+    })();
+
+    /* ── Scroll reveal ── */
+    (function () {
+      const els = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            // Stagger cards slightly
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, entry.target.closest('.req-grid') ? (Array.from(entry.target.parentElement.children).indexOf(entry.target) * 80) : 0);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(el => observer.observe(el));
+    })();
+  </script>
+
+</body>
+</html>

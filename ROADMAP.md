@@ -140,6 +140,27 @@ graph TD
     style F fill:#ffcc66
 ```
 
+## Governance Ecosystem Requirements
+
+*Added June 2026 · Source: [Issue #63](https://github.com/stellardreams/asi.surge.sh/issues/63) · Full detail: [governance-requirements.html](governance-requirements.html)*
+
+Beyond the technical roadmap, the SIT project's real-world success depends on eight foundational pillars operating in parallel:
+
+| # | Pillar | Status |
+|---|--------|--------|
+| 1 | ⚖️ Robust International Legal Frameworks | 🔴 Critical Dependency |
+| 2 | 🤖 Advanced Automation & AI | 🔴 Critical Dependency |
+| 3 | 🗳️ Decentralized Governance Tools (real-world testing) | 🟢 In Development |
+| 4 | 🔒 Cybersecurity & Physical Security | 🔴 Critical Dependency |
+| 5 | 💰 Sustainable Funding Models (Tokenomics) | 🟢 In Development |
+| 6 | 🌐 Global Collaboration Platforms | 🟡 Future Work |
+| 7 | 🎓 Education & Training Programs | 🟡 Future Work |
+| 8 | 🔬 Iterative Prototyping (start small) | 🟢 In Development |
+
+The blockchain approach is innovative, but success requires bridging technical implementation with real-world space challenges and international cooperation.
+
+---
+
 ## Implementation Notes
 
 This roadmap follows the recommendations from our [streamlining-suggestions.md](streamlining-suggestions.md) file by:
