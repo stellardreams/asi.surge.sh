@@ -316,13 +316,12 @@ module variant_extraction() {
 }
 
 // ------------------------------- Render --------------------------------------
-// variant_single(open_left_belly=false, open_right_belly=true); // single with one side closed
-variant_single(); // default single — both belly doors open (for solo view)
-// variant_dual(); // dual — outer closed, inner facing connected via ventral rail (for transport)
-// variant_quad(); // quad X
+variant_dual(); // default — rail between 2 AMUs (E-W, Y=1.2, r0.42) visible — outer closed, inner facing connected
+// variant_single(); // single with stub
+// variant_quad();
 
-if (SHOW_DAUGHTER && $preview) {
-    translate([0, FRAME_SPAN*3.2, 0]) // was 2.4 → 3.2 to clear solar Y±8.75
+if (SHOW_DAUGHTER && $preview && false) {
+    translate([0, FRAME_SPAN*3.2, 0])
         scale([1, 1, 1])
             amu_assembly();
 }
