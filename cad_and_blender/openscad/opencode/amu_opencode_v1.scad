@@ -30,7 +30,7 @@ SOIL_BROWN      = [0.36, 0.25, 0.18];
 
 // ---------------------------- User-tunable params ----------------------------
 MMS_RADIUS      = 6.0;
-MMS_LENGTH      = 14.0;
+MMS_LENGTH      = 17.92; // was 14.0, +14% per side (28% total) per feedback
 CORE_RADIUS     = 0.18;
 SPINE_LENGTH    = 30.0;
 WALL_THICK      = 0.4;
