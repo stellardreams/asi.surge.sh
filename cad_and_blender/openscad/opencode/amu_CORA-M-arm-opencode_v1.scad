@@ -196,6 +196,49 @@ module apas_arm_near_hatch() {
     }
 }
 
+// CORA-M locomotion demo path — hand-over-hand crawl waypoints on cylindrical rivets for Space ROS/Gazebo
+// Waypoints are rivet positions [X, angle] that Gold gripper can grasp to move around body — track in Issue 5
+CORA_PATH = [ [-6.8, 0], [-3.8, 60], [-0.8, 300], [2.2, 60], [5.2, 0] ]; // X along hull, a around 60°
+SHOW_CORA_PATH = true; // toggle path visualization
+module cora_locomotion_path() {
+    for (i = [0 : len(CORA_PATH)-1]) {
+        x = CORA_PATH[i][0]; a = CORA_PATH[i][1];
+        // waypoint marker at rivet tip
+        color(i==0 ? [0.92,0.72,0.15] : [0.15,0.72,0.92])
+            translate([x, cos(a)*(MMS_RADIUS+0.32), sin(a)*(MMS_RADIUS+0.32)]) sphere(r=0.14, $fn=16);
+        // tether line between waypoints
+        if (i < len(CORA_PATH)-1) {
+            x2 = CORA_PATH[i+1][0]; a2 = CORA_PATH[i+1][1];
+            color([0.95,0.85,0.15,0.35])
+                hull() {
+                    translate([x, cos(a)*(MMS_RADIUS+0.32), sin(a)*(MMS_RADIUS+0.32)]) sphere(r=0.03,$fn=8);
+                    translate([x2, cos(a2)*(MMS_RADIUS+0.32), sin(a2)*(MMS_RADIUS+0.32)]) sphere(r=0.03,$fn=8);
+                }
+        }
+        // label index
+        // color([1,1,1]) translate([x, cos(a)*(MMS_RADIUS+0.55), sin(a)*(MMS_RADIUS+0.55)]) text(str(i), size=0.5);
+    }
+}
+module cora_locomotion_preview(step=0) {
+    // ghost arm at waypoint step — shows CORA-M reaching to grasp rivet (for F5 scrub, Space ROS import)
+    // step 0..len(CORA_PATH)-1, wrap
+    s = step % len(CORA_PATH);
+    x = CORA_PATH[s][0]; a = CORA_PATH[s][1];
+    // place rail exterior near that rivet, oriented tangentially (rail along X)
+    translate([x, cos(a)*(MMS_RADIUS+0.65), sin(a)*(MMS_RADIUS+0.65)]) {
+        // small rail segment at this station (ghost)
+        % color([0.60,0.60,0.65,0.35]) apas_arm_rail();
+        translate([0.10*_APAS_rail_len, 0, 0]) {
+            % apas_arm_carriage();
+            translate([0,0,(_APAS_rail_t+8*_APAS_arm_scale)/2 + 10*_APAS_arm_scale])
+                rotate([a,0,0]) // orient arm toward hull
+                    apas_7dof_arm();
+        }
+    }
+    // highlight active rivet
+    color([1,0.3,0.3]) translate([x, cos(a)*(MMS_RADIUS+0.32), sin(a)*(MMS_RADIUS+0.32)]) sphere(r=0.20,$fn=16);
+}
+
 module torus(r_major, r_minor, seg = 64) {
     rotate_extrude(convexity = 10, $fn = seg)
         translate([r_major, 0, 0])
@@ -226,9 +269,9 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             for (i = [-1:0.5:1]) for (a = [0:60:300])
                 translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.83, sin(a)*MMS_RADIUS*0.83])
                     color([0.52,0.48,0.42]) sphere(r = 0.07, $fn = 8);
-            // graspable cylindrical rivets — SAME DIMENSION throughout hull for CORA-M locomotion
-            // Cylindrical uniform: r=0.16 h=0.32 protruding along normal — no taper, no narrow neck, all load faces equal
-            // Robot Gold gripper grasps shank; flat top bears load — like ISS EVA handrail studs
+            // graspable cylindrical rivets — SAME DIMENSION pure cylinder throughout hull for CORA-M locomotion
+            // Pure uniform: r=0.16 h=0.32 protruding along normal — no cap, no taper, no narrow neck, no top shape — full shank bears shear
+            // Robot Gold gripper grasps full cylinder identically; pure shear, strongest under moment
             for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
                     if (abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) {
@@ -236,19 +279,13 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
                                     cylinder(h=0.32, r=0.16, $fn=20);
-                        color([0.78,0.76,0.74])
-                            translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
-                                rotate([a-90,0,0])
-                                    translate([0,0,0.32]) cylinder(h=0.04, r=0.18, center=false, $fn=20);
                     }
                 }
-            // additional spine cylindrical rivets on TOP Z+ — same dimension, uniform cylinder
+            // additional spine cylindrical rivets on TOP Z+ — same pure cylinder
             for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
                 translate([x, 0, MMS_RADIUS])
-                    color([0.52,0.48,0.44]) {
+                    color([0.52,0.48,0.44])
                         cylinder(h=0.32, r=0.16, $fn=20);
-                        translate([0,0,0.32]) cylinder(h=0.04, r=0.18, $fn=20);
-                    }
         }
         // side door cavities (as before)
         if (SHOW_DOOR) {
@@ -519,6 +556,12 @@ module amu_assembly(open_left_belly = true, open_right_belly = true, roof_open =
         if (SHOW_GH) greenhouse_interior_realistic();
     }
     if (SHOW_SOLAR) { solar_wing_realistic(-1); solar_wing_realistic(1); }
+    // CORA-M locomotion path — exterior cylindrical rivet waypoints for Space ROS / Gazebo (F5 preview)
+    if (SHOW_CORA_PATH) {
+        cora_locomotion_path();
+        // ghost preview at step 0 (scrub step 0..4 in preview, or animate)
+        // cora_locomotion_preview(0);
+    }
     // spine not inside hull — variants draw E-W rail outward from bulkheads where needed
 }
 
