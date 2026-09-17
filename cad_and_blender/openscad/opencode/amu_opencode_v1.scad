@@ -57,6 +57,7 @@ SOLAR_H         = 3.5;
 SOLAR_GAP       = 1.2;
 SOLAR_OFFSET    = 9.0;
 SOLAR_CELL_GAP  = 0.35; // grid
+SOLAR_ANGLE     = 0;    // flat ISS — 0 for flat, 8 for dynamic taper hint
 
 GH_TIERS        = 8;
 GH_SHELF_THICK  = 0.15;
@@ -80,15 +81,25 @@ EPS = 0.01;
 // ------------------------------ Helpers --------------------------------------
 
 module spine_double(len) {
-    // realistic double-rail with end caps
+    // transport rail — double-rail with ties + carriers for goods (links 2 AMUs per ITN)
     for (dz = [-0.6, 0.6])
         translate([0, 0, dz])
             rotate([0, 90, 0])
-                color(SPINE_METAL) cylinder(h = len, r = CORE_RADIUS, center = true, $fn = 18);
-    // end flanges
-    for (x = [-len/2, len/2])
+                color(SPINE_METAL) cylinder(h = len, r = 0.32, center = true, $fn = 18); // thicker rail for goods
+    // rail ties every 5 units
+    for (x = [-len/2 + 2 : 5 : len/2 - 2])
         translate([x, 0, 0])
-            color([0.55,0.55,0.58]) cylinder(h = 0.4, r = CORE_RADIUS*2.2, center = true, $fn = 16);
+            color([0.45,0.45,0.48]) cube([0.4, 1.8, 0.18], center = true);
+    // transporter carriers (small blue cubes on rail) — as in logistics_core bays
+    for (x = [-len*0.25, 0, len*0.25])
+        translate([x, 0, 0.85])
+            color(ARM_BLUE) cube([0.9, 0.9, 0.55], center = true);
+    // end flanges + docking clamps
+    for (x = [-len/2, len/2])
+        translate([x, 0, 0]) {
+            color([0.55,0.55,0.58]) cylinder(h = 0.5, r = 0.75, center = true, $fn = 16);
+            color([0.30,0.30,0.33]) cube([0.6, 1.4, 0.6], center = true);
+        }
 }
 
 module torus(r_major, r_minor, seg = 64) {
@@ -100,20 +111,26 @@ module torus(r_major, r_minor, seg = 64) {
 module mms_hull_realistic() {
     difference() {
         union() {
-            // main hull — tan, high $fn for realism
+            // main hull — straight cylinder, flat bulkheads (no ball/oval) — heritage greenhouse exterior
             color(HULL_TAN)
                 rotate([0, 90, 0])
-                    cylinder(h = MMS_LENGTH, r1 = MMS_RADIUS*0.75, r2 = MMS_RADIUS, center = true, $fn = 64);
-            color(HULL_TAN) translate([MMS_LENGTH/2, 0, 0]) sphere(r = MMS_RADIUS*0.75, $fn = 48);
-            color(HULL_TAN) translate([-MMS_LENGTH/2, 0, 0]) sphere(r = MMS_RADIUS*0.75, $fn = 48);
-            // panel seam lines (darker tan)
+                    cylinder(h = MMS_LENGTH, r = MMS_RADIUS, center = true, $fn = 64);
+            // flat bulkheads + docking rings (ISS-style, fixes ball/oval weirdness)
+            for (sx = [-1, 1]) {
+                translate([sx * MMS_LENGTH/2, 0, 0]) {
+                    color(HULL_TAN) rotate([0, 90, 0]) cylinder(h = 0.6, r = MMS_RADIUS*0.92, center = true, $fn = 48);
+                    color([0.58,0.58,0.60]) rotate([0, 90, 0]) torus(r_major = MMS_RADIUS*0.72, r_minor = 0.18, seg = 48); // docking ring
+                    color([0.22,0.22,0.24]) rotate([0, 90, 0]) cylinder(h = 0.62, r = MMS_RADIUS*0.35, center = true, $fn = 32); // hatch
+                }
+            }
+            // panel seams
             for (i = [-1, 0, 1])
                 translate([i * MMS_LENGTH*0.28, 0, 0])
                     rotate([0, 90, 0])
                         color(HULL_DARK) torus(r_major = MMS_RADIUS*0.78, r_minor = 0.12, seg = 64);
-            // rivet row hint
+            // rivet row
             for (i = [-1:0.5:1]) for (a = [0:60:300])
-                translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.77, sin(a)*MMS_RADIUS*0.77])
+                translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.83, sin(a)*MMS_RADIUS*0.83])
                     color([0.52,0.48,0.42]) sphere(r = 0.07, $fn = 8);
         }
         // door cavity with realistic frame recess
@@ -132,8 +149,9 @@ module mms_hull_realistic() {
             union() {
                 rotate([0, 90, 0])
                     cylinder(h = MMS_LENGTH*1.02, r = MMS_RADIUS*1.01, center = true, $fn = 64);
-                translate([MMS_LENGTH/2, 0, 0]) sphere(r = MMS_RADIUS*0.76, $fn = 48);
-                translate([-MMS_LENGTH/2, 0, 0]) sphere(r = MMS_RADIUS*0.76, $fn = 48);
+                for (sx = [-1, 1])
+                    translate([sx * MMS_LENGTH/2, 0, 0])
+                        rotate([0, 90, 0]) cylinder(h = 0.62, r = MMS_RADIUS*0.93, center = true, $fn = 48);
             }
 }
 
@@ -176,19 +194,15 @@ module greenhouse_interior_realistic() {
 }
 
 module solar_wing_realistic(side) {
-    // ISS-style: side-mounted (Y ±), not end-mounted — 2 panels per side, unfolded outward like ISS arrays
-    // side = -1 (port) / +1 (starboard) — panels extend in ±Y, strut from hull side
-    y_base = side * (MMS_RADIUS + 0.6); // mount point on hull side
-    // strut from hull side outward (ISS truss)
+    // ISS-style: side-mounted Y±, flat — 2 panels per side, gap 1.2, truss outward
+    y_base = side * (MMS_RADIUS + 0.6);
     color(SPINE_METAL) translate([0, side*(MMS_RADIUS*0.5 + 0.6), 0])
         cube([0.32, MMS_RADIUS*0.5, 0.32], center = true);
-    // dual panels per side, spaced along X (fore/aft) as in Manufacturing Units image (2 per side)
     for (p = [-1, 1]) {
         translate([p * (SOLAR_W/2 + SOLAR_GAP/2), y_base + side*(SOLAR_H/2 + 0.4), 0]) {
-            rotate([0, 0, 90])
+            rotate([0, SOLAR_ANGLE, 90]) // flat when 0, dynamic when 8
                 union() {
                     color(SOLAR_BLACK) cube([SOLAR_W, SOLAR_H, 0.18], center = true);
-                    // grid lines — 4×2 cells
                     for (gx = [-SOLAR_W*0.33 : SOLAR_W*0.33 : SOLAR_W*0.33])
                         color(SOLAR_GRID) cube([0.06, SOLAR_H*0.98, 0.19], center = true);
                     for (gy = [-SOLAR_H*0.25 : SOLAR_H*0.5 : SOLAR_H*0.25])
