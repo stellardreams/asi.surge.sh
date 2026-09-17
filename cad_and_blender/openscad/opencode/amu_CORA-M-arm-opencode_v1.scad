@@ -282,17 +282,21 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                                     cylinder(h=0.32, r=0.16, $fn=20);
                     }
                 }
-            // 1x caliper lane highlight — where towing vehicles dock (Y+ rail corridor, X<-4.5, no rivets) — colored strip for visibility
-            color([0.12, 0.58, 0.96, 0.42])
-                translate([(-8.96 + -4.5)/2, MMS_RADIUS+0.09, 0])
-                    cube([4.8, 0.06, 1.9], center=true);
-            color([0.92,0.85,0.15,0.55])
-                translate([(-8.96 + -4.5)/2, MMS_RADIUS+0.14, 0])
-                    cube([4.6, 0.02, 0.08], center=true);
-            // dashed centerline along lane
+            // 1x caliper lane highlight — where towing vehicles dock from SIDE (Y+ rail corridor, X<-4.5, no rivets) — POP with high contrast
+            // outer glow for pop
+            color([1,1,1,0.22])
+                translate([(-8.96 + -4.5)/2, MMS_RADIUS+0.11, 0])
+                    cube([5.0, 0.10, 2.1], center=true);
+            color([0.00, 0.52, 1.00, 0.82])
+                translate([(-8.96 + -4.5)/2, MMS_RADIUS+0.10, 0])
+                    cube([4.9, 0.08, 2.0], center=true);
+            color([1.00, 0.88, 0.00, 0.95])
+                translate([(-8.96 + -4.5)/2, MMS_RADIUS+0.16, 0])
+                    cube([4.7, 0.035, 0.14], center=true);
+            // dashed centerline along lane — high contrast white
             for (x = [-8.6 : 0.9 : -4.9])
-                color([0.96,0.96,0.94,0.85])
-                    translate([x, MMS_RADIUS+0.15, 0]) cube([0.45, 0.015, 0.015], center=true);
+                color([1,1,1,0.98])
+                    translate([x, MMS_RADIUS+0.17, 0]) cube([0.48, 0.018, 0.018], center=true);
             // additional spine cylindrical rivets on TOP Z+ — same pure cylinder
             for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
                 translate([x, 0, MMS_RADIUS])
