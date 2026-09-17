@@ -43,6 +43,9 @@ DOOR_W          = 2.2;
 DOOR_H          = 2.2;
 DOOR_EDGE       = 3.5;
 DOOR_FRAME_THICK= 0.18; // realistic frame
+BELLY_DOOR_W    = 5.0;  // belly cargo door (ventral, for rail goods)
+BELLY_DOOR_L    = 3.2;  // along X
+BELLY_DOOR_Y    = -1;   // side: -1 ventral / +1 dorsal
 
 BAY_COUNT       = 3;
 BAY_RADIUS      = 1.1;
@@ -67,9 +70,10 @@ ASTEROID_R      = 12.0;
 BEAM_R          = 0.12;
 
 SHOW_HULL       = true;
-SHOW_SPINE      = true;
+SHOW_SPINE      = true;   // now ventral, outside hull — not through middle
 SHOW_SOLAR      = true;
 SHOW_DOOR       = true;
+SHOW_BELLY_DOOR = true;   // ventral belly cargo doors for rail
 SHOW_GH         = true;
 SHOW_ARM        = true;
 SHOW_DAUGHTER   = true;
@@ -81,22 +85,24 @@ EPS = 0.01;
 // ------------------------------ Helpers --------------------------------------
 
 module spine_double(len) {
-    // transport rail — double-rail with ties + carriers for goods (links 2 AMUs per ITN)
+    // transport rail — VENTRAL, outside hull (not through middle) — ventral Y = -(MMS_RADIUS+1.4)
+    // connects belly doors of 2 AMUs for goods/personnel ITN
+    ventral_y = -(MMS_RADIUS + 1.4);
     for (dz = [-0.6, 0.6])
-        translate([0, 0, dz])
+        translate([0, ventral_y, dz])
             rotate([0, 90, 0])
-                color(SPINE_METAL) cylinder(h = len, r = 0.32, center = true, $fn = 18); // thicker rail for goods
-    // rail ties every 5 units
+                color(SPINE_METAL) cylinder(h = len, r = 0.32, center = true, $fn = 18);
+    // ties every 5
     for (x = [-len/2 + 2 : 5 : len/2 - 2])
-        translate([x, 0, 0])
+        translate([x, ventral_y, 0])
             color([0.45,0.45,0.48]) cube([0.4, 1.8, 0.18], center = true);
-    // transporter carriers (small blue cubes on rail) — as in logistics_core bays
+    // carriers on rail
     for (x = [-len*0.25, 0, len*0.25])
-        translate([x, 0, 0.85])
+        translate([x, ventral_y, 0.85])
             color(ARM_BLUE) cube([0.9, 0.9, 0.55], center = true);
-    // end flanges + docking clamps
+    // end docking clamps at belly doors
     for (x = [-len/2, len/2])
-        translate([x, 0, 0]) {
+        translate([x, ventral_y, 0]) {
             color([0.55,0.55,0.58]) cylinder(h = 0.5, r = 0.75, center = true, $fn = 16);
             color([0.30,0.30,0.33]) cube([0.6, 1.4, 0.6], center = true);
         }
@@ -133,15 +139,29 @@ module mms_hull_realistic() {
                 translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.83, sin(a)*MMS_RADIUS*0.83])
                     color([0.52,0.48,0.42]) sphere(r = 0.07, $fn = 8);
         }
-        // door cavity with realistic frame recess
+        // side door cavities (as before)
         if (SHOW_DOOR) {
             for (sx = [-1, 1])
                 translate([sx * (MMS_LENGTH/2 - DOOR_EDGE), -MMS_RADIUS*0.55, MMS_RADIUS*0.45]) {
                     cube([DOOR_W, DOOR_H, WALL_THICK*4], center = true);
-                    // frame
-                    % color(HULL_DARK) cube([DOOR_W+DOOR_FRAME_THICK*2, DOOR_H+DOOR_FRAME_THICK*2, WALL_THICK*0.6], center = true);
                 }
         }
+        // belly cargo doors (ventral, for rail transport) — 2× doors centered, connect to ventral double-rail
+        if (SHOW_BELLY_DOOR) {
+            for (sx = [-1, 1])
+                translate([sx * 3.0, -MMS_RADIUS - 0.05, 0])
+                    cube([BELLY_DOOR_W, WALL_THICK*4, BELLY_DOOR_L], center = true);
+        }
+    }
+    // belly door frames (visual, outside hull)
+    if (SHOW_BELLY_DOOR) {
+        for (sx = [-1, 1])
+            translate([sx * 3.0, -MMS_RADIUS + 0.22, 0])
+                color(HULL_DARK) cube([BELLY_DOOR_W+0.4, 0.25, BELLY_DOOR_L+0.4], center = true);
+        // hatch lines
+        for (sx = [-1, 1])
+            translate([sx * 3.0, -MMS_RADIUS + 0.12, 0])
+                color([0.25,0.25,0.28]) cube([BELLY_DOOR_W*0.88, 0.26, 0.06], center = true);
     }
     // realistic transparent hull — arched glass with Fresnel-like alpha
     if (SHOW_TRANSPARENT)
