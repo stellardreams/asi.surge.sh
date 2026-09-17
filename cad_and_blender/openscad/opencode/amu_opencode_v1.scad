@@ -281,10 +281,11 @@ module variant_single(open_left_belly = true, open_right_belly = true) {
 }
 
 module variant_dual() {
-    // outer closed, inner open — E-W rail between the two AMUs (inner facing bulkheads)
-    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = false, open_right_belly = true);
-    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = true, open_right_belly = false);
-    spine_double(SPINE_LENGTH+2); // +2 to touch bulkheads, thicker r0.42 for visibility
+    // outer closed, inner open — E-W rail between AMUs, spaced so solar 4 per side (Y±8.75) don't touch
+    gap_extra = 6; // add 6 to clear solar panels
+    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2 - gap_extra/2, 0, 0]) amu_assembly(open_left_belly = false, open_right_belly = true);
+    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2 + gap_extra/2, 0, 0]) amu_assembly(open_left_belly = true, open_right_belly = false);
+    spine_double(SPINE_LENGTH+2+gap_extra); // length matches new gap
 }
 
 module variant_quad() {
@@ -321,9 +322,9 @@ variant_single(); // default single — both belly doors open (for solo view)
 // variant_quad(); // quad X
 
 if (SHOW_DAUGHTER && $preview) {
-    translate([0, FRAME_SPAN*2.4, 0])
+    translate([0, FRAME_SPAN*3.2, 0]) // was 2.4 → 3.2 to clear solar Y±8.75
         scale([1, 1, 1])
-            amu_assembly(); // same size (was 0.7×)
+            amu_assembly();
 }
 
 // Uncomment for extraction scene (video 1):
