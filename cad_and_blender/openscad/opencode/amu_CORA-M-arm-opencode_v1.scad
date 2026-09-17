@@ -272,31 +272,32 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             // graspable cylindrical rivets — SAME DIMENSION pure cylinder throughout hull for CORA-M locomotion
             // Pure uniform: r=0.16 h=0.32 protruding along normal — no cap, no taper, no narrow neck, no top shape — full shank bears shear
             // Robot Gold gripper grasps full cylinder identically; pure shear, strongest under moment
-            // 1x caliper lane: X<-4.5, a==0 (Y+ rail corridor where towing vehicles dock) — NO rivets there
+            // 2x caliper lanes: X=-6.5 south and X=6.5 north (both edges, TOP/BOTTOM) — NO rivets there — master north+south
             for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
-                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(abs(x - -6.5) < 2.70)) {
+                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(abs(x - -6.5) < 2.70) && !(abs(x - 6.5) < 2.70)) {
                         color([0.52,0.48,0.44])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
                                     cylinder(h=0.32, r=0.16, $fn=20);
                     }
                 }
-            // 1x caliper lane mirrored — TOP Z+ and BOTTOM Z- at same X=-6.5 south edge, for caliper to grip two sides at this location
-            // Plates go INTO depression and mate PARALLEL with surface (flush tangent to cylinder r=6, not perpendicular) — inlaid runway
-            for (sideZ = [1, -1]) {
+            // 2x caliper lanes mirrored — TOP Z+ and BOTTOM Z- at X=-6.5 south AND X=6.5 north (both edges), for caliper to grip two sides at each location
+            // Plates go INTO depression and mate PARALLEL with surface (flush tangent to cylinder r=6, not perpendicular) — inlaid runway — master north+south
+            for (cx = [-6.5, 6.5])
+                for (sideZ = [1, -1]) {
                 // base inlay flush — top at MMS_RADIUS, thickness along normal Z, broad face parallel to hull (X-Y)
                 color([0,0,0,0.92])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.07)])
+                    translate([cx, 0, sideZ*(MMS_RADIUS-0.07)])
                         cube([5.4, 2.5, 0.14], center=true);
                 color([1,1,1,0.45])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.055)])
+                    translate([cx, 0, sideZ*(MMS_RADIUS-0.055)])
                         cube([5.2, 2.3, 0.11], center=true);
                 color([0.00, 0.58, 1.00, 0.92])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.045)])
+                    translate([cx, 0, sideZ*(MMS_RADIUS-0.045)])
                         cube([5.0, 2.1, 0.09], center=true);
                 color([1.00, 0.92, 0.00, 0.98])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.025)])
+                    translate([cx, 0, sideZ*(MMS_RADIUS-0.025)])
                         cube([4.8, 0.18, 0.05], center=true);
                 // dashed centerline — white, flush parallel
                 for (x = [-8.9 : 0.9 : -4.1])
@@ -304,7 +305,7 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                         translate([x, 0, sideZ*(MMS_RADIUS-0.011)]) cube([0.52, 0.022, 0.022], center=true);
                 // runway inside depression — asphalt floor
                 color([0.17,0.17,0.19,0.96])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.40)])
+                    translate([cx, 0, sideZ*(MMS_RADIUS-0.40)])
                         cube([4.85, 0.02, 1.32], center=true);
                 // white centerline dashes inside runway
                 for (x = [-8.8 : 0.85 : -4.2])
@@ -313,13 +314,13 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                 // yellow edge lines
                 for (side = [-1, 1])
                     color([1.00,0.88,0.00,0.96])
-                        translate([-6.5, side*0.58, sideZ*(MMS_RADIUS-0.39)])
+                        translate([cx, side*0.58, sideZ*(MMS_RADIUS-0.39)])
                             cube([4.85, 0.09, 0.018], center=true);
                 // white threshold bars at both ends
                 for (sx = [-1, 1])
                     for (dz = [-0.45, -0.15, 0.15, 0.45])
                         color([0.96,0.96,0.94,0.98])
-                            translate([sx*2.15 + -6.5, dz, sideZ*(MMS_RADIUS-0.39)])
+                            translate([sx*2.15 + cx, dz, sideZ*(MMS_RADIUS-0.39)])
                                 cube([0.20, 0.45, 0.015], center=true);
                 // blue edge lights
                 for (x = [-8.9 : 1.1 : -4.1])
@@ -356,10 +357,10 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.05])
                 cylinder(h = WALL_THICK*4, r = APAS_RADIUS + 0.08, center = true, $fn=48);
         }
-        // 1x caliper lane DEPRESSION at SIDE Y+ (where towing vehicles dock from side) — recess so calipers fit
+        // 2x caliper lanes DEPRESSION at TOP Z+ (where towing vehicles dock, both north+south) — recess so calipers fit
         // Groove along X (4.9), width Z (1.4), depth Y (0.42) into hull — top flush at MMS_RADIUS, bottom recessed — no rivets here, caliper jaws seat in groove
         for (sideZ = [1, -1])
-            translate([-6.5, 0, sideZ*(MMS_RADIUS - 0.21)])
+            translate([cx, 0, sideZ*(MMS_RADIUS - 0.21)])
                 cube([4.9, 1.4, 0.42], center = true);
     }
     // belly door frames — only for open doors; closed outer doors show as solid hatch
