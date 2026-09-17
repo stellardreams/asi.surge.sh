@@ -226,37 +226,55 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             for (i = [-1:0.5:1]) for (a = [0:60:300])
                 translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.83, sin(a)*MMS_RADIUS*0.83])
                     color([0.52,0.48,0.42]) sphere(r = 0.07, $fn = 8);
-            // graspable protruding rivets / EVA handholds for robot locomotion — mushroom studs throughout hull exterior
-            // Robot (7-DoF arm + Gold gripper) can grasp these to crawl on surface and throughout body — like ISS EVA handrails
+            // graspable protruding rivets / EVA handholds for robot locomotion — STRUCTURALLY SOUND T-studs throughout hull
+            // Load-bearing: wide base flange, thick shank, broad head — no narrow neck (was 0.06 stem → now 0.18 shank)
+            // Robot Gold gripper can grasp shank; mushroom head prevents slip while shank bears shear — like ISS FRGF grapple fixtures
             for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
-                    // skip positions too close to APAS hatch at TOP Z+ near ROOF_HATCH_X (keep hatch clear)
-                    // keep all else — grasp studs every ~3m along X, 6 around circumference
                     if (abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) {
-                        color([0.38,0.35,0.33])
+                        // base flange — wide, welded to hull (bears moment)
+                        color([0.42,0.38,0.34])
                             hull() {
-                                translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS]) sphere(r=0.09, $fn=10);
-                                translate([x, cos(a)*(MMS_RADIUS+0.32), sin(a)*(MMS_RADIUS+0.32)]) sphere(r=0.22, $fn=14);
+                                translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS]) sphere(r=0.18, $fn=14);
+                                translate([x, cos(a)*(MMS_RADIUS+0.10), sin(a)*(MMS_RADIUS+0.10)]) sphere(r=0.20, $fn=14);
                             }
-                        color([0.62,0.60,0.58])
-                            translate([x, cos(a)*(MMS_RADIUS+0.35), sin(a)*(MMS_RADIUS+0.35)]) sphere(r=0.13, $fn=12);
-                        // stem highlight
+                        // thick shank — constant 0.18, carries shear (was narrow 0.06)
+                        color([0.48,0.44,0.40])
+                            hull() {
+                                translate([x, cos(a)*(MMS_RADIUS+0.10), sin(a)*(MMS_RADIUS+0.10)]) sphere(r=0.18, $fn=14);
+                                translate([x, cos(a)*(MMS_RADIUS+0.30), sin(a)*(MMS_RADIUS+0.30)]) sphere(r=0.18, $fn=14);
+                            }
+                        // broad mushroom head — 0.26, flat top, retains gripper (wider than shank, not narrower)
+                        color([0.58,0.56,0.54])
+                            hull() {
+                                translate([x, cos(a)*(MMS_RADIUS+0.30), sin(a)*(MMS_RADIUS+0.30)]) sphere(r=0.22, $fn=14);
+                                translate([x, cos(a)*(MMS_RADIUS+0.38), sin(a)*(MMS_RADIUS+0.38)]) sphere(r=0.26, $fn=16);
+                            }
                         color([0.82,0.80,0.78])
-                            hull() {
-                                translate([x, cos(a)*(MMS_RADIUS+0.02), sin(a)*(MMS_RADIUS+0.02)]) sphere(r=0.07,$fn=8);
-                                translate([x, cos(a)*(MMS_RADIUS+0.18), sin(a)*(MMS_RADIUS+0.18)]) sphere(r=0.06,$fn=8);
-                            }
+                            translate([x, cos(a)*(MMS_RADIUS+0.42), sin(a)*(MMS_RADIUS+0.42)]) sphere(r=0.09, $fn=12);
+                        // fillet highlight at base
+                        color([0.62,0.60,0.58])
+                            translate([x, cos(a)*(MMS_RADIUS+0.06), sin(a)*(MMS_RADIUS+0.06)]) torus(r_major=0.14, r_minor=0.035, seg=16);
                     }
                 }
-            // additional longitudinal EVA rail studs along spine line (Y=1.2 is rail, but handholds along top Z+ spine)
+            // additional spine handholds — same sound T-stud on TOP Z+ (load-bearing)
             for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
                 translate([x, 0, MMS_RADIUS+0.02])
-                    color([0.72,0.70,0.68]) {
+                    color([0.48,0.44,0.40]) {
+                        // base + shank + head as above but vertical Z
                         hull() {
-                            translate([0,0,0]) sphere(r=0.07,$fn=8);
-                            translate([0,0,0.28]) sphere(r=0.15,$fn=12);
+                            translate([0,0,0]) sphere(r=0.16,$fn=12);
+                            translate([0,0,0.10]) sphere(r=0.18,$fn=14);
                         }
-                        translate([0,0,0.30]) sphere(r=0.09,$fn=10);
+                        hull() {
+                            translate([0,0,0.10]) sphere(r=0.18,$fn=14);
+                            translate([0,0,0.28]) sphere(r=0.18,$fn=14);
+                        }
+                        hull() {
+                            translate([0,0,0.28]) sphere(r=0.22,$fn=14);
+                            translate([0,0,0.36]) sphere(r=0.25,$fn=16);
+                        }
+                        translate([0,0,0.40]) sphere(r=0.09,$fn=12);
                     }
         }
         // side door cavities (as before)
