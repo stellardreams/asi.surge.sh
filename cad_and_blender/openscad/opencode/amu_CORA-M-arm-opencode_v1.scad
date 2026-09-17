@@ -275,7 +275,7 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             // 1x caliper lane: X<-4.5, a==0 (Y+ rail corridor where towing vehicles dock) — NO rivets there
             for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
-                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(abs(x - -6.5) < 2.70 && (a == 90 || a == 270))) {
+                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(abs(x - -6.5) < 2.70 && (a == 60 || a == 120 || a == 240 || a == 300))) {
                         color([0.52,0.48,0.44])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
