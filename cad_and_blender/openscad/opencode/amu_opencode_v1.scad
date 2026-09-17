@@ -85,24 +85,23 @@ EPS = 0.01;
 // ------------------------------ Helpers --------------------------------------
 
 module spine_double(len) {
-    // transport rail — VENTRAL, outside hull (not through middle) — ventral Y = -(MMS_RADIUS+1.4)
-    // connects belly doors of 2 AMUs for goods/personnel ITN
-    ventral_y = -(MMS_RADIUS + 1.4);
+    // transport rail — E-W, at hull center Y=0, connecting circular bulkhead entrances (docking rings)
+    // not N-S, not through belly — links the inner facing circular faces of 2 AMUs where they face each other
     for (dz = [-0.6, 0.6])
-        translate([0, ventral_y, dz])
+        translate([0, 0, dz])
             rotate([0, 90, 0])
                 color(SPINE_METAL) cylinder(h = len, r = 0.32, center = true, $fn = 18);
-    // ties every 5
+    // ties every 5 (E-W)
     for (x = [-len/2 + 2 : 5 : len/2 - 2])
-        translate([x, ventral_y, 0])
+        translate([x, 0, 0])
             color([0.45,0.45,0.48]) cube([0.4, 1.8, 0.18], center = true);
-    // carriers on rail
+    // carriers on rail (centered, as in logistics_core bays)
     for (x = [-len*0.25, 0, len*0.25])
-        translate([x, ventral_y, 0.85])
+        translate([x, 0, 0.85])
             color(ARM_BLUE) cube([0.9, 0.9, 0.55], center = true);
-    // end docking clamps at belly doors
+    // end docking clamps at circular bulkheads
     for (x = [-len/2, len/2])
-        translate([x, ventral_y, 0]) {
+        translate([x, 0, 0]) {
             color([0.55,0.55,0.58]) cylinder(h = 0.5, r = 0.75, center = true, $fn = 16);
             color([0.30,0.30,0.33]) cube([0.6, 1.4, 0.6], center = true);
         }
