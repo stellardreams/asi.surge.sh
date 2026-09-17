@@ -322,8 +322,8 @@ variant_single(); // default single — both belly doors open (for solo view)
 
 if (SHOW_DAUGHTER && $preview) {
     translate([0, FRAME_SPAN*2.4, 0])
-        scale([0.7, 0.7, 0.7])
-            amu_assembly();
+        scale([1, 1, 1])
+            amu_assembly(); // same size (was 0.7×)
 }
 
 // Uncomment for extraction scene (video 1):
