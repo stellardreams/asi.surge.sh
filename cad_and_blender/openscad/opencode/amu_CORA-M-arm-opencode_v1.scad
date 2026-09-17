@@ -326,6 +326,10 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.05])
                 cylinder(h = WALL_THICK*4, r = APAS_RADIUS + 0.08, center = true, $fn=48);
         }
+        // 1x caliper lane DEPRESSION at SIDE Y+ (where towing vehicles dock from side) — recess so calipers fit
+        // Groove along X (4.9), width Z (1.4), depth Y (0.42) into hull — top flush at MMS_RADIUS, bottom recessed — no rivets here, caliper jaws seat in groove
+        translate([(-8.96 + -4.5)/2, MMS_RADIUS - 0.21, 0])
+            cube([4.9, 0.42, 1.4], center = true);
     }
     // belly door frames — only for open doors; closed outer doors show as solid hatch
     if (SHOW_BELLY_DOOR) {
