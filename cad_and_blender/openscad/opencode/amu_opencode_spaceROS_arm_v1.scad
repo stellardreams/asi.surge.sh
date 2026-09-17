@@ -123,6 +123,77 @@ module spine_double(len) {
         }
 }
 
+// --- 7-DoF Rail-Mounted Arm from Issue 5 sample (APAS hatch vicinity) — scaled to AMU units ---
+// Sample: rail 500mm, carriage 60mm, 7 joints — scaled 0.015≈500->7.5 units to fit MMS_LENGTH 17.92, placed at TOP Z+ near APAS
+_APAS_arm_scale = 0.014; // sample mm -> AMU units (tuned: 500*0.014=7.0, arm reach ~4.5 to reach hatch at Z=6)
+_APAS_rail_len = 500 * _APAS_arm_scale;
+_APAS_rail_w = 40 * _APAS_arm_scale;
+_APAS_rail_t = 15 * _APAS_arm_scale;
+_APAS_j2 = 25; _APAS_j3 = -30; _APAS_j4 = 45; _APAS_j5 = -60; _APAS_j6 = 15; _APAS_j7 = 30; _APAS_j8 = 90;
+
+module apas_arm_seg(len, r1, r2, col) {
+    color(col) {
+        cylinder(h=len, r1=r1, r2=r2, $fn=24);
+        sphere(r=r1, $fn=16);
+        translate([0,0,len]) sphere(r=r2, $fn=16);
+    }
+}
+module apas_arm_rail() {
+    color([0.18,0.22,0.26]) cube([_APAS_rail_len, _APAS_rail_w, _APAS_rail_t], center=true);
+    color([0.75,0.75,0.78]) {
+        translate([0, -(_APAS_rail_w/2 - 4*_APAS_arm_scale), _APAS_rail_t/2]) rotate([0,90,0]) cylinder(h=_APAS_rail_len, r=3*_APAS_arm_scale, center=true, $fn=16);
+        translate([0,  (_APAS_rail_w/2 - 4*_APAS_arm_scale), _APAS_rail_t/2]) rotate([0,90,0]) cylinder(h=_APAS_rail_len, r=3*_APAS_arm_scale, center=true, $fn=16);
+    }
+}
+module apas_arm_carriage() {
+    color([0.73,0.80,0.88]) cube([60*_APAS_arm_scale, _APAS_rail_w+10*_APAS_arm_scale, _APAS_rail_t+8*_APAS_arm_scale], center=true);
+    color([0.33,0.33,0.37]) translate([0,0,(_APAS_rail_t+8*_APAS_arm_scale)/2 + 5*_APAS_arm_scale]) cube([40*_APAS_arm_scale,30*_APAS_arm_scale,10*_APAS_arm_scale], center=true);
+}
+module apas_7dof_arm() {
+    s = _APAS_arm_scale;
+    rotate([0,0,_APAS_j2]) {
+        apas_arm_seg(30*s,18*s,16*s,"CadetBlue");
+        translate([0,0,30*s]) rotate([0,_APAS_j3,0]) {
+            apas_arm_seg(120*s,16*s,12*s,"WhiteSmoke");
+            translate([0,0,120*s]) rotate([0,0,_APAS_j4]) {
+                apas_arm_seg(25*s,12*s,12*s,"CadetBlue");
+                translate([0,0,25*s]) rotate([0,_APAS_j5,0]) {
+                    apas_arm_seg(100*s,12*s,10*s,"WhiteSmoke");
+                    translate([0,0,100*s]) rotate([0,0,_APAS_j6]) {
+                        apas_arm_seg(20*s,10*s,10*s,"CadetBlue");
+                        translate([0,0,20*s]) rotate([0,_APAS_j7,0]) {
+                            apas_arm_seg(15*s,10*s,8*s,"LightGray");
+                            translate([0,0,15*s]) rotate([0,0,_APAS_j8]) {
+                                color("Gold") {
+                                    cylinder(h=10*s,r1=8*s,r2=4*s,$fn=24);
+                                    translate([-5*s,0,10*s]) cube([2*s,6*s,12*s]);
+                                    translate([3*s,0,10*s]) cube([2*s,6*s,12*s]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+module apas_arm_near_hatch() {
+    // Rail along X at TOP Z+ interior, carriage positioned to reach APAS opening at ROOF_HATCH_X, Z=MMS_RADIUS
+    // Pulled near hatch: rail centered at hatch X, Z just below top tiers
+    translate([ROOF_HATCH_X, 0, 1.4]) {
+        apas_arm_rail();
+        // Joint 1: carriage along X — place at 65% along rail toward hatch center so arm base is under opening
+        translate([0.18*_APAS_rail_len, 0, 0]) {
+            apas_arm_carriage();
+            translate([0,0,(_APAS_rail_t+8*_APAS_arm_scale)/2 + 10*_APAS_arm_scale]) {
+                // Yaw the arm toward hatch opening (+Z) and slightly toward center
+                rotate([0,0, -12])
+                    apas_7dof_arm();
+            }
+        }
+    }
+}
+
 module torus(r_major, r_minor, seg = 64) {
     rotate_extrude(convexity = 10, $fn = seg)
         translate([r_major, 0, 0])
@@ -356,22 +427,19 @@ module greenhouse_interior_realistic() {
             }
     }
     // central aisle (as in heritage video) — gap in middle shelf visuals already via y spacing
-    // blue Z-arm — realistic joints
+    // 7-DoF rail-mounted arm pulled near APAS hatch at TOP Z+ (from Issue 5 sample) — replaces heritage Z-arm
     if (SHOW_ARM) {
-        color(ARM_BLUE)
-            union() {
-                translate([MMS_LENGTH*0.18, -MMS_RADIUS*0.55, MMS_RADIUS*0.2])
-                    rotate([0, 25, 0]) cube([4.5, 0.35, 0.35], center = true);
-                // joint spheres
-                translate([MMS_LENGTH*0.08, -MMS_RADIUS*0.18, 0]) sphere(r = 0.28, $fn = 16);
-                translate([MMS_LENGTH*0.08, -MMS_RADIUS*0.18, 0])
-                    rotate([0, -35, 0]) cube([3.8, 0.35, 0.35], center = true);
-                translate([-MMS_LENGTH*0.04, 0.05, -0.35]) sphere(r = 0.26, $fn = 16);
-                translate([-MMS_LENGTH*0.04, 0.05, -0.35])
-                    rotate([0, 15, 0]) cube([3.2, 0.35, 0.35], center = true);
-                translate([-MMS_LENGTH*0.12, 0.1, -0.6])
-                    cube([0.7, 0.7, 0.7], center = true);
-            }
+        // Sample 7-DoF arm (rail + carriage + 7 joints) scaled and positioned so end-effector can reach APAS opening at ROOF_HATCH_X, Z=MMS_RADIUS
+        apas_arm_near_hatch();
+        // visual tether from arm tip toward hatch opening (when open)
+        if (SHOW_ROOF_HATCH && ROOF_HATCH_OPEN) {
+            color([0.95,0.85,0.15,0.55])
+                hull() {
+                    // tip approx after arm extension — near hatch interior
+                    translate([ROOF_HATCH_X + 0.18, 0.08, MMS_RADIUS - 0.55]) sphere(r=0.04,$fn=8);
+                    translate([ROOF_HATCH_X, 0, MMS_RADIUS - 0.05]) sphere(r=0.03,$fn=8);
+                }
+        }
     }
 }
 
