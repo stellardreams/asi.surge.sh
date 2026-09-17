@@ -85,23 +85,23 @@ EPS = 0.01;
 // ------------------------------ Helpers --------------------------------------
 
 module spine_double(len) {
-    // transport rail — E-W, at hull center Y=0, connecting circular bulkheads where AMUs face each other
-    // thicker r0.42 for visibility between AMUs (was 0.32)
+    // transport rail — E-W, slightly out from hull center (Y=1.2) for visibility between AMUs
+    y_out = 1.2; // out a little bit per feedback
     for (dz = [-0.6, 0.6])
-        translate([0, 0, dz])
+        translate([0, y_out, dz])
             rotate([0, 90, 0])
                 color(SPINE_METAL) cylinder(h = len, r = 0.42, center = true, $fn = 18);
-    // ties every 5 (E-W)
+    // ties every 5
     for (x = [-len/2 + 2 : 5 : len/2 - 2])
-        translate([x, 0, 0])
+        translate([x, y_out, 0])
             color([0.45,0.45,0.48]) cube([0.4, 1.8, 0.18], center = true);
-    // carriers on rail (centered, as in logistics_core bays)
+    // carriers
     for (x = [-len*0.25, 0, len*0.25])
-        translate([x, 0, 0.85])
+        translate([x, y_out, 0.85])
             color(ARM_BLUE) cube([0.9, 0.9, 0.55], center = true);
-    // end docking clamps at circular bulkheads
+    // end clamps at bulkheads
     for (x = [-len/2, len/2])
-        translate([x, 0, 0]) {
+        translate([x, y_out, 0]) {
             color([0.55,0.55,0.58]) cylinder(h = 0.5, r = 0.75, center = true, $fn = 16);
             color([0.30,0.30,0.33]) cube([0.6, 1.4, 0.6], center = true);
         }
