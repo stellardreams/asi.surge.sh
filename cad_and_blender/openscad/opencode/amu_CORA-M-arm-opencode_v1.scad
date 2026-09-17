@@ -1,7 +1,9 @@
 // =============================================================================
-// AMU — Autonomous Manufacturing Unit (OpenCode v1.3 — Realistic)
+// AMU CORA-M — Common Omni-purpose Robotic Attachment (Mobile) on AMU (OpenCode v1.4 — Realistic)
+// AMU — Autonomous Manufacturing Unit | CORA-M — Common Omni-purpose Robotic Attachment (Mobile)
 // Awakened Imagination Group — TRL 1 parametric sketch
-// Location: cad_and_blender/openscad/opencode/amu_opencode_v1.scad
+// Location: cad_and_blender/openscad/opencode/amu_CORA-M-arm-opencode_v1.scad
+// Note: AMU CORA-M (Mobile) stands for Common Omni-purpose Robotic Attachment — rail-mounted 7-DoF arm with graspable rivets for surface locomotion
 // Source visuals ingested 2026-09-16 (realistic color-matched):
 //   - Renders: Manufacturing Units (tan hull #C8B8A0, black solar #0A0A0F, blue arm #1A6FFF, spine #D0D0D0)
 //              Orbiting Greenhouses (transparent hull α0.35, shelves #E0E0E0, sprouts #4A8A4A, cyan beams #4DFFF0)
@@ -178,9 +180,9 @@ module apas_7dof_arm() {
     }
 }
 module apas_arm_near_hatch() {
-    // Rail along X at TOP Z+ interior, carriage positioned to reach APAS opening at ROOF_HATCH_X, Z=MMS_RADIUS
-    // Pulled near hatch: rail centered at hatch X, Z just below top tiers
-    translate([ROOF_HATCH_X, 0, 1.4]) {
+    // Rail along X at TOP Z+ EXTERIOR — moved outside hull so visible (was interior Z=1.4)
+    // Pulled near APAS hatch at ROOF_HATCH_X, Z=MMS_RADIUS+0.6 exterior top, per request to see it
+    translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.65]) {
         apas_arm_rail();
         // Joint 1: carriage along X — place at 65% along rail toward hatch center so arm base is under opening
         translate([0.18*_APAS_rail_len, 0, 0]) {
@@ -220,10 +222,42 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                 translate([i * MMS_LENGTH*0.28, 0, 0])
                     rotate([0, 90, 0])
                         color(HULL_DARK) torus(r_major = MMS_RADIUS*0.78, r_minor = 0.12, seg = 64);
-            // rivet row
+            // rivet row (cosmetic)
             for (i = [-1:0.5:1]) for (a = [0:60:300])
                 translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.83, sin(a)*MMS_RADIUS*0.83])
                     color([0.52,0.48,0.42]) sphere(r = 0.07, $fn = 8);
+            // graspable protruding rivets / EVA handholds for robot locomotion — mushroom studs throughout hull exterior
+            // Robot (7-DoF arm + Gold gripper) can grasp these to crawl on surface and throughout body — like ISS EVA handrails
+            for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
+                for (a = [0:60:300]) {
+                    // skip positions too close to APAS hatch at TOP Z+ near ROOF_HATCH_X (keep hatch clear)
+                    // keep all else — grasp studs every ~3m along X, 6 around circumference
+                    if (abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) {
+                        color([0.38,0.35,0.33])
+                            hull() {
+                                translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS]) sphere(r=0.09, $fn=10);
+                                translate([x, cos(a)*(MMS_RADIUS+0.32), sin(a)*(MMS_RADIUS+0.32)]) sphere(r=0.22, $fn=14);
+                            }
+                        color([0.62,0.60,0.58])
+                            translate([x, cos(a)*(MMS_RADIUS+0.35), sin(a)*(MMS_RADIUS+0.35)]) sphere(r=0.13, $fn=12);
+                        // stem highlight
+                        color([0.82,0.80,0.78])
+                            hull() {
+                                translate([x, cos(a)*(MMS_RADIUS+0.02), sin(a)*(MMS_RADIUS+0.02)]) sphere(r=0.07,$fn=8);
+                                translate([x, cos(a)*(MMS_RADIUS+0.18), sin(a)*(MMS_RADIUS+0.18)]) sphere(r=0.06,$fn=8);
+                            }
+                    }
+                }
+            // additional longitudinal EVA rail studs along spine line (Y=1.2 is rail, but handholds along top Z+ spine)
+            for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
+                translate([x, 0, MMS_RADIUS+0.02])
+                    color([0.72,0.70,0.68]) {
+                        hull() {
+                            translate([0,0,0]) sphere(r=0.07,$fn=8);
+                            translate([0,0,0.28]) sphere(r=0.15,$fn=12);
+                        }
+                        translate([0,0,0.30]) sphere(r=0.09,$fn=10);
+                    }
         }
         // side door cavities (as before)
         if (SHOW_DOOR) {
