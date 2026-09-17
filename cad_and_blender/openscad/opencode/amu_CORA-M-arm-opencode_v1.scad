@@ -199,7 +199,7 @@ module apas_arm_near_hatch() {
 // CORA-M locomotion demo path — hand-over-hand crawl waypoints on cylindrical rivets for Space ROS/Gazebo
 // Waypoints are rivet positions [X, angle] that Gold gripper can grasp to move around body — track in Issue 5
 CORA_PATH = [ [-6.8, 0], [-3.8, 60], [-0.8, 300], [2.2, 60], [5.2, 0] ]; // X along hull, a around 60°
-SHOW_CORA_PATH = true; // toggle path visualization
+SHOW_CORA_PATH = false; // toggle path visualization — disabled per feedback (keep modules, no preview)
 module cora_locomotion_path() {
     for (i = [0 : len(CORA_PATH)-1]) {
         x = CORA_PATH[i][0]; a = CORA_PATH[i][1];
@@ -272,9 +272,10 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             // graspable cylindrical rivets — SAME DIMENSION pure cylinder throughout hull for CORA-M locomotion
             // Pure uniform: r=0.16 h=0.32 protruding along normal — no cap, no taper, no narrow neck, no top shape — full shank bears shear
             // Robot Gold gripper grasps full cylinder identically; pure shear, strongest under moment
+            // 1x caliper lane: X<-4.5, a==0 (Y+ rail corridor where towing vehicles dock) — NO rivets there
             for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
-                    if (abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) {
+                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(x < -4.5 && a == 0)) {
                         color([0.52,0.48,0.44])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
