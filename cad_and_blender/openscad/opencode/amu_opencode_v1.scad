@@ -277,7 +277,7 @@ module amu_assembly(open_left_belly = true, open_right_belly = true) {
 
 module variant_single(open_left_belly = true, open_right_belly = true) {
     amu_assembly(open_left_belly, open_right_belly);
-    if (SHOW_SPINE) translate([MMS_LENGTH/2, 0, 0]) spine_double(SPINE_LENGTH*0.35); // E-W stub outward from circular bulkhead (visible, not inside hull)
+    if (SHOW_SPINE) translate([MMS_LENGTH/2 + SPINE_LENGTH*0.35/2, 0, 0]) spine_double(SPINE_LENGTH*0.35); // E-W stub fully outside bulkhead (not half-inside)
 }
 
 module variant_dual() {
