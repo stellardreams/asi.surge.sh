@@ -47,11 +47,19 @@ BELLY_DOOR_W    = 5.0;  // belly cargo door (ventral, for rail goods)
 BELLY_DOOR_L    = 3.2;  // along X
 BELLY_DOOR_Y    = -1;   // side: -1 ventral / +1 dorsal
 
-ROOF_HATCH_L    = 8.0;  // dorsal Shuttle payload bay — length along X (shorter than hull)
-ROOF_HATCH_W    = 5.0;  // width along Z (dorsal opening, split 2x doors)
-ROOF_HATCH_ANGLE= 155;  // 0=closed flush, 140-175=Shuttle open (clamshell outward)
-ROOF_HATCH_X    = 2.8;  // offset from hull center along X — 0=center, ±3-4=between middle & side bulkhead (tunable)
-SHOW_ROOF_HATCH = true; // dorsal roof — Space Shuttle cargo bay doors
+// --- STS-132 Atlantis docking port (ISS APAS/PMA-2) — top Z+ circular hatch ---
+ROOF_HATCH_L    = 8.0;  // legacy shuttle bay L (kept for compat, not used for APAS)
+ROOF_HATCH_W    = 5.0;  // legacy shuttle bay W (kept for compat)
+ROOF_HATCH_ANGLE= 155;  // legacy shuttle angle (kept)
+ROOF_HATCH_X    = 2.8;  // offset from hull center along X — between middle (0) & side bulkhead (≈8.96)
+SHOW_ROOF_HATCH = true; // dorsal roof — now Atlantis APAS docking hatch at top Z+ (STS-132)
+APAS_RADIUS     = 1.55; // APAS/PMA-2 ring radius — as Atlantis docked to Harmony forward (wiki STS-132 main image)
+APAS_RING_TUBE  = 0.14; // torus tube
+APAS_HATCH_R    = 1.22; // inner pressure hatch radius
+APAS_HATCH_ANGLE= 115;  // open outward (hinged) when ROOF_HATCH_OPEN=true
+APAS_PETAL_H    = 0.38; // guide petal height
+DOCK_COLOR_RING = [0.92,0.92,0.94]; // white ring
+DOCK_COLOR_PETAL= [0.18,0.18,0.22]; // dark petal base
 
 BAY_COUNT       = 3;
 BAY_RADIUS      = 1.1;
@@ -163,11 +171,11 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                 translate([ 3.0, -MMS_RADIUS - 0.05, 0])
                     cube([BELLY_DOOR_W, WALL_THICK*4, BELLY_DOOR_L], center = true);
         }
-        // dorsal Shuttle payload bay opening — cut through top wall when doors exist
-        // kept separate from belly doors; offset ROOF_HATCH_X from center (between middle & side)
+        // STS-132 Atlantis docking port opening — circular cut at TOP Z+ (like Atlantis at ISS PMA-2 Harmony forward)
+        // kept separate from belly doors (Y- ventral); offset ROOF_HATCH_X between middle & bulkhead; TOP is Z+
         if (SHOW_ROOF_HATCH) {
-            translate([ROOF_HATCH_X, MMS_RADIUS + 0.05, 0])
-                cube([ROOF_HATCH_L, WALL_THICK*4, ROOF_HATCH_W], center = true);
+            translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.05])
+                cylinder(h = WALL_THICK*4, r = APAS_RADIUS + 0.08, center = true, $fn=48);
         }
     }
     // belly door frames — only for open doors; closed outer doors show as solid hatch
@@ -185,85 +193,136 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                     color([0.35,0.32,0.30]) cube([BELLY_DOOR_W*0.7, 0.27, BELLY_DOOR_L*0.7], center = true); // closed hatch fill
         }
     }
-    // dorsal roof — Space Shuttle payload bay doors (dual clamshell, split at centerline Z=0)
-    // offset ROOF_HATCH_X from hull center — between middle (0) and bulkhead (≈8.96), keeps entrances where they were
+    // dorsal roof — STS-132 Atlantis docking port (ISS PMA-2/APAS-95) at TOP Z+ — circular hatch as Atlantis docks to ISS
+    // Based on STS-132 main image: Atlantis docked to Harmony forward PMA-2, white ring with 3 petals — https://en.wikipedia.org/wiki/STS-132
+    // Offset ROOF_HATCH_X between middle (0) & bulkhead (≈8.96); TOP is Z+ so greenhouse tiers (along Z) exposed when open; belly entrances stay Y- ventral
     if (SHOW_ROOF_HATCH) {
         ang = roof_open ? roof_ang : 0;
-        // outer coaming / frame around opening (always) — at ROOF_HATCH_X
+        cx = ROOF_HATCH_X; cy = 0; cz = MMS_RADIUS;
+        // outer base flange (tan, hull-blended) + dark coaming
+        color(HULL_TAN)
+            translate([cx, cy, cz + 0.10])
+                cylinder(h = 0.22, r = APAS_RADIUS + 0.42, center = true, $fn = 48);
         color(HULL_DARK)
-            difference() {
-                translate([ROOF_HATCH_X, MMS_RADIUS + 0.18, 0])
-                    cube([ROOF_HATCH_L+0.6, 0.22, ROOF_HATCH_W+0.6], center = true);
-                translate([ROOF_HATCH_X, MMS_RADIUS + 0.05, 0])
-                    cube([ROOF_HATCH_L+0.08, 0.30, ROOF_HATCH_W+0.08], center = true);
-            }
-        // rubber seal + centerline seal between two doors
-        color([0.18,0.18,0.20]) {
-            translate([ROOF_HATCH_X, MMS_RADIUS + 0.08, 0])
+            translate([cx, cy, cz + 0.20])
                 difference() {
-                    cube([ROOF_HATCH_L+0.22, 0.08, ROOF_HATCH_W+0.22], center = true);
-                    cube([ROOF_HATCH_L-0.12, 0.10, ROOF_HATCH_W-0.12], center = true);
+                    cylinder(h = 0.08, r = APAS_RADIUS + 0.45, center = true, $fn = 48);
+                    cylinder(h = 0.10, r = APAS_RADIUS + 0.08, center = true, $fn = 48);
                 }
-            translate([ROOF_HATCH_X, MMS_RADIUS + 0.12, 0])
-                cube([ROOF_HATCH_L+0.22, 0.06, 0.14], center = true);
+        // soft capture seal (dark)
+        color([0.22,0.22,0.24])
+            translate([cx, cy, cz + 0.24])
+                difference() {
+                    cylinder(h = 0.05, r = APAS_RADIUS + 0.12, center = true, $fn = 48);
+                    cylinder(h = 0.07, r = APAS_RADIUS - 0.10, center = true, $fn = 48);
+                }
+        // main APAS white docking ring (androgynous, PMA-2) — white as in STS-132 image
+        color(DOCK_COLOR_RING)
+            translate([cx, cy, cz + 0.30])
+                difference() {
+                    cylinder(h = 0.18, r = APAS_RADIUS + 0.02, center = true, $fn = 48);
+                    cylinder(h = 0.20, r = APAS_RADIUS - 0.14, center = true, $fn = 48);
+                }
+        // inner bevel ring (aluminium)
+        color([0.82,0.82,0.84])
+            translate([cx, cy, cz + 0.33])
+                rotate_extrude(convexity=10,$fn=48) translate([APAS_RADIUS - 0.07,0,0]) circle(r=0.04,$fn=16);
+        // 3 guide petals at 120° (APAS capture petals) — iconic 3-petal star as Atlantis approaches ISS
+        for (a = [0, 120, 240]) {
+            translate([cx, cy, cz + 0.38])
+                rotate([0, 0, a])
+                    translate([APAS_RADIUS*0.86, 0, 0]) {
+                        color(DOCK_COLOR_PETAL)
+                            translate([0.06, 0, 0.08])
+                                rotate([0, 28, 0])
+                                    cube([0.04, 0.62, APAS_PETAL_H], center = true);
+                        color(DOCK_COLOR_RING)
+                            translate([0.09, 0, 0.22])
+                                rotate([0, 28, 0])
+                                    cube([0.03, 0.60, 0.18], center = true);
+                        color([0.88,0.72,0.15])
+                            translate([0.12, 0, 0.38]) sphere(r=0.04,$fn=8);
+                    }
         }
-        // two hinged shuttle doors — clamshell outward from center, at ROOF_HATCH_X
-        for (side = [-1, 1]) {
-            hinge_z = side * ROOF_HATCH_W/2;
-            door_w  = ROOF_HATCH_W/2 - 0.04;
-            translate([ROOF_HATCH_X, MMS_RADIUS, hinge_z]) {
-                rotate([side * ang, 0, 0])
-                    translate([0, 0, -side * door_w/2]) {
-                        // main door plate
-                        color(HULL_TAN)
-                            cube([ROOF_HATCH_L, 0.26, door_w], center = true);
-                        // interior lighter (inside when open)
-                        color([0.82,0.75,0.66])
-                            translate([0, -0.02, 0])
-                                cube([ROOF_HATCH_L-0.15, 0.04, door_w-0.15], center = true);
-                        // longitudinal stiffeners (shuttle-like)
-                        color([0.68,0.65,0.60])
-                            for (lx = [-ROOF_HATCH_L*0.35, 0, ROOF_HATCH_L*0.35])
-                                translate([lx, 0.04, 0]) cube([0.14, 0.04, door_w*0.88], center = true);
-                        // transverse frame
-                        color([0.68,0.65,0.60])
-                            cube([ROOF_HATCH_L*0.92, 0.04, 0.12], center = true);
-                        // radiator panels on inside (shuttle doors have radiators inside)
-                        if (roof_open) {
-                            color([0.92,0.92,0.94])
-                                translate([0, 0.15, 0]) cube([ROOF_HATCH_L*0.85, 0.03, door_w*0.75], center = true);
-                            color([0.75,0.75,0.78])
-                                for (gx = [-ROOF_HATCH_L*0.28 : ROOF_HATCH_L*0.28 : ROOF_HATCH_L*0.28])
-                                    translate([gx, 0.16, 0]) cube([0.03, 0.04, door_w*0.73], center = true);
-                        } else {
-                            // exterior centreline latches when closed
-                            color([0.92,0.92,0.96])
-                                for (lx = [-ROOF_HATCH_L*0.38, 0, ROOF_HATCH_L*0.38])
-                                    translate([lx, 0.16, side*door_w*0.38]) cube([0.16, 0.08, 0.22], center = true);
-                        }
-                    }
-                // hinge barrels (3 per side like shuttle)
-                for (hx = [-ROOF_HATCH_L*0.42, 0, ROOF_HATCH_L*0.42]) {
-                    translate([hx, 0.14, 0])
-                        rotate([0, 90, 0])
-                            color([0.55,0.55,0.58]) cylinder(h = 0.55, r = 0.16, center = true, $fn = 16);
-                    translate([hx, 0.14, 0])
-                        rotate([0, 90, 0])
-                            color([0.35,0.35,0.38]) cylinder(h = 0.66, r = 0.06, center = true, $fn = 12);
-                }
-                // push struts / actuators when open
-                if (roof_open) {
-                    for (sx = [-1, 1]) {
-                        color([0.70,0.70,0.75])
-                            hull() {
-                                translate([sx*ROOF_HATCH_L*0.40, 0.12, -side*door_w*0.28])
-                                    sphere(r = 0.055, $fn = 8);
-                                translate([sx*ROOF_HATCH_L*0.40, 0.08 - side*sin(ang)*door_w*0.42, side*cos(ang)*door_w*0.42 - side*door_w*0.28])
-                                    sphere(r = 0.045, $fn = 8);
+        // 12x peripheral latches around ring (evenly spaced)
+        for (a = [0:30:330])
+            translate([cx + cos(a)*APAS_RADIUS*0.98, sin(a)*APAS_RADIUS*0.98, cz+0.30])
+                color([0.55,0.55,0.58]) cube([0.12, 0.06, 0.06], center=true);
+        // inner pressure hatch — circular, hinged at +Y edge, opens outward like ISS Node hatch (STS-132)
+        hinge_y = APAS_RADIUS + 0.12;
+        translate([cx, hinge_y, cz + 0.18]) {
+            rotate([-ang, 0, 0])
+                translate([0, -APAS_RADIUS, 0]) {
+                    // hatch plate (tan outside, white inside as shuttle/ISS)
+                    color(HULL_TAN)
+                        translate([0, 0, 0.04])
+                            cylinder(h = 0.14, r = APAS_HATCH_R + 0.06, center = true, $fn = 48);
+                    color([0.94,0.94,0.96])
+                        translate([0, 0, 0.11])
+                            cylinder(h = 0.02, r = APAS_HATCH_R, center = true, $fn = 48);
+                    // radial stiffeners (6 spokes like ISS hatch)
+                    for (a = [0:60:300])
+                        rotate([0,0,a])
+                            color([0.70,0.68,0.65])
+                                translate([APAS_HATCH_R*0.52, 0, 0.13])
+                                    cube([APAS_HATCH_R*0.88, 0.07, 0.03], center=true);
+                    // central wheel handle (ISS hatch wheel)
+                    color([0.88,0.88,0.90])
+                        translate([0, 0, 0.15])
+                            torus(r_major = 0.28, r_minor = 0.035, seg=32);
+                    color([0.35,0.35,0.38])
+                        translate([0, 0, 0.15])
+                            cylinder(h=0.05, r=0.07, center=true, $fn=16);
+                    // 4 latches around hatch rim
+                    for (a = [45,135,225,315])
+                        rotate([0,0,a])
+                            translate([APAS_HATCH_R*0.88, 0, 0.13])
+                                color([0.92,0.92,0.96]) cube([0.18,0.07,0.05], center=true);
+                    // small viewport window in hatch (circular, like ISS)
+                    color([0.55,0.75,0.95,0.65])
+                        translate([0, APAS_HATCH_R*0.32, 0.14]) cylinder(h=0.025, r=0.22, center=true, $fn=24);
+                    color([0.30,0.30,0.33])
+                        translate([0, APAS_HATCH_R*0.32, 0.14])
+                            difference() {
+                                cylinder(h=0.02, r=0.24, center=true, $fn=24);
+                                cylinder(h=0.025, r=0.22, center=true, $fn=24);
                             }
-                    }
                 }
+            // hinge barrels (2, like ISS hatch hinge, stay on hull)
+            for (hx = [-0.32, 0.32]) {
+                translate([hx, 0.10, 0.10])
+                    rotate([0,90,0])
+                        color([0.55,0.55,0.58]) cylinder(h=0.45, r=0.10, center=true, $fn=16);
+                translate([hx, 0.10, 0.10])
+                    rotate([0,90,0])
+                        color([0.35,0.35,0.38]) cylinder(h=0.52, r=0.04, center=true, $fn=12);
             }
+            // gas struts when open
+            if (roof_open) {
+                color([0.70,0.70,0.75])
+                    hull() {
+                        translate([0.42, -0.18, 0.12]) sphere(r=0.045,$fn=8);
+                        translate([0.42, -0.24 - sin(ang)*APAS_HATCH_R*0.55, 0.12 + cos(ang)*APAS_HATCH_R*0.55 - APAS_HATCH_R*0.12]) sphere(r=0.035,$fn=8);
+                    }
+                color([0.70,0.70,0.75])
+                    hull() {
+                        translate([-0.42, -0.18, 0.12]) sphere(r=0.045,$fn=8);
+                        translate([-0.42, -0.24 - sin(ang)*APAS_HATCH_R*0.55, 0.12 + cos(ang)*APAS_HATCH_R*0.55 - APAS_HATCH_R*0.12]) sphere(r=0.035,$fn=8);
+                    }
+            }
+        }
+        // docking target cross on ring when closed (visual cue as on ISS PMA-2)
+        if (!roof_open) {
+            color([0.15,0.15,0.18])
+                translate([cx, cy, cz+0.41]) {
+                    cube([APAS_RADIUS*1.6, 0.06, 0.02], center=true);
+                    cube([0.06, APAS_RADIUS*1.6, 0.02], center=true);
+                }
+            color([0.92,0.15,0.15])
+                translate([cx, cy, cz+0.42]) {
+                    cube([APAS_RADIUS*0.9, 0.04, 0.025], center=true);
+                    cube([0.04, APAS_RADIUS*0.9, 0.025], center=true);
+                }
         }
     }
     // realistic transparent hull — arched glass with Fresnel-like alpha
@@ -361,7 +420,7 @@ module asteroid(r = ASTEROID_R) {
         }
 }
 
-module amu_assembly(open_left_belly = true, open_right_belly = true, roof_open = ROOF_HATCH_OPEN, roof_ang = ROOF_HATCH_ANGLE) {
+module amu_assembly(open_left_belly = true, open_right_belly = true, roof_open = ROOF_HATCH_OPEN, roof_ang = APAS_HATCH_ANGLE) {
     if (SHOW_HULL) {
         mms_hull_realistic(open_left_belly, open_right_belly, roof_open, roof_ang);
         if (SHOW_GH) greenhouse_interior_realistic();
@@ -371,16 +430,16 @@ module amu_assembly(open_left_belly = true, open_right_belly = true, roof_open =
 }
 
 module variant_single(open_left_belly = true, open_right_belly = true, roof_open = ROOF_HATCH_OPEN) {
-    amu_assembly(open_left_belly, open_right_belly, roof_open, ROOF_HATCH_ANGLE);
+    amu_assembly(open_left_belly, open_right_belly, roof_open, APAS_HATCH_ANGLE);
     if (SHOW_SPINE) translate([MMS_LENGTH/2, 0, 0]) rotate([0,0,90]) spine_double(SPINE_LENGTH*0.35); // flipped N-S (was E-W) — rail now north-south outward from bulkhead
 }
 
 module variant_dual(roof_open = ROOF_HATCH_OPEN) {
     // outer closed, inner open — AMUs rotated 90° (now N-S), rail stays E-W between them
-    // roof hatches open Shuttle-style (clamshell) by default so greenhouse visible from top
+    // roof hatches open Atlantis APAS (circular, 115°) by default so greenhouse visible from top
     gap_extra = 6;
-    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2 - gap_extra/2, 0, 0]) rotate([0,0,90]) amu_assembly(open_left_belly = false, open_right_belly = true, roof_open = roof_open, roof_ang = ROOF_HATCH_ANGLE);
-    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2 + gap_extra/2, 0, 0]) rotate([0,0,90]) amu_assembly(open_left_belly = true, open_right_belly = false, roof_open = roof_open, roof_ang = ROOF_HATCH_ANGLE);
+    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2 - gap_extra/2, 0, 0]) rotate([0,0,90]) amu_assembly(open_left_belly = false, open_right_belly = true, roof_open = roof_open, roof_ang = APAS_HATCH_ANGLE);
+    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2 + gap_extra/2, 0, 0]) rotate([0,0,90]) amu_assembly(open_left_belly = true, open_right_belly = false, roof_open = roof_open, roof_ang = APAS_HATCH_ANGLE);
     spine_double(SPINE_LENGTH+2+gap_extra); // E-W rail unchanged
 }
 
@@ -389,7 +448,7 @@ module variant_quad(roof_open = ROOF_HATCH_OPEN) {
         rotate([0, 0, a])
             translate([SPINE_LENGTH*0.65, 0, 0])
                 rotate([0, 90, 0])
-                    amu_assembly(roof_open = roof_open, roof_ang = ROOF_HATCH_ANGLE);
+                    amu_assembly(roof_open = roof_open, roof_ang = APAS_HATCH_ANGLE);
     spine_double(SPINE_LENGTH*1.8);
 }
 
@@ -412,9 +471,9 @@ module variant_extraction() {
 }
 
 // ------------------------------- Render --------------------------------------
-variant_dual(roof_open = true); // default — rail between 2 AMUs (E-W, Y=1.2, r0.42) + Shuttle bay doors open 155° clamshell — outer closed, inner facing connected
-// variant_dual(roof_open = false); // closed roof (flush, doors meet at centerline)
-// variant_single(roof_open = true);  // single AMU — shuttle bay open (greenhouse + arm visible)
+variant_dual(roof_open = true); // default — rail between 2 AMUs (E-W, Y=1.2, r0.42) + Atlantis APAS open 115° (circular hatch at TOP Z+ offset X=2.8) — STS-132 — outer closed, inner facing connected
+// variant_dual(roof_open = false); // closed (white ring + 3 petals + red target cross)
+// variant_single(roof_open = true);  // single AMU — APAS open (greenhouse + arm visible from top)
 // variant_single(roof_open = false); // single closed
 // variant_quad(roof_open = true);
 
