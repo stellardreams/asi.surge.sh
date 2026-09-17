@@ -293,10 +293,34 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             color([1.00, 0.88, 0.00, 0.95])
                 translate([(-8.96 + -4.5)/2, MMS_RADIUS+0.16, 0])
                     cube([4.7, 0.035, 0.14], center=true);
-            // dashed centerline along lane — high contrast white
+            // dashed centerline along lane — high contrast white (pop above)
             for (x = [-8.6 : 0.9 : -4.9])
                 color([1,1,1,0.98])
                     translate([x, MMS_RADIUS+0.17, 0]) cube([0.48, 0.018, 0.018], center=true);
+            // runway inside depression — asphalt + markings like airport runway (groove floor Y=5.60)
+            color([0.17,0.17,0.19,0.96])
+                translate([(-8.96 + -4.5)/2, MMS_RADIUS-0.40, 0])
+                    cube([4.85, 0.02, 1.32], center=true);
+            // white centerline dashes inside runway
+            for (x = [-8.5 : 0.85 : -5.0])
+                color([0.96,0.96,0.94,0.98])
+                    translate([x, MMS_RADIUS-0.39, 0]) cube([0.42, 0.015, 0.015], center=true);
+            // yellow edge lines (runway edge) — both Z sides
+            for (side = [-1, 1])
+                color([1.00,0.84,0.00,0.92])
+                    translate([(-8.96 + -4.5)/2, MMS_RADIUS-0.39, side*0.58])
+                        cube([4.85, 0.015, 0.07], center=true);
+            // white threshold bars at both ends (runway 18/36 style)
+            for (sx = [-1, 1])
+                for (dz = [-0.45, -0.15, 0.15, 0.45])
+                    color([0.96,0.96,0.94,0.95])
+                        translate([sx*2.15 + (-8.96 + -4.5)/2, MMS_RADIUS-0.39, dz])
+                            cube([0.18, 0.012, 0.42], center=true);
+            // blue edge lights (taxiway) — small cubes along runway edges for pop
+            for (x = [-8.6 : 1.1 : -4.9])
+                for (side = [-1, 1])
+                    color([0.00,0.52,1.00,0.85])
+                        translate([x, MMS_RADIUS-0.38, side*0.70]) cube([0.06, 0.02, 0.06], center=true);
             // additional spine cylindrical rivets on TOP Z+ — same pure cylinder
             for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
                 translate([x, 0, MMS_RADIUS])
