@@ -175,25 +175,28 @@ module greenhouse_interior_realistic() {
     }
 }
 
-module solar_wing_realistic(sign) {
-    // dual panels with cell grid as in video (dark blue + thin grid)
+module solar_wing_realistic(side) {
+    // ISS-style: side-mounted (Y ±), not end-mounted — 2 panels per side, unfolded outward like ISS arrays
+    // side = -1 (port) / +1 (starboard) — panels extend in ±Y, strut from hull side
+    y_base = side * (MMS_RADIUS + 0.6); // mount point on hull side
+    // strut from hull side outward (ISS truss)
+    color(SPINE_METAL) translate([0, side*(MMS_RADIUS*0.5 + 0.6), 0])
+        cube([0.32, MMS_RADIUS*0.5, 0.32], center = true);
+    // dual panels per side, spaced along X (fore/aft) as in Manufacturing Units image (2 per side)
     for (p = [-1, 1]) {
-        translate([SOLAR_OFFSET * sign, 0, p * (SOLAR_H/2 + SOLAR_GAP/2)]) {
+        translate([p * (SOLAR_W/2 + SOLAR_GAP/2), y_base + side*(SOLAR_H/2 + 0.4), 0]) {
             rotate([0, 0, 90])
                 union() {
                     color(SOLAR_BLACK) cube([SOLAR_W, SOLAR_H, 0.18], center = true);
-                    // grid lines — 4×2 cells per panel
+                    // grid lines — 4×2 cells
                     for (gx = [-SOLAR_W*0.33 : SOLAR_W*0.33 : SOLAR_W*0.33])
                         color(SOLAR_GRID) cube([0.06, SOLAR_H*0.98, 0.19], center = true);
                     for (gy = [-SOLAR_H*0.25 : SOLAR_H*0.5 : SOLAR_H*0.25])
                         color(SOLAR_GRID) cube([SOLAR_W*0.98, 0.06, 0.19], center = true);
-                    // specular highlight
                     % color([1,1,1,0.08]) translate([0, SOLAR_H*0.3, 0.1]) cube([SOLAR_W*0.9, 0.4, 0.02], center = true);
                 }
         }
     }
-    translate([SOLAR_OFFSET*sign*0.5, 0, 0])
-        color(SPINE_METAL) cube([SOLAR_OFFSET, 0.32, 0.32], center = true);
 }
 
 module extraction_beam(p1, p2) {
@@ -227,7 +230,7 @@ module amu_assembly() {
         mms_hull_realistic();
         if (SHOW_GH) greenhouse_interior_realistic();
     }
-    if (SHOW_SOLAR) { solar_wing_realistic(1); solar_wing_realistic(-1); }
+    if (SHOW_SOLAR) { solar_wing_realistic(-1); solar_wing_realistic(1); } // port + starboard, ISS-style
 }
 
 module variant_single() { amu_assembly(); }
