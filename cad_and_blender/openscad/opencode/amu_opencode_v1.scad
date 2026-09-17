@@ -222,12 +222,12 @@ module greenhouse_interior_realistic() {
 }
 
 module solar_wing_realistic(side) {
-    // ISS-style: side-mounted Y±10.5, flat — 2 panels per side, gap 1.2, truss outward (clears rail Y=1.2)
-    y_base = side * (MMS_RADIUS + 2.35); // was 0.6 → 2.35 to reach Y±10.5 and clear rail
-    color(SPINE_METAL) translate([0, side*(MMS_RADIUS*0.5 + 2.0), 0])
-        cube([0.32, MMS_RADIUS*0.5 + 1.4, 0.32], center = true); // longer truss
+    // ISS-style: side-mounted Y±9.2, flat — 2 panels per side, gap 1.2, attached but clears rail Y=1.2
+    y_base = side * (MMS_RADIUS + 1.5); // 6+1.5=7.5, panels at 9.65
+    color(SPINE_METAL) translate([0, side*(MMS_RADIUS*0.5 + 1.0), 0])
+        cube([0.32, MMS_RADIUS*0.5 + 0.6, 0.32], center = true);
     for (p = [-1, 1]) {
-        translate([p * (SOLAR_W/2 + SOLAR_GAP/2), y_base + side*(SOLAR_H/2 + 0.4), 0]) { // center at Y±10.5
+        translate([p * (SOLAR_W/2 + SOLAR_GAP/2), y_base + side*(SOLAR_H/2 + 0.4), 0]) { // center at Y±9.65
             rotate([0, SOLAR_ANGLE, 90]) // flat when 0, dynamic when 8
                 union() {
                     color(SOLAR_BLACK) cube([SOLAR_W, SOLAR_H, 0.18], center = true);
