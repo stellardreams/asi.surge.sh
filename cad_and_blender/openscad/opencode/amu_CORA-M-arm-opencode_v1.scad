@@ -275,7 +275,7 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             // 1x caliper lane: X<-4.5, a==0 (Y+ rail corridor where towing vehicles dock) — NO rivets there
             for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
-                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(abs(x - 1.2) < 2.45 && a == 90)) {
+                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(abs(x - -6.5) < 2.45 && a == 90)) {
                         color([0.52,0.48,0.44])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
@@ -285,27 +285,27 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             // 1x caliper lane highlight — UNMISTAKABLE from any view (SIDE Y+ rail corridor, X<-4.5, no rivets)
             // High contrast stack: black outline → white glow → vivid blue → opaque yellow → white dashes — visible in F5 even at distance
             color([0,0,0,0.92])
-                translate([1.2, 0, MMS_RADIUS+0.13])
+                translate([-6.5, 0, MMS_RADIUS+0.13])
                     cube([5.4, 2.5, 0.14], center=true);
             color([1,1,1,0.45])
-                translate([1.2, 0, MMS_RADIUS+0.12])
+                translate([-6.5, 0, MMS_RADIUS+0.12])
                     cube([5.2, 2.3, 0.11], center=true);
             color([0.00, 0.58, 1.00, 0.92])
-                translate([1.2, 0, MMS_RADIUS+0.11])
+                translate([-6.5, 0, MMS_RADIUS+0.11])
                     cube([5.0, 2.1, 0.09], center=true);
             color([1.00, 0.92, 0.00, 0.98])
-                translate([1.2, 0, MMS_RADIUS+0.18])
+                translate([-6.5, 0, MMS_RADIUS+0.18])
                     cube([4.8, 0.18, 0.05], center=true);
             // dashed centerline — large white for pop
-            for (x = [-1.0 : 0.9 : 3.4])
+            for (x = [-8.9 : 0.9 : -4.1])
                 color([1,1,1,1.0])
                     translate([x, 0, MMS_RADIUS+0.19]) cube([0.52, 0.022, 0.022], center=true);
             // runway inside depression — asphalt floor still there for depth cue
             color([0.17,0.17,0.19,0.96])
-                translate([1.2, 0, MMS_RADIUS-0.40])
+                translate([-6.5, 0, MMS_RADIUS-0.40])
                     cube([4.85, 1.32, 0.02], center=true);
             // white centerline dashes inside runway
-            for (x = [-1.0 : 0.85 : 3.4])
+            for (x = [-8.8 : 0.85 : -4.2])
                 color([0.96,0.96,0.94,0.98])
                     translate([x, 0, MMS_RADIUS-0.39]) cube([0.42, 0.015, 0.015], center=true);
             // yellow edge lines — both Z sides, more opaque
@@ -317,10 +317,10 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             for (sx = [-1, 1])
                 for (dz = [-0.45, -0.15, 0.15, 0.45])
                     color([0.96,0.96,0.94,0.98])
-                        translate([sx*2.15 + 1.2, dz, MMS_RADIUS-0.39])
+                        translate([sx*2.15 + -6.5, dz, MMS_RADIUS-0.39])
                             cube([0.20, 0.45, 0.015], center=true);
             // blue edge lights — larger for pop
-            for (x = [-1.0 : 1.1 : 3.4])
+            for (x = [-8.9 : 1.1 : -4.1])
                 for (side = [-1, 1])
                     color([0.00,0.62,1.00,0.95])
                         translate([x, side*0.70, MMS_RADIUS-0.38]) cube([0.09, 0.09, 0.025], center=true);
@@ -355,7 +355,7 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
         }
         // 1x caliper lane DEPRESSION at SIDE Y+ (where towing vehicles dock from side) — recess so calipers fit
         // Groove along X (4.9), width Z (1.4), depth Y (0.42) into hull — top flush at MMS_RADIUS, bottom recessed — no rivets here, caliper jaws seat in groove
-        translate([1.2, 0, MMS_RADIUS - 0.21])
+        translate([-6.5, 0, MMS_RADIUS - 0.21])
             cube([4.9, 1.4, 0.42], center = true);
     }
     // belly door frames — only for open doors; closed outer doors show as solid hatch
