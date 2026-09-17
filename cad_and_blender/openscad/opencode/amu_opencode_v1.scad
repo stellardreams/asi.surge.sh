@@ -273,16 +273,16 @@ module amu_assembly(open_left_belly = true, open_right_belly = true) {
         if (SHOW_GH) greenhouse_interior_realistic();
     }
     if (SHOW_SOLAR) { solar_wing_realistic(-1); solar_wing_realistic(1); }
-    // spine is ventral, outside hull — drawn separately in variants to connect inner facing doors only
+    if (SHOW_SPINE) spine_double(SPINE_LENGTH*0.35); // short ventral stub for single (was through middle, now outside)
 }
 
 module variant_single(open_left_belly = true, open_right_belly = true) { amu_assembly(open_left_belly, open_right_belly); }
 
 module variant_dual() {
-    // outer entrances remain closed, inner facing where AMUs face each other are open and rail-connected
-    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = false, open_right_belly = true); // left AMU: outer closed, inner open
-    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = true, open_right_belly = false); // right AMU: inner open, outer closed
-    // ventral double-rail connects inner facing belly doors only (between AMUs)
+    // outer closed, inner open and rail-connected — ventral rail between inner belly doors
+    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = false, open_right_belly = true);
+    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = true, open_right_belly = false);
+    // central rail bridging inner gap (overwrites short stubs with full span)
     spine_double(SPINE_LENGTH);
 }
 
