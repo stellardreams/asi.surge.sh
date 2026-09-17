@@ -114,19 +114,19 @@ module torus(r_major, r_minor, seg = 64) {
             circle(r = r_minor, $fn = 32);
 }
 
-module mms_hull_realistic() {
+module mms_hull_realistic(open_left_belly = true, open_right_belly = true) {
     difference() {
         union() {
-            // main hull — straight cylinder, flat bulkheads (no ball/oval) — heritage greenhouse exterior
+            // main hull — straight cylinder, flat bulkheads — heritage exterior
             color(HULL_TAN)
                 rotate([0, 90, 0])
                     cylinder(h = MMS_LENGTH, r = MMS_RADIUS, center = true, $fn = 64);
-            // flat bulkheads + docking rings (ISS-style, fixes ball/oval weirdness)
+            // flat bulkheads + docking rings
             for (sx = [-1, 1]) {
                 translate([sx * MMS_LENGTH/2, 0, 0]) {
                     color(HULL_TAN) rotate([0, 90, 0]) cylinder(h = 0.6, r = MMS_RADIUS*0.92, center = true, $fn = 48);
-                    color([0.58,0.58,0.60]) rotate([0, 90, 0]) torus(r_major = MMS_RADIUS*0.72, r_minor = 0.18, seg = 48); // docking ring
-                    color([0.22,0.22,0.24]) rotate([0, 90, 0]) cylinder(h = 0.62, r = MMS_RADIUS*0.35, center = true, $fn = 32); // hatch
+                    color([0.58,0.58,0.60]) rotate([0, 90, 0]) torus(r_major = MMS_RADIUS*0.72, r_minor = 0.18, seg = 48);
+                    color([0.22,0.22,0.24]) rotate([0, 90, 0]) cylinder(h = 0.62, r = MMS_RADIUS*0.35, center = true, $fn = 32);
                 }
             }
             // panel seams
@@ -146,22 +146,31 @@ module mms_hull_realistic() {
                     cube([DOOR_W, DOOR_H, WALL_THICK*4], center = true);
                 }
         }
-        // belly cargo doors (ventral, for rail transport) — 2× doors centered, connect to ventral double-rail
+        // belly cargo doors — ventral, for rail
+        // outer entrances remain closed, inner facing where AMUs face each other are open and rail-connected
         if (SHOW_BELLY_DOOR) {
-            for (sx = [-1, 1])
-                translate([sx * 3.0, -MMS_RADIUS - 0.05, 0])
+            if (open_left_belly)
+                translate([-3.0, -MMS_RADIUS - 0.05, 0])
+                    cube([BELLY_DOOR_W, WALL_THICK*4, BELLY_DOOR_L], center = true);
+            if (open_right_belly)
+                translate([ 3.0, -MMS_RADIUS - 0.05, 0])
                     cube([BELLY_DOOR_W, WALL_THICK*4, BELLY_DOOR_L], center = true);
         }
     }
-    // belly door frames (visual, outside hull)
+    // belly door frames — only for open doors; closed outer doors show as solid hatch
     if (SHOW_BELLY_DOOR) {
-        for (sx = [-1, 1])
+        for (sx = [-1, 1]) {
+            is_open = (sx == -1) ? open_left_belly : open_right_belly;
             translate([sx * 3.0, -MMS_RADIUS + 0.22, 0])
-                color(HULL_DARK) cube([BELLY_DOOR_W+0.4, 0.25, BELLY_DOOR_L+0.4], center = true);
-        // hatch lines
-        for (sx = [-1, 1])
-            translate([sx * 3.0, -MMS_RADIUS + 0.12, 0])
-                color([0.25,0.25,0.28]) cube([BELLY_DOOR_W*0.88, 0.26, 0.06], center = true);
+                color(is_open ? HULL_DARK : [0.42,0.38,0.34]) // closed outer = solid tan darker
+                    cube([BELLY_DOOR_W+0.4, 0.25, BELLY_DOOR_L+0.4], center = true);
+            if (is_open)
+                translate([sx * 3.0, -MMS_RADIUS + 0.12, 0])
+                    color([0.25,0.25,0.28]) cube([BELLY_DOOR_W*0.88, 0.26, 0.06], center = true);
+            else
+                translate([sx * 3.0, -MMS_RADIUS + 0.18, 0])
+                    color([0.35,0.32,0.30]) cube([BELLY_DOOR_W*0.7, 0.27, BELLY_DOOR_L*0.7], center = true); // closed hatch fill
+        }
     }
     // realistic transparent hull — arched glass with Fresnel-like alpha
     if (SHOW_TRANSPARENT)
@@ -258,20 +267,23 @@ module asteroid(r = ASTEROID_R) {
         }
 }
 
-module amu_assembly() {
-    if (SHOW_SPINE) spine_double(SPINE_LENGTH);
+module amu_assembly(open_left_belly = true, open_right_belly = true) {
     if (SHOW_HULL) {
-        mms_hull_realistic();
+        mms_hull_realistic(open_left_belly, open_right_belly);
         if (SHOW_GH) greenhouse_interior_realistic();
     }
-    if (SHOW_SOLAR) { solar_wing_realistic(-1); solar_wing_realistic(1); } // port + starboard, ISS-style
+    if (SHOW_SOLAR) { solar_wing_realistic(-1); solar_wing_realistic(1); }
+    // spine is ventral, outside hull — drawn separately in variants to connect inner facing doors only
 }
 
-module variant_single() { amu_assembly(); }
+module variant_single(open_left_belly = true, open_right_belly = true) { amu_assembly(open_left_belly, open_right_belly); }
 
 module variant_dual() {
-    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2, 0, 0]) amu_assembly();
-    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2, 0, 0]) amu_assembly();
+    // outer entrances remain closed, inner facing where AMUs face each other are open and rail-connected
+    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = false, open_right_belly = true); // left AMU: outer closed, inner open
+    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = true, open_right_belly = false); // right AMU: inner open, outer closed
+    // ventral double-rail connects inner facing belly doors only (between AMUs)
+    spine_double(SPINE_LENGTH);
 }
 
 module variant_quad() {
@@ -302,8 +314,10 @@ module variant_extraction() {
 }
 
 // ------------------------------- Render --------------------------------------
-// variant_single(); // default — heritage greenhouse as in video 2 right side
-variant_single();
+// variant_single(open_left_belly=false, open_right_belly=true); // single with one side closed
+variant_single(); // default single — both belly doors open (for solo view)
+// variant_dual(); // dual — outer closed, inner facing connected via ventral rail (for transport)
+// variant_quad(); // quad X
 
 if (SHOW_DAUGHTER && $preview) {
     translate([0, FRAME_SPAN*2.4, 0])
