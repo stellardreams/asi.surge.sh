@@ -226,55 +226,28 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             for (i = [-1:0.5:1]) for (a = [0:60:300])
                 translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.83, sin(a)*MMS_RADIUS*0.83])
                     color([0.52,0.48,0.42]) sphere(r = 0.07, $fn = 8);
-            // graspable protruding rivets / EVA handholds for robot locomotion — STRUCTURALLY SOUND T-studs throughout hull
-            // Load-bearing: wide base flange, thick shank, broad head — no narrow neck (was 0.06 stem → now 0.18 shank)
-            // Robot Gold gripper can grasp shank; mushroom head prevents slip while shank bears shear — like ISS FRGF grapple fixtures
+            // graspable cylindrical rivets — SAME DIMENSION throughout hull for CORA-M locomotion
+            // Cylindrical uniform: r=0.16 h=0.32 protruding along normal — no taper, no narrow neck, all load faces equal
+            // Robot Gold gripper grasps shank; flat top bears load — like ISS EVA handrail studs
             for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
                     if (abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) {
-                        // base flange — wide, welded to hull (bears moment)
-                        color([0.42,0.38,0.34])
-                            hull() {
-                                translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS]) sphere(r=0.18, $fn=14);
-                                translate([x, cos(a)*(MMS_RADIUS+0.10), sin(a)*(MMS_RADIUS+0.10)]) sphere(r=0.20, $fn=14);
-                            }
-                        // thick shank — constant 0.18, carries shear (was narrow 0.06)
-                        color([0.48,0.44,0.40])
-                            hull() {
-                                translate([x, cos(a)*(MMS_RADIUS+0.10), sin(a)*(MMS_RADIUS+0.10)]) sphere(r=0.18, $fn=14);
-                                translate([x, cos(a)*(MMS_RADIUS+0.30), sin(a)*(MMS_RADIUS+0.30)]) sphere(r=0.18, $fn=14);
-                            }
-                        // broad mushroom head — 0.26, flat top, retains gripper (wider than shank, not narrower)
-                        color([0.58,0.56,0.54])
-                            hull() {
-                                translate([x, cos(a)*(MMS_RADIUS+0.30), sin(a)*(MMS_RADIUS+0.30)]) sphere(r=0.22, $fn=14);
-                                translate([x, cos(a)*(MMS_RADIUS+0.38), sin(a)*(MMS_RADIUS+0.38)]) sphere(r=0.26, $fn=16);
-                            }
-                        color([0.82,0.80,0.78])
-                            translate([x, cos(a)*(MMS_RADIUS+0.42), sin(a)*(MMS_RADIUS+0.42)]) sphere(r=0.09, $fn=12);
-                        // fillet highlight at base
-                        color([0.62,0.60,0.58])
-                            translate([x, cos(a)*(MMS_RADIUS+0.06), sin(a)*(MMS_RADIUS+0.06)]) torus(r_major=0.14, r_minor=0.035, seg=16);
+                        color([0.52,0.48,0.44])
+                            translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
+                                rotate([a-90,0,0])
+                                    cylinder(h=0.32, r=0.16, $fn=20);
+                        color([0.78,0.76,0.74])
+                            translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
+                                rotate([a-90,0,0])
+                                    translate([0,0,0.32]) cylinder(h=0.04, r=0.18, center=false, $fn=20);
                     }
                 }
-            // additional spine handholds — same sound T-stud on TOP Z+ (load-bearing)
+            // additional spine cylindrical rivets on TOP Z+ — same dimension, uniform cylinder
             for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
-                translate([x, 0, MMS_RADIUS+0.02])
-                    color([0.48,0.44,0.40]) {
-                        // base + shank + head as above but vertical Z
-                        hull() {
-                            translate([0,0,0]) sphere(r=0.16,$fn=12);
-                            translate([0,0,0.10]) sphere(r=0.18,$fn=14);
-                        }
-                        hull() {
-                            translate([0,0,0.10]) sphere(r=0.18,$fn=14);
-                            translate([0,0,0.28]) sphere(r=0.18,$fn=14);
-                        }
-                        hull() {
-                            translate([0,0,0.28]) sphere(r=0.22,$fn=14);
-                            translate([0,0,0.36]) sphere(r=0.25,$fn=16);
-                        }
-                        translate([0,0,0.40]) sphere(r=0.09,$fn=12);
+                translate([x, 0, MMS_RADIUS])
+                    color([0.52,0.48,0.44]) {
+                        cylinder(h=0.32, r=0.16, $fn=20);
+                        translate([0,0,0.32]) cylinder(h=0.04, r=0.18, $fn=20);
                     }
         }
         // side door cavities (as before)
