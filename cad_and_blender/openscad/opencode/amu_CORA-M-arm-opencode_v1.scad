@@ -283,24 +283,25 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                     }
                 }
             // 1x caliper lane mirrored — TOP Z+ and BOTTOM Z- at same X=-6.5 south edge, for caliper to grip two sides at this location
-            // High contrast stack on both sides — visible in F5 even at distance
+            // Plates go INTO depression and mate with surface (flush, tangent to cylinder, not perpendicular) — like runway inlaid
             for (sideZ = [1, -1]) {
+                // base inlay flush at surface — fills depression top
                 color([0,0,0,0.92])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS+0.13)])
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.04)])
                         cube([5.4, 0.14, 2.5], center=true);
                 color([1,1,1,0.45])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS+0.12)])
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.05)])
                         cube([5.2, 0.11, 2.3], center=true);
                 color([0.00, 0.58, 1.00, 0.92])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS+0.11)])
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.06)])
                         cube([5.0, 0.09, 2.1], center=true);
                 color([1.00, 0.92, 0.00, 0.98])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS+0.18)])
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.02)])
                         cube([4.8, 0.05, 0.18], center=true);
-                // dashed centerline — large white for pop
+                // dashed centerline — large white for pop, inlaid flush
                 for (x = [-8.9 : 0.9 : -4.1])
                     color([1,1,1,1.0])
-                        translate([x, 0, sideZ*(MMS_RADIUS+0.19)]) cube([0.52, 0.022, 0.022], center=true);
+                        translate([x, 0, sideZ*(MMS_RADIUS-0.01)]) cube([0.52, 0.022, 0.022], center=true);
                 // runway inside depression — asphalt floor
                 color([0.17,0.17,0.19,0.96])
                     translate([-6.5, 0, sideZ*(MMS_RADIUS-0.40)])
