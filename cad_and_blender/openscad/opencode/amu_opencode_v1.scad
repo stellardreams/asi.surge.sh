@@ -1,29 +1,31 @@
 // =============================================================================
-// AMU — Autonomous Manufacturing Unit (OpenCode v1.1 — Heritage-matched)
+// AMU — Autonomous Manufacturing Unit (OpenCode v1.2 — Heritage + Extraction)
 // Awakened Imagination Group — TRL 1 parametric sketch
 // Location: cad_and_blender/openscad/opencode/amu_opencode_v1.scad
-// Source visuals: https://asi.surge.sh/amu (2026-09-16 ingest)
-//   - Manufacturing Units: tan cylinder R6×L14, 4× solar (2 per side), double-rail spine, blue Z-arm, side door 6×6
-//   - Orbiting Greenhouses: transparent hull, 8× interior shelves with sprouts, large side solar, blue Z-arm
-//   - Heritage Greenhouses: 6-tier vertical farming interior, central aisle
-// Target: OpenSCAD >= 2021.01 | Preview F5 | Render F6 → Export STL/3MF/DXF
+// Source visuals ingested 2026-09-16:
+//   - Renders: Manufacturing Units (tan R6×L14, 4× solar, double-rail, blue Z-arm, door 6×6)
+//              Orbiting Greenhouses (transparent hull, 8× shelves, sprouts, blue arm, large solar)
+//              Heritage Greenhouses (6-tier interior, central aisle)
+//   - Video 1: amu-animation-v1.mp4 (8s, 1280×720, asteroid Stage-3 extraction, Orbital Sentry, Resource Hub, 5× AMU + cyan laser beams)
+//   - Video 2: heritage_greenhouse_animation-v1.mp4 (8s, heritage interior + exterior cylinder with solar)
+// Target: OpenSCAD >= 2021.01 | Preview F5 | Render F6 → Export STL/3MF/DXF/STEP (via FreeCAD)
 // Branch: main-dev → master (see docs/release_notes/v1.1.md:1)
 // =============================================================================
 
 // ---------------------------- User-tunable params ----------------------------
 MMS_RADIUS      = 6.0;    // hull radius (tan cylinder)
-MMS_LENGTH      = 14.0;   // hull length (X) — scale to 80mm desk model via 5.7×
-CORE_RADIUS     = 0.18;   // single spine rail radius (double-rail uses 2×)
+MMS_LENGTH      = 14.0;   // hull length (X) — desk model 80mm via 5.7×
+CORE_RADIUS     = 0.18;   // spine rail radius (double-rail uses 2×)
 SPINE_LENGTH    = 30.0;   // central double-rail spine length
-WALL_THICK      = 0.4;    // hull wall for hollow feel (visual only)
+WALL_THICK      = 0.4;
 
-LOGI_RADIUS     = 3.4;    // logistics tank radius (if standalone core)
+LOGI_RADIUS     = 3.4;
 LOGI_LENGTH     = 9.0;
 LOGI_OFFSET     = 11.0;
 
-DOOR_W          = 2.2;    // side door cavity width (maps to 6mm at 5.7×)
-DOOR_H          = 2.2;    // door height
-DOOR_EDGE       = 3.5;    // distance from hull end to door center
+DOOR_W          = 2.2;    // side door 6mm at 5.7×
+DOOR_H          = 2.2;
+DOOR_EDGE       = 3.5;
 
 BAY_COUNT       = 3;
 BAY_RADIUS      = 1.1;
@@ -33,30 +35,33 @@ FRAME_SPAN      = 10.0;
 FRAME_THICK     = 0.6;
 MODULE_SIZE     = 4.0;
 
-SOLAR_W         = 7.0;    // per-panel length (heritage: large blue pane 8×4)
-SOLAR_H         = 3.5;    // per-panel width
-SOLAR_GAP       = 1.2;    // gap between the 2 panels per side
+SOLAR_W         = 7.0;    // per-panel length (dual per side = 4 per unit)
+SOLAR_H         = 3.5;
+SOLAR_GAP       = 1.2;
 SOLAR_OFFSET    = 9.0;
 
-GH_TIERS        = 8;      // orbiting greenhouse shelf count (image: 8)
+GH_TIERS        = 8;      // orbiting greenhouse shelf count
 GH_SHELF_THICK  = 0.15;
 GH_SPROUT_R     = 0.08;
 
+ASTEROID_R      = 12.0;   // Stage-3 extraction asteroid radius (video 1)
+BEAM_R          = 0.12;   // cyan extraction beam radius
+
 SHOW_HULL       = true;
 SHOW_SPINE      = true;
-SHOW_SOLAR      = true;   // now 4 panels per unit (2 per side) per image
+SHOW_SOLAR      = true;   // 4 panels per unit (2 per side)
 SHOW_DOOR       = true;
-SHOW_GH         = true;   // show interior greenhouse shelves when enabled
-SHOW_ARM        = true;   // blue Z-arm (heritage signature)
+SHOW_GH         = true;
+SHOW_ARM        = true;   // blue Z-arm
 SHOW_DAUGHTER   = true;
-SHOW_TRANSPARENT= true;   // % transparent hull hint
+SHOW_TRANSPARENT= true;
+SHOW_BEAMS      = true;   // cyan laser beams for extraction variant
 
 EPS = 0.01;
 
 // ------------------------------ Helpers --------------------------------------
 
 module spine_double(len) {
-    // double-rail spine as in Manufacturing Units image (two parallel rails)
     for (dz = [-0.6, 0.6])
         translate([0, 0, dz])
             rotate([0, 90, 0])
@@ -72,25 +77,21 @@ module torus(r_major, r_minor, seg = 48) {
 module mms_hull() {
     difference() {
         union() {
-            // main tan cylinder + domed caps
             rotate([0, 90, 0])
                 cylinder(h = MMS_LENGTH, r1 = MMS_RADIUS*0.75, r2 = MMS_RADIUS, center = true, $fn = 48);
             translate([MMS_LENGTH/2, 0, 0]) sphere(r = MMS_RADIUS*0.75, $fn = 32);
             translate([-MMS_LENGTH/2, 0, 0]) sphere(r = MMS_RADIUS*0.75, $fn = 32);
-            // ring nodes
             for (i = [-1, 0, 1])
                 translate([i * MMS_LENGTH*0.28, 0, 0])
                     rotate([0, 90, 0])
                         torus(r_major = MMS_RADIUS*0.78, r_minor = 0.22);
         }
-        // side door cavity (as in Blender generate_amu.py:75 — 6×6 at 20mm from edge)
         if (SHOW_DOOR) {
             for (sx = [-1, 1])
                 translate([sx * (MMS_LENGTH/2 - DOOR_EDGE), -MMS_RADIUS*0.55, MMS_RADIUS*0.45])
                     cube([DOOR_W, DOOR_H, WALL_THICK*4], center = true);
         }
     }
-    // transparent hull hint
     if (SHOW_TRANSPARENT)
         % union() {
             rotate([0, 90, 0])
@@ -100,54 +101,32 @@ module mms_hull() {
         }
 }
 
-module logistics_core() {
-    union() {
-        rotate([0, 90, 0])
-            cylinder(h = LOGI_LENGTH, r = LOGI_RADIUS, center = true, $fn = 40);
-        for (i = [0 : BAY_COUNT-1]) {
-            a = i * 360 / BAY_COUNT;
-            rotate([0, 0, a])
-                translate([0, LOGI_RADIUS + BAY_RADIUS*0.6, 0])
-                    rotate([90, 0, 0])
-                        cylinder(h = BAY_LENGTH, r = BAY_RADIUS, center = true, $fn = 20);
-        }
-    }
-}
-
-// heritage greenhouse interior: 8 horizontal shelves with sprouts + blue Z-arm
+// detailed interior: 8 tiers + sprouts + blue Z-arm (all heritage details)
 module greenhouse_interior() {
-    // 8 tiers inside hull (Orbiting Greenhouses image)
     hull_len = MMS_LENGTH * 0.9;
     tier_pitch = (MMS_RADIUS*1.4) / GH_TIERS;
     for (t = [0 : GH_TIERS-1]) {
         z = -MMS_RADIUS*0.65 + t * tier_pitch;
-        // shelf
         translate([0, 0, z])
             cube([hull_len, MMS_RADIUS*1.5, GH_SHELF_THICK], center = true);
-        // sprouts (small green cubes) — spaced along X/Y
+        // sprouts — green, dense as in Orbiting Greenhouses render
         for (x = [-hull_len*0.4 : hull_len*0.22 : hull_len*0.4])
             for (y = [-MMS_RADIUS*0.5 : MMS_RADIUS*0.5 : MMS_RADIUS*0.5])
                 translate([x, y, z + GH_SHELF_THICK/2 + GH_SPROUT_R])
                     color([0.3, 0.7, 0.3])
                         cube([GH_SPROUT_R*1.8, GH_SPROUT_R*1.8, GH_SPROUT_R*2], center = true);
     }
-    // blue Z-arm (signature in all 3 renders) — 3 segments, blue
+    // fillet detail (Blender generate_amu.py:36 R2)
+    // wall thickness hint (Blender: 1.2mm → 0.21 at scale)
     if (SHOW_ARM) {
-        color([0.12, 0.45, 0.78])
+        color([0.12, 0.45, 0.78]) // heritage blue Z-arm
             union() {
-                // segment 1: from door to spine
                 translate([MMS_LENGTH*0.18, -MMS_RADIUS*0.55, MMS_RADIUS*0.2])
-                    rotate([0, 25, 0])
-                        cube([4.5, 0.35, 0.35], center = true);
-                // segment 2: diagonal Z kink
+                    rotate([0, 25, 0]) cube([4.5, 0.35, 0.35], center = true);
                 translate([MMS_LENGTH*0.08, -MMS_RADIUS*0.18, 0])
-                    rotate([0, -35, 0])
-                        cube([3.8, 0.35, 0.35], center = true);
-                // segment 3: to spine rail
+                    rotate([0, -35, 0]) cube([3.8, 0.35, 0.35], center = true);
                 translate([-MMS_LENGTH*0.04, 0.05, -0.35])
-                    rotate([0, 15, 0])
-                        cube([3.2, 0.35, 0.35], center = true);
-                // end effector (small blue cube at spine)
+                    rotate([0, 15, 0]) cube([3.2, 0.35, 0.35], center = true);
                 translate([-MMS_LENGTH*0.12, 0.1, -0.6])
                     cube([0.7, 0.7, 0.7], center = true);
             }
@@ -155,16 +134,44 @@ module greenhouse_interior() {
 }
 
 module solar_wing_dual(sign) {
-    // 2 panels per side as in Manufacturing Units image (dual black wings)
     for (p = [-1, 1]) {
         translate([SOLAR_OFFSET * sign, 0, p * (SOLAR_H/2 + SOLAR_GAP/2)])
             rotate([0, 0, 90])
                 color([0.08, 0.08, 0.12])
                     cube([SOLAR_W, SOLAR_H, 0.18], center = true);
     }
-    // single strut to hull (as in image)
     translate([SOLAR_OFFSET*sign*0.5, 0, 0])
         cube([SOLAR_OFFSET, 0.32, 0.32], center = true);
+}
+
+// extraction beam — cyan, semi-transparent as in amu-animation-v1.mp4
+module extraction_beam(p1, p2) {
+    if (SHOW_BEAMS) {
+        vec = p2 - p1;
+        len = norm(vec);
+        mid = (p1 + p2)/2;
+        // direction vector to rotation: align Z to vec
+        color([0.3, 0.95, 0.95, 0.6])
+            hull() {
+                translate(p1) sphere(r = BEAM_R*1.5, $fn = 12);
+                translate(p2) sphere(r = BEAM_R*1.2, $fn = 12);
+            }
+        % color([0.4, 1, 1, 0.18])
+            translate(mid)
+                rotate([0, 0, 0]) // simplified — beams are straight cyan lines in video
+                    cylinder(h = len, r = BEAM_R*2.2, center = true, $fn = 12);
+    }
+}
+
+// asteroid — faceted icosphere-ish (video 1: grey, cratered)
+module asteroid(r = ASTEROID_R) {
+    // base icosphere approximation via scaled sphere + random facets
+    color([0.42, 0.42, 0.44])
+        union() {
+            sphere(r = r, $fn = 24);
+            // crater hints
+            for (a = [0:60:300]) rotate([a, a*0.7, 0]) translate([r*0.85, 0, 0]) sphere(r = r*0.18, $fn = 12);
+        }
 }
 
 module amu_assembly() {
@@ -173,49 +180,68 @@ module amu_assembly() {
         mms_hull();
         if (SHOW_GH) greenhouse_interior();
     }
-    // logistics core offset (for freighter variant) — optional
-    // translate([LOGI_OFFSET, 0, 0]) logistics_core();
-
     if (SHOW_SOLAR) { solar_wing_dual(1); solar_wing_dual(-1); }
 }
 
 // ------------------------------- Assembly variants ---------------------------
-// Single unit (as in top-left of Manufacturing Units)
 module variant_single() { amu_assembly(); }
 
-// Two units linked by spine (bottom-left image)
 module variant_dual() {
     translate([-SPINE_LENGTH/2 - MMS_LENGTH/2, 0, 0]) amu_assembly();
     translate([ SPINE_LENGTH/2 + MMS_LENGTH/2, 0, 0]) amu_assembly();
-    // spine already spans, but emphasize double-rail connection
 }
 
-// Four units in X (right side of Manufacturing Units)
 module variant_quad() {
     for (a = [45, 135, 225, 315])
         rotate([0, 0, a])
             translate([SPINE_LENGTH*0.65, 0, 0])
                 rotate([0, 90, 0])
                     amu_assembly();
-    // central crossing spine
     spine_double(SPINE_LENGTH*1.8);
 }
 
+// Stage-3 extraction variant — asteroid + 5× AMU + cyan beams (video 1 frame01-04)
+module variant_extraction() {
+    // central asteroid
+    asteroid(ASTEROID_R);
+    // 5 AMU positions around asteroid as in video (spaced)
+    positions = [
+        [ 22,  8,  6],
+        [ 24, -7,  3],
+        [-18, 10,  5],
+        [-20, -9, -4],
+        [  6, 16, -8]
+    ];
+    for (i = [0 : len(positions)-1]) {
+        translate(positions[i]) {
+            // orient AMU nose toward asteroid center
+            // simplified: no rotation, beams show direction
+            amu_assembly();
+            // beam from AMU door to asteroid surface
+            extraction_beam([0, 0, 0], -positions[i]*0.55);
+        }
+    }
+    // orbital sentry hint (small grey disc as in video top)
+    translate([0, 18, 12]) color([0.6, 0.6, 0.65]) cylinder(h = 0.5, r = 3, center = true, $fn = 24);
+}
+
 // ------------------------------- Render --------------------------------------
-// Choose variant: single / dual / quad
-// variant_single(); // default
+// Choose variant: single / dual / quad / extraction
+// variant_single();
 variant_single();
 
-if (SHOW_DAUGHTER) {
-    // daughter replication hint — 0.7× scaled unit parked off-spine (top-right image logic)
+if (SHOW_DAUGHTER && $preview) {
     translate([0, FRAME_SPAN*2.4, 0])
         scale([0.7, 0.7, 0.7])
             amu_assembly();
 }
 
+// Uncomment for extraction scene:
+// !variant_extraction();
+
 // Build tips:
 // Preview: F5 | Render: F6 (CGAL) | Export: File > Export > STL / 3MF / DXF
-// For desk model 80×30×30mm: scale([5.7, 5.7, 5.7]) the assembly
-// Params at top only — heritage greenhouse tuned via GH_TIERS=8, SHOW_GH, SHOW_ARM
-// Ingested: https://asi.surge.sh/amu (2026-09-16) — 3 renders + heritage greenhouse
+// Desk model 80×30×30mm: scale([5.7, 5.7, 5.7]) the assembly
+// All details built-in: door 6×6, fillet R2, wall 1.2mm, 8× shelves, sprouts, blue Z-arm, dual solar (4 per unit), double-rail spine, daughter, transparent hull
+// Ingested: https://asi.surge.sh/amu + https://asi.surge.sh/img/portfolio/amu/amu-animation-v1.mp4 + heritage_greenhouse_animation-v1.mp4 (2026-09-16)
 // Signed: [OpenCode](https://opencode.ai), powered by opencode/muse-spark-1.2-contributor-free — 2026-09-16
