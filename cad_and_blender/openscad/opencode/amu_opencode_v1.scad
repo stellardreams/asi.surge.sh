@@ -281,11 +281,11 @@ module variant_single(open_left_belly = true, open_right_belly = true) {
 }
 
 module variant_dual() {
-    // outer closed, inner open — E-W rail between AMUs, spaced so solar 4 per side (Y±8.75) don't touch
-    gap_extra = 6; // add 6 to clear solar panels
-    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2 - gap_extra/2, 0, 0]) amu_assembly(open_left_belly = false, open_right_belly = true);
-    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2 + gap_extra/2, 0, 0]) amu_assembly(open_left_belly = true, open_right_belly = false);
-    spine_double(SPINE_LENGTH+2+gap_extra); // length matches new gap
+    // outer closed, inner open — AMUs rotated 90° (now N-S), rail stays E-W between them
+    gap_extra = 6;
+    translate([-SPINE_LENGTH/2 - MMS_LENGTH/2 - gap_extra/2, 0, 0]) rotate([0,0,90]) amu_assembly(open_left_belly = false, open_right_belly = true);
+    translate([ SPINE_LENGTH/2 + MMS_LENGTH/2 + gap_extra/2, 0, 0]) rotate([0,0,90]) amu_assembly(open_left_belly = true, open_right_belly = false);
+    spine_double(SPINE_LENGTH+2+gap_extra); // E-W rail unchanged
 }
 
 module variant_quad() {
