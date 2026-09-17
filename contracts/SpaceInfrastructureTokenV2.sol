@@ -40,6 +40,18 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
     uint256 public constant QUORUM_PERCENTAGE = 20; // 20% of total shares must participate
     uint256 public constant MIN_PROPOSAL_SHARES = 1000; // Minimum shares required to create proposal
     uint256 public constant TIMELOCK_DELAY = 86400; // 1 day delay for execution
+    // Tokenomics v2.1 — 20B per plans/tokenomics-whitepaper.md:17 and #50
+    uint256 public constant TOTAL_SUPPLY = 20_000_000_000 * 10 ** 18;
+    uint256 public constant MAX_WALLET = TOTAL_SUPPLY / 1000; // 0.1% = 20M — anti-whale per #50 row 7
+    uint256 public constant ANNUAL_MINT_CAP = (TOTAL_SUPPLY * 5) / 100; // 5% — whitepaper:79
+    uint256 public constant COMMUNITY_ALLOCATION = (TOTAL_SUPPLY * 75) / 100; // 15B
+    uint256 public constant TREASURY_ALLOCATION = (TOTAL_SUPPLY * 10) / 100;  // 2B
+    uint256 public constant TEAM_ALLOCATION = (TOTAL_SUPPLY * 4) / 100;       // 800M
+    uint256 public constant PUBLIC_SALE_ALLOCATION = (TOTAL_SUPPLY * 5) / 100; // 1B
+    uint256 public constant PRESALE_ALLOCATION = (TOTAL_SUPPLY * 3) / 100;    // 600M
+    uint256 public constant INVESTOR_ALLOCATION = (TOTAL_SUPPLY * 3) / 100;   // 600M
+    uint256 public annualMinted;
+    uint256 public lastMintYear;
     
     // Vesting parameters
     struct VestingSchedule {
@@ -131,9 +143,10 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
      * Deploys the token with initial supply and sets up roles
      */
     constructor() ERC20("SpaceInfrastructureToken", "SIT") {
-        // Deployer gets initial supply (100,000 tokens)
-        _mint(msg.sender, 100000 * 10 ** decimals());
-        emit TokenTransferred(address(0), msg.sender, 100000 * 10 ** decimals(), block.number);
+        // Deployer gets 20B — per #50 row 1 / whitepaper:17 (was 100k)
+        // NOTE: prototype — split via vesting/treasury in production — see #51
+        _mint(msg.sender, TOTAL_SUPPLY);
+        emit TokenTransferred(address(0), msg.sender, TOTAL_SUPPLY, block.number);
 
         // Set treasury to deployer initially
         treasury = msg.sender;
@@ -154,6 +167,7 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
         require(sender != recipient, "Cannot transfer to self");
         require(sender != address(0) && recipient != address(0), "Invalid address");
         require(amount > 0, "Amount must be positive");
+        require(balanceOf(recipient) + amount <= MAX_WALLET, "Exceeds max wallet 0.1% (20M)");
         require(unlockedBalanceOf(sender) >= amount, "Insufficient unlocked balance");
 
         uint256 currentAllowance = allowance(sender, msg.sender);
@@ -353,9 +367,17 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
     }
     
     /**
-     * @dev Mint new tokens (only minters)
+     * @dev Mint new tokens (only minters) — 5% annual cap + anti-whale per #50 row 7-8
      */
     function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
+        uint256 currentYear = block.timestamp / 365 days;
+        if (currentYear > lastMintYear) {
+            annualMinted = 0;
+            lastMintYear = currentYear;
+        }
+        require(annualMinted + amount <= ANNUAL_MINT_CAP, "Exceeds 5% annual mint cap");
+        require(balanceOf(to) + amount <= MAX_WALLET, "Exceeds max wallet 0.1% (20M)");
+        annualMinted += amount;
         _mint(to, amount);
         emit TokenTransferred(address(0), to, amount, block.number);
     }
@@ -525,9 +547,10 @@ contract SpaceInfrastructureTokenV2 is ERC20, Ownable, Pausable, AccessControl {
         return balanceOf(treasury);
     }
     
-    // Override ERC-20 functions to emit our events and check locks
+    // Override ERC-20 functions to emit our events and check locks + anti-whale per #50 row 7
     function transfer(address to, uint256 amount) public override onlyActive returns (bool) {
         require(unlockedBalanceOf(msg.sender) >= amount, "Insufficient unlocked balance");
+        require(balanceOf(to) + amount <= MAX_WALLET, "Exceeds max wallet 0.1% (20M)");
         bool success = super.transfer(to, amount);
         if (success) {
             emit TokenTransferred(msg.sender, to, amount, block.number);

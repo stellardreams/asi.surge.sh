@@ -29,8 +29,20 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
     bytes32 public constant VOTING_ROLE = keccak256("VOTING_ROLE");
     
     // Governance parameters (matching original)
+    // Tokenomics v2.1 — 20B per plans/tokenomics-whitepaper.md:17 and #50
+    uint256 public constant TOTAL_SUPPLY = 20_000_000_000 * 10 ** 18;
+    uint256 public constant MAX_WALLET = TOTAL_SUPPLY / 1000; // 0.1% = 20M SIT — anti-whale per #50 row 7
+    uint256 public constant ANNUAL_MINT_CAP = (TOTAL_SUPPLY * 5) / 100; // 5% annual — whitepaper:79
+    // Distribution buckets — whitepaper:19-39, #50 table
+    uint256 public constant COMMUNITY_ALLOCATION = (TOTAL_SUPPLY * 75) / 100; // 15B — 75%
+    uint256 public constant TREASURY_ALLOCATION = (TOTAL_SUPPLY * 10) / 100;  // 2B — 10%
+    uint256 public constant TEAM_ALLOCATION = (TOTAL_SUPPLY * 4) / 100;       // 800M — 4% (3yr vest, 1yr cliff)
+    uint256 public constant PUBLIC_SALE_ALLOCATION = (TOTAL_SUPPLY * 5) / 100; // 1B — 5%
+    uint256 public constant PRESALE_ALLOCATION = (TOTAL_SUPPLY * 3) / 100;    // 600M — 3%
+    uint256 public constant INVESTOR_ALLOCATION = (TOTAL_SUPPLY * 3) / 100;   // 600M — 3%
+    uint256 public annualMinted; // tracks mint in current window for 5% cap
+    uint256 public lastMintYear;
 
-    
     // Vesting parameters
     struct VestingSchedule {
         address beneficiary;
@@ -72,20 +84,22 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
         return 18;
     }
     
-    // Constructor
+    // Constructor — mints 20B to deployer for initial distribution (see #50 and whitepaper:17)
+    // NOTE: prototype only — production must split via vesting/treasury — see #51 safeguarding
     constructor() ERC20("SpaceInfrastructureToken", "SIT") {
         // Initialize roles
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
         _grantRole(BURNING_ROLE, msg.sender);
 
-        // Deployer gets initial supply (100,000 tokens)
-        _mint(msg.sender, 100000 * 10 ** 18);
-        emit OwnershipTransferred(address(0), msg.sender, 100000 * 10 ** 18, block.number);
+        // Deployer gets initial supply — 20B * 10^18 (was 100k, updated per #50 row 1)
+        _mint(msg.sender, TOTAL_SUPPLY);
+        emit OwnershipTransferred(address(0), msg.sender, TOTAL_SUPPLY, block.number);
     }
     
-    // Override transfer to emit custom events (ERC-20 Transfer already emitted)
+    // Override transfer to emit custom events + anti-whale 0.1% cap per #50 row 7
     function transfer(address to, uint256 value) public override onlyActive returns (bool) {
+        require(balanceOf(to) + value <= MAX_WALLET, "Exceeds max wallet 0.1% (20M)");
         bool success = super.transfer(to, value);
         if (success) {
             emit OwnershipTransferred(msg.sender, to, value, block.number);
@@ -93,8 +107,9 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
         return success;
     }
 
-    // Override transferFrom to emit custom events
+    // Override transferFrom to emit custom events + anti-whale 0.1% cap per #50 row 7
     function transferFrom(address from, address to, uint256 value) public override onlyActive returns (bool) {
+        require(balanceOf(to) + value <= MAX_WALLET, "Exceeds max wallet 0.1% (20M)");
         bool success = super.transferFrom(from, to, value);
         if (success) {
             emit OwnershipTransferred(from, to, value, block.number);
@@ -250,6 +265,15 @@ contract EnhancedSpaceInfrastructureToken is SpaceInfrastructureToken, ERC20, Ac
     }
     
     function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
+        // 5% annual cap per whitepaper:79 and #50 row 8
+        uint256 currentYear = block.timestamp / 365 days;
+        if (currentYear > lastMintYear) {
+            annualMinted = 0;
+            lastMintYear = currentYear;
+        }
+        require(annualMinted + amount <= ANNUAL_MINT_CAP, "Exceeds 5% annual mint cap");
+        require(balanceOf(to) + amount <= MAX_WALLET, "Exceeds max wallet 0.1% (20M)");
+        annualMinted += amount;
         _mint(to, amount);
         emit OwnershipTransferred(address(0), to, amount, block.number);
     }
