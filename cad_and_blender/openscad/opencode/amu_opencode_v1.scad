@@ -85,12 +85,12 @@ EPS = 0.01;
 // ------------------------------ Helpers --------------------------------------
 
 module spine_double(len) {
-    // transport rail — E-W, at hull center Y=0, connecting circular bulkhead entrances (docking rings)
-    // not N-S, not through belly — links the inner facing circular faces of 2 AMUs where they face each other
+    // transport rail — E-W, at hull center Y=0, connecting circular bulkheads where AMUs face each other
+    // thicker r0.42 for visibility between AMUs (was 0.32)
     for (dz = [-0.6, 0.6])
         translate([0, 0, dz])
             rotate([0, 90, 0])
-                color(SPINE_METAL) cylinder(h = len, r = 0.32, center = true, $fn = 18);
+                color(SPINE_METAL) cylinder(h = len, r = 0.42, center = true, $fn = 18);
     // ties every 5 (E-W)
     for (x = [-len/2 + 2 : 5 : len/2 - 2])
         translate([x, 0, 0])
@@ -281,10 +281,10 @@ module variant_single(open_left_belly = true, open_right_belly = true) {
 }
 
 module variant_dual() {
-    // outer closed, inner open — E-W rail connects circular bulkheads where AMUs face each other
+    // outer closed, inner open — E-W rail between the two AMUs (inner facing bulkheads)
     translate([-SPINE_LENGTH/2 - MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = false, open_right_belly = true);
     translate([ SPINE_LENGTH/2 + MMS_LENGTH/2, 0, 0]) amu_assembly(open_left_belly = true, open_right_belly = false);
-    spine_double(SPINE_LENGTH); // central E-W rail between inner bulkheads (-15 to +15)
+    spine_double(SPINE_LENGTH+2); // +2 to touch bulkheads, thicker r0.42 for visibility
 }
 
 module variant_quad() {
