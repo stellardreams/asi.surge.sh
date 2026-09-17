@@ -283,25 +283,25 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                     }
                 }
             // 1x caliper lane mirrored — TOP Z+ and BOTTOM Z- at same X=-6.5 south edge, for caliper to grip two sides at this location
-            // Plates go INTO depression and mate with surface (flush, tangent to cylinder, not perpendicular) — like runway inlaid
+            // Plates go INTO depression and mate PARALLEL with surface (flush tangent to cylinder r=6, not perpendicular) — inlaid runway
             for (sideZ = [1, -1]) {
-                // base inlay flush at surface — fills depression top
+                // base inlay flush — top at MMS_RADIUS, thickness along normal Z, broad face parallel to hull (X-Y)
                 color([0,0,0,0.92])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.04)])
-                        cube([5.4, 0.14, 2.5], center=true);
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.07)])
+                        cube([5.4, 2.5, 0.14], center=true);
                 color([1,1,1,0.45])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.05)])
-                        cube([5.2, 0.11, 2.3], center=true);
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.055)])
+                        cube([5.2, 2.3, 0.11], center=true);
                 color([0.00, 0.58, 1.00, 0.92])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.06)])
-                        cube([5.0, 0.09, 2.1], center=true);
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.045)])
+                        cube([5.0, 2.1, 0.09], center=true);
                 color([1.00, 0.92, 0.00, 0.98])
-                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.02)])
-                        cube([4.8, 0.05, 0.18], center=true);
-                // dashed centerline — large white for pop, inlaid flush
+                    translate([-6.5, 0, sideZ*(MMS_RADIUS-0.025)])
+                        cube([4.8, 0.18, 0.05], center=true);
+                // dashed centerline — white, flush parallel
                 for (x = [-8.9 : 0.9 : -4.1])
                     color([1,1,1,1.0])
-                        translate([x, 0, sideZ*(MMS_RADIUS-0.01)]) cube([0.52, 0.022, 0.022], center=true);
+                        translate([x, 0, sideZ*(MMS_RADIUS-0.011)]) cube([0.52, 0.022, 0.022], center=true);
                 // runway inside depression — asphalt floor
                 color([0.17,0.17,0.19,0.96])
                     translate([-6.5, 0, sideZ*(MMS_RADIUS-0.40)])
