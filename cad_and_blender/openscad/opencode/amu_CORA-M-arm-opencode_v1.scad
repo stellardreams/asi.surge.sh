@@ -328,11 +328,12 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                         color([0.00,0.62,1.00,0.95])
                             translate([x, side*0.70, sideZ*(MMS_RADIUS-0.38)]) cube([0.09, 0.09, 0.025], center=true);
             }
-            // additional spine cylindrical rivets on TOP Z+ — same pure cylinder
+            // additional spine cylindrical rivets on TOP Z+ — same pure cylinder, EXCLUDED from caliper runway lanes (master north+south)
             for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
-                translate([x, 0, MMS_RADIUS])
-                    color([0.52,0.48,0.44])
-                        cylinder(h=0.32, r=0.16, $fn=20);
+                if (!(abs(x - -6.5) < 2.70) && !(abs(x - 6.5) < 2.70))
+                    translate([x, 0, MMS_RADIUS])
+                        color([0.52,0.48,0.44])
+                            cylinder(h=0.32, r=0.16, $fn=20);
         }
         // side door cavities (as before)
         if (SHOW_DOOR) {
