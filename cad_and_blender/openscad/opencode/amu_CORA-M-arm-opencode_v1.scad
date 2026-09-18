@@ -40,13 +40,13 @@ WALL_THICK      = 0.4;
 // --- TRIAL 14: Strategic rivet grid (Via Ferrata, mountain-climber) ---
 // Tunable spacing ensures next rivet within RIVET_REACH (4.5) for hand-over-hand crawl
 // Exclusion buffers keep caliper lanes (X=±6.5) and APAS hatch (X=2.8) clear
-RIVET_SPACING       = 3.0;  // along X, body rivets
-RIVET_SPINE_SPACING = 4.2;  // along X, spine rivets TOP Z+
-RIVET_R             = 0.16; // pure cylinder radius
-RIVET_H             = 0.32; // pure cylinder height (protrudes along normal)
-RIVET_LANE_EXCLUDE  = 3.00; // was 2.70, +0.30 buffer for caliper jaws at mms_hull_realistic():364
+RIVET_SPACING       = 2.0;  // along X, body rivets — denser Via Ferrata (was 3.0, now ~9 positions for surface coverage)
+RIVET_SPINE_SPACING = 2.8;  // along X, spine rivets TOP Z+ — denser (was 4.2)
+RIVET_R             = 0.20; // pure cylinder radius — larger for visibility (was 0.16)
+RIVET_H             = 0.36; // pure cylinder height (was 0.32)
+RIVET_LANE_EXCLUDE  = 3.00; // keep caliper lanes X=±6.5 clear at mms_hull_realistic():364
 RIVET_APAS_EXCLUDE  = 1.60; // keep APAS ring (APAS_RADIUS 1.55) clear
-RIVET_REACH         = 4.5;  // arm reach envelope (500mm*0.014≈7.0 rail, arm 4.5) — guides spacing
+RIVET_REACH         = 4.5;  // arm reach envelope — spacing 2.0 << 4.5 ensures next rivet always reachable
 
 LOGI_RADIUS     = 3.4;
 LOGI_LENGTH     = 9.0;
@@ -284,10 +284,11 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             // Pure uniform: RIVET_R/RIVET_H protruding along normal — full shank bears shear, Gold gripper grasps uniformly
             // Via Ferrata: longitudinal bands at a=0/180 (equator/keel) + staggered rungs at 60/120/240/300 — next rivet within RIVET_REACH (4.5)
             // Exclusion: caliper lanes X=±6.5 ±RIVET_LANE_EXCLUDE, APAS X=2.8 ±RIVET_APAS_EXCLUDE for a=60/90 (TOP) — verified F5 no intersect at :364
-            for (x = [-MMS_LENGTH*0.38 : RIVET_SPACING : MMS_LENGTH*0.38])
+            for (x = [-MMS_LENGTH*0.45 : RIVET_SPACING : MMS_LENGTH*0.45])
                 for (a = [0:60:300]) {
                     if ((abs(x - ROOF_HATCH_X) > RIVET_APAS_EXCLUDE || !(a == 90 || a == 60)) && !(abs(x - -6.5) < RIVET_LANE_EXCLUDE) && !(abs(x - 6.5) < RIVET_LANE_EXCLUDE)) {
-                        color([0.52,0.48,0.44])
+                        // High-contrast rivet for F5 visibility — surface-wide Via Ferrata
+                        color([0.88,0.78,0.35])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
                                     cylinder(h=RIVET_H, r=RIVET_R, $fn=20);
@@ -339,11 +340,11 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                         color([0.00,0.62,1.00,0.95])
                             translate([x, side*0.70, sideZ*(MMS_RADIUS-0.38)]) cube([0.09, 0.09, 0.025], center=true);
             }
-            // additional spine cylindrical rivets on TOP Z+ — TRIAL 14 Via Ferrata central spine (a=0 track), same pure cylinder
+            // additional spine cylindrical rivets on TOP Z+ — TRIAL 14 Via Ferrata central spine (a=0 track), denser surface coverage
             for (x = [-MMS_LENGTH*0.45 : RIVET_SPINE_SPACING : MMS_LENGTH*0.45])
                 if (!(abs(x - -6.5) < RIVET_LANE_EXCLUDE) && !(abs(x - 6.5) < RIVET_LANE_EXCLUDE))
                     translate([x, 0, MMS_RADIUS])
-                        color([0.52,0.48,0.44])
+                        color([0.88,0.78,0.35])
                             cylinder(h=RIVET_H, r=RIVET_R, $fn=20);
         }
         // side door cavities (as before)
