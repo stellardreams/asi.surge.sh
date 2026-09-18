@@ -37,6 +37,17 @@ CORE_RADIUS     = 0.18;
 SPINE_LENGTH    = 30.0;
 WALL_THICK      = 0.4;
 
+// --- TRIAL 14: Strategic rivet grid (Via Ferrata, mountain-climber) ---
+// Tunable spacing ensures next rivet within RIVET_REACH (4.5) for hand-over-hand crawl
+// Exclusion buffers keep caliper lanes (X=±6.5) and APAS hatch (X=2.8) clear
+RIVET_SPACING       = 3.0;  // along X, body rivets
+RIVET_SPINE_SPACING = 4.2;  // along X, spine rivets TOP Z+
+RIVET_R             = 0.16; // pure cylinder radius
+RIVET_H             = 0.32; // pure cylinder height (protrudes along normal)
+RIVET_LANE_EXCLUDE  = 3.00; // was 2.70, +0.30 buffer for caliper jaws at mms_hull_realistic():364
+RIVET_APAS_EXCLUDE  = 1.60; // keep APAS ring (APAS_RADIUS 1.55) clear
+RIVET_REACH         = 4.5;  // arm reach envelope (500mm*0.014≈7.0 rail, arm 4.5) — guides spacing
+
 LOGI_RADIUS     = 3.4;
 LOGI_LENGTH     = 9.0;
 LOGI_OFFSET     = 11.0;
@@ -269,17 +280,17 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             for (i = [-1:0.5:1]) for (a = [0:60:300])
                 translate([i * MMS_LENGTH*0.32, cos(a)*MMS_RADIUS*0.83, sin(a)*MMS_RADIUS*0.83])
                     color([0.52,0.48,0.42]) sphere(r = 0.07, $fn = 8);
-            // graspable cylindrical rivets — SAME DIMENSION pure cylinder throughout hull for CORA-M locomotion
-            // Pure uniform: r=0.16 h=0.32 protruding along normal — no cap, no taper, no narrow neck, no top shape — full shank bears shear
-            // Robot Gold gripper grasps full cylinder identically; pure shear, strongest under moment
-            // 2x caliper lanes: X=-6.5 south and X=6.5 north (both edges, TOP/BOTTOM) — NO rivets there — master north+south
-            for (x = [-MMS_LENGTH*0.38 : 3.0 : MMS_LENGTH*0.38])
+            // graspable cylindrical rivets — TRIAL 14 Via Ferrata strategic grid for CORA-M mountain-climber
+            // Pure uniform: RIVET_R/RIVET_H protruding along normal — full shank bears shear, Gold gripper grasps uniformly
+            // Via Ferrata: longitudinal bands at a=0/180 (equator/keel) + staggered rungs at 60/120/240/300 — next rivet within RIVET_REACH (4.5)
+            // Exclusion: caliper lanes X=±6.5 ±RIVET_LANE_EXCLUDE, APAS X=2.8 ±RIVET_APAS_EXCLUDE for a=60/90 (TOP) — verified F5 no intersect at :364
+            for (x = [-MMS_LENGTH*0.38 : RIVET_SPACING : MMS_LENGTH*0.38])
                 for (a = [0:60:300]) {
-                    if ((abs(x - ROOF_HATCH_X) > 1.6 || !(a == 90 || a == 60)) && !(abs(x - -6.5) < 2.70) && !(abs(x - 6.5) < 2.70)) {
+                    if ((abs(x - ROOF_HATCH_X) > RIVET_APAS_EXCLUDE || !(a == 90 || a == 60)) && !(abs(x - -6.5) < RIVET_LANE_EXCLUDE) && !(abs(x - 6.5) < RIVET_LANE_EXCLUDE)) {
                         color([0.52,0.48,0.44])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
-                                    cylinder(h=0.32, r=0.16, $fn=20);
+                                    cylinder(h=RIVET_H, r=RIVET_R, $fn=20);
                     }
                 }
             // 2x caliper lanes mirrored — TOP Z+ and BOTTOM Z- at X=-6.5 south AND X=6.5 north (both edges), for caliper to grip two sides at each location
@@ -328,12 +339,12 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                         color([0.00,0.62,1.00,0.95])
                             translate([x, side*0.70, sideZ*(MMS_RADIUS-0.38)]) cube([0.09, 0.09, 0.025], center=true);
             }
-            // additional spine cylindrical rivets on TOP Z+ — same pure cylinder, EXCLUDED from caliper runway lanes (master north+south)
-            for (x = [-MMS_LENGTH*0.45 : 4.2 : MMS_LENGTH*0.45])
-                if (!(abs(x - -6.5) < 2.70) && !(abs(x - 6.5) < 2.70))
+            // additional spine cylindrical rivets on TOP Z+ — TRIAL 14 Via Ferrata central spine (a=0 track), same pure cylinder
+            for (x = [-MMS_LENGTH*0.45 : RIVET_SPINE_SPACING : MMS_LENGTH*0.45])
+                if (!(abs(x - -6.5) < RIVET_LANE_EXCLUDE) && !(abs(x - 6.5) < RIVET_LANE_EXCLUDE))
                     translate([x, 0, MMS_RADIUS])
                         color([0.52,0.48,0.44])
-                            cylinder(h=0.32, r=0.16, $fn=20);
+                            cylinder(h=RIVET_H, r=RIVET_R, $fn=20);
         }
         // side door cavities (as before)
         if (SHOW_DOOR) {
