@@ -191,18 +191,12 @@ module apas_7dof_arm() {
     }
 }
 module apas_arm_near_hatch() {
-    // Rail along X at TOP Z+ EXTERIOR — moved outside hull so visible (was interior Z=1.4)
-    // Pulled near APAS hatch at ROOF_HATCH_X, Z=MMS_RADIUS+0.6 exterior top, per request to see it
-    translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.65]) {
-        apas_arm_rail();
-        // Joint 1: carriage along X — place at 65% along rail toward hatch center so arm base is under opening
-        translate([0.18*_APAS_rail_len, 0, 0]) {
-            apas_arm_carriage();
-            translate([0,0,(_APAS_rail_t+8*_APAS_arm_scale)/2 + 10*_APAS_arm_scale]) {
-                // Yaw the arm toward hatch opening (+Z) and slightly toward center
-                rotate([0,0, -12])
-                    apas_7dof_arm();
-            }
+    // No railing — arm uses rivets to climb (mountain-climber, per request)
+    // Base directly on hull at TOP Z+ near APAS, gripping nearest rivet — rail/carriage eliminated
+    translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.08]) {
+        translate([0,0, 0.02]) {
+            rotate([0,0, -12])
+                apas_7dof_arm();
         }
     }
 }
@@ -231,20 +225,14 @@ module cora_locomotion_path() {
     }
 }
 module cora_locomotion_preview(step=0) {
-    // ghost arm at waypoint step — shows CORA-M reaching to grasp rivet (for F5 scrub, Space ROS import)
-    // step 0..len(CORA_PATH)-1, wrap
+    // ghost arm at waypoint step — rivet-climber, no rail (per request)
     s = step % len(CORA_PATH);
     x = CORA_PATH[s][0]; a = CORA_PATH[s][1];
-    // place rail exterior near that rivet, oriented tangentially (rail along X)
-    translate([x, cos(a)*(MMS_RADIUS+0.65), sin(a)*(MMS_RADIUS+0.65)]) {
-        // small rail segment at this station (ghost)
-        % color([0.60,0.60,0.65,0.35]) apas_arm_rail();
-        translate([0.10*_APAS_rail_len, 0, 0]) {
-            % apas_arm_carriage();
-            translate([0,0,(_APAS_rail_t+8*_APAS_arm_scale)/2 + 10*_APAS_arm_scale])
-                rotate([a,0,0]) // orient arm toward hull
-                    apas_7dof_arm();
-        }
+    // place ghost arm base directly on rivet at hull surface, oriented to hull
+    translate([x, cos(a)*(MMS_RADIUS+0.08), sin(a)*(MMS_RADIUS+0.08)]) {
+        translate([0,0, 0.02])
+            rotate([a,0,0])
+                % apas_7dof_arm();
     }
     // highlight active rivet
     color([1,0.3,0.3]) translate([x, cos(a)*(MMS_RADIUS+0.32), sin(a)*(MMS_RADIUS+0.32)]) sphere(r=0.20,$fn=16);
