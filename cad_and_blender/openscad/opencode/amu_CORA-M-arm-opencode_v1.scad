@@ -40,13 +40,13 @@ WALL_THICK      = 0.4;
 // --- TRIAL 14: Strategic rivet grid (Via Ferrata, mountain-climber) ---
 // Tunable spacing ensures next rivet within RIVET_REACH (4.5) for hand-over-hand crawl
 // Exclusion buffers keep caliper lanes (X=±6.5) and APAS hatch (X=2.8) clear
-RIVET_SPACING       = 2.0;  // along X, body rivets — denser Via Ferrata (was 3.0, now ~9 positions for surface coverage)
-RIVET_SPINE_SPACING = 2.8;  // along X, spine rivets TOP Z+ — denser (was 4.2)
-RIVET_R             = 0.20; // pure cylinder radius — larger for visibility (was 0.16)
-RIVET_H             = 0.36; // pure cylinder height (was 0.32)
-RIVET_LANE_EXCLUDE  = 3.00; // keep caliper lanes X=±6.5 clear at mms_hull_realistic():364
-RIVET_APAS_EXCLUDE  = 1.60; // keep APAS ring (APAS_RADIUS 1.55) clear
-RIVET_REACH         = 4.5;  // arm reach envelope — spacing 2.0 << 4.5 ensures next rivet always reachable
+RIVET_SPACING       = 1.4;  // along X, body rivets — dense for solar reach (was 2.0, now ~12 positions surface-wide, rivet away!)
+RIVET_SPINE_SPACING = 1.4;  // along X, spine rivets TOP Z+ — same dense
+RIVET_R             = 0.18; // pure cylinder radius — balanced visibility vs clutter (was 0.20)
+RIVET_H             = 0.34; // pure cylinder height (was 0.36)
+RIVET_LANE_EXCLUDE  = 3.00; // ONLY exclusion: caliper lanes X=±6.5 at mms_hull_realistic():364 (north/south) — per request
+RIVET_APAS_EXCLUDE  = 1.00; // reduced — allow rivets closer to APAS, only keep ring itself clear (was 1.60)
+RIVET_REACH         = 4.5;  // arm reach — spacing 1.4 << 4.5 ensures every solar panel within 1-2 grasps
 
 LOGI_RADIUS     = 3.4;
 LOGI_LENGTH     = 9.0;
@@ -285,9 +285,9 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
             // Via Ferrata: longitudinal bands at a=0/180 (equator/keel) + staggered rungs at 60/120/240/300 — next rivet within RIVET_REACH (4.5)
             // Exclusion: caliper lanes X=±6.5 ±RIVET_LANE_EXCLUDE, APAS X=2.8 ±RIVET_APAS_EXCLUDE for a=60/90 (TOP) — verified F5 no intersect at :364
             for (x = [-MMS_LENGTH*0.45 : RIVET_SPACING : MMS_LENGTH*0.45])
-                for (a = [0:60:300]) {
-                    if ((abs(x - ROOF_HATCH_X) > RIVET_APAS_EXCLUDE || !(a == 90 || a == 60)) && !(abs(x - -6.5) < RIVET_LANE_EXCLUDE) && !(abs(x - 6.5) < RIVET_LANE_EXCLUDE)) {
-                        // High-contrast rivet for F5 visibility — surface-wide Via Ferrata
+                for (a = [0:45:315]) {
+                    // Dense surface-wide — rivet away except caliper lanes; APAS kept minimal (RIVET_APAS_EXCLUDE 1.0) for solar reach
+                    if ((abs(x - ROOF_HATCH_X) > RIVET_APAS_EXCLUDE || !(a == 45 || a == 90 || a == 135)) && !(abs(x - -6.5) < RIVET_LANE_EXCLUDE) && !(abs(x - 6.5) < RIVET_LANE_EXCLUDE)) {
                         color([0.88,0.78,0.35])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
