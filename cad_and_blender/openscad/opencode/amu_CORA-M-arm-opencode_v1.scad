@@ -164,6 +164,12 @@ module apas_arm_carriage() {
 }
 module apas_7dof_arm() {
     s = _APAS_arm_scale;
+    // Monkey — base Gold gripper for 2-gripper inchworm (mirrors tip)
+    color("Gold") {
+        translate([0,0,-8*s]) cylinder(h=10*s,r1=4*s,r2=8*s,$fn=24);
+        translate([-5*s,0,-12*s]) cube([2*s,6*s,12*s]);
+        translate([3*s,0,-12*s]) cube([2*s,6*s,12*s]);
+    }
     rotate([0,0,_APAS_j2]) {
         apas_arm_seg(30*s,18*s,16*s,"CadetBlue");
         translate([0,0,30*s]) rotate([0,_APAS_j3,0]) {
