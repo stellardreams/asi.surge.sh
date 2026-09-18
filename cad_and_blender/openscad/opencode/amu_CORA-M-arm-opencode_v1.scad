@@ -360,9 +360,11 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
         }
         // 2x caliper lanes DEPRESSION at TOP Z+ (where towing vehicles dock, both north+south) — recess so calipers fit
         // Groove along X (4.9), width Z (1.4), depth Y (0.42) into hull — top flush at MMS_RADIUS, bottom recessed — no rivets here, caliper jaws seat in groove
-        for (sideZ = [1, -1])
-            translate([cx, 0, sideZ*(MMS_RADIUS - 0.21)])
-                cube([4.9, 1.4, 0.42], center = true);
+        // cx bound to lane position here (was undefined -> groove silently vanished at X=0)
+        for (cx = [-6.5, 6.5])
+            for (sideZ = [1, -1])
+                translate([cx, 0, sideZ*(MMS_RADIUS - 0.21)])
+                    cube([4.9, 1.4, 0.42], center = true);
     }
     // belly door frames — only for open doors; closed outer doors show as solid hatch
     if (SHOW_BELLY_DOOR) {
