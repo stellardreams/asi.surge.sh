@@ -182,8 +182,8 @@ module apas_7dof_arm() {
                                 translate([0,0,15*s]) rotate([0,0,_APAS_j8]) {
                                     color("Gold") {
                                         cylinder(h=10*s,r1=8*s,r2=4*s,$fn=24);
-                                        translate([-5*s,0,10*s]) cube([2*s,6*s,12*s]);
-                                        translate([3*s,0,10*s]) cube([2*s,6*s,12*s]);
+                                        translate([-7*s,0,10*s]) cube([2*s,6*s,12*s]);
+                                        translate([5*s,0,10*s]) cube([2*s,6*s,12*s]); // widened gap 12*s for r0.18 rivet hook
                                     }
                                 }
                             }
@@ -283,7 +283,7 @@ module mms_hull_realistic(open_left_belly = true, open_right_belly = true, roof_
                         color([0.88,0.78,0.35])
                             translate([x, cos(a)*MMS_RADIUS, sin(a)*MMS_RADIUS])
                                 rotate([a-90,0,0])
-                                    cylinder(h=RIVET_H, r=RIVET_R, $fn=20);
+                                    union() { cylinder(h=RIVET_H, r=RIVET_R, $fn=20); color([0.35,0.32,0.30]) translate([0,0,RIVET_H*0.5]) rotate([90,0,0]) torus(r_major=RIVET_R*0.85, r_minor=0.035, seg=16); } // groove hook
                     }
                 }
             // 2x caliper lanes mirrored — TOP Z+ and BOTTOM Z- at X=-6.5 south AND X=6.5 north (both edges), for caliper to grip two sides at each location
