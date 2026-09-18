@@ -1,7 +1,7 @@
 // =============================================================================
 // AMU — Autonomous Manufacturing Unit (OpenCode v1.3 — Realistic)
 // Awakened Imagination Group — TRL 1 parametric sketch
-// Location: cad_and_blender/openscad/opencode/amu_opencode_v1.scad
+// Location: cad_and_blender/openscad/opencode/amu_heritage_opencode_v1.scad (renamed 2026-09-18 from amu_opencode_v1.scad)
 // Source visuals ingested 2026-09-16 (realistic color-matched):
 //   - Renders: Manufacturing Units (tan hull #C8B8A0, black solar #0A0A0F, blue arm #1A6FFF, spine #D0D0D0)
 //              Orbiting Greenhouses (transparent hull α0.35, shelves #E0E0E0, sprouts #4A8A4A, cyan beams #4DFFF0)
@@ -13,6 +13,14 @@
 //              This file pushes OpenSCAD realism to its limit via $fn=64, accurate PBR colors, and micro-details.
 // Branch: main-dev → master (see docs/release_notes/v1.1.md:1)
 // =============================================================================
+
+// Heritage Note (2026-09-18): Consolidated per issue #5 — this file is now heritage.
+//   Renamed from amu_opencode_v1.scad (338 lines, 15K) to amu_heritage_opencode_v1.scad.
+//   Canonical model is amu_CORA-M-arm-opencode_v1.scad (690 lines, with RIVET_* Via Ferrata,
+//   monkey Y Y-branch, caliper widened gap + groove, APAS, etc. — TRIAL 5/14, TRIAL 7).
+//   For minimal AMU without arm, use CORA-M with SHOW_ARM=false — do not edit this heritage
+//   file for new TRIALs. Single source of truth, no drift. See game-plan 5710486234.
+//   Previous location: cad_and_blender/openscad/opencode/amu_opencode_v1.scad
 
 // ---------------------------- Realistic palette (PBR) ------------------------
 HULL_TAN        = [0.78, 0.70, 0.60]; // tan hull as in Manufacturing Units
