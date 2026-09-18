@@ -164,29 +164,27 @@ module apas_arm_carriage() {
 }
 module apas_7dof_arm() {
     s = _APAS_arm_scale;
-    // Monkey — base Gold gripper for 2-gripper inchworm (mirrors tip)
-    color("Gold") {
-        translate([0,0,-8*s]) cylinder(h=10*s,r1=4*s,r2=8*s,$fn=24);
-        translate([-5*s,0,-12*s]) cube([2*s,6*s,12*s]);
-        translate([3*s,0,-12*s]) cube([2*s,6*s,12*s]);
-    }
+    // Monkey Y — two arms from middle joint (elbow), each with Gold hand — 2 arms, 2 hands
     rotate([0,0,_APAS_j2]) {
         apas_arm_seg(30*s,18*s,16*s,"CadetBlue");
         translate([0,0,30*s]) rotate([0,_APAS_j3,0]) {
             apas_arm_seg(120*s,16*s,12*s,"WhiteSmoke");
             translate([0,0,120*s]) rotate([0,0,_APAS_j4]) {
                 apas_arm_seg(25*s,12*s,12*s,"CadetBlue");
-                translate([0,0,25*s]) rotate([0,_APAS_j5,0]) {
-                    apas_arm_seg(100*s,12*s,10*s,"WhiteSmoke");
-                    translate([0,0,100*s]) rotate([0,0,_APAS_j6]) {
-                        apas_arm_seg(20*s,10*s,10*s,"CadetBlue");
-                        translate([0,0,20*s]) rotate([0,_APAS_j7,0]) {
-                            apas_arm_seg(15*s,10*s,8*s,"LightGray");
-                            translate([0,0,15*s]) rotate([0,0,_APAS_j8]) {
-                                color("Gold") {
-                                    cylinder(h=10*s,r1=8*s,r2=4*s,$fn=24);
-                                    translate([-5*s,0,10*s]) cube([2*s,6*s,12*s]);
-                                    translate([3*s,0,10*s]) cube([2*s,6*s,12*s]);
+                // Branch at middle joint — Y-shaped dual arms
+                for (branch = [-1, 1]) {
+                    translate([0,0,25*s]) rotate([0,_APAS_j5,0]) rotate([branch*22,0,0]) {
+                        apas_arm_seg(100*s,12*s,10*s,"WhiteSmoke");
+                        translate([0,0,100*s]) rotate([0,0,_APAS_j6]) {
+                            apas_arm_seg(20*s,10*s,10*s,"CadetBlue");
+                            translate([0,0,20*s]) rotate([0,_APAS_j7,0]) {
+                                apas_arm_seg(15*s,10*s,8*s,"LightGray");
+                                translate([0,0,15*s]) rotate([0,0,_APAS_j8]) {
+                                    color("Gold") {
+                                        cylinder(h=10*s,r1=8*s,r2=4*s,$fn=24);
+                                        translate([-5*s,0,10*s]) cube([2*s,6*s,12*s]);
+                                        translate([3*s,0,10*s]) cube([2*s,6*s,12*s]);
+                                    }
                                 }
                             }
                         }
