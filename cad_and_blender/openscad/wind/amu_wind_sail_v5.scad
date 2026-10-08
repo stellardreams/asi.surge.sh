@@ -81,6 +81,39 @@ COLLAR_W         = 0.36;     // thrust bearing — this is the pivot
 COLLAR_H         = 0.12;
 COLLAR_DIA       = 0.30;     // bearing race diameter
 
+// --- Serviceability: blade <-> cassette ---
+//
+// The sail is a SWAP-ON-BLADE assembly, not one welded lump. Arctic labour and parts
+// are expensive, so anything that can fail or wear must come off without dismantling
+// the structure around it.
+//
+// What actually needs servicing, in order of frequency:
+//   1. the damper cells  — need draining/refilling to re-tune. This is the common job.
+//   2. the pivot pin / bearing race — wears every cycle.
+//   3. the sail blade itself — rarely.
+//   4. the pile — never.
+//
+// Before this split, servicing item 1 meant CUTTING THE SAIL OPEN. The cells were
+// sealed inside the shell with no port and no access. That is the failure the split
+// fixes.
+//
+// Assembly order, bottom to top:
+//   lower flange plate (fixed to collar)
+//     -> CELL CASSETTE        bolts off, slides out, holds the two-phase cells
+//        -> BLADE_GAP         service clearance + thermal break
+//           -> SAIL BLADE      bolts off, lifts away
+//
+// Service sequence: unbolt blade, lift, unbolt cassette, withdraw, drain/refill, refit,
+// bolt up. Nothing welded, nothing cut.
+BLADE_GAP        = 0.035;    // clearance between cassette top and blade underside
+BLADE_BOLTS      = 4;
+CASSETTE_BOLTS   = 4;
+BLADE_LIFT       = 0.0;      // >0 lifts the blade off for an exploded/service view
+CASSETTE_SLIDE   = 0.0;      // >0 withdraws the cassette sideways
+BLADE_SHAFT_D    = 0.011;    // M11 quick-release studs
+SHOW_HANDLES     = true;     // draw handles, so bolts are undoable by hand in gloves
+HANDLE_R         = 0.030;
+
 // --- Sail (stands vertical from the collar) ---
 SAIL_W           = 0.56;     // panel width, along the pivot axis (X)
 SAIL_T           = 0.26;     // panel thickness (Y, along the wind)
@@ -92,7 +125,7 @@ SAIL_CANT        = 6;        // degrees of static lean from vertical
 // --- Damper cells at the sail foot ---
 // Sited just above the pivot on purpose: in a pendulum tuned damper the absorber
 // belongs near the pivot, where its displacement relative to the sail is largest.
-CELL_BAND_H      = 0.62;     // height of the cell zone at the foot of the sail
+CELL_BAND_H      = 0.62;     // cassette height, and the cell zone inside it
 CELL_COLS        = 2;        // cells across the sail width
 ICE_TOP          = 0.10;     // frozen depth from the TOP of each cell.
                              // WAS 0.26, which is stable but badly frequency-mismatched
@@ -338,8 +371,18 @@ BOLT_STEEL       = [0.80, 0.82, 0.86];
 CANT_ARC         = [1.00, 0.74, 0.22, 0.50];
 ROCK_ARC         = [0.28, 0.72, 0.96, 0.55];
 DATUM_COL        = [0.95, 0.25, 0.30, 0.85];   // plumb reference at the pivot
+CASSETTE_SHELL   = [0.52, 0.56, 0.62];         // deliberately a different tone from the blade
+QR_COL           = [0.95, 0.62, 0.15];          // quick-release hardware
+HANDLE_COL       = [0.30, 0.85, 0.55];
 
 // ------------------------------ Helpers --------------------------------------
+
+// Re-added: previously dropped as dead code, now used by the cassette draw handles.
+module torus(r_major, r_minor, seg = 32) {
+    rotate_extrude(convexity = 4, $fn = seg)
+        translate([r_major, 0, 0])
+            circle(r = r_minor, $fn = 8);
+}
 
 module helical_pile(shaft_dia = PILE_SHAFT_DIA, depth = PILE_DEPTH,
                     helix_dia = HELIX_DIA, helix_t = HELIX_T,
@@ -558,25 +601,76 @@ module flange_bolts() {
 // behaviour correct: as the site cools, ice grows downward into the liquid and
 // shortens the column, which sweeps f_abs down toward the sail's frequency. The unit
 // tracks the season without anyone touching it.
-// Sail panel — 4 mm aluminium box, open at the bottom so meltwater sheds.
+// CELL CASSETTE — the serviceable part.
 //
-// SHOW_CUTAWAY removes the windward half of the SHELL only, leaving the damper cells
-// intact. Without it the two-phase cells — the entire point of the design — are sealed
-// inside an opaque box and invisible in every view.
-module sail_panel() {
-    color(SAILPANEL)
-        translate([0, 0, SAIL_H / 2])
+// A closed tray holding the two-phase cells, bolted to the upper flange plate. It is the
+// component that comes off for draining and re-tuning, which is the frequent job. Pulling
+// the whole sail off to reach two cells would be absurd, so the cassette is split out.
+module cell_cassette() {
+    w = SAIL_W + 0.05;                 // slightly proud of the blade so it reads as a part
+    h = CELL_BAND_H;
+    color(CASSETTE_SHELL)
+        translate([0, 0, h / 2])
             difference() {
-                cube([SAIL_W, SAIL_T, SAIL_H], center = true);
-                // interior void, open downward
+                cube([w, SAIL_T + 0.03, h], center = true);
+                translate([0, 0, -0.012])
+                    cube([w - 0.030, SAIL_T - 0.002, h - 0.024], center = true);
+            }
+    // cells inside the cassette
+    translate([0, 0, h]) damper_bay();
+
+    // quick-release bolts through the cassette flange into the upper plate
+    for (i = [0 : CASSETTE_BOLTS - 1])
+        translate([(i < CASSETTE_BOLTS/2 ? -1 : 1) * w * 0.40,
+                   (i % 2 == 0 ? -1 : 1) * (SAIL_T + 0.03) * 0.30,
+                   0.018])
+            qr_stud(0.10, BLADE_SHAFT_D);
+
+    // draw handles — so the bolts are undoable by hand in gloves at -40 C
+    if (SHOW_HANDLES)
+        for (sx = [-1, 1])
+            color(HANDLE_COL)
+                translate([sx * w * 0.46, 0, h * 0.52])
+                    rotate([0, 90, 0])
+                        torus(r_major = 0.055, r_minor = 0.010, seg = 20);
+}
+
+// Sail blade — bolts to the cassette top, lifts away for service.
+//
+// Separate from the cassette with a BLADE_GAP so it can be lifted without fouling, and so
+// the joint is thermally broken — aluminium to aluminium, no direct path.
+module sail_blade() {
+    z0 = CELL_BAND_H + BLADE_GAP;
+    bh = SAIL_H - z0;
+    color(SAILPANEL)
+        translate([0, 0, z0 + bh / 2])
+            difference() {
+                cube([SAIL_W, SAIL_T, bh], center = true);
                 translate([0, 0, -SAIL_WALL / 2])
                     cube([SAIL_W - 2 * SAIL_WALL, SAIL_T - 2 * SAIL_WALL,
-                          SAIL_H - SAIL_WALL], center = true);
-                // section cut on the windward half, shell only
+                          bh - SAIL_WALL], center = true);
                 if (SHOW_CUTAWAY)
                     translate([0, -SAIL_T / 2, 0])
-                        cube([SAIL_W * 1.4, SAIL_T, SAIL_H * 1.4], center = true);
+                        cube([SAIL_W * 1.4, SAIL_T, bh * 1.4], center = true);
             }
+
+    // blade fixing bolts into the cassette
+    for (i = [0 : BLADE_BOLTS - 1])
+        translate([(i < BLADE_BOLTS/2 ? -1 : 1) * SAIL_W * 0.34,
+                   (i % 2 == 0 ? -1 : 1) * SAIL_T * 0.28,
+                   z0 + 0.018])
+            qr_stud(0.10, BLADE_SHAFT_D);
+}
+
+// Quick-release stud: a captive bolt on a knurled collar, undoned by hand.
+// No tools needed, which is the whole point at a remote Arctic site.
+module qr_stud(len, d = BLADE_SHAFT_D) {
+    color(QR_COL)
+        translate([0, 0, len / 2])
+            cylinder(h = len, r = d / 2, center = true, $fn = 16);
+    color(QR_COL)
+        translate([0, 0, -0.012])
+            cylinder(h = 0.026, r = d * 1.15, $fn = 16);
 }
 
 // Upper stiffener ribs — wall volume only.
@@ -585,7 +679,7 @@ module sail_panel() {
 module upper_ribs() {
     inner_w = SAIL_W - 2 * SAIL_WALL;
     inner_t = SAIL_T - 2 * SAIL_WALL;
-    z0 = CELL_BAND_H;
+    z0 = CELL_BAND_H + BLADE_GAP + 0.06;   // ribs live in the BLADE only
     n = 3;
     for (i = [1 : n - 1])
         color(RIB)
@@ -798,11 +892,16 @@ module sail_unit() {
             if (SHOW_FLANGE)
                 translate([0, 0, PLATE_HI_Z])
                     flange_plate(upper = true);
-            translate([0, 0, PLATE_HI_Z + FLANGE_T])
-                sail_panel();
-            translate([0, 0, PLATE_HI_Z + FLANGE_T])
-                damper_bay();
-            translate([0, 0, PLATE_HI_Z + FLANGE_T])
+
+            // cassette — withdraws sideways for service
+            translate([CASSETTE_SLIDE, 0, PLATE_HI_Z + FLANGE_T])
+                cell_cassette();
+
+            // blade — lifts straight off for service
+            translate([0, 0, PLATE_HI_Z + FLANGE_T + BLADE_LIFT])
+                sail_blade();
+
+            translate([0, 0, PLATE_HI_Z + FLANGE_T + BLADE_LIFT])
                 upper_ribs();
             if (SHOW_CANT && SHOW_ROCK_ARC) cant_arc();
         }
