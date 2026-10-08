@@ -415,6 +415,11 @@ oscillation requires validation of this geometry, pivot stiffness/friction, iner
 damping, and declared wind conditions in coupled fluid–structure analysis or a wind
 tunnel. A power claim also requires measured net output after conversion losses.
 
+The working validation target is bounded rocking under steady wind; starting from rest
+is assessed separately. The proposed physical test protocol is in the
+[sail model notes](cad_and_blender/openscad/wind/amu_wind_sail_v5.md). It has not been
+run, so the operating principle remains unproven.
+
 In OpenSCAD, open the `.scad`, set `ANIM_MODE = "wind"`, press **F5**, then use
 **View → Animate**. For an MP4, use the existing render script; `--def` can be repeated
 to override model parameters:

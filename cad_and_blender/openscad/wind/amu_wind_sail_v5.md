@@ -18,6 +18,12 @@ motion. It does not resolve a separate liquid coordinate, liquid sloshing, fluid
 interaction, structural flex, or electrical generation. See §7 before interpreting any
 animation as evidence of a real operating principle.
 
+**Working target for validation:** this concept is being evaluated as a device that
+sustains bounded rocking under steady wind, consistent with the motion-harvesting intent
+of the related [AMU Wind Grove concept](amu_wind_grove_v3.md). Whether it self-starts from
+rest is a separate test result. This target states what to test; it is not evidence that
+the physical sail oscillates or produces power.
+
 ## 2. Configuration and model boundary
 
 The concept sketch shows a stepped footing, thrust collar, upright sail, and cells at the
@@ -158,7 +164,9 @@ or freeze progression.
   seals, meltwater traps and refreezes into the cell, changing the modeled liquid height
   and stability margin without a visible symptom. Needs site water chemistry, impurity
   loading, and freeze-rate analysis.
-- 🔴 **Operating principle unproven.** `dynamic` mode is a one-angle free-decay equation;
+- 🔴 **Operating principle unproven.** The working test target is bounded rocking under
+  steady wind; self-starting from rest will be assessed separately. `dynamic` mode is a
+  one-angle free-decay equation;
   `wind` mode adds prescribed drag torque based only on selected wind speed and fixed
   coefficients. The load does not respond to sail motion, and the model has no liquid
   motion, aerodynamic feedback, or generator. Under constant wind, the stable linear
@@ -191,6 +199,40 @@ or freeze progression.
 - 🟡 **Maintainability.** Changing the ice/water state requires service access, but the
   maintenance cycle and field procedure have not been established.
 - 🟡 **No wind data.** Nothing sized against an actual load.
+
+### Proposed physical test — not performed
+
+This protocol is a screening plan, not a design-load test or safety certification. The
+site wind case is still open; choose a controlled test-speed range with the test-facility
+operator and do not treat that range as the operating envelope.
+
+1. **Record the test article.** Use the intended sail, pivot, bearing, and liquid/ice
+   configuration. Measure or document geometry, mass distribution and inertia, pivot
+   stiffness and breakout friction, damping, travel limits, and cell fill state. Record
+   airflow uniformity, turbulence, airspeed, and the corresponding Reynolds number.
+2. **Measure the wind-off baseline.** Release the sail from the same small positive and
+   negative angles. Record angle over time and estimate its free-decay frequency and
+   damping. Repeat each release at least three times.
+3. **Apply steady wind without gusts.** Increase airspeed in controlled steps within the
+   facility's approved limits. At each step, run once from rest and once after equal,
+   measured perturbations in both directions. Keep the wind setting constant after each
+   start or release.
+4. **Measure the response.** Record synchronized airspeed and sail angle; measure pivot
+   torque if the rig allows it. Keep the raw time series and video. Stop a run if motion
+   grows toward a travel stop, the rig moves, or any component shows distress.
+5. **Classify the result before changing the rig.** Record separately whether steady wind
+   starts motion from rest and whether motion continues after a perturbation. For a pass
+   on sustained oscillation, predeclare the sensor-noise threshold and hold duration; the
+   sail must show repeatable, bounded motion above that threshold for at least 30 cycles
+   in three runs at the same wind setting, without a decaying amplitude trend. This is a
+   proposed concept-screen criterion, not an engineering standard.
+
+If both the rest-start and perturbed runs decay to a static angle, this configuration
+does not pass as an oscillating device; describe it as a static deflector or redesign it.
+If the perturbed run sustains motion but the rest-start run does not, report a
+sustain-only result. Only after the mechanical test passes should a representative
+generator load be connected and net electrical energy measured. No power claim follows
+from the unloaded motion test.
 
 ## 8. Modularity
 
