@@ -172,12 +172,6 @@ SWING_ARC        = [1.00, 0.74, 0.22, 0.50];
 
 // ------------------------------ Helpers --------------------------------------
 
-module torus(r_major, r_minor, seg = 36) {
-    rotate_extrude(convexity = 4, $fn = seg)
-        translate([r_major, 0, 0])
-            circle(r = r_minor, $fn = 10);
-}
-
 module helical_pile(shaft_dia = PILE_SHAFT_DIA, depth = PILE_DEPTH,
                     helix_dia = HELIX_DIA, helix_t = HELIX_T,
                     n = HELIX_COUNT, pitch = HELIX_PITCH, stagger = HELIX_STAGGER) {
