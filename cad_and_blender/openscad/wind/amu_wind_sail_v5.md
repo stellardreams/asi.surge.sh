@@ -183,11 +183,26 @@ part. Set `THERMO_CHARGED = false` to see an uncharged system.
 | Phase isolation | `SHOW_ICE`, `SHOW_WATER`, `SHOW_THERMO` render independently |
 | Section view | `SHOW_CUTAWAY` sections the windward shell so the cells read |
 | Operating states | `SHOW_CANT` toggles lean; `THERMO_CHARGED` toggles charged state |
+| Legibility | `SHOW_DATUM` gives a plumb reference and ±swing envelope ghosts |
 | Per-site tuning | One cell parameter commissions a site |
 | Seasonal self-tuning | Ice growth re-tunes without intervention |
 | No inter-unit linkage | Nothing shared, so nothing can cascade |
 | Flat transport | Sail is a flat panel; footing is a stack of slabs |
 | Local ballast | Ice made from site water, never shipped |
+
+## 8b. Making the motion legible — the first dynamic render looked identical to the kinematic one
+
+Worth recording, because the cause was partly physics and partly framing.
+
+| Problem | Cause | Fix |
+|---|---|---|
+| Swing only ±3°, decaying to ±1.5° | `INIT_THETA` too small, and `T_SIM` long enough that most of the run was dead | `INIT_THETA` 0.055 → 0.120 rad (±6.9°), `T_SIM` 4.2 → 2.2 s (~2 periods) |
+| Motion looked like a one-sided wobble, not an oscillation | **Equilibrium was in the wrong place.** `SAIL_CANT` (6°) was being added on top of the dynamic deviation | Removed. The liquid stabilises the sail about **plumb** — that is what `ω_n² = μω_a² − g/L` means — so the equilibrium is vertical, not canted |
+| No fixed reference to measure against | A 7° tilt of a 2.55 m sail moves its tip only ~0.31 m | Added a **plumb datum**, drawn *outboard* of the panel because a datum up the middle disappears inside it, plus ghost edges at the ± half-swing envelope |
+| Motion invisible in the render | Camera too far; few pixels for a few degrees | Two presets: `--close` (default) and `--wide` |
+
+The equilibrium correction is a physics fix, not a legibility trick — the earlier version
+was placing the sail at an angle the liquid was not actually holding it at.
 
 ## 9. Build
 

@@ -134,7 +134,10 @@ FLANGE_NUT_H     = 0.020;
 SHOW_FLANGE      = true;
 
 // --- Operating state ---
-SHOW_CANT        = true;     // sail leaning by SAIL_CANT
+SHOW_CANT        = true;     // sail leaning by SAIL_CANT (kinematic mode only)
+SHOW_DATUM       = true;     // vertical reference line at the pivot — without it a
+                             // few degrees of tilt has nothing to be measured against
+                             // and the motion is very hard to see
 SHOW_ROCK_ARC    = true;     // oscillation arc about the pivot
 ROCK_DEG         = 7;        // working swing of the sail about the pin, degrees
 
@@ -166,10 +169,10 @@ ANIM_LEVEL_WATER = true;     // keep the liquid surface level in world space
 // the usual tuned-damper intuition completely — see the note on MASS_RATIO.
 G_ACC           = 9.81;
 L_SAIL          = 1.30;      // effective pendulum length, pivot to structure CoM (m)
-INIT_THETA      = 0.055;     // initial gust deflection (rad) ~ 3.2 deg
-T_SIM           = 4.20;      // physical seconds the animation represents. Matched to the
-                             // observed decay so the transient fills the whole run —
-                             // at 24 s the motion was dead by 10% of the way through.
+INIT_THETA      = 0.120;     // initial gust deflection (rad) ~ 6.9 deg
+T_SIM           = 2.20;      // physical seconds the animation represents. ~2 periods at
+                             // 0.91 Hz, so amplitude stays high across the whole run.
+                             // Longer runs just show the decay sitting at zero.
 ODE_STEPS       = 420;
 ZETA_TOTAL      = 0.040;     // combined structural + liquid damping ratio
 
@@ -273,10 +276,17 @@ if (ECHO_DIAG)
 function anim_phase() = is_undef($t) ? 0 : $t;
 
 // Degrees the sail is actually at.
+// In dynamic mode the equilibrium is PLUMB, not canted.
+//
+// This is a physics correction, not a legibility trick. The liquid stabilises the sail
+// about vertical — that is what omega_n^2 = mu*wa^2 - g/L means — so adding SAIL_CANT
+// on top put the equilibrium in the wrong place. It also made the motion read poorly:
+// the sail leaned one way only, so a +-3 deg wobble looked like "nearly still" rather
+// than an oscillation.
 function sail_angle_deg() =
     ANIM_MODE == "dynamic"
       ? let (q = dyn_state(anim_phase()))
-          SAIL_CANT + q[0] * 180 / PI
+          q[0] * 180 / PI
       : (SHOW_CANT ? SAIL_CANT : 0) + anim_osc();
 
 // Degrees the liquid mass is actually at. Its free surface stays level in world space,
@@ -327,6 +337,7 @@ FLANGE_GUSSET_C  = [0.56, 0.58, 0.62];
 BOLT_STEEL       = [0.80, 0.82, 0.86];
 CANT_ARC         = [1.00, 0.74, 0.22, 0.50];
 ROCK_ARC         = [0.28, 0.72, 0.96, 0.55];
+DATUM_COL        = [0.95, 0.25, 0.30, 0.85];   // plumb reference at the pivot
 
 // ------------------------------ Helpers --------------------------------------
 
@@ -707,6 +718,44 @@ module rock_arc(deg = ROCK_DEG) {
             arc_band(0.30, 0.34, -deg, deg);
 }
 
+// Vertical datum + swing envelope at the pivot.
+//
+// A 7-degree tilt of a 2.55 m sail moves its tip by only about 0.31 m. Without a fixed
+// vertical reference to compare against, that reads as nothing happening. The datum is
+// the plumb line through the pivot; the envelope marks the +/- half-swing.
+// Plumb datum + swing envelope at the pivot.
+//
+// A 7-degree tilt of a 2.55 m sail moves its tip by only ~0.31 m. With nothing fixed to
+// measure that against, it reads as nothing happening. So the datum is drawn OUTBOARD of
+// the sail — a line up the plumb axis offset clear of the panel — because a plumb line
+// drawn up the middle just disappears inside it.
+//
+// Two ghost edges mark the +/- half-swing envelope at tip height, so the moving sail is
+// visibly swinging between two limits rather than just drifting.
+module pivot_datum(swing_deg) {
+    off = SAIL_W / 2 + 0.16;              // clear of the panel on both sides
+    tip = SAIL_H * 1.02;
+
+    for (s = [-1, 1]) {
+        // plumb reference, offset outboard
+        color(DATUM_COL)
+            translate([s * off, 0, PIVOT])
+                cylinder(h = tip, r = 0.008, center = true, $fn = 8);
+        // tick where plumb meets tip height
+        color(DATUM_COL)
+            translate([s * off, 0, PIVOT + tip / 2])
+                cube([0.030, 0.030, 0.11], center = true);
+    }
+
+    // swing envelope: ghost sail edges at the +/- half-swing limits
+    for (s = [-1, 1])
+        color([0.95, 0.25, 0.30, 0.35])
+            rotate([s * swing_deg, 0, 0])
+                for (sx = [-1, 1])
+                    translate([sx * SAIL_W / 2, 0, PIVOT])
+                        cube([0.014, 0.014, SAIL_H], center = true);
+}
+
 module ground_block(depth = GROUND_DEPTH) {
     color(SOIL_FROZEN)
         translate([0, 0, -depth / 2 - 0.02])
@@ -759,6 +808,9 @@ module sail_unit() {
         }
 
     if (SHOW_ROCK_ARC) rock_arc();
+
+    // datum drawn last and unrotated so it stays plumb while the sail swings
+    if (SHOW_DATUM) pivot_datum(abs(INIT_THETA) * 180 / PI);
 }
 
 // ------------------------------- Render --------------------------------------

@@ -29,7 +29,13 @@ HEIGHT=1050   # portrait: the sail is tall, landscape crops it and hides the roc
 # --camera format is translate_x,y,z,ROT_x,y,z,DIST. Getting these two triples the
 # wrong way round points the camera 66 units off to one side and yields blank
 # frames that still assemble into a valid-looking MP4.
-CAM="0,0,0,66,0,20,13.5"
+# Whole-unit view.
+CAM_WIDE="0,0,0,66,0,20,15.0"
+# Close on the sail foot. The oscillation is only a few degrees, and at the wide
+# distance that moves very few pixels — the motion is essentially invisible there.
+CAM_CLOSE="0,0,0,50,0,10,7.5"
+VIEW="${VIEW:-close}"
+CAM=""
 CLEAN=1
 RENDER_MODE=0   # 0 = preview/throwntogether (fast, keeps model colours)
                 # 1 = CGAL --render (F6-identical geometry, but headless PNG export
@@ -45,6 +51,8 @@ while [[ $# -gt 0 ]]; do
     --size)   IFS=',' read -r WIDTH HEIGHT <<< "$2"; shift 2 ;;
     --out)    OUTDIR="$2"; shift 2 ;;
     --keep)   CLEAN=0;     shift ;;
+    --wide)   VIEW="wide"; shift ;;
+    --close)  VIEW="close"; shift ;;
     --still)  STILL=1;     shift ;;
     --preview) RENDER_MODE=0; shift ;;
     --cgal)    RENDER_MODE=1; shift ;;
@@ -53,13 +61,15 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+[[ "$VIEW" == "wide" ]] && CAM="$CAM_WIDE" || CAM="$CAM_CLOSE"
+
 command -v openscad >/dev/null || { echo "ERROR: openscad not found" >&2; exit 2; }
 command -v ffmpeg    >/dev/null || { echo "ERROR: ffmpeg not found" >&2; exit 2; }
 [[ -f "$SCAD" ]] || { echo "ERROR: $SCAD not found. Run from the repo root." >&2; exit 1; }
 
 mkdir -p "$OUTDIR"
 STAMP=$(date +%Y-%m-%d_%H-%M-%S)
-NAME="amu_wind_sail_v5_anim_${STAMP}"
+NAME="amu_wind_sail_v5_anim_${VIEW}_${STAMP}"
 
 echo "Rendering $FRAMES frames -> $OUTDIR/$NAME.mp4"
 echo "  camera $CAM   size ${WIDTH}x${HEIGHT}   $FPS fps"
