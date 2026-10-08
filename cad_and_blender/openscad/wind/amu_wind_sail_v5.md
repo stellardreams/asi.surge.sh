@@ -69,7 +69,13 @@ Cell as built: 272 × 232 × 616 mm, plan area `A = 0.0631 m²`.
 
 **Tuning range 0.332 → 1.046 Hz, a 3.15× sweep.**
 
-## 4. Mass ratio is the unresolved driver
+## 4. Mass ratio — corrected twice; see the correction below
+
+> **Heading note:** this section previously read "the unresolved driver" and opened with
+> the 1–5% tuned-damper rule. Both were wrong and the body below has been rewritten — the
+> sail stands up, so it is an *inverted* pendulum and the liquid holds it up rather than
+> damping it. Read the correction, not the old framing.
+
 
 A pendulum TLMD is only effective in a narrow band around `m_absorber / m_structure`.
 Outside it the damper is either too light to matter, or so heavy it dominates the
@@ -203,6 +209,35 @@ Worth recording, because the cause was partly physics and partly framing.
 
 The equilibrium correction is a physics fix, not a legibility trick — the earlier version
 was placing the sail at an angle the liquid was not actually holding it at.
+
+## 8a. Transport envelope
+
+**Restored.** This lived only in the deleted v1 chassis README and was lost when the hull
+was removed. Recomputed for the current sail.
+
+| Quantity | Value |
+|---|---|
+| Assembled height | **2.595 m** (pivot 0.045 + sail 2.55) |
+| Footing footprint | 1.060 × 0.827 m |
+| Nested panel footprint | 0.610 × 0.290 m |
+| Longest single item once serviceable | **1.895 m** (blade alone, cassette removed) |
+
+| Limit | Scale needed | At that scale |
+|---|---|---|
+| 20ft container internal (2.59 m) | **0.998** | 2.590 m |
+| 20ft container external (2.44 m) | 0.940 | 2.440 m |
+| 108 in max dimension (2.74 m) | 1.056 | 2.740 m |
+
+**Scale ≈ 1.0. The sail is already container-sized.** Nesting gives roughly 20 panels
+across a 20ft container's width at 3 rows deep.
+
+This is a large change from v1, which needed **scale 0.216** because the chassis was
+17.92 m long. Going flat moved transport from a 5× reduction problem to essentially none —
+and the criterion is met by *geometry*, not by a documented fudge factor.
+
+**One caveat:** 2.595 m against a 2.59 m internal limit is a 5 mm margin, which is inside
+build tolerance. Shipping the blade and cassette separately (1.895 m longest item) removes
+the question entirely, and the serviceability split already makes that possible.
 
 ## 8c. Serviceability — the cells were sealed inside the sail
 
