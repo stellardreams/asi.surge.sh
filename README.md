@@ -377,7 +377,7 @@ additive and does not replace the canonical OpenSCAD source
 `cad_and_blender/openscad/wind/amu_wind_sail_v5.scad`.
 
 It includes the footing, pile, collar, flange, and static blade geometry, but it
-still leaves the dynamic sweep, ice/water tuning, thermosyphons, and cassette-side
+still leaves the dynamic sweep, modeled ice/water state, thermosyphons, and cassette-side
 features in the `.scad` as they are not part of this port. The validation script
 prints both the measured bounding box and the expected island report. The key rule
 is: a floating part should appear as an `UNEXPECTED` island, while the known static
@@ -400,6 +400,21 @@ and smooth gust forcing. Wind inputs can be overridden from the command line wit
 OpenSCAD `-D` definitions. This is a visualization, not a validated engineering or
 design-load simulation.
 
+The motion solver has one sail-angle coordinate. Wind mode applies prescribed drag
+torque from the selected wind speed and fixed coefficients; that torque does not depend
+on sail angle or angular velocity. The model does not calculate airflow feedback, liquid
+slosh, structural flex, or generated power. Under steady wind, its stable linear equation
+settles toward a static deflection. `WIND_MEAN_EQUILIBRIUM` reports that small-angle,
+zero-gust result for the equation only. A gust-driven transient is not evidence that the
+real sail will self-start or sustain oscillation.
+
+Flat plates have shown flutter in particular coupled aeroelastic wind-tunnel setups, but
+those results do not establish the behavior of this single-pivot sail ([Amandolese et
+al.](https://doi.org/10.1016/j.jfluidstructs.2013.09.002)). A claim of sustained
+oscillation requires validation of this geometry, pivot stiffness/friction, inertia,
+damping, and declared wind conditions in coupled fluid–structure analysis or a wind
+tunnel. A power claim also requires measured net output after conversion losses.
+
 In OpenSCAD, open the `.scad`, set `ANIM_MODE = "wind"`, press **F5**, then use
 **View → Animate**. For an MP4, use the existing render script; `--def` can be repeated
 to override model parameters:
@@ -415,7 +430,9 @@ The MP4 is written under `cad_and_blender/openscad/wind/renders/`.
 
 Run these deterministic checks from the repository root. Each command writes a
 temporary CSG and prints a `MOTION_STATE` diagnostic; wind mode also prints
-`WIND_STATE`.
+`WIND_STATE`, a model-scope note, and (when the idealized stiffness is positive) the
+small-angle `WIND_MEAN_EQUILIBRIUM` estimate. These checks verify the prescribed-force
+equation's behavior; they do not validate real airflow response, flutter, or power.
 
 - [ ] **Free-decay baseline.** Record the sail angle at the same `$t` used by the
   other checks.

@@ -1,67 +1,26 @@
 // =============================================================================
-// AMU — Arctic Ice-Tuned Sail Unit (v5)
-// Vertical sail on stepped base, tuned liquid mass damper cells at the sail foot
+// AMU — Arctic Two-Phase Sail Concept (v5)
+// Vertical sail on stepped base with two-phase cells at the sail foot
 // Location: cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
 // Issue: #82
 // Modelled on: cad_and_blender/openscad/wind/concept-10-07-2026-2131.jpg
 // Target: OpenSCAD >= 2021.01 | Preview F5 | Render F6 → Export STL/3MF/DXF
 // =============================================================================
 //
-// WHAT CHANGED FROM v4, AND WHY THE CONCEPT SKETCH IS THE BETTER IDEA
+// MODEL SCOPE
 //
-// v4 hung the sail from a two-legged portal frame by a trunnion at the TOP of the
-// panel. That put the sail's centre of mass below the pivot, making it a plain
-// gravity pendulum where the restoring moment came from m*g*d.
+// This file combines illustrative geometry with a one-coordinate, small-angle ODE.
+// The ODE assumes a liquid-derived restoring term and damping; the liquid is not an
+// independent state, and its forces are not calculated from sloshing or free-surface
+// motion. Wind mode adds prescribed quasi-steady drag torque that does not depend on
+// sail angle or angular velocity. There is no fluid–structure feedback or generator.
 //
-// The concept sketch (concept-10-07-2026-2131.jpg) shows something else: a stepped
-// footing, a small thrust collar, and a vertical sail standing UP from it.
-//
-// That is not a cosmetic change. It is the textbook configuration for a tuned
-// liquid mass damper.
-//
-//   - Tuned liquid mass dampers are overwhelmingly used on HIGH-RISE BUILDINGS and
-//     offshore platforms, where the absorber mass sits ABOVE the pivot and gravity
-//     provides no restoring moment at all.
-//   - In that inverted case the restoring stiffness comes ENTIRELY from the moving
-//     liquid — which is the whole reason these dampers exist.
-//
-// So the sketch inverts v4's pendulum on purpose. Gravity stops doing the work and
-// the water column starts doing it, which is precisely the case where liquid columns
-// are better than anything mechanical. v4 used a pendulum because it was easy to
-// justify with a formula. The sketch uses the arrangement that is actually right.
-//
-// PORTAL FRAME REMOVED. Legs, cross tie, and the wide trunnion are gone. The sail now
-// stands on the footing. Under the sketch the underground portion is unchanged: the
-// helical pile stays, because screw-in installation is still correct at this site.
-//
-// HOW TUNING WORKS HERE (corrected framing — see §4)
-//
-// The sail has its own natural frequency f_sail, fixed by its geometry. The water
-// column is a SECOND oscillator with its own frequency, set by the liquid height:
-//
-//   f_abs = (1/2pi)*sqrt(g*a / (2A))
-//
-// Tuning is the act of bringing those two together. Sweep `a` until the absorber
-// matches the sail, and the sail's oscillation feeds the liquid instead of building
-// resonantly. The liquid moves in antiphase and the coupling cancels it.
-//
-// This is a different claim from v4's, and the earlier one was sloppy: v4 implied the
-// sail simply operated "at" the cell frequency, as if the cell frequency WERE the
-// device frequency. It is not. The cell is a second mass-spring that must be MATCHED
-// to the sail. There is no single device frequency until they agree.
-//
-// v4 also said "ice ballast resists overturning." With the sail standing on a footing
-// there is no overturning to resist — the base is in compression. That line is gone
-// because it stopped being true.
-//
-// MASS RATIO MATTERS AND IS NOT SPECIFIED
-//
-// A pendulum TVMD is only effective in a narrow band around m_absorber/m_structure.
-// Outside it the damper is either too light to matter or so heavy it dominates the
-// structure. Typical useful band is roughly 1-5%. The water column's mass therefore
-// has to land in that band for the configured cell plan area, and that has NOT been
-// calculated. It is a genuine open gap and it may well drive the cell dimensions more
-// than the frequency match does.
+// These equations and animations do not establish whether a physical assembly will
+// remain stable, self-excite, sustain a limit cycle, or produce net power. They also
+// do not rule out flutter: a flat plate has shown flutter in other, coupled aeroelastic
+// wind-tunnel configurations (Amandolese et al., DOI: 10.1016/j.jfluidstructs.2013.09.002),
+// which do not establish this design's response. See the model notes and validation
+// gate in amu_wind_sail_v5.md before using these outputs as evidence.
 //
 // ENVIRONMENT: terrestrial, cold, high wind, icing-prone. #5's Mars–Jupiter framing
 // does not apply. Non-scope per #82: no swarm engine, orbital/ledger, or
@@ -87,8 +46,8 @@ COLLAR_DIA       = 0.30;     // bearing race diameter
 // are expensive, so anything that can fail or wear must come off without dismantling
 // the structure around it.
 //
-// What actually needs servicing, in order of frequency:
-//   1. the damper cells  — need draining/refilling to re-tune. This is the common job.
+// Maintenance access priorities are not yet validated at a site:
+//   1. the two-phase cells — access for inspection, drain, or refill if required.
 //   2. the pivot pin / bearing race — wears every cycle.
 //   3. the sail blade itself — rarely.
 //   4. the pile — never.
@@ -123,8 +82,9 @@ SAIL_WALL        = 0.004;    // 4 mm aluminium. Heavy enough to be plausible, li
 SAIL_CANT        = 6;        // degrees of static lean from vertical
 
 // --- Damper cells at the sail foot ---
-// Sited just above the pivot on purpose: in a pendulum tuned damper the absorber
-// belongs near the pivot, where its displacement relative to the sail is largest.
+// Sited just above the pivot in the concept layout. The current equation has no
+// separate absorber coordinate, so this placement does not demonstrate tuned-damper
+// coupling or a measured displacement advantage.
 CELL_BAND_H      = 0.62;     // cassette height, and the cell zone inside it
 CELL_COLS        = 2;        // cells across the sail width
 ICE_TOP          = 0.10;     // frozen depth from the TOP of each cell.
@@ -182,32 +142,33 @@ FLANGE_CLEAR_R   = FLANGE_BOLT_R * sin(ROCK_DEG) + FLANGE_BOLT_D / 2 + 0.0015;
 // $t is OpenSCAD's animation time. It is ALWAYS defined (reads 0 when not animating),
 // which is how one file serves both a still F6 render and a moving preview.
 //
-// ANIM_MODE = "kinematic"  the original sin() sweep. Cheap, always smooth, but it is a
-//                          picture of motion, not motion. It lies about tuning.
-// ANIM_MODE = "dynamic"    free decay after an initial gust deflection.
+// ANIM_MODE = "kinematic"  prescribed sin() sweep for visualization; not a response
+//                          calculation and not evidence of tuning.
+// ANIM_MODE = "dynamic"    free decay after an initial angular displacement.
 // ANIM_MODE = "wind"       simplified, continuously forced response to steady wind
-//                          plus a smooth gust. Illustrative, not engineering analysis.
+//                          plus a smooth gust. Prescribed forcing only; not FSI or
+//                          evidence of self-excited oscillation.
 ANIM_MODE       = "dynamic";
 ANIMATE         = true;      // master switch; dynamic mode ignores it since the
                               // ODE always runs when $t is set
 
 ANIM_CYCLES     = 2;         // kinematic sweep only
 ANIM_AMPLITUDE  = ROCK_DEG;
-ANIM_LEVEL_WATER = true;     // keep the liquid surface level in world space
+ANIM_LEVEL_WATER = true;     // rendering convention; liquid motion is not simulated
 
 // --- Real-dynamics parameters (ANIM_MODE = "dynamic") ---
 //
-// THE SAIL STANDS UP. That is an INVERTED pendulum, so gravity is DESTABILISING, not
-// restoring, and the liquid column is what stops the sail falling over. That inverts
-// the usual tuned-damper intuition completely — see the note on MASS_RATIO.
+// The model treats the upright sail as an inverted pendulum: gravity contributes a
+// destabilizing term, opposed by an assumed liquid-derived restoring term. This is a
+// model assumption; the physical liquid force is not solved here.
 G_ACC           = 9.81;
 L_SAIL          = 1.30;      // effective pendulum length, pivot to structure CoM (m)
-INIT_THETA      = 0.120;     // initial gust deflection (rad) ~ 6.9 deg
+INIT_THETA      = 0.120;     // initial angular displacement (rad) ~ 6.9 deg
 T_SIM           = 2.20;      // physical seconds the animation represents. ~2 periods at
                              // 0.91 Hz, so amplitude stays high across the whole run.
                              // Longer runs just show the decay sitting at zero.
 ODE_STEPS       = 420;
-ZETA_TOTAL      = 0.040;     // combined structural + liquid damping ratio
+ZETA_TOTAL      = 0.040;     // assumed damping ratio for the idealized ODE
 
 // Stability screen for the idealised single-DOF model. A margin of 2.0 means the
 // liquid restoring term is twice the gravity destabilising term in this equation.
@@ -227,12 +188,12 @@ WIND_AIR_DENSITY      = 1.225;   // kg/m^3
 WIND_DRAG_COEFFICIENT = 1.2;     // illustrative broadside drag coefficient
 WIND_PRESSURE_ARM     = 0.5;     // fraction of sail height from pivot to pressure centre
 
-// Mass ratio. NOT free — it is determined by the water column, which ICE_TOP sets.
+// Mass ratio parameter used by the idealized equation; it is set by the water-column
+// geometry, which ICE_TOP changes. It is not a conventional tuned-mass-damper sizing
+// ratio in this one-coordinate model.
 //   mu      = m_water / m_structure
-//   mu_crit = 2A / (L * a)      <- below this the sail TOPPLES
-//   mu      > mu_crit  : stable
-// Stability and frequency matching therefore trade off against each other, and the
-// usable window is NARROW. Solving it is what ECHO_DIAG below reports.
+//   mu_crit = 2A / (L * a)      <- idealized equation's zero-stiffness boundary
+//   mu      > mu_crit          : positive stiffness in this equation only
 function mass_ratio() = anim_cell_w() * anim_cell_d() * anim_water_h() * CELL_COLS * 1000
                         / structure_mass();
 function structure_mass() =
@@ -263,7 +224,8 @@ function anim_cell_h() = CELL_BAND_H - SAIL_WALL;
 function anim_cell_A() = anim_cell_w() * anim_cell_d();
 function anim_water_h() = anim_cell_h() - ICE_TOP;
 
-// Absorber natural frequency from the liquid column: omega_a^2 = g*a/(2A)
+// Idealized liquid-column frequency estimate: omega_a^2 = g*a/(2A).
+// The liquid is not integrated as a separate dynamic state.
 function omega_a() = sqrt(G_ACC * anim_water_h() / (2 * anim_cell_A()));
 function f_abs_hz() = omega_a() / (2 * PI);
 function mu_crit()  = 2 * anim_cell_A() / (L_SAIL * anim_water_h());
@@ -273,39 +235,30 @@ function stability_margin() = mass_ratio() * omega_a() * omega_a() / (G_ACC / L_
 function ice_top_limit_for_margin(margin) =
     anim_cell_h() - sqrt(2 * margin * structure_mass() / (CELL_COLS * 1000 * L_SAIL));
 function passes_stability_screen() = stability_margin() >= STABILITY_SCREEN_MARGIN;
-// Undamped natural frequency of the stabilised sail, guarded so an unstable
-// configuration returns 0 instead of a NaN.
+// Effective frequency in the assumed equation, guarded so non-positive stiffness
+// returns 0 instead of a NaN. This is not a validated physical sail frequency.
 function omega_n() = sqrt(max(0, mass_ratio() * omega_a() * omega_a() - G_ACC / L_SAIL));
 function f_sail_hz() = omega_n() / (2 * PI);
+// Small-angle, zero-gust equilibrium for the prescribed mean-wind torque in this ODE.
+// It is a model diagnostic, not a measured sail angle or a load rating.
+function wind_mean_equilibrium_deg() =
+    wind_angular_accel(0) / (omega_n() * omega_n()) * 180 / PI;
 
-// MODEL CHOICE, and it is forced by the numbers rather than preferred.
+// SINGLE-COORDINATE MODEL, not a coupled sail–liquid or aeroelastic simulation.
 //
-// The textbook 2-DOF pendulum-tuned-absorber model assumes a LIGHT absorber on a heavy
-// structure. That assumption is violated here by an order of magnitude: mu is about
-// 1.0, meaning the liquid weighs as much as the sail. Checked by eigenanalysis, the
-// 2-DOF form then has a POSITIVE eigenvalue — a saddle — and the solution grows
-// exponentially instead of oscillating. It was tried, it diverged to 1700 degrees, and
-// it is wrong for this geometry.
+//     theta'' = -wn^2*theta - 2*zeta*wn*theta' + alpha_wind(t)
+//     wn^2    = mu*wa^2 - g/L
 //
-// So the liquid is NOT modelled as an absorber. It is modelled as what it physically
-// is here: a stabilising term acting on the sail's inverted pendulum, plus damping.
-// That is a single-DOF model and it is stable by construction:
+// The liquid surface is drawn level; no liquid-motion state or force feedback is
+// computed. Wind mode adds prescribed drag torque based only on the selected wind speed,
+// sail area, and assumed pressure arm. It does not depend on sail motion, resolve
+// unsteady airflow, or model a generator. With stable positive stiffness and constant
+// wind, this linear equation tends toward a static deflection after its transient; that
+// is not self-excited flutter or proof of real hardware behavior.
 //
-//     theta'' = -wn^2 * theta - 2*zeta*wn*theta'
-//     wn^2    = mu*wa^2 - g/L          (positive only when the liquid beats gravity)
-// In wind mode, prescribed drag torque divided by estimated effective inertia is added
-// to theta''. That estimate is for visualization only, not validated load analysis.
-//
-// Consequences, and they matter:
-//   - The liquid's job is holding the sail UP, not absorbing vibration. The device is a
-//     liquid-stabilised inverted pendulum, which is a different and better-understood
-//     machine than a tuned mass damper.
-//   - There is NO second resonance to tune to. "Match f_abs to f_sail" was the wrong
-//     objective. The relevant figure is simply whether mu*wa^2 exceeds g/L by enough
-//     margin, and the ECHO below reports that margin.
-//   - At small angles the liquid surface stays essentially level and the liquid moves
-//     SIDEWAYS, so liquid_angle_deg() = 0 is the correct small-angle behaviour rather
-//     than a simplification. The sloshing resonance is real but is NOT resolved here.
+// omega_n() clamps a non-positive stiffness to zero to avoid a NaN. For such parameter
+// values this animation does not reproduce physical divergence; use is_stable() and
+// stability_margin() for the equation's mathematical classification.
 function dyn_deriv(q, t) = [
     q[1],
     -omega_n() * omega_n() * q[0] - 2 * ZETA_TOTAL * omega_n() * q[1]
@@ -339,10 +292,10 @@ if (ECHO_DIAG)
              str("  structure mass     = ", structure_mass(), " kg"),
              str("  water mass         = ", mass_ratio() * structure_mass(), " kg"),
              str("  mu (mass ratio)    = ", mass_ratio()),
-             str("  mu_crit (topples)  = ", mu_crit()),
-             str("  STABLE?            = ", is_stable()),
-             str("  f_sail (stabilised)= ", f_sail_hz(), " Hz"),
-             str("  f_abs (liquid)     = ", f_abs_hz(), " Hz"),
+             str("  mu_crit (model)    = ", mu_crit()),
+             str("  EQUATION STABLE?   = ", is_stable()),
+             str("  f_sail (model)     = ", f_sail_hz(), " Hz"),
+             str("  f_abs (estimate)   = ", f_abs_hz(), " Hz"),
              str("  stability margin   = ", stability_margin()),
              str("  screen target      = ", STABILITY_SCREEN_MARGIN),
              str("  screen max ICE_TOP = ", ice_top_limit_for_margin(STABILITY_SCREEN_MARGIN), " m"),
@@ -352,14 +305,9 @@ if (ECHO_DIAG && !passes_stability_screen())
 
 function anim_phase() = is_undef($t) ? 0 : $t;
 
-// Degrees the sail is actually at.
-// In dynamic mode the equilibrium is PLUMB, not canted.
-//
-// This is a physics correction, not a legibility trick. The liquid stabilises the sail
-// about vertical — that is what omega_n^2 = mu*wa^2 - g/L means — so adding SAIL_CANT
-// on top put the equilibrium in the wrong place. It also made the motion read poorly:
-// the sail leaned one way only, so a +-3 deg wobble looked like "nearly still" rather
-// than an oscillation.
+// Modeled sail angle. Dynamic modes are centered on plumb by equation assumption; this
+// does not establish that the physical liquid holds the real sail vertical. Adding
+// SAIL_CANT to this modeled deviation would move it away from the equation's origin.
 function sail_angle_deg() =
     ANIM_MODE == "dynamic" || ANIM_MODE == "wind"
       ? let (q = dyn_state(anim_phase()))
@@ -377,9 +325,18 @@ if (ECHO_DIAG && ANIM_MODE == "wind")
              " m/s, force=", wind_force(anim_phase() * T_SIM),
              " N, torque=", wind_torque(anim_phase() * T_SIM), " N*m"));
 
-// Degrees the liquid mass is actually at. Its free surface stays level in world space,
-// so this is the surface angle. Equal to sail_angle_deg() in kinematic mode.
-// Zero: at small angles the liquid stays level and moves sideways. See MODEL CHOICE.
+if (ECHO_DIAG && ANIM_MODE == "wind")
+    echo("WIND_MODEL_NOTE=prescribed drag forcing; no aerodynamic feedback, liquid slosh, or power conversion");
+
+if (ECHO_DIAG && ANIM_MODE == "wind" && is_stable())
+    echo(str("WIND_MEAN_EQUILIBRIUM small-angle, zero-gust=",
+             wind_mean_equilibrium_deg(), " deg (equation only)"));
+
+if (ECHO_DIAG && ANIM_MODE == "wind" && !is_stable())
+    echo("WIND_MEAN_EQUILIBRIUM unavailable: equation predicts non-positive stiffness; wind animation does not model divergence");
+
+// Rendering convention for the drawn liquid surface; no liquid state is simulated.
+// Zero keeps the drawn free surface horizontal in world coordinates.
 function liquid_angle_deg() = 0;
 
 function anim_osc() =
@@ -658,7 +615,7 @@ module flange_bolts() {
 // CELL CASSETTE — the serviceable part.
 //
 // A closed tray holding the two-phase cells, bolted to the upper flange plate. It is the
-// component that comes off for draining and re-tuning, which is the frequent job. Pulling
+// component that comes off to access the cells. Pulling
 // the whole sail off to reach two cells would be absurd, so the cassette is split out.
 module cell_cassette() {
     w = SAIL_W + 0.05;                 // slightly proud of the blade so it reads as a part
@@ -738,8 +695,8 @@ module qr_stud(len, d = BLADE_SHAFT_D) {
 }
 
 // Upper stiffener ribs — wall volume only.
-// An earlier draft filled these as solid blocks and silently added ~2200 kg, which made
-// any ballast-based tuning impossible. Ribs are walls; keep them thin.
+// An earlier draft filled these as solid blocks and silently added ~2200 kg, distorting
+// the modeled mass balance. Ribs are walls; keep them thin.
 module upper_ribs() {
     inner_w = SAIL_W - 2 * SAIL_WALL;
     inner_t = SAIL_T - 2 * SAIL_WALL;
@@ -767,17 +724,11 @@ module damper_cell(cell_w, cell_d, cell_h) {
                 cube([cell_w - 2 * wall, cell_d - 2 * wall, cell_h - wall], center = true);
         }
 
-    // Liquid column — the spring.
-    //
-    // The ICE is frozen to the walls, so it rotates with the cell. The WATER is free, so
-    // its surface stays level in world space while the cell tilts. Counter-rotating the
-    // water block by the sail's tilt is what shows the spring working: the gap opens on
-    // the up side and closes on the down side, and that deviation is the restoring force.
-    //
-    // Schematic caveat: the block is counter-rotated about its own centre rather than
-    // genuinely redistributing, so it slightly interpenetrates the cell walls at full
-    // tilt. Acceptable for a structural schematic; a real simulation would solve the
-    // free-surface shape.
+    // Liquid geometry for the schematic; this is not a fluid simulation or an ODE state.
+    // ICE is drawn fixed to the cell. With ANIM_LEVEL_WATER=true, the WATER block is
+    // counter-rotated to keep its drawn top horizontal in world space. This visual
+    // transform does not calculate redistribution, sloshing, or a restoring force, and it
+    // is not coupled to dyn_deriv(). At full tilt the block may overlap the cell walls.
     if (SHOW_WATER) {
         water_h = cell_h - ICE_TOP;
         if (ANIM_LEVEL_WATER)
@@ -1009,8 +960,8 @@ if (RENDER_SCENE) sail_unit();
 // Filling a cell solid removes the free surface. The resulting failure behaviour and
 // any production impact remain unvalidated; see the risk register in the README.
 
-// THERMO_CHARGED = false shows the stems uncharged, i.e. a damper that is not holding
-// the freezing point and therefore not holding the tuning.
+// THERMO_CHARGED = false shows uncharged stems. No thermal simulation determines the
+// cell temperature or the resulting physical liquid state.
 //
 // Transport: the sail is FLAT and the footing is a stack of slabs. Ice is not shipped
 // — it is made from site water after installation.

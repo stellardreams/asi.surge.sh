@@ -1,6 +1,6 @@
-# AMU — Arctic Ice-Tuned Sail Unit (v5)
+# AMU — Arctic Two-Phase Sail Concept (v5)
 
-Issue #82 · vertical sail on stepped base, tuned liquid mass damper cells at the sail foot
+Issue #82 · vertical sail on stepped base with two-phase cells at the sail foot
 Geometry: `amu_wind_sail_v5.scad` (same directory)
 Concept: `concept-10-07-2026-2131.jpg`
 
@@ -9,86 +9,59 @@ Concept: `concept-10-07-2026-2131.jpg`
 ## 1. What this is
 
 A flat vertical sail standing on a stepped footing, rocking about a thrust collar at
-its base. At the foot of the sail are sealed cells holding **two phases**: ice frozen
-down from the top, liquid water below. The water's free surface is a spring.
+its base. At the foot of the sail are sealed cells holding **two phases**: modeled ice
+above liquid water. The equations treat the water column as an idealized source of
+restoring stiffness; this is a design hypothesis, not a validated model of the liquid.
 
-Modelled on the concept sketch. The underground portion is unchanged from v4 — the
-helical pile stays, because screw-in installation is still correct at this site.
+The OpenSCAD file contains geometry and an illustrative, single-angle equation of
+motion. It does not resolve a separate liquid coordinate, liquid sloshing, fluid–structure
+interaction, structural flex, or electrical generation. See §7 before interpreting any
+animation as evidence of a real operating principle.
 
-## 2. The concept sketch is the better configuration, and it isn't just cosmetic
+## 2. Configuration and model boundary
 
-v4 hung the sail from a two-legged portal frame by a trunnion at the *top* of the panel.
-That put the centre of mass below the pivot, making it a plain gravity pendulum where
-restoring moment came from `m·g·d`.
+The concept sketch shows a stepped footing, thrust collar, upright sail, and cells at the
+sail foot. This describes the current geometry only; it does not establish that the
+arrangement is more effective or physically stable than an alternative.
 
-The sketch shows something else: stepped footing, small thrust collar, vertical sail
-standing **up**.
+The model assumes an inverted-pendulum gravity term and a liquid-derived restoring
+term in one coordinate. The rendered water surface is held level, but its motion and
+forces are not solved. The cells are therefore not represented as a coupled tuned liquid
+mass damper (TLMD) in the current equations.
 
-**That is the textbook configuration for a tuned liquid mass damper.** TLMDs are
-overwhelmingly used on high-rise buildings and offshore platforms — where the absorber
-mass sits *above* the pivot and gravity provides no restoring moment at all. In that
-inverted case, all the restoring stiffness comes from the moving liquid, which is the
-entire reason these dampers exist as a technology.
+## 3. Idealized equations, not a tuning claim
 
-So the sketch inverts v4's pendulum deliberately. Gravity stops doing the work and the
-water column starts. v4 chose a pendulum because it was easy to justify with a formula.
-The sketch chooses the arrangement that is actually right.
-
-Portal frame, legs, cross tie, and wide trunnion: **removed**.
-
-## 3. How tuning actually works — corrected framing
-
-The sail has its own natural frequency `f_sail`, fixed by geometry. The water column is
-a **second** oscillator:
+The source computes idealized liquid-column and sail-frequency estimates:
 
 ```
-f_abs = (1/2π)·√(g·a / (2A))
+ωₐ² = g·a / (2A)
+ωₙ² = μ·ωₐ² − g/L
+θ̈ = −ωₙ²·θ − 2ζωₙ·θ̇ + α_wind(t)
 ```
 
-Tuning is bringing those two together. Sweep `a` until the absorber matches the sail,
-and the sail's oscillation feeds the liquid instead of building resonantly. The liquid
-moves in antiphase and the coupling cancels it.
+Here `a` is modeled liquid height, `A` is cell plan area, `μ` is modeled total water mass
+divided by modeled structure mass, `L` is an assumed effective length, and `ζ` is an
+assumed damping ratio. `α_wind(t)` is a prescribed torque divided by an estimated
+inertia. The code has one state coordinate, `θ`; it does not integrate an independent
+liquid motion, so `f_abs` is only an idealized diagnostic and is not tuned to a validated
+sail frequency.
 
-**This corrects v4**, which implied the sail simply operated "at" the cell frequency, as
-if the cell frequency *were* the device frequency. It is not. The cell is a second
-mass-spring that must be *matched* to the sail. There is no single device frequency
-until the two agree.
+`ICE_TOP` changes the assumed liquid height and the stability-screen output. It is not a
+seasonal controller or evidence of self-tuning. The `μ` value is a parameter in this
+approximation, not a conventional tuned-mass-damper sizing rule.
 
-v4 also said the ice ballast resists overturning. With the sail standing on a footing
-there is no overturning to resist — the base is in compression. That claim is gone
-because it stopped being true.
+The equation is conditionally stable only when its effective stiffness is positive. The
+implementation clamps `ωₙ` to zero when the equation predicts an unstable configuration;
+the resulting animation does not simulate physical divergence. Use `is_stable()` and
+the stability screen for the model's mathematical classification, not the animation.
 
-Cell as built: 272 × 232 × 616 mm, plan area `A = 0.0631 m²`.
+## 4. Model values and interpretation
 
-| `ICE_TOP` | water column `a` | `f_abs` | water per cell |
-|---|---|---|---|
-| 0.06 m | 0.556 m | **1.046 Hz** (highest) | 35.1 kg |
-| **0.26 m** (default) | **0.356 m** | **0.837 Hz** | 22.5 kg |
-| 0.48 m | 0.136 m | 0.517 Hz | 8.6 kg |
-| 0.56 m | 0.056 m | **0.332 Hz** (lowest) | 3.5 kg |
-
-**Tuning range 0.332 → 1.046 Hz, a 3.15× sweep.**
-
-## 4. Mass ratio — corrected twice; see the correction below
-
-> **Heading note:** this section previously read "the unresolved driver" and opened with
-> the 1–5% tuned-damper rule. Both were wrong and the body below has been rewritten — the
-> sail stands up, so it is an *inverted* pendulum and the liquid holds it up rather than
-> damping it. Read the correction, not the old framing.
-
-
-A pendulum TLMD is only effective in a narrow band around `m_absorber / m_structure`.
-Outside it the damper is either too light to matter, or so heavy it dominates the
-structure. The useful band is typically **1–5%**.
-
-For the configured cell, water mass per cell runs **3.5 → 35 kg**, so roughly 7 → 70 kg
-across two cells, against a sail structure of order 20 kg. That is a mass ratio from
-~35% to well over 100% — **far outside the 1–5% band where these dampers work.**
-
-This has not been calculated properly and it may well dictate the cell dimensions more
-than the frequency match does. Either the cells need to be much smaller, or the sail
-needs to be much heavier, or the arrangement needs rethinking. **This is the single
-biggest open item in the design** and it is a structural finding, not a tuning one.
+The cell plan area is approximately `0.0631 m²`. The emitted diagnostics report the
+modeled liquid height, mass ratio, estimated frequencies, and idealized stability margin
+for the current geometry and `ICE_TOP`. These values describe the equations in the file;
+they are not measured properties or design allowables. See §7 for the screening table and
+validation gate.
 
 ## 4b. Sail root flange — the primary load path
 
@@ -181,28 +154,42 @@ does not account for real liquid dynamics, uncertain material properties, wind l
 or freeze progression.
 - 🔴 **Root joint unsized** (§4b). Highest load in the structure, no bolt sizing, no
   moment capacity, no pin bearing pressure calculated.
-- 🔴 **Mass ratio outside the usable band** (§4). Computed above, unresolved. May force
-  a redesign of cell size or sail mass.
 - 🔴 **Weep drain sizing unresolved.** The bore must stay clear of ice bridges. If it
-  seals, meltwater traps and refreezes into the cell, moving `f_abs` off target with no
-  visible symptom. Needs site water chemistry, impurity loading, freeze rate.
-- 🔴 **No dynamic simulation.** The frequencies are the idealised formula — small
-  oscillations, deep cell, negligible damping. Real coupled sail + liquid dynamics
-  unmodelled. For a pendulum TLMD the coupling behaviour is where the action is.
-- 🔴 **Off-tuning loss unknown.** No Cp, no power curve, no loss-vs-misfit curve.
+  seals, meltwater traps and refreezes into the cell, changing the modeled liquid height
+  and stability margin without a visible symptom. Needs site water chemistry, impurity
+  loading, and freeze-rate analysis.
+- 🔴 **Operating principle unproven.** `dynamic` mode is a one-angle free-decay equation;
+  `wind` mode adds prescribed drag torque based only on selected wind speed and fixed
+  coefficients. The load does not respond to sail motion, and the model has no liquid
+  motion, aerodynamic feedback, or generator. Under constant wind, the stable linear
+  equation tends toward a static deflection; its transient does not demonstrate
+  self-excited flutter or sustained oscillation. A wind-tunnel study observed flutter and
+  limit-cycle oscillations for a flat plate in a coupled pitch–plunge setup, but that
+  different apparatus does not establish this sail's behavior ([Amandolese et al.](https://doi.org/10.1016/j.jfluidstructs.2013.09.002)).
+- 🔴 **No power-conversion model.** There is no generator, load curve, control law, or
+  accounting for mechanical and electrical losses. The animation is not a power estimate.
+- 🔴 **Validation gate for an oscillating-device claim.** First declare whether the target
+  is a passive deflector or a device that must sustain motion. To claim self-excited
+  oscillation, validate the actual geometry and pivot in coupled fluid–structure analysis
+  or a wind tunnel, with declared wind-speed/Reynolds-number ranges, structural inertia,
+  stiffness, friction, and damping. Show a repeatable nonzero limit cycle after the
+  initial perturbation under steady flow. If the target is power generation, also measure
+  net electrical energy after conversion losses. Until that evidence exists, describe
+  this file as an illustrative geometry and prescribed-force animation only.
 - 🟠 **Cyclic ice-boundary fatigue.** Each freeze/thaw moves the interface. Cell wall
   life at that boundary unassessed.
 - 🟠 **Sail structural adequacy.** 4 mm aluminium chosen so added mass is not swamped
   by structure — which also makes it the first thing to check in a wind. No gust speed,
-  design load case, or site wind rose. Flutter or snap-through unexamined.
+  design load case, or site wind rose. Flutter or snap-through unexamined by the current
+  one-coordinate model.
 - 🟠 **Icing on the sail.** The design uses ice as an *internal, deliberate* load.
   Accreted ice is entirely different — asymmetric mass, shifted CoM, changed
-  aerodynamics — and would corrupt the tuning it depends on. No mitigation modelled.
+  aerodynamics — and would change the physical response. No mitigation modelled.
 - 🟡 **Foundation heat conduction.** Steel pile into permafrost. Not assessed.
 - 🟡 **Meltwater disposal.** Water draining from cells at −50 °C refreezes on the
   ground. Whether that heaves the footing or builds a harmless collar is unmodelled.
-- 🟡 **Maintainability.** Re-tuning means re-freezing, so the cells need serviceable
-  access. Unresolved whether this is a serviceable design or a one-shot commission.
+- 🟡 **Maintainability.** Changing the ice/water state requires service access, but the
+  maintenance cycle and field procedure have not been established.
 - 🟡 **No wind data.** Nothing sized against an actual load.
 
 ## 8. Modularity
@@ -227,12 +214,13 @@ Worth recording, because the cause was partly physics and partly framing.
 | Problem | Cause | Fix |
 |---|---|---|
 | Swing only ±3°, decaying to ±1.5° | `INIT_THETA` too small, and `T_SIM` long enough that most of the run was dead | `INIT_THETA` 0.055 → 0.120 rad (±6.9°), `T_SIM` 4.2 → 2.2 s (~2 periods) |
-| Motion looked like a one-sided wobble, not an oscillation | **Equilibrium was in the wrong place.** `SAIL_CANT` (6°) was being added on top of the dynamic deviation | Removed. The liquid stabilises the sail about **plumb** — that is what `ω_n² = μω_a² − g/L` means — so the equilibrium is vertical, not canted |
+| Motion looked like a one-sided wobble, not an oscillation | `SAIL_CANT` (6°) was being added on top of the dynamic deviation | Removed from dynamic modes. The current equation is centered on plumb by assumption; that is a model setting, not evidence of the physical assembly's equilibrium |
 | No fixed reference to measure against | A 7° tilt of a 2.55 m sail moves its tip only ~0.31 m | Added a **plumb datum**, drawn *outboard* of the panel because a datum up the middle disappears inside it, plus ghost edges at the ± half-swing envelope |
 | Motion invisible in the render | Camera too far; few pixels for a few degrees | Two presets: `--close` (default) and `--wide` |
 
-The equilibrium correction is a physics fix, not a legibility trick — the earlier version
-was placing the sail at an angle the liquid was not actually holding it at.
+The equilibrium correction makes the animation consistent with the equation's assumed
+zero-wind equilibrium. The liquid's ability to hold the real sail at plumb remains
+unvalidated.
 
 ## 8a. Transport envelope
 
@@ -270,7 +258,7 @@ without dismantling the structure around it. Reviewing what actually needs servi
 
 | Item | Frequency | Access before | Access now |
 |---|---|---|---|
-| Damper cells (drain/refill to re-tune) | frequent | **cut the sail open** | cassette bolts off, slides out |
+| Two-phase cells (inspection/drain/refill access) | not established | **cut the sail open** | cassette bolts off, slides out |
 | Pivot pin / bearing race | per wear cycle | strip the whole sail | flange unbolts |
 | Sail blade | rare | — | 4 bolts, lifts off |
 | Pile | never | — | — |
@@ -330,8 +318,8 @@ one. Overlap had to be proven *absent*, not eyeballed.
 ### Not solved
 
 - **No isolation valve or fill port.** Drain/refill still means opening the cassette. A
-  small bore with a cap and a spill tray would let a technician re-tune without withdrawing
-  anything.
+  small bore with a cap and a spill tray could improve access without withdrawing the
+  cassette; no operating retuning procedure has been demonstrated.
 - **Seal strategy.** The cells hold liquid at −40 °C with a 9% freeze expansion to absorb.
   What the seal is made of, and how it is replaced, is unspecified — and rubber at that
   temperature is a known problem.
@@ -348,18 +336,19 @@ place to look rather than four threads. Summary of the shape:
 
 | Tier | Count | Character |
 |---|---|---|
-| 🔴 Design-invalidating | 6 | seasonal toppling, unsized root joint, oscillation doubt, no loss curve, thermosyphon, weep drain |
+| 🔴 Design-invalidating | 6 | seasonal toppling, unproven operating principle, unsized root joint, no power model, thermosyphon, weep drain |
 | 🟠 Fails in service | 7 | stiction, pin wear, no governor, sail adequacy, icing, ice fatigue, frozen cell |
 | 🟡 Resolve before structural | 9 | no wind data, pile conduction, meltwater, seals, fill port, fasteners, spares, \`BLADE_GAP\`, group wakes |
 
-The single blocking item is **seasonal toppling**: the design gets least stable in deep
-winter, which is the same time the wind is worst. Everything else is sizing and detailing.
+Two concept-level items remain open: the winter stability envelope and whether the real
+device is meant to deflect passively or sustain oscillation. The current equations settle
+neither physical question. Load sizing and cold-weather validation also remain open.
 
-Retired claims (mine, both disproven) are recorded in the register rather than deleted, so
-they are not re-raised:
+Retired model claims are recorded in the register rather than deleted, so they are not
+re-raised as current physics:
 - the 1–5% mass-ratio band — wrong rule for an inverted pendulum
 - ice as the tuning element — a solid has no free surface, so no stiffness
-- the 2-DOF absorber model — invalid at μ ≈ 1, diverged to 1700°
+- the old 2-DOF absorber simulation — not a validated model of this assembly
 - seasonal self-tuning — actually seasonal destabilisation
 
 ## 9. Build
