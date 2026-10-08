@@ -187,8 +187,9 @@ FLANGE_CLEAR_R   = FLANGE_BOLT_R * sin(ROCK_DEG) + FLANGE_BOLT_D / 2 + 0.0015;
 //
 // ANIM_MODE = "kinematic"  the original sin() sweep. Cheap, always smooth, but it is a
 //                          picture of motion, not motion. It lies about tuning.
-// ANIM_MODE = "dynamic"    a real 2-DOF pendulum-tuned-absorber integration. This is
-//                          the one that shows whether the concept actually works.
+// ANIM_MODE = "dynamic"    free decay after an initial gust deflection.
+// ANIM_MODE = "wind"       simplified, continuously forced response to steady wind
+//                          plus a smooth gust. Illustrative, not engineering analysis.
 ANIM_MODE       = "dynamic";
 ANIMATE         = true;      // master switch; dynamic mode ignores it since the
                               // ODE always runs when $t is set
@@ -211,6 +212,19 @@ T_SIM           = 2.20;      // physical seconds the animation represents. ~2 pe
 ODE_STEPS       = 420;
 ZETA_TOTAL      = 0.040;     // combined structural + liquid damping ratio
 
+// --- Illustrative wind forcing (ANIM_MODE = "wind") ---
+//
+// Wind is a prescribed input, not computed airflow. The drag and inertia estimates are
+// deliberately simple; do not use this mode to predict design loads or certify a site.
+WIND_MEAN_SPEED       = 8;       // m/s
+WIND_GUST_AMPLITUDE   = 4;       // m/s, smooth half-cosine pulse
+WIND_GUST_START       = 0.55;    // seconds into T_SIM
+WIND_GUST_DURATION    = 0.55;    // seconds
+WIND_DIRECTION        = 1;       // +1 / -1 reverses the wind and response
+WIND_AIR_DENSITY      = 1.225;   // kg/m^3
+WIND_DRAG_COEFFICIENT = 1.2;     // illustrative broadside drag coefficient
+WIND_PRESSURE_ARM     = 0.5;     // fraction of sail height from pivot to pressure centre
+
 // Mass ratio. NOT free — it is determined by the water column, which ICE_TOP sets.
 //   mu      = m_water / m_structure
 //   mu_crit = 2A / (L * a)      <- below this the sail TOPPLES
@@ -226,6 +240,19 @@ function structure_mass() =
     + 2 * SAIL_WALL * (SAIL_T - 2 * SAIL_WALL) * (SAIL_H - CELL_BAND_H) * 2700
     // flange plates, bolts, collar, pin — nominal
     + 6.0;
+
+function wind_gust_envelope(t) =
+    t < WIND_GUST_START || t > WIND_GUST_START + WIND_GUST_DURATION ? 0
+      : 0.5 - 0.5 * cos(360 * (t - WIND_GUST_START) / WIND_GUST_DURATION);
+function wind_velocity(t) =
+    WIND_DIRECTION * (WIND_MEAN_SPEED + WIND_GUST_AMPLITUDE * wind_gust_envelope(t));
+function wind_force(t) =
+    0.5 * WIND_AIR_DENSITY * WIND_DRAG_COEFFICIENT * SAIL_W * SAIL_H
+    * wind_velocity(t) * abs(wind_velocity(t));
+function wind_torque(t) = wind_force(t) * (SAIL_H * WIND_PRESSURE_ARM);
+function wind_effective_inertia() =
+    structure_mass() * L_SAIL * L_SAIL * (1 + mass_ratio());
+function wind_angular_accel(t) = wind_torque(t) / wind_effective_inertia();
 
 // Cell geometry, derived from the sail and cell parameters.
 function anim_cell_w() = (SAIL_W - 2 * SAIL_WALL) / CELL_COLS - SAIL_WALL;
@@ -270,23 +297,24 @@ function f_sail_hz() = omega_n() / (2 * PI);
 //   - At small angles the liquid surface stays essentially level and the liquid moves
 //     SIDEWAYS, so liquid_angle_deg() = 0 is the correct small-angle behaviour rather
 //     than a simplification. The sloshing resonance is real but is NOT resolved here.
-function dyn_deriv(q) = [
+function dyn_deriv(q, t) = [
     q[1],
     -omega_n() * omega_n() * q[0] - 2 * ZETA_TOTAL * omega_n() * q[1]
+    + (ANIM_MODE == "wind" ? wind_angular_accel(t) : 0)
 ];
 
 function qplus(q, d, h) = [q[0] + d[0] * h, q[1] + d[1] * h];
 
-function rk4(q, h) =
-    let (k1 = dyn_deriv(q),
-         k2 = dyn_deriv(qplus(q, k1, h / 2)),
-         k3 = dyn_deriv(qplus(q, k2, h / 2)),
-         k4 = dyn_deriv(qplus(q, k3, h)))
+function rk4(q, h, t) =
+    let (k1 = dyn_deriv(q, t),
+         k2 = dyn_deriv(qplus(q, k1, h / 2), t + h / 2),
+         k3 = dyn_deriv(qplus(q, k2, h / 2), t + h / 2),
+         k4 = dyn_deriv(qplus(q, k3, h), t + h))
     qplus(q, (k1 + 2 * k2 + 2 * k3 + k4) / 6, h);
 
 // fold() does not exist in this OpenSCAD, so the integration recurses.
 function dyn_integrate(i, n, q, h) =
-    i >= n ? q : dyn_integrate(i + 1, n, rk4(q, h), h);
+    i >= n ? q : dyn_integrate(i + 1, n, rk4(q, h, i * h), h);
 
 function dyn_state(frac) =
     let (n = max(0, min(ODE_STEPS, floor(frac * ODE_STEPS))))
@@ -319,10 +347,21 @@ function anim_phase() = is_undef($t) ? 0 : $t;
 // the sail leaned one way only, so a +-3 deg wobble looked like "nearly still" rather
 // than an oscillation.
 function sail_angle_deg() =
-    ANIM_MODE == "dynamic"
+    ANIM_MODE == "dynamic" || ANIM_MODE == "wind"
       ? let (q = dyn_state(anim_phase()))
           q[0] * 180 / PI
       : (SHOW_CANT ? SAIL_CANT : 0) + anim_osc();
+
+if (ECHO_DIAG && (ANIM_MODE == "dynamic" || ANIM_MODE == "wind"))
+    echo(str("MOTION_STATE mode=", ANIM_MODE,
+             ", t=", anim_phase() * T_SIM,
+             " s, sail_angle=", sail_angle_deg(), " deg"));
+
+if (ECHO_DIAG && ANIM_MODE == "wind")
+    echo(str("WIND_STATE t=", anim_phase() * T_SIM,
+             " s, velocity=", wind_velocity(anim_phase() * T_SIM),
+             " m/s, force=", wind_force(anim_phase() * T_SIM),
+             " N, torque=", wind_torque(anim_phase() * T_SIM), " N*m"));
 
 // Degrees the liquid mass is actually at. Its free surface stays level in world space,
 // so this is the surface angle. Equal to sail_angle_deg() in kinematic mode.
@@ -330,7 +369,7 @@ function sail_angle_deg() =
 function liquid_angle_deg() = 0;
 
 function anim_osc() =
-    (ANIM_MODE == "dynamic" || !ANIMATE) ? 0
+    (ANIM_MODE == "dynamic" || ANIM_MODE == "wind" || !ANIMATE) ? 0
       : ANIM_AMPLITUDE * sin(anim_phase() * 360 * ANIM_CYCLES);
 
 // Rotation the liquid block needs INSIDE the cell so that it lands at liquid_angle_deg()
@@ -935,8 +974,8 @@ if (RENDER_SCENE) sail_unit();
 
 // ANIMATION
 //
-// Press F5, then the play arrow at the bottom of the preview window. The sail rocks
-// through ANIM_CYCLES cycles and the liquid surface stays level while the cell tilts.
+// Press F5, then the play arrow at the bottom of the preview window. Select
+// ANIM_MODE = "wind" to see the illustrative steady-wind plus gust response.
 //
 // Headless, for a video:
 //   scripts/render_sail_animation.sh          # frames + MP4 into wind/renders/
