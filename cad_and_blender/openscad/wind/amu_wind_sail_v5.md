@@ -133,14 +133,18 @@ Two errors caught while building it, both worth recording:
 - The upper plate rotating on the pin dragged its bolt holes off the bolts, producing a
   non-manifold solid. That is what drove the clearance-hole solution above.
 
-## 5. Two phases, two jobs
+## 5. Two phases and the unresolved winter state
 
-- **Ice, frozen from the top** — ballast, thermal buffer, seasonal regulator. As the
-  site cools, ice grows downward into the liquid, shortening the column and sweeping
-  `f_abs` down. The unit re-tunes itself with the season, unattended.
-- **Water, liquid at the bottom** — the spring. `f_abs ∝ √a`.
+- **Ice, frozen from the top** — a modeled geometric state. More ice shortens the
+  liquid column and lowers its idealised frequency, but also reduces the sail's
+  modeled stability margin. This model does not simulate freezing or regulate ice
+  growth; seasonal self-tuning is not demonstrated.
+- **Water, liquid at the bottom** — the free-surface state used by the idealised
+  equations. `ICE_TOP` changes its height, `a`.
 
-The ordering matters: ice above water is what makes the seasonal behaviour correct.
+Ice above water is the intended arrangement, but the winter operating envelope remains
+open until thermal analysis or a physical control demonstrates that ice growth stays
+within the stability screen below.
 
 ## 6. Thermosyphon constraint
 
@@ -155,6 +159,26 @@ part. Set `THERMO_CHARGED = false` to see an uncharged system.
 
 ## 7. Known gaps
 
+- 🔴 **Winter stability envelope.** The idealised model now screens for a stability
+  margin of at least 2.0. With the current geometry, that corresponds to
+  `ICE_TOP ≤ 0.300 m`. This is a model-screening threshold, not a structural safety
+  factor. No thermal model or physical control demonstrates that winter ice growth
+  stays within this limit, so the seasonal operating envelope remains unresolved.
+
+The screen is `margin = μ·ωₐ² / (g/L)`. It uses the model's current 64.816 kg structure
+mass, 1.30 m effective length, two cells, and 1000 kg/m³ water density. The derived
+`ICE_TOP` limit is 0.30022 m. Sample results:
+
+| `ICE_TOP` | Model margin | Stable in equation? | 2.0 screen |
+|---:|---:|:---:|:---:|
+| 0.10 m | 5.340 | Yes | Pass |
+| 0.30 m | 2.003 | Yes | Pass |
+| 0.35 m | 1.419 | Yes | Fail |
+| 0.40 m | 0.936 | No | Fail |
+
+The reported 2.0 threshold is only a screening choice for this simplified equation; it
+does not account for real liquid dynamics, uncertain material properties, wind loads,
+or freeze progression.
 - 🔴 **Root joint unsized** (§4b). Highest load in the structure, no bolt sizing, no
   moment capacity, no pin bearing pressure calculated.
 - 🔴 **Mass ratio outside the usable band** (§4). Computed above, unresolved. May force
@@ -185,13 +209,13 @@ part. Set `THERMO_CHARGED = false` to see an uncharged system.
 
 | Feature | Evidence |
 |---|---|
-| Parametric | Every dimension named; `ICE_TOP` is the single tuning knob |
+| Parametric | Dimensions are named; `ICE_TOP` selects a modeled ice/water state |
 | Phase isolation | `SHOW_ICE`, `SHOW_WATER`, `SHOW_THERMO` render independently |
 | Section view | `SHOW_CUTAWAY` sections the windward shell so the cells read |
 | Operating states | `SHOW_CANT` toggles lean; `THERMO_CHARGED` toggles charged state |
 | Legibility | `SHOW_DATUM` gives a plumb reference and ±swing envelope ghosts |
-| Per-site tuning | One cell parameter commissions a site |
-| Seasonal self-tuning | Ice growth re-tunes without intervention |
+| Per-site analysis | `ICE_TOP` changes a modeled state; no commissioning or seasonal control is modeled |
+| Ice-state parameter | `ICE_TOP` selects a modeled state; it does not regulate seasonal ice growth |
 | No inter-unit linkage | Nothing shared, so nothing can cascade |
 | Flat transport | Sail is a flat panel; footing is a stack of slabs |
 | Local ballast | Ice made from site water, never shipped |

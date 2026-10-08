@@ -128,12 +128,9 @@ SAIL_CANT        = 6;        // degrees of static lean from vertical
 CELL_BAND_H      = 0.62;     // cassette height, and the cell zone inside it
 CELL_COLS        = 2;        // cells across the sail width
 ICE_TOP          = 0.10;     // frozen depth from the TOP of each cell.
-                             // WAS 0.26, which is stable but badly frequency-mismatched
-                             // (f_sail/f_abs = 0.65). See §"STABILITY WINDOW" below —
-                             // the viable band is roughly 0.05-0.15, and above about
-                             // 0.40 the sail TOPPLES. Lower ice means more liquid, and
-                             // more liquid is what both stabilises it and matches
-                             // the frequencies.
+                             // The idealised model's 2x stability-screen limit is
+                             // about 0.300 m. No thermal model or control currently
+                             // limits winter ice growth to that depth.
 WEEP_DIA         = 0.012;    // drain bore. SIZING OPEN — must defeat ice bridging.
 SHOW_ICE         = true;
 SHOW_WATER       = true;
@@ -212,6 +209,11 @@ T_SIM           = 2.20;      // physical seconds the animation represents. ~2 pe
 ODE_STEPS       = 420;
 ZETA_TOTAL      = 0.040;     // combined structural + liquid damping ratio
 
+// Stability screen for the idealised single-DOF model. A margin of 2.0 means the
+// liquid restoring term is twice the gravity destabilising term in this equation.
+// This is a screening threshold, NOT a structural safety factor or certification.
+STABILITY_SCREEN_MARGIN = 2.0;
+
 // --- Illustrative wind forcing (ANIM_MODE = "wind") ---
 //
 // Wind is a prescribed input, not computed airflow. The drag and inertia estimates are
@@ -266,6 +268,11 @@ function omega_a() = sqrt(G_ACC * anim_water_h() / (2 * anim_cell_A()));
 function f_abs_hz() = omega_a() / (2 * PI);
 function mu_crit()  = 2 * anim_cell_A() / (L_SAIL * anim_water_h());
 function is_stable() = mass_ratio() * omega_a() * omega_a() > G_ACC / L_SAIL;
+function stability_margin() = mass_ratio() * omega_a() * omega_a() / (G_ACC / L_SAIL);
+// Inverting the margin equation; cell plan area and gravity cancel in this model.
+function ice_top_limit_for_margin(margin) =
+    anim_cell_h() - sqrt(2 * margin * structure_mass() / (CELL_COLS * 1000 * L_SAIL));
+function passes_stability_screen() = stability_margin() >= STABILITY_SCREEN_MARGIN;
 // Undamped natural frequency of the stabilised sail, guarded so an unstable
 // configuration returns 0 instead of a NaN.
 function omega_n() = sqrt(max(0, mass_ratio() * omega_a() * omega_a() - G_ACC / L_SAIL));
@@ -336,7 +343,12 @@ if (ECHO_DIAG)
              str("  STABLE?            = ", is_stable()),
              str("  f_sail (stabilised)= ", f_sail_hz(), " Hz"),
              str("  f_abs (liquid)     = ", f_abs_hz(), " Hz"),
-             str("  stability margin   = ", mass_ratio() * omega_a() * omega_a() / (G_ACC / L_SAIL))));
+             str("  stability margin   = ", stability_margin()),
+             str("  screen target      = ", STABILITY_SCREEN_MARGIN),
+             str("  screen max ICE_TOP = ", ice_top_limit_for_margin(STABILITY_SCREEN_MARGIN), " m"),
+             str("  SCREEN PASS?       = ", passes_stability_screen())));
+if (ECHO_DIAG && !passes_stability_screen())
+    echo("WARNING: BELOW IDEALISED STABILITY SCREEN; this model does not simulate winter ice growth or certify structural safety.");
 
 function anim_phase() = is_undef($t) ? 0 : $t;
 
@@ -635,15 +647,14 @@ module flange_bolts() {
 // is why the plate can stay this thin. Bolt SIZING is not done — FLANGE_BOLT_D and
 // FLANGE_BOLTS are placeholders and no moment capacity has been calculated.
 
-// One sealed damper cell — two phases, one spring.
+// One cell with a modeled ice layer above a liquid free surface.
 //
-//   ice   frozen in from the TOP -> ballast, thermal buffer, seasonal regulator
-//   water liquid at the BOTTOM  -> the spring. Height `a` sets f_abs = sqrt(g*a/2A)
+//   ice   modeled at the TOP    -> reduces the liquid-column height
+//   water modeled at the BOTTOM -> free-surface height `a` sets idealised f_abs
 //
-// The ice is ABOVE the water deliberately. That ordering is what makes the seasonal
-// behaviour correct: as the site cools, ice grows downward into the liquid and
-// shortens the column, which sweeps f_abs down toward the sail's frequency. The unit
-// tracks the season without anyone touching it.
+// ICE_TOP is a static input. This model does not simulate freezing, track the season,
+// or hold ice growth below the stability-screen limit. A winter operating envelope
+// needs thermal analysis or a physical control, as described in the README.
 // CELL CASSETTE — the serviceable part.
 //
 // A closed tray holding the two-phase cells, bolted to the upper flange plate. It is the
@@ -989,19 +1000,15 @@ if (RENDER_SCENE) sail_unit();
 // Build tips:
 // Preview F5 | Render F6 | Export STL/3MF/DXF
 //
-// ICE_TOP is the tuning knob. It sets the water column height `a`, and therefore the
-// ABSORBER frequency f_abs = (1/2pi)sqrt(g*a/(2A)). You sweep it until f_abs matches
-// the sail's own frequency — that match is the whole point of the device. There is no
-// single "device frequency" until the two agree.
+// ICE_TOP sets the water-column geometry and the idealised liquid frequency. This
+// model does not simulate seasonal freezing or control ICE_TOP. Increasing ICE_TOP
+// reduces the water column and the stability margin; see STABILITY_SCREEN_MARGIN and
+// the diagnostic above. A winter stability envelope is not established until thermal
+// analysis or physical control demonstrates that ICE_TOP stays below the screen limit.
 //
-//   ICE_TOP small -> tall water column -> HIGHER f_abs
-//   ICE_TOP large -> short column      -> LOWER f_abs
-//
-// Seasonally, ice grows downward on its own and sweeps f_abs down with the season.
-//
-// Filling a cell solid is the quiet failure: with no free surface it stops being a
-// spring, and the sail rocks unabsorbed. No alarm, just lost damping.
-//
+// Filling a cell solid removes the free surface. The resulting failure behaviour and
+// any production impact remain unvalidated; see the risk register in the README.
+
 // THERMO_CHARGED = false shows the stems uncharged, i.e. a damper that is not holding
 // the freezing point and therefore not holding the tuning.
 //
