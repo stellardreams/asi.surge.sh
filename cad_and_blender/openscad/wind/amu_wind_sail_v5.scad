@@ -109,10 +109,34 @@ THERMO_LEN       = 1.20;
 THERMO_DIA       = 0.050;
 THERMO_CHARGED   = true;     // false = uncharged (cold), so no freezing held
 
+// --- Sail root flange (the v1 mount boss, repurposed as the root joint) ---
+// This is the load-critical joint. The sail's rocking moment arrives HERE and has to
+// reach the pile through it, so it is a preloaded bolted flange with a gusset ring
+// rather than a bare bearing.
+FLANGE_DIA       = 0.54;     // circular plate, spans the sail foot
+FLANGE_T         = 0.030;    // each half of the sandwich
+FLANGE_BOLTS     = 4;        // count
+FLANGE_BOLT_R    = 0.052;    // bolt circle RADIUS, kept small — see note below
+FLANGE_BOLT_D    = 0.011;    // M10 shank
+FLANGE_GUSSET    = 4;        // gussets around the joint
+FLANGE_GUSSET_T  = 0.012;    // gusset web thickness
+FLANGE_GUSSET_D  = 0.055;    // cone depth below the lower plate
+FLANGE_GAP       = 0.030;    // gap between the plates — bolt clearance only
+FLANGE_PIN_R     = 0.055;    // pivot pin radius — carries rotation, not moment
+FLANGE_PRELOAD   = true;     // true = bolts drawn tensioned (the "tightened" state)
+FLANGE_NUT_H     = 0.020;
+SHOW_FLANGE      = true;
+
 // --- Operating state ---
 SHOW_CANT        = true;     // sail leaning by SAIL_CANT
 SHOW_ROCK_ARC    = true;     // oscillation arc about the pivot
-ROCK_DEG         = 7;        // visual sweep
+ROCK_DEG         = 7;        // working swing of the sail about the pin, degrees
+
+// Upper-plate clearance holes are sized so the plate can rotate the full ROCK_DEG
+// without fouling its bolts. Travel at the bolt circle is r*sin(theta), so the hole has
+// to swallow that travel plus the shank radius plus a little working room.
+// DERIVED — must come after ROCK_DEG, or it silently evaluates to undefined.
+FLANGE_CLEAR_R   = FLANGE_BOLT_R * sin(ROCK_DEG) + FLANGE_BOLT_D / 2 + 0.0015;
 
 // --- Foundation (carried unchanged from v2 — screw-in is still right) ---
 PILE_SHAFT_DIA   = 0.30;
@@ -143,6 +167,9 @@ PILE_METAL       = [0.55, 0.57, 0.60];
 FRAME_DARK       = [0.32, 0.34, 0.38];
 CELL_WALL        = [0.55, 0.58, 0.62, 0.30];  // translucent: both phases must read
 RIB              = [0.42, 0.45, 0.50, 0.75];
+FLANGE_PLATE     = [0.46, 0.48, 0.52];
+FLANGE_GUSSET_C  = [0.56, 0.58, 0.62];
+BOLT_STEEL       = [0.80, 0.82, 0.86];
 CANT_ARC         = [1.00, 0.74, 0.22, 0.50];
 ROCK_ARC         = [0.28, 0.72, 0.96, 0.55];
 
@@ -174,27 +201,202 @@ module footing() {
 // Thrust collar — carries the sail and IS the pivot.
 module thrust_collar() {
     z0 = BASE_H + PLINTH_H;
+    // collar stops UNDER the flange joint, so the flange is the joint rather than a
+    // bearing perched on top of a finished column
+    top = PIVOT + PLATE_LO_Z - FLANGE_GUSSET_D;
     color(COLLAR_METAL)
-        translate([0, 0, z0 + COLLAR_H / 2])
-            cylinder(h = COLLAR_H, r = COLLAR_W / 2, center = true, $fn = 40);
+        translate([0, 0, (z0 + top) / 2])
+            cylinder(h = top - z0, r = COLLAR_W / 2, center = true, $fn = 40);
+    // spigot — registers the lower plate and takes the gusset cone load in bearing
+    color(COLLAR_METAL)
+        translate([0, 0, top - 0.014])
+            cylinder(h = 0.028, r = FLANGE_PIN_R * 1.35, center = true, $fn = 32);
     if (SHOW_PIVOT) {
         // bearing race — the rotation surface the sail rocks on
         color(BEARING)
-            translate([0, 0, z0 + COLLAR_H])
-                cylinder(h = 0.035, r = COLLAR_DIA / 2, center = true, $fn = 40);
+            translate([0, 0, PIVOT + FLANGE_MID])
+                cylinder(h = FLANGE_PIN_R * 1.1, r = FLANGE_PIN_R * 1.9, center = true, $fn = 36);
     }
-    // pivot pin through the collar, along X — the sail's rocking axis
+    // pivot pin through the whole joint, along X
     color(COLLAR_METAL)
-        translate([0, 0, z0 + COLLAR_H])
+        translate([0, 0, PIVOT + FLANGE_MID])
             rotate([90, 0, 0])
-                cylinder(h = SAIL_W * 1.10, r = 0.032, center = true, $fn = 24);
+                cylinder(h = FLANGE_DIA * 1.02, r = FLANGE_PIN_R, center = true, $fn = 32);
 }
 
+// Sail root flange — the primary load path.
+//
+// A NOTE ON WHAT THIS JOINT ACTUALLY IS, because the honest answer is not "a tight
+// flange". A tight bolted flange and a joint that rotates 7 degrees are mutually
+// exclusive. Bolts at any useful bolt circle would have to be dragged ~22 mm sideways
+// by a 6 degree rotation at the original 0.42 m PCD, which no bolt can follow. So the
+// joint is a BEARING with bolted retention, and the two jobs are split:
+//
+//   ROTATION  -> the pin, on the bearing race
+//   MOMENT    -> the gusset cone, in bearing against the collar spigot
+//   SEPARATION-> the bolts, kept in tension by preload
+//
+// The rocking moment tries to pull the plates APART on one side of the joint and press
+// them together on the other. The bolts live in that separating half. Preloading them
+// means they never unload to zero, so the plates never lift, fret and mill, and the
+// loose-bolt impact on the next gust never happens. That is the "tightened" benefit and
+// it is real — but it is anti-separation, not anti-rotation. Something has to give, and
+// it is the pin.
+//
+// Reuses the v1 mount-boss geometry (base plate, bolt circle, gusset polygon) that sat
+// on top of the AMU hull, relocated to the sail foot where the load actually is.
+//
+// WHY IT IS BOLTED AND PRELOADED RATHER THAN A PLAIN BEARING
+//
+// The sail rocks about the pivot, so this joint carries a REVERSING bending moment
+// every cycle — tension on one side of the bolt circle, compression on the other. That
+// is the worst case for an unpreloaded bolted joint: the bolts go slack on the
+// tension side, the joint works loose, the faces fret and mill, and on the next gust
+// the loose bolt slams shut with an impact. Fatigue life in that regime is orders of
+// magnitude worse than the same joint kept tight.
+//
+// Preloading holds the joint closed through the whole cycle. Wind variation then rides
+// ON TOP of a steady bolt tension instead of alternating between zero and peak. The
+// bolts still see cyclic load, but the joint never opens, so there is no fretting and
+// no impact. That is what FLANGE_PRELOAD = true represents.
+//
+// The gusset ring is the other half of the job. Bolts alone resist moment by stretching;
+// a gusset resists it by bearing. Together they share the load, and the gusset is what
+// keeps the plate edges from peeling.
+// Joint mid-plane. The pivot pin sits here, so rotation happens about the pin and the
+// bolts see only small one-directional shear per cycle rather than a racking motion.
+FLANGE_MID   = 0;
+PLATE_LO_Z   = -(FLANGE_GAP / 2 + FLANGE_T);
+PLATE_HI_Z   =  (FLANGE_GAP / 2);
+
+// Flange plate — lower bolted to the collar, upper clamped to the sail foot.
+module flange_plate(upper = false) {
+    zc = upper ? PLATE_HI_Z + FLANGE_T / 2 : PLATE_LO_Z + FLANGE_T / 2;
+    color(FLANGE_PLATE)
+        translate([0, 0, zc])
+            difference() {
+                cylinder(h = FLANGE_T, r = FLANGE_DIA / 2, center = true, $fn = 48);
+                for (i = [0 : max(FLANGE_BOLTS - 1, 0)])
+                    translate([FLANGE_BOLT_R * cos(i * 360 / max(FLANGE_BOLTS, 1)),
+                               FLANGE_BOLT_R * sin(i * 360 / max(FLANGE_BOLTS, 1)), 0])
+                        cylinder(h = FLANGE_T * 3,
+                                 r = upper ? FLANGE_CLEAR_R : FLANGE_BOLT_D / 2,
+                                 center = true, $fn = 20);
+                // central bore — the pivot pin passes through and carries no shear
+                cylinder(h = FLANGE_T * 3, r = FLANGE_PIN_R * 1.35, center = true, $fn = 32);
+            }
+}
+
+// Gusset cone — the moment path, and part of the LOWER (static) assembly.
+//
+// Welded to the collar spigot and to the underside of the lower plate, so the socket
+// and its webs are one rigid body. The upper plate hangs off it on bolts alone.
+//
+// NOTE: gussets welded across the plate gap to BOTH plates would lock the joint solid
+// and the sail could not rock at all. That was the first arrangement attempted and it is
+// structurally wrong, not merely untidy — the webs have to stay with the static side.
+// Nor are they sandwiched BETWEEN the plates: the first version placed them there and
+// with the plates touching, they punched straight through both.
+module flange_gussets() {
+    r_in  = COLLAR_W / 2;
+    r_out = FLANGE_DIA / 2 - 0.014;
+    z_top = PLATE_LO_Z;
+    for (i = [0 : max(FLANGE_GUSSET - 1, 0)])
+        color(FLANGE_GUSSET_C)
+            rotate([0, 0, i * 360 / max(FLANGE_GUSSET, 1)])
+                translate([r_in, 0, z_top])
+                    rotate([90, 0, 0])
+                        linear_extrude(height = FLANGE_GUSSET_T)
+                            polygon([[0, 0],
+                                     [r_out - r_in, 0],
+                                     [0, -FLANGE_GUSSET_D]]);
+}
+
+// Through-bolts tying the plates together.
+//
+// Shear capacity from the bolts, bearing capacity from the gusset cone. FLANGE_PRELOAD
+// reflects that the PRELOADED state is the only correct operating state — a slack joint
+// is not a design option here, because it is a cyclic reversing moment.
+module flange_bolts() {
+    z_span = PLATE_HI_Z + FLANGE_T + 0.024 - (PLATE_LO_Z - 0.024);
+    z_mid  = (PLATE_HI_Z + FLANGE_T + 0.024 + PLATE_LO_Z - 0.024) / 2;
+    for (i = [0 : max(FLANGE_BOLTS - 1, 0)]) {
+        ang = i * 360 / max(FLANGE_BOLTS, 1);
+        bx  = FLANGE_BOLT_R * cos(ang);
+        by  = FLANGE_BOLT_R * sin(ang);
+        color(BOLT_STEEL)
+            translate([bx, by, z_mid])
+                cylinder(h = z_span, r = FLANGE_BOLT_D / 2, center = true, $fn = 16);
+        // countersunk head below the lower plate
+        color(BOLT_STEEL)
+            translate([bx, by, PLATE_LO_Z - 0.009])
+                cylinder(h = 0.018, r = FLANGE_BOLT_D * 1.05, center = true, $fn = 16);
+        // hex nut above the upper plate
+        color(BOLT_STEEL)
+            translate([bx, by, PLATE_HI_Z + FLANGE_T + FLANGE_NUT_H / 2])
+                cylinder(h = FLANGE_NUT_H, r = FLANGE_BOLT_D * 1.15, $fn = 6);
+    }
+}
+
+// Sail root flange — the primary load path.
+//
+// A NOTE ON WHAT THIS JOINT ACTUALLY IS, because the honest answer is not "a tight
+// flange". A tight bolted flange and a joint that rotates 7 degrees are mutually
+// exclusive. Bolts at any useful bolt circle would have to be dragged ~22 mm sideways
+// by a 6 degree rotation at the original 0.42 m PCD, which no bolt can follow. So the
+// joint is a BEARING with bolted retention, and the two jobs are split:
+//
+//   ROTATION  -> the pin, on the bearing race
+//   MOMENT    -> the gusset cone, in bearing against the collar spigot
+//   SEPARATION-> the bolts, kept in tension by preload
+//
+// The rocking moment tries to pull the plates APART on one side of the joint and press
+// them together on the other. The bolts live in that separating half. Preloading them
+// means they never unload to zero, so the plates never lift, fret and mill, and the
+// loose-bolt impact on the next gust never happens. That is the "tightened" benefit and
+// it is real — but it is anti-separation, not anti-rotation. Something has to give, and
+// it is the pin.
+//
+// Reuses the v1 mount-boss geometry (base plate, bolt circle, gusset polygon) that
+// originally sat on top of the AMU hull, relocated to the sail foot where the load
+// actually is.
+//
+// WHY A PRELOADED BOLTED FLANGE RATHER THAN A PLAIN BEARING
+//
+// The sail rocks about the pivot, so this joint carries a REVERSING bending moment every
+// cycle — tension on one side of the bolt circle, compression on the other. That is the
+// worst case for an unpreloaded bolted joint: the bolts go slack on the tension side, the
+// joint works loose, the faces fret and mill, and on the next gust the loose bolt slams
+// shut with an impact. Fatigue life in that regime is orders of magnitude worse than the
+// same joint kept tight.
+//
+// Preloading holds the joint closed through the whole cycle, so wind variation rides ON
+// TOP of a steady bolt tension instead of alternating between zero and peak. The bolts
+// still see cyclic load, but the joint never opens, so there is no fretting and no
+// impact. That is the "tightened" state and the only correct operating state.
+//
+// LOAD PATH, top to bottom:
+//   sail foot -> upper plate -> bolts in shear -> lower plate + gusset cone (rigid)
+//   -> collar spigot -> collar -> footing -> helical pile -> frozen soil
+//
+// The gusset cone is what stops the moment being carried by bolt stretch alone, and it
+// is why the plate can stay this thin. Bolt SIZING is not done — FLANGE_BOLT_D and
+// FLANGE_BOLTS are placeholders and no moment capacity has been calculated.
+
+// One sealed damper cell — two phases, one spring.
+//
+//   ice   frozen in from the TOP -> ballast, thermal buffer, seasonal regulator
+//   water liquid at the BOTTOM  -> the spring. Height `a` sets f_abs = sqrt(g*a/2A)
+//
+// The ice is ABOVE the water deliberately. That ordering is what makes the seasonal
+// behaviour correct: as the site cools, ice grows downward into the liquid and
+// shortens the column, which sweeps f_abs down toward the sail's frequency. The unit
+// tracks the season without anyone touching it.
 // Sail panel — 4 mm aluminium box, open at the bottom so meltwater sheds.
 //
 // SHOW_CUTAWAY removes the windward half of the SHELL only, leaving the damper cells
-// intact. Without it the two-phase cells — the entire point of the design — are
-// sealed inside an opaque box and invisible in every view.
+// intact. Without it the two-phase cells — the entire point of the design — are sealed
+// inside an opaque box and invisible in every view.
 module sail_panel() {
     color(SAILPANEL)
         translate([0, 0, SAIL_H / 2])
@@ -212,8 +414,8 @@ module sail_panel() {
 }
 
 // Upper stiffener ribs — wall volume only.
-// An earlier draft filled these as solid blocks and silently added ~2200 kg, which
-// made any ballast-based tuning impossible. Ribs are walls; keep them thin.
+// An earlier draft filled these as solid blocks and silently added ~2200 kg, which made
+// any ballast-based tuning impossible. Ribs are walls; keep them thin.
 module upper_ribs() {
     inner_w = SAIL_W - 2 * SAIL_WALL;
     inner_t = SAIL_T - 2 * SAIL_WALL;
@@ -229,14 +431,6 @@ module upper_ribs() {
 }
 
 // One sealed damper cell — two phases, one spring.
-//
-//   ice   frozen in from the TOP -> ballast, thermal buffer, seasonal regulator
-//   water liquid at the BOTTOM  -> the spring. Height `a` sets f_abs = sqrt(g*a/2A)
-//
-// The ice is ABOVE the water deliberately. That ordering is what makes the seasonal
-// behaviour correct: as the site cools, ice grows downward into the liquid and
-// shortens the column, which sweeps f_abs down toward the sail's frequency. The unit
-// tracks the season without anyone touching it.
 module damper_cell(cell_w, cell_d, cell_h) {
     wall = 0.010;
     z_top = 0;
@@ -336,7 +530,7 @@ module cant_arc(deg = SAIL_CANT) {
 // present in v4.
 module rock_arc(deg = ROCK_DEG) {
     color(ROCK_ARC)
-        translate([0, 0, PIVOT])
+        translate([0, 0, PIVOT + FLANGE_MID])
             arc_band(0.30, 0.34, -deg, deg);
 }
 
@@ -368,11 +562,26 @@ module sail_unit() {
                        CELL_BAND_H * 0.5])
                 thermosyphon_stem();
 
+    // Static side of the joint: lower plate, gusset cone, bolts. Does not rock.
+    if (SHOW_FLANGE)
+        translate([0, 0, PIVOT]) {
+            flange_plate(upper = false);
+            flange_gussets();
+            flange_bolts();
+        }
+
+    // Rocking side: upper plate clamped to the sail foot, plus the sail itself.
     translate([0, 0, PIVOT])
         rotate([SHOW_CANT ? SAIL_CANT : 0, 0, 0]) {
-            sail_panel();
-            damper_bay();
-            upper_ribs();
+            if (SHOW_FLANGE)
+                translate([0, 0, PLATE_HI_Z])
+                    flange_plate(upper = true);
+            translate([0, 0, PLATE_HI_Z + FLANGE_T])
+                sail_panel();
+            translate([0, 0, PLATE_HI_Z + FLANGE_T])
+                damper_bay();
+            translate([0, 0, PLATE_HI_Z + FLANGE_T])
+                upper_ribs();
             if (SHOW_CANT && SHOW_ROCK_ARC) cant_arc();
         }
 

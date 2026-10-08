@@ -84,6 +84,49 @@ than the frequency match does. Either the cells need to be much smaller, or the 
 needs to be much heavier, or the arrangement needs rethinking. **This is the single
 biggest open item in the design** and it is a structural finding, not a tuning one.
 
+## 4b. Sail root flange — the primary load path
+
+The v1 mount-boss geometry (base plate, bolt circle, gusset polygon) that originally sat
+on top of the AMU hull, relocated to the sail foot where the load actually is.
+
+**What this joint actually is, honestly:** *not* a tight flange. A tight bolted flange
+and a joint that rotates 7° are mutually exclusive — bolts at the original 0.42 m bolt
+circle would be dragged ~22 mm sideways by a 6° rotation, which no bolt can follow. So
+the three jobs are split:
+
+| Job | Carried by |
+|---|---|
+| Rotation | The pin, on the bearing race |
+| Moment | The gusset cone, bearing against the collar spigot |
+| Separation | The bolts, held in tension by preload |
+
+The rocking moment tries to pull the plates apart on one side and press them together on
+the other. The bolts live in the separating half. Preloading them means they never
+unload to zero, so the plates never lift, fret and mill, and the loose-bolt impact on
+the next gust never happens. That is the "tightened" benefit — and it is
+**anti-separation, not anti-rotation.** Something has to give, and it is the pin.
+
+Upper-plate holes are clearance holes sized to swallow the full swing:
+`FLANGE_CLEAR_R = FLANGE_BOLT_R·sin(ROCK_DEG) + shank/2 + 0.0015`. Bolts sit close to
+the axis so that travel stays small.
+
+**Load path, top to bottom:**
+```
+sail foot → upper plate → bolts in shear → lower plate + gusset cone (rigid)
+          → collar spigot → collar → footing → helical pile → frozen soil
+```
+
+**Not done:** no bolt sizing, no moment capacity, no pin bearing pressure. `FLANGE_BOLTS`
+and `FLANGE_BOLT_D` are placeholders. This is the joint most likely to be under-designed
+and it carries the highest load in the structure.
+
+Two errors caught while building it, both worth recording:
+- Gussets initially placed in the gap between the plates **and welded to both** would
+  have locked the joint solid — the sail could not rock at all. Structurally wrong, not
+  merely untidy. They belong under the lower plate, welded to the collar.
+- The upper plate rotating on the pin dragged its bolt holes off the bolts, producing a
+  non-manifold solid. That is what drove the clearance-hole solution above.
+
 ## 5. Two phases, two jobs
 
 - **Ice, frozen from the top** — ballast, thermal buffer, seasonal regulator. As the
@@ -106,6 +149,8 @@ part. Set `THERMO_CHARGED = false` to see an uncharged system.
 
 ## 7. Known gaps
 
+- 🔴 **Root joint unsized** (§4b). Highest load in the structure, no bolt sizing, no
+  moment capacity, no pin bearing pressure calculated.
 - 🔴 **Mass ratio outside the usable band** (§4). Computed above, unresolved. May force
   a redesign of cell size or sail mass.
 - 🔴 **Weep drain sizing unresolved.** The bore must stay clear of ice bridges. If it
@@ -152,8 +197,8 @@ Render  F6  — CGAL, ~3.5 s at $fn=56
 Export      — STL/3MF/DXF
 ```
 
-Verified `Simple: yes` (manifold-clean), 4 volumes, 562 vertices, **zero ERROR lines**
-across `SHOW_WATER`, `SHOW_ICE`, `SHOW_THERMO`, `SHOW_CANT`, `SHOW_SOIL`, `CELL_COLS`,
+Verified `Simple: yes` (manifold-clean), 5 volumes, 1790 vertices, **zero error AND
+zero warning lines** across 21 parameter variations including `SHOW_WATER`, `SHOW_ICE`, `SHOW_THERMO`, `SHOW_CANT`, `SHOW_SOIL`, `CELL_COLS`,
 `THERMO_CHARGED`, and `ICE_TOP` variations.
 
 **Bug fixed from v4:** the oscillation indicator used `rotate_extrude` on a circle
