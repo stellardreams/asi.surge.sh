@@ -14,6 +14,17 @@
 #   scripts/render_sail_animation.sh --frames 96 --fps 30
 #   scripts/render_sail_animation.sh --cam 0,0,0,66,0,20,17
 #   scripts/render_sail_animation.sh --still          # also emit a 3-tile contact sheet
+#   scripts/render_sail_animation.sh --name stiction02 --az 215 --cam 0,0,0,74,0,0,9
+#
+# Named views already rendered (see wind/renders/):
+#   amu_wind_sail_v5_anim_close_*   joint detail, default close preset
+#   amu_wind_sail_v5_anim_wide_*     whole unit
+#   stiction02_*                     rotated 215 deg onto the joint, datum off —
+#                                    puts the flange, cassette gap and the bearing race
+#                                    at the centre of frame. Command used:
+#      scripts/render_sail_animation.sh --name stiction02 \
+#        --cam 0,0,0,72,0,215,9.0 --size 900,900 \
+#        --def SHOW_DATUM=false --frames 48 --fps 24 --still
 #
 # Exit: 0 = MP4 written, 1 = setup problem, 2 = openscad or ffmpeg missing
 # =============================================================================
@@ -35,7 +46,11 @@ CAM_WIDE="0,0,0,66,0,20,15.0"
 # distance that moves very few pixels — the motion is essentially invisible there.
 CAM_CLOSE="0,0,0,50,0,10,7.5"
 VIEW="${VIEW:-close}"
+BASENAME="${BASENAME:-amu_wind_sail_v5_anim}"
 CAM=""
+CAM_SET=0   # an explicit --cam must survive the view presets
+AZ="${AZ:-}"   # optional azimuth override, appended as rot_z
+EXTRA_DEFS=()
 CLEAN=1
 RENDER_MODE=0   # 0 = preview/throwntogether (fast, keeps model colours)
                 # 1 = CGAL --render (F6-identical geometry, but headless PNG export
@@ -47,12 +62,15 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --frames) FRAMES="$2"; shift 2 ;;
     --fps)    FPS="$2";    shift 2 ;;
-    --cam)    CAM="$2";    shift 2 ;;
+    --cam)    CAM="$2";    CAM_SET=1; shift 2 ;;
     --size)   IFS=',' read -r WIDTH HEIGHT <<< "$2"; shift 2 ;;
     --out)    OUTDIR="$2"; shift 2 ;;
     --keep)   CLEAN=0;     shift ;;
     --wide)   VIEW="wide"; shift ;;
     --close)  VIEW="close"; shift ;;
+    --name)   BASENAME="$2"; shift 2 ;;
+    --az)     AZ="$2"; shift 2 ;;   # rotate the camera azimuth, degrees
+    --def)    EXTRA_DEFS+=("$2"); shift 2 ;;   # extra -D NAME=VALUE, repeatable
     --still)  STILL=1;     shift ;;
     --preview) RENDER_MODE=0; shift ;;
     --cgal)    RENDER_MODE=1; shift ;;
@@ -61,7 +79,19 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-[[ "$VIEW" == "wide" ]] && CAM="$CAM_WIDE" || CAM="$CAM_CLOSE"
+# Preset only if --cam was not given explicitly. Previously the presets ran
+# unconditionally AFTER argument parsing, so --cam was silently discarded —
+# the option had never once taken effect.
+if [[ $CAM_SET -eq 0 ]]; then
+  [[ "$VIEW" == "wide" ]] && CAM="$CAM_WIDE" || CAM="$CAM_CLOSE"
+fi
+# --az rotates the view about the vertical axis: split the camera string on its
+# final field (dist) and replace rot_z (the one before it).
+if [[ -n "$AZ" ]]; then
+  IFS=, read -r -a _c <<< "$CAM"
+  _c[$(( ${#_c[@]} - 2 ))]="$AZ"
+  CAM=$(IFS=,; echo "${_c[*]}")
+fi
 
 command -v openscad >/dev/null || { echo "ERROR: openscad not found" >&2; exit 2; }
 command -v ffmpeg    >/dev/null || { echo "ERROR: ffmpeg not found" >&2; exit 2; }
@@ -69,19 +99,24 @@ command -v ffmpeg    >/dev/null || { echo "ERROR: ffmpeg not found" >&2; exit 2;
 
 mkdir -p "$OUTDIR"
 STAMP=$(date +%Y-%m-%d_%H-%M-%S)
-NAME="amu_wind_sail_v5_anim_${VIEW}_${STAMP}"
+NAME="${BASENAME}_${VIEW}_${STAMP}"
 
 echo "Rendering $FRAMES frames -> $OUTDIR/$NAME.mp4"
 echo "  camera $CAM   size ${WIDTH}x${HEIGHT}   $FPS fps"
+[[ ${#EXTRA_DEFS[@]} -gt 0 ]] && echo "  extra -D: ${EXTRA_DEFS[*]}"
 echo "  mode $([[ $RENDER_MODE -eq 1 ]] && echo 'CGAL (--cgal, theme overrides colours)' || echo 'preview (fast, keeps model colours)')"
 
 fail=0
 for ((i = 0; i < FRAMES; i++)); do
   t=$(awk "BEGIN{printf \"%.6f\", $i/$FRAMES}")
   out=$(printf "%s/frame_%04d.png" "$OUTDIR" "$i")
+  # extra -D passthrough, so a view can switch features off without editing the model
+  XFLAG=""
+  for d in "${EXTRA_DEFS[@]+"${EXTRA_DEFS[@]}"}"; do XFLAG+=" -D $d"; done
+
   RFLAG="--preview=throwntogether"
   [[ $RENDER_MODE -eq 1 ]] && RFLAG="--render"
-  if ! openscad $RFLAG \
+  if ! openscad $RFLAG $XFLAG \
         -D "\$t=$t" \
         --camera="$CAM" \
         --imgsize="$WIDTH,$HEIGHT" \
