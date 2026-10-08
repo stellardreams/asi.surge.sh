@@ -617,9 +617,19 @@ module cell_cassette() {
                 cube([w, SAIL_T + 0.03, h], center = true);
                 translate([0, 0, -0.012])
                     cube([w - 0.030, SAIL_T - 0.002, h - 0.024], center = true);
+                // Section the cassette on the same cut as the blade. Without this the
+                // shell is opaque and the cells — the whole point of the cassette — are
+                // invisible in the assembled view.
+                if (SHOW_CUTAWAY)
+                    translate([0, -(SAIL_T + 0.03) / 2, 0])
+                        cube([w * 1.4, SAIL_T + 0.03, h * 1.4], center = true);
             }
-    // cells inside the cassette
-    translate([0, 0, h]) damper_bay();
+    // Cells inside the cassette. NO extra +h translate: damper_bay already places them
+    // at +CELL_BAND_H internally. Adding another h here double-offsets them to
+    // 0.624..1.24, which is above the cassette and up inside the blade — found by
+    // intersecting the cassette against the blade and finding 154 facets of overlap
+    // where there should be none.
+    damper_bay();
 
     // quick-release bolts through the cassette flange into the upper plate
     for (i = [0 : CASSETTE_BOLTS - 1])
@@ -916,7 +926,12 @@ module sail_unit() {
 
 // ------------------------------- Render --------------------------------------
 
-sail_unit();
+// Set RENDER_SCENE = false and `include <>` this file to inspect or measure a single
+// part without the whole scene in the way. Without it you cannot get a clean bounding
+// box for one component, because the top-level call always adds the full assembly.
+RENDER_SCENE = true;
+
+if (RENDER_SCENE) sail_unit();
 
 // ANIMATION
 //

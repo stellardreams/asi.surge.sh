@@ -241,6 +241,33 @@ No tools, which is the entire point at a remote site in gloves at −40 °C.
 openscad -D 'BLADE_LIFT=0.75' -D 'CASSETTE_SLIDE=0.55' amu_wind_sail_v5.scad
 ```
 
+### 🐛 Defect found on review — the cells were rendering in the wrong place
+
+`cell_cassette()` called `translate([0, 0, h]) damper_bay();` while `damper_bay()`
+**already** places cells at `+CELL_BAND_H` internally. The double offset put the cells
+at **0.624 … 1.24** instead of **0.004 … 0.62** — above the cassette and up *inside the
+blade*.
+
+It was invisible in renders because the blade is cut away on the same side, so the cells
+were still technically on screen — just in the wrong component. Every assembled view and
+every animation since the cassette split showed the cells floating in the blade.
+
+**Caught by intersecting the cassette against the blade and finding 154 facets of overlap
+where there should be none.** The test was then validated with a control at
+`BLADE_GAP = −0.05`, which correctly reports 152 facets, and at `0.0`, which is empty
+because coincident faces are not volumetric overlap. So the test discriminates.
+
+Fixed by removing the redundant translate. Re-verified: intersection empty at
+`BLADE_GAP = 0.035`.
+
+Also added `RENDER_SCENE` so the model can be `include`d for single-part inspection
+without the full scene contaminating the result, and made `SHOW_CUTAWAY` section the
+cassette as well as the blade — the cassette shell was opaque and hid the cells in the
+assembled view.
+
+**Lesson worth recording:** a visually plausible render is not a geometrically correct
+one. Overlap had to be proven *absent*, not eyeballed.
+
 ### Not solved
 
 - **No isolation valve or fill port.** Drain/refill still means opening the cassette. A
