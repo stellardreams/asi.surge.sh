@@ -138,6 +138,22 @@ ROCK_DEG         = 7;        // working swing of the sail about the pin, degrees
 // DERIVED — must come after ROCK_DEG, or it silently evaluates to undefined.
 FLANGE_CLEAR_R   = FLANGE_BOLT_R * sin(ROCK_DEG) + FLANGE_BOLT_D / 2 + 0.0015;
 
+// --- Animation ---
+// $t is defined ONLY while OpenSCAD is animating (or when you pass -D '$t=0.5').
+// is_undef($t) therefore means "static render", which is how the same file serves both
+// a still F6 render and a moving preview without any extra switching.
+ANIMATE          = true;
+ANIM_CYCLES      = 2;         // full rock cycles across one animation run
+ANIM_AMPLITUDE   = ROCK_DEG;
+ANIM_LEVEL_WATER = true;      // keep the liquid surface horizontal while the cell tilts
+
+// Live rock angle, in degrees, about the pivot. 0 when not animating.
+function anim_osc() =
+    (ANIMATE && !is_undef($t)) ? ANIM_AMPLITUDE * sin($t * 360 * ANIM_CYCLES) : 0;
+
+// Total sail lean: static cant plus any live animation offset.
+function sail_tilt() = (SHOW_CANT ? SAIL_CANT : 0) + anim_osc();
+
 // --- Foundation (carried unchanged from v2 — screw-in is still right) ---
 PILE_SHAFT_DIA   = 0.30;
 PILE_DEPTH       = 2.60;
@@ -443,13 +459,31 @@ module damper_cell(cell_w, cell_d, cell_h) {
                 cube([cell_w - 2 * wall, cell_d - 2 * wall, cell_h - wall], center = true);
         }
 
-    // liquid column — the spring
+    // Liquid column — the spring.
+    //
+    // The ICE is frozen to the walls, so it rotates with the cell. The WATER is free, so
+    // its surface stays level in world space while the cell tilts. Counter-rotating the
+    // water block by the sail's tilt is what shows the spring working: the gap opens on
+    // the up side and closes on the down side, and that deviation is the restoring force.
+    //
+    // Schematic caveat: the block is counter-rotated about its own centre rather than
+    // genuinely redistributing, so it slightly interpenetrates the cell walls at full
+    // tilt. Acceptable for a structural schematic; a real simulation would solve the
+    // free-surface shape.
     if (SHOW_WATER) {
         water_h = cell_h - ICE_TOP;
-        color(WATER_FILL)
-            translate([0, 0, z_top - wall - ICE_TOP - water_h / 2])
-                cube([cell_w - 2 * wall - 0.003, cell_d - 2 * wall - 0.003, water_h],
-                     center = true);
+        if (ANIM_LEVEL_WATER)
+            translate([0, 0, z_top - cell_h / 2])
+                rotate([-sail_tilt(), 0, 0])
+                    translate([0, 0, cell_h / 2 - wall - ICE_TOP - water_h / 2])
+                        color(WATER_FILL)
+                            cube([cell_w - 2 * wall - 0.003,
+                                  cell_d - 2 * wall - 0.003, water_h], center = true);
+        else
+            color(WATER_FILL)
+                translate([0, 0, z_top - wall - ICE_TOP - water_h / 2])
+                    cube([cell_w - 2 * wall - 0.003, cell_d - 2 * wall - 0.003, water_h],
+                         center = true);
     }
 
     // frozen ballast from the top down to the waterline
@@ -572,7 +606,7 @@ module sail_unit() {
 
     // Rocking side: upper plate clamped to the sail foot, plus the sail itself.
     translate([0, 0, PIVOT])
-        rotate([SHOW_CANT ? SAIL_CANT : 0, 0, 0]) {
+        rotate([sail_tilt(), 0, 0]) {
             if (SHOW_FLANGE)
                 translate([0, 0, PLATE_HI_Z])
                     flange_plate(upper = true);
@@ -592,6 +626,18 @@ module sail_unit() {
 
 sail_unit();
 
+// ANIMATION
+//
+// Press F5, then the play arrow at the bottom of the preview window. The sail rocks
+// through ANIM_CYCLES cycles and the liquid surface stays level while the cell tilts.
+//
+// Headless, for a video:
+//   scripts/render_sail_animation.sh          # frames + MP4 into wind/renders/
+//
+// Set ANIMATE = false for a still, or pass -D '$t=0.25' to freeze a single frame.
+// Note that F6/Render on a still is unaffected — $t is undefined there, so anim_osc()
+// returns 0 and the sail sits at its static cant.
+//
 // Build tips:
 // Preview F5 | Render F6 | Export STL/3MF/DXF
 //
