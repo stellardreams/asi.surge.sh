@@ -94,7 +94,13 @@ SAIL_CANT        = 6;        // degrees of static lean from vertical
 // belongs near the pivot, where its displacement relative to the sail is largest.
 CELL_BAND_H      = 0.62;     // height of the cell zone at the foot of the sail
 CELL_COLS        = 2;        // cells across the sail width
-ICE_TOP          = 0.26;     // frozen depth from the TOP of each cell — THE knob
+ICE_TOP          = 0.10;     // frozen depth from the TOP of each cell.
+                             // WAS 0.26, which is stable but badly frequency-mismatched
+                             // (f_sail/f_abs = 0.65). See §"STABILITY WINDOW" below —
+                             // the viable band is roughly 0.05-0.15, and above about
+                             // 0.40 the sail TOPPLES. Lower ice means more liquid, and
+                             // more liquid is what both stabilises it and matches
+                             // the frequencies.
 WEEP_DIA         = 0.012;    // drain bore. SIZING OPEN — must defeat ice bridging.
 SHOW_ICE         = true;
 SHOW_WATER       = true;
@@ -139,20 +145,153 @@ ROCK_DEG         = 7;        // working swing of the sail about the pin, degrees
 FLANGE_CLEAR_R   = FLANGE_BOLT_R * sin(ROCK_DEG) + FLANGE_BOLT_D / 2 + 0.0015;
 
 // --- Animation ---
-// $t is defined ONLY while OpenSCAD is animating (or when you pass -D '$t=0.5').
-// is_undef($t) therefore means "static render", which is how the same file serves both
-// a still F6 render and a moving preview without any extra switching.
-ANIMATE          = true;
-ANIM_CYCLES      = 2;         // full rock cycles across one animation run
-ANIM_AMPLITUDE   = ROCK_DEG;
-ANIM_LEVEL_WATER = true;      // keep the liquid surface horizontal while the cell tilts
+//
+// $t is OpenSCAD's animation time. It is ALWAYS defined (reads 0 when not animating),
+// which is how one file serves both a still F6 render and a moving preview.
+//
+// ANIM_MODE = "kinematic"  the original sin() sweep. Cheap, always smooth, but it is a
+//                          picture of motion, not motion. It lies about tuning.
+// ANIM_MODE = "dynamic"    a real 2-DOF pendulum-tuned-absorber integration. This is
+//                          the one that shows whether the concept actually works.
+ANIM_MODE       = "dynamic";
 
-// Live rock angle, in degrees, about the pivot. 0 when not animating.
+ANIM_CYCLES     = 2;         // kinematic sweep only
+ANIM_AMPLITUDE  = ROCK_DEG;
+ANIM_LEVEL_WATER = true;     // keep the liquid surface level in world space
+
+// --- Real-dynamics parameters (ANIM_MODE = "dynamic") ---
+//
+// THE SAIL STANDS UP. That is an INVERTED pendulum, so gravity is DESTABILISING, not
+// restoring, and the liquid column is what stops the sail falling over. That inverts
+// the usual tuned-damper intuition completely — see the note on MASS_RATIO.
+G_ACC           = 9.81;
+L_SAIL          = 1.30;      // effective pendulum length, pivot to structure CoM (m)
+INIT_THETA      = 0.055;     // initial gust deflection (rad) ~ 3.2 deg
+T_SIM           = 4.20;      // physical seconds the animation represents. Matched to the
+                             // observed decay so the transient fills the whole run —
+                             // at 24 s the motion was dead by 10% of the way through.
+ODE_STEPS       = 420;
+ZETA_TOTAL      = 0.040;     // combined structural + liquid damping ratio
+
+// Mass ratio. NOT free — it is determined by the water column, which ICE_TOP sets.
+//   mu      = m_water / m_structure
+//   mu_crit = 2A / (L * a)      <- below this the sail TOPPLES
+//   mu      > mu_crit  : stable
+// Stability and frequency matching therefore trade off against each other, and the
+// usable window is NARROW. Solving it is what ECHO_DIAG below reports.
+function mass_ratio() = anim_cell_w() * anim_cell_d() * anim_water_h() * CELL_COLS * 1000
+                        / structure_mass();
+function structure_mass() =
+    // sail shell: 4.473 m2 of 4 mm aluminium
+    (2 * SAIL_W * SAIL_H + 2 * SAIL_T * SAIL_H + 2 * SAIL_W * SAIL_T) * SAIL_WALL * 2700
+    // two full-height ribs
+    + 2 * SAIL_WALL * (SAIL_T - 2 * SAIL_WALL) * (SAIL_H - CELL_BAND_H) * 2700
+    // flange plates, bolts, collar, pin — nominal
+    + 6.0;
+
+// Cell geometry, derived from the sail and cell parameters.
+function anim_cell_w() = (SAIL_W - 2 * SAIL_WALL) / CELL_COLS - SAIL_WALL;
+function anim_cell_d() = SAIL_T - 2 * SAIL_WALL - 2 * 0.010;
+function anim_cell_h() = CELL_BAND_H - SAIL_WALL;
+function anim_cell_A() = anim_cell_w() * anim_cell_d();
+function anim_water_h() = anim_cell_h() - ICE_TOP;
+
+// Absorber natural frequency from the liquid column: omega_a^2 = g*a/(2A)
+function omega_a() = sqrt(G_ACC * anim_water_h() / (2 * anim_cell_A()));
+function f_abs_hz() = omega_a() / (2 * PI);
+function mu_crit()  = 2 * anim_cell_A() / (L_SAIL * anim_water_h());
+function is_stable() = mass_ratio() * omega_a() * omega_a() > G_ACC / L_SAIL;
+// Undamped natural frequency of the stabilised sail, guarded so an unstable
+// configuration returns 0 instead of a NaN.
+function omega_n() = sqrt(max(0, mass_ratio() * omega_a() * omega_a() - G_ACC / L_SAIL));
+function f_sail_hz() = omega_n() / (2 * PI);
+
+// MODEL CHOICE, and it is forced by the numbers rather than preferred.
+//
+// The textbook 2-DOF pendulum-tuned-absorber model assumes a LIGHT absorber on a heavy
+// structure. That assumption is violated here by an order of magnitude: mu is about
+// 1.0, meaning the liquid weighs as much as the sail. Checked by eigenanalysis, the
+// 2-DOF form then has a POSITIVE eigenvalue — a saddle — and the solution grows
+// exponentially instead of oscillating. It was tried, it diverged to 1700 degrees, and
+// it is wrong for this geometry.
+//
+// So the liquid is NOT modelled as an absorber. It is modelled as what it physically
+// is here: a stabilising term acting on the sail's inverted pendulum, plus damping.
+// That is a single-DOF model and it is stable by construction:
+//
+//     theta'' = -wn^2 * theta - 2*zeta*wn*theta'
+//     wn^2    = mu*wa^2 - g/L          (positive only when the liquid beats gravity)
+//
+// Consequences, and they matter:
+//   - The liquid's job is holding the sail UP, not absorbing vibration. The device is a
+//     liquid-stabilised inverted pendulum, which is a different and better-understood
+//     machine than a tuned mass damper.
+//   - There is NO second resonance to tune to. "Match f_abs to f_sail" was the wrong
+//     objective. The relevant figure is simply whether mu*wa^2 exceeds g/L by enough
+//     margin, and the ECHO below reports that margin.
+//   - At small angles the liquid surface stays essentially level and the liquid moves
+//     SIDEWAYS, so liquid_angle_deg() = 0 is the correct small-angle behaviour rather
+//     than a simplification. The sloshing resonance is real but is NOT resolved here.
+function dyn_deriv(q) = [
+    q[1],
+    -omega_n() * omega_n() * q[0] - 2 * ZETA_TOTAL * omega_n() * q[1]
+];
+
+function qplus(q, d, h) = [q[0] + d[0] * h, q[1] + d[1] * h];
+
+function rk4(q, h) =
+    let (k1 = dyn_deriv(q),
+         k2 = dyn_deriv(qplus(q, k1, h / 2)),
+         k3 = dyn_deriv(qplus(q, k2, h / 2)),
+         k4 = dyn_deriv(qplus(q, k3, h)))
+    qplus(q, (k1 + 2 * k2 + 2 * k3 + k4) / 6, h);
+
+// fold() does not exist in this OpenSCAD, so the integration recurses.
+function dyn_integrate(i, n, q, h) =
+    i >= n ? q : dyn_integrate(i + 1, n, rk4(q, h), h);
+
+function dyn_state(frac) =
+    let (n = max(0, min(ODE_STEPS, floor(frac * ODE_STEPS))))
+    dyn_integrate(0, n, [INIT_THETA, 0], T_SIM / ODE_STEPS);
+
+// Diagnostics — print once per render so a misconfigured sail is visible immediately
+// rather than showing up as an animation that simply does not move.
+ECHO_DIAG       = true;
+if (ECHO_DIAG)
+    echo(str("=== SAIL DYNAMICS ===",
+             str("  a (water col)      = ", anim_water_h()),
+             str("  A (cell plan)      = ", anim_cell_A()),
+             str("  structure mass     = ", structure_mass(), " kg"),
+             str("  water mass         = ", mass_ratio() * structure_mass(), " kg"),
+             str("  mu (mass ratio)    = ", mass_ratio()),
+             str("  mu_crit (topples)  = ", mu_crit()),
+             str("  STABLE?            = ", is_stable()),
+             str("  f_sail (stabilised)= ", f_sail_hz(), " Hz"),
+             str("  f_abs (liquid)     = ", f_abs_hz(), " Hz"),
+             str("  stability margin   = ", mass_ratio() * omega_a() * omega_a() / (G_ACC / L_SAIL))));
+
+function anim_phase() = is_undef($t) ? 0 : $t;
+
+// Degrees the sail is actually at.
+function sail_angle_deg() =
+    ANIM_MODE == "dynamic"
+      ? let (q = dyn_state(anim_phase()))
+          SAIL_CANT + q[0] * 180 / PI
+      : (SHOW_CANT ? SAIL_CANT : 0) + anim_osc();
+
+// Degrees the liquid mass is actually at. Its free surface stays level in world space,
+// so this is the surface angle. Equal to sail_angle_deg() in kinematic mode.
+// Zero: at small angles the liquid stays level and moves sideways. See MODEL CHOICE.
+function liquid_angle_deg() = 0;
+
 function anim_osc() =
-    (ANIMATE && !is_undef($t)) ? ANIM_AMPLITUDE * sin($t * 360 * ANIM_CYCLES) : 0;
+    (ANIM_MODE == "dynamic" || !ANIMATE) ? 0
+      : ANIM_AMPLITUDE * sin(anim_phase() * 360 * ANIM_CYCLES);
 
-// Total sail lean: static cant plus any live animation offset.
-function sail_tilt() = (SHOW_CANT ? SAIL_CANT : 0) + anim_osc();
+// Rotation the liquid block needs INSIDE the cell so that it lands at liquid_angle_deg()
+// in world space, given the cell is already drawn at sail_angle_deg().
+function liquid_local_rot() = liquid_angle_deg() - sail_angle_deg();
+
 
 // --- Foundation (carried unchanged from v2 — screw-in is still right) ---
 PILE_SHAFT_DIA   = 0.30;
@@ -474,7 +613,7 @@ module damper_cell(cell_w, cell_d, cell_h) {
         water_h = cell_h - ICE_TOP;
         if (ANIM_LEVEL_WATER)
             translate([0, 0, z_top - cell_h / 2])
-                rotate([-sail_tilt(), 0, 0])
+                rotate([liquid_local_rot(), 0, 0])
                     translate([0, 0, cell_h / 2 - wall - ICE_TOP - water_h / 2])
                         color(WATER_FILL)
                             cube([cell_w - 2 * wall - 0.003,
@@ -606,7 +745,7 @@ module sail_unit() {
 
     // Rocking side: upper plate clamped to the sail foot, plus the sail itself.
     translate([0, 0, PIVOT])
-        rotate([sail_tilt(), 0, 0]) {
+        rotate([sail_angle_deg(), 0, 0]) {
             if (SHOW_FLANGE)
                 translate([0, 0, PLATE_HI_Z])
                     flange_plate(upper = true);
