@@ -99,8 +99,15 @@ command -v ffmpeg    >/dev/null || { echo "ERROR: ffmpeg not found" >&2; exit 2;
 
 mkdir -p "$OUTDIR"
 STAMP=$(date +%Y-%m-%d_%H-%M-%S)
+
+# Refuse to overwrite or delete anything that git already tracks. Renders have been
+# committed by hand, and a broad cleanup glob silently removed tracked files twice.
+TRACKED=$(git ls-files "$OUTDIR" 2>/dev/null || true)
 NAME="${BASENAME}_${VIEW}_${STAMP}"
 
+if [[ -n "$TRACKED" ]]; then
+  echo "  note: $OUTDIR contains $(echo "$TRACKED" | wc -l) git-tracked file(s); this run will not touch them"
+fi
 echo "Rendering $FRAMES frames -> $OUTDIR/$NAME.mp4"
 echo "  camera $CAM   size ${WIDTH}x${HEIGHT}   $FPS fps"
 [[ ${#EXTRA_DEFS[@]} -gt 0 ]] && echo "  extra -D: ${EXTRA_DEFS[*]}"
@@ -162,6 +169,8 @@ if [[ "${STILL:-0}" == "1" ]]; then
 fi
 
 if [[ $CLEAN -eq 1 ]]; then
+  # Only this run's frames. A broader glob (e.g. "$OUTDIR"/amu_wind_sail_v5_anim_*.mp4)
+  # has already twice destroyed committed renders — do not reintroduce one.
   rm -f "$OUTDIR"/frame_*.png
   echo "  frames cleaned (--keep to retain them)"
 fi
