@@ -281,6 +281,28 @@ one. Overlap had to be proven *absent*, not eyeballed.
 - **Spare-part strategy.** A cassette is now a spare part. That is a real cost, and nobody
   has said whether the design intends cassettes to be interchangeable between units.
 
+## 8d. Consolidated risk register
+
+The full register — 22 numbered risks across three tiers, plus the four claims that
+analysis has since disproved — lives in the #82 issue as a single comment, so it is one
+place to look rather than four threads. Summary of the shape:
+
+| Tier | Count | Character |
+|---|---|---|
+| 🔴 Design-invalidating | 6 | seasonal toppling, unsized root joint, oscillation doubt, no loss curve, thermosyphon, weep drain |
+| 🟠 Fails in service | 7 | stiction, pin wear, no governor, sail adequacy, icing, ice fatigue, frozen cell |
+| 🟡 Resolve before structural | 9 | no wind data, pile conduction, meltwater, seals, fill port, fasteners, spares, \`BLADE_GAP\`, group wakes |
+
+The single blocking item is **seasonal toppling**: the design gets least stable in deep
+winter, which is the same time the wind is worst. Everything else is sizing and detailing.
+
+Retired claims (mine, both disproven) are recorded in the register rather than deleted, so
+they are not re-raised:
+- the 1–5% mass-ratio band — wrong rule for an inverted pendulum
+- ice as the tuning element — a solid has no free surface, so no stiffness
+- the 2-DOF absorber model — invalid at μ ≈ 1, diverged to 1700°
+- seasonal self-tuning — actually seasonal destabilisation
+
 ## 9. Build
 
 ```
