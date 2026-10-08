@@ -264,6 +264,7 @@ asi.surge.sh/
 
 ### Prerequisites
 - Node.js 18+ and npm
+- Python 3.11–3.14 *(only for CAD work — see [🐍 CAD Setup](#cad-setup-build123d))*
 - Docker (optional but highly recommended for issues related to safety and security, for containerized development)
 
 ### Installation
@@ -311,9 +312,78 @@ docker-compose run hardhat npm test
 - Configure Hardhat in `hardhat.config.js`
 - Use OpenZeppelin contracts for security best practices
 
-### Contributing
+## 🐍 CAD Setup (build123d)
 
-We welcome contributions from the community! Please follow our [CONTRIBUTING.md](CONTRIBUTING.md) guidelines and review our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before submitting pull requests.
+Geometry work is done with [build123d](https://build123d.readthedocs.io/), a
+parametric CAD library. You write Python instead of clicking a GUI, and it uses the
+OpenCASCADE geometry kernel — the same engine behind FreeCAD and CadQuery. That
+gives us true CSG, fillets, sweeps and lofts, which OpenSCAD 2021.01 approximates
+with mesh primitives.
+
+CAD models are developed alongside the OpenSCAD sources in
+`cad_and_blender/openscad/`. The `.scad` files remain the reference for the
+published renders.
+
+### Setup
+
+Keep the virtualenv **outside** the repository — this keeps it out of git
+entirely, rather than relying on `.gitignore` to catch it:
+
+```bash
+# Create the environment (once)
+python3 -m venv ~/.venvs/cad
+
+# Activate it — note the full path to the script
+source ~/.venvs/cad/bin/activate
+
+# Install build123d (pulls cadquery-ocp, ~64 MB wheel)
+pip install build123d
+```
+
+> **Two mistakes to avoid:**
+> - `source ~/.venvs/cad/` fails with `is a directory`. `source` needs the
+>   *script* path: `bin/activate`.
+> - Deactivate with `deactivate`. The prompt shows `(cad)` when active.
+
+**Python version:** 3.11 through 3.14 are supported (`build123d` requires
+`>=3.11,<3.15`). Prebuilt wheels exist for each, so no compiler is needed.
+
+### Verify the install
+
+```bash
+python -c "from build123d import *; b = Box(10,10,10) - Sphere(6); print('OK', b.volume)"
+```
+
+`OK` with a volume means the OCCT kernel loaded correctly. Worth running before
+investing time in a port — it catches a broken wheel in seconds.
+
+### Everyday use
+
+```bash
+source ~/.venvs/cad/bin/activate   # start of session
+python cad_and_blender/openscad/... # your script
+deactivate                          # end of session
+```
+
+Exports to STEP, STL, 3MF, DXF and SVG. Exported CAD files are gitignored, but
+the reference renders in `cad_and_blender/**/renders/` **are** tracked — they are
+release artefacts.
+
+### Not required for the token or web work
+
+If you are only touching smart contracts or the site, skip all of the above. The
+Node.js toolchain is independent and this environment is not needed.
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Please see
+[📝 Contributing Guidelines](#contributing-guidelines) above for the canonical
+process, and follow our [CONTRIBUTING.md](CONTRIBUTING.md) and
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before submitting pull requests.
+
+If your change touches geometry, also run the CAD verification step in
+[🐍 CAD Setup](#cad-setup-build123d) so exported models match the published
+renders.
 
 ---
 *Vision co-conceived by [Adeel Khan](https://www.linkedin.com/in/adeelkhan1/)*

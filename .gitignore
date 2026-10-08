@@ -1,31 +1,115 @@
-.vs/
-prompts_for_AI/# Private mapping file - never commit
+# ---------------------------------------------------------------------------
+# Secrets and private working material — never commit these
+# ---------------------------------------------------------------------------
+
+# Private mapping file (lives outside this repo, matched defensively).
+# Note: a leading '../' pattern does not work in gitignore — it is not part of
+# the ignore syntax, so this rule is effectively inert. The real file must be
+# kept out of the repo by being outside it, not by this line.
 ../private/project-mapping.txt
-node_modules/
-package-lock.json
+private/
 
-# Hardhat
-cache/
-artifacts/
-typechain-types/
-
-# Ethereum/Blockchain
-*.env
+# API keys and local secrets. Applies to any file ending in .env.
+.env
 .env.local
 .env.*.local
 secrets.json
+*.pem
+*.key
 
-# Coverage
-coverage/
-coverage.json
+# Private prompt/mapping drafts. The directory is ignored as a whole.
+# NOTE: the tracked file prompts_for_AI/prompt_01_AMU_cylinder_only.sty predates
+# this rule and stays tracked until explicitly untracked with `git rm --cached`.
+prompts_for_AI/
 
-# Test artifacts
-test-results/
-*.log
-4.5.0
+# ---------------------------------------------------------------------------
+# Python (build123d / CadQuery / FreeCAD scripting)
+# ---------------------------------------------------------------------------
 
-# Deployment artifacts
+# Virtual environments — keep them out of the repo. Sibling of the repo is
+# preferred: ~/.venvs/cad, so nothing here is committed by accident.
+venv/
+.venv/
+env/
+ENV/
+
+# Compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Packaging / build output
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Test + type-check caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Exported CAD output that is regenerated from source. Keep deliberate
+# reference renders (see cad_and_blender/**/renders/) tracked — those are
+# release artefacts and are intentionally NOT ignored.
+*.step
+*.stp
+*.stl
+*.3mf
+*.iges
+*.igs
+*.brep
+*.fcstd1
+*.dxf
+*.svg
+*.gltf
+*.glb
+
+# ---------------------------------------------------------------------------
+# Editors
+# ---------------------------------------------------------------------------
+
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------------------
+# OS
+# ---------------------------------------------------------------------------
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------------------------
+# Node / Solidity leftovers
+# ---------------------------------------------------------------------------
+# These predate the CAD work and are still on disk from an earlier Ethereum
+# project on this repo. Kept ignored so they cannot be committed by accident —
+# delete the directories when you no longer need them.
+
+node_modules/
+package-lock.json
+
+# Hardhat / Solidity build output. Note: contracts/ is NOT ignored — it holds
+# four tracked .sol sources, and ignoring tracked paths is a no-op anyway.
+artifacts/
+cache/
+typechain-types/
 deployments/
-
-# Hardhat migrations
 migrations/
+
+# Stray version-number file from the Solidity tooling
+4.5.0
