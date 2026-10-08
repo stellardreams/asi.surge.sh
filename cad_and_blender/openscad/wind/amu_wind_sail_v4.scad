@@ -335,17 +335,25 @@ module swing_arc(deg = SWING_DEG) {
                 cylinder(h = SAIL_H * 0.84, r = 0.020, center = true, $fn = 10);
 }
 
+// FIXED: the original used rotate_extrude on a circle centred on the axis. A circle
+// centred at the origin spans negative X, and OpenSCAD rejects mixed-sign points for
+// rotate_extrude ("all points must have the same X coordinate sign"). The error was
+// easy to miss because the render still reported volumes. Now a flat ribbon.
 module osc_arc(deg = SWING_DEG, sweep = OSC_DEG) {
+    r_o = sweep * 0.040 + 0.14;
+    r_i = sweep * 0.040;
+    pts = concat(
+        [for (i = [0 : 24]) let (a = -sweep + 2 * sweep * i / 24)
+            [r_i * cos(a), r_i * sin(a)]],
+        [for (i = [24 : -1 : 0]) let (a = -sweep + 2 * sweep * i / 24)
+            [r_o * cos(a), r_o * sin(a)]]
+    );
     color(OSC_ARC)
         rotate([deg, 0, 0])
             translate([0, -SAIL_H * 0.80, 0])
                 rotate([90, 0, 0])
-                    rotate_extrude(convexity = 4, $fn = 40)
-                        translate([SAIL_W * 0.44, 0, 0])
-                            difference() {
-                                circle(r = sweep * 0.040 + 0.14, $fn = 32);
-                                translate([0, 0, 0]) circle(r = sweep * 0.040, $fn = 32);
-                            }
+                    linear_extrude(height = 0.010)
+                        polygon(pts);
 }
 
 // ------------------------------- Unit ----------------------------------------
