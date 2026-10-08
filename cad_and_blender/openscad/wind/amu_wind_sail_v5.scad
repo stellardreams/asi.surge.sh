@@ -190,6 +190,8 @@ FLANGE_CLEAR_R   = FLANGE_BOLT_R * sin(ROCK_DEG) + FLANGE_BOLT_D / 2 + 0.0015;
 // ANIM_MODE = "dynamic"    a real 2-DOF pendulum-tuned-absorber integration. This is
 //                          the one that shows whether the concept actually works.
 ANIM_MODE       = "dynamic";
+ANIMATE         = true;      // master switch; dynamic mode ignores it since the
+                              // ODE always runs when $t is set
 
 ANIM_CYCLES     = 2;         // kinematic sweep only
 ANIM_AMPLITUDE  = ROCK_DEG;

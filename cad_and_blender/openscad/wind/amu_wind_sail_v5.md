@@ -204,6 +204,56 @@ Worth recording, because the cause was partly physics and partly framing.
 The equilibrium correction is a physics fix, not a legibility trick — the earlier version
 was placing the sail at an angle the liquid was not actually holding it at.
 
+## 8c. Serviceability — the cells were sealed inside the sail
+
+Arctic labour and parts are expensive, so anything that can fail or wear has to come off
+without dismantling the structure around it. Reviewing what actually needs servicing:
+
+| Item | Frequency | Access before | Access now |
+|---|---|---|---|
+| Damper cells (drain/refill to re-tune) | frequent | **cut the sail open** | cassette bolts off, slides out |
+| Pivot pin / bearing race | per wear cycle | strip the whole sail | flange unbolts |
+| Sail blade | rare | — | 4 bolts, lifts off |
+| Pile | never | — | — |
+
+The cells were the failure. Sealed inside the shell with no port and no access, the most
+frequent maintenance job on the machine was impossible without destroying the machine.
+
+### The split
+
+```
+lower flange plate (fixed to collar)
+  -> CELL CASSETTE     4 quick-release bolts, withdraws sideways, holds the two-phase cells
+     -> BLADE_GAP      0.035 service clearance + thermal break
+        -> SAIL BLADE   4 quick-release bolts, lifts straight off
+```
+
+`BLADE_GAP = 0.035` does three jobs at once: the blade lifts without fouling, aluminium
+is not bolted directly to aluminium, and there is no rigid conductive path from the
+outdoor blade down through the joint.
+
+Quick-release studs are **undone by hand** — knurled collar, draw handles on the cassette.
+No tools, which is the entire point at a remote site in gloves at −40 °C.
+
+`BLADE_LIFT` and `CASSETTE_SLIDE` drive an exploded view:
+
+```
+openscad -D 'BLADE_LIFT=0.75' -D 'CASSETTE_SLIDE=0.55' amu_wind_sail_v5.scad
+```
+
+### Not solved
+
+- **No isolation valve or fill port.** Drain/refill still means opening the cassette. A
+  small bore with a cap and a spill tray would let a technician re-tune without withdrawing
+  anything.
+- **Seal strategy.** The cells hold liquid at −40 °C with a 9% freeze expansion to absorb.
+  What the seal is made of, and how it is replaced, is unspecified — and rubber at that
+  temperature is a known problem.
+- **Torque spec and locking.** Quick-release means easy, which also means it can loosen.
+  Nothing prevents vibration backing it off.
+- **Spare-part strategy.** A cassette is now a spare part. That is a real cost, and nobody
+  has said whether the design intends cassettes to be interchangeable between units.
+
 ## 9. Build
 
 ```
