@@ -286,6 +286,8 @@ function f_sail_hz() = omega_n() / (2 * PI);
 //
 //     theta'' = -wn^2 * theta - 2*zeta*wn*theta'
 //     wn^2    = mu*wa^2 - g/L          (positive only when the liquid beats gravity)
+// In wind mode, prescribed drag torque divided by estimated effective inertia is added
+// to theta''. That estimate is for visualization only, not validated load analysis.
 //
 // Consequences, and they matter:
 //   - The liquid's job is holding the sail UP, not absorbing vibration. The device is a

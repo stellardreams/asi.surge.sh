@@ -392,6 +392,79 @@ python cad_and_blender/openscad/wind/amu_wind_sail_v5_build123d.py --export out/
 The first command validates the geometry and prints the island summary; the second
 exports a STEP and STL for inspection.
 
+### Wind-driven OpenSCAD animation
+
+The canonical `.scad` keeps `ANIM_MODE = "dynamic"` as the free-decay animation from
+the initial deflection. Set `ANIM_MODE = "wind"` to add the illustrative steady-wind
+and smooth gust forcing. Wind inputs can be overridden from the command line with
+OpenSCAD `-D` definitions. This is a visualization, not a validated engineering or
+design-load simulation.
+
+In OpenSCAD, open the `.scad`, set `ANIM_MODE = "wind"`, press **F5**, then use
+**View → Animate**. For an MP4, use the existing render script; `--def` can be repeated
+to override model parameters:
+
+```bash
+scripts/render_sail_animation.sh --name wind-gust \
+  --def 'ANIM_MODE="wind"' \
+  --def 'WIND_MEAN_SPEED=8' \
+  --def 'WIND_GUST_AMPLITUDE=4'
+```
+
+The MP4 is written under `cad_and_blender/openscad/wind/renders/`.
+
+Run these deterministic checks from the repository root. Each command writes a
+temporary CSG and prints a `MOTION_STATE` diagnostic; wind mode also prints
+`WIND_STATE`.
+
+- [ ] **Free-decay baseline.** Record the sail angle at the same `$t` used by the
+  other checks.
+
+```bash
+openscad -o /tmp/sail-free.csg -D '$t=0.375' \
+  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
+- [ ] **Zero wind.** The `MOTION_STATE` angle should equal the free-decay baseline;
+  `WIND_STATE` should report zero velocity, force, and torque.
+
+```bash
+openscad -o /tmp/sail-zero.csg -D '$t=0.375' \
+  -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=0' -D 'WIND_GUST_AMPLITUDE=0' \
+  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
+- [ ] **Steady wind.** At 8 m/s with no gust, expect about `67.17 N` force and
+  `85.65 N*m` torque; the angle should differ from free decay.
+
+```bash
+openscad -o /tmp/sail-steady.csg -D '$t=0.375' \
+  -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=8' -D 'WIND_GUST_AMPLITUDE=0' \
+  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
+- [ ] **Gust.** At `$t=0.375` (simulation time `0.825 s`), the default half-cosine
+  gust is at its peak: expect `12 m/s` wind speed with the default `8 m/s` mean and
+  `4 m/s` gust amplitude.
+
+```bash
+openscad -o /tmp/sail-gust.csg -D '$t=0.375' -D 'ANIM_MODE="wind"' \
+  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
+- [ ] **Reverse direction.** At the same time and settings, positive and negative
+  wind must produce equal-and-opposite wind-induced angle changes relative to the
+  free-decay angle (tolerance `0.002 deg`).
+
+```bash
+openscad -o /tmp/sail-positive.csg -D '$t=0.375' \
+  -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=8' -D 'WIND_GUST_AMPLITUDE=0' \
+  -D 'WIND_DIRECTION=1' cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+openscad -o /tmp/sail-negative.csg -D '$t=0.375' \
+  -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=8' -D 'WIND_GUST_AMPLITUDE=0' \
+  -D 'WIND_DIRECTION=-1' cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
 ### Not required for the token or web work
 
 If you are only touching smart contracts or the site, skip all of the above. The
