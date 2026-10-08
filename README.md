@@ -369,6 +369,29 @@ Exports to STEP, STL, 3MF, DXF and SVG. Exported CAD files are gitignored, but
 the reference renders in `cad_and_blender/**/renders/` **are** tracked — they are
 release artefacts.
 
+### Wind sail v5 build123d port
+
+The static geometry port lives at
+`cad_and_blender/openscad/wind/amu_wind_sail_v5_build123d.py`. It is intentionally
+additive and does not replace the canonical OpenSCAD source
+`cad_and_blender/openscad/wind/amu_wind_sail_v5.scad`.
+
+It includes the footing, pile, collar, flange, and static blade geometry, but it
+still leaves the dynamic sweep, ice/water tuning, thermosyphons, and cassette-side
+features in the `.scad` as they are not part of this port. The validation script
+prints both the measured bounding box and the expected island report. The key rule
+is: a floating part should appear as an `UNEXPECTED` island, while the known static
+fragments remain `EXPECTED`.
+
+```bash
+source ~/.venvs/cad/bin/activate
+python cad_and_blender/openscad/wind/amu_wind_sail_v5_build123d.py
+python cad_and_blender/openscad/wind/amu_wind_sail_v5_build123d.py --export out/
+```
+
+The first command validates the geometry and prints the island summary; the second
+exports a STEP and STL for inspection.
+
 ### Not required for the token or web work
 
 If you are only touching smart contracts or the site, skip all of the above. The

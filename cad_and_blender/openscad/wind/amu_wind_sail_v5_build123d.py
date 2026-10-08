@@ -290,6 +290,99 @@ OPENSCAD_MEASURED = {
     "footprint_y": 1.031,
 }
 
+EXPECTED_ISLANDS = [
+    ("shaft + footing + collar + lower flange + gussets + bolts", 0.000, 0.465),
+    ("shaft", -4.290, -1.430),
+    ("flight 0", -0.426, -0.374),
+    ("flight 1", -1.006, -0.954),
+    ("flight 2", -1.586, -1.534),
+    ("flange_hi", 0.495, 0.525),
+    ("blade", 1.180, 3.075),
+]
+
+
+def _bbox_overlap(a, b, tol: float = 1e-6):
+    a_bb = a.bounding_box()
+    b_bb = b.bounding_box()
+    return not (
+        a_bb.max.X + tol < b_bb.min.X
+        or b_bb.max.X + tol < a_bb.min.X
+        or a_bb.max.Y + tol < b_bb.min.Y
+        or b_bb.max.Y + tol < a_bb.min.Y
+        or a_bb.max.Z + tol < b_bb.min.Z
+        or b_bb.max.Z + tol < a_bb.min.Z
+    )
+
+
+def find_connected_components(solids):
+    """Group solids that touch or overlap by bounding-box intersection."""
+    if not solids:
+        return []
+
+    graph = {i: set() for i in range(len(solids))}
+    for i in range(len(solids)):
+        for j in range(i + 1, len(solids)):
+            if _bbox_overlap(solids[i], solids[j]):
+                graph[i].add(j)
+                graph[j].add(i)
+
+    visited = set()
+    islands = []
+    for i in range(len(solids)):
+        if i in visited:
+            continue
+        stack = [i]
+        comp = []
+        visited.add(i)
+        while stack:
+            node = stack.pop()
+            comp.append(node)
+            for nbr in graph[node]:
+                if nbr not in visited:
+                    visited.add(nbr)
+                    stack.append(nbr)
+        islands.append(sorted(comp))
+    return islands
+
+
+def _expected_of_island(z_min: float, z_max: float, tol: float = 0.04) -> str | None:
+    for name, exp_min, exp_max in EXPECTED_ISLANDS:
+        if z_min >= exp_min - tol and z_max <= exp_max + tol:
+            return name
+    return None
+
+
+def report_islands(solids, tol: float = 0.04) -> int:
+    """Print per-island connectivity and label each group as EXPECTED or UNEXPECTED."""
+    islands = find_connected_components(solids)
+    if not islands:
+        print("Connectivity check: no solids were found.")
+        return 0
+
+    print("\nConnectivity report — expected vs unexpected islands\n")
+    print(f"  {'island':>6} {'label':>11} {'z min':>10} {'z max':>10}")
+    print("  " + "-" * 52)
+
+    unexpected = 0
+    for idx, island in enumerate(islands, start=1):
+        bb = solids[island[0]].bounding_box()
+        for j in island[1:]:
+            bb = bb.add(solids[j].bounding_box())
+        z_min = bb.min.Z
+        z_max = bb.max.Z
+        label = "EXPECTED" if _expected_of_island(z_min, z_max, tol) else "UNEXPECTED"
+        if label == "UNEXPECTED":
+            unexpected += 1
+        print(f"  {idx:>6} {label:>11} {z_min:>+9.3f} {z_max:>+9.3f}")
+
+    if unexpected:
+        print(f"\nFAIL: {unexpected} unexpected island(s) detected.")
+        print("      The static port should only produce the known OpenSCAD-derived islands.")
+        return unexpected
+
+    print("\nPASS: all islands match the expected static geometry set.")
+    return 0
+
 
 def validate_bbox(solids, tol: float = 0.06) -> int:
     """Compare this port's bounding box against the measured OpenSCAD one.
@@ -299,7 +392,7 @@ def validate_bbox(solids, tol: float = 0.06) -> int:
     syphons and the SAIL_CANT lean, all of which sit above grade, so a small
     shortfall is expected and correct.
 
-    Returns 0 if within tolerance, 1 otherwise.
+    Returns 0 if within tolerance and all islands are expected, 1 otherwise.
     """
     bb = solids[0].bounding_box()
     for s in solids[1:]:
@@ -327,6 +420,10 @@ def validate_bbox(solids, tol: float = 0.06) -> int:
             flag = "  <-- OUT OF TOLERANCE"
             failed.append(name)
         print(f"  {name:<28} {got:>8.3f} {want:>8.3f} {d:>+8.3f}{flag}")
+
+    island_failures = report_islands(solids)
+    if island_failures:
+        failed.append("unexpected islands")
 
     print()
     if failed:
