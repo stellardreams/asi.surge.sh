@@ -23,8 +23,6 @@ Tracked in [#82](https://github.com/stellardreams/asi.surge.sh/issues/82).
 | Icing | ice rimming on the rotor |
 | Cycling | thawing and refreezing |
 
-> Provenance of the site envelope is deliberately not recorded here. Keep the source in a
-> private record — an unsourced design condition is weaker engineering than a cited one.
 
 ---
 
@@ -99,6 +97,15 @@ Each trades against something.
 | [`container_sizing.py`](container_sizing.py) | container envelope → section and mass budget; what it does and does not decide |
 
 All three exit `0` and self-check.
+
+## Program tracking structure
+ 
+Wind v2.0 is tracked under parent **[#82](https://github.com/stellardreams/asi.surge.sh/issues/82)**, with work organized into dedicated work packages / child issues:
+ 
+- **Package 1 — Modular Rotor & Container Stowage:** 20 ft ISO packaging envelope, sectional blade segment joints (1.7–1.9 m), transport restraints, and root/nacelle packaging.
+- **Package 2 — Erection Kinematics & Foundation Interface:** Tilt-up guyed mast geometry, container corner-casting hinge plates, A-frame / gin-pole winch line rigging (zero heavy lift), and permafrost mechanical ground-anchor scheme.
+- **Package 3 — Arctic Powertrain (−60 °C) & Anti-Icing Strategy:** Direct-drive permanent magnet generator (eliminating cold-sensitive gearbox lubricants), thermal containment, and leading-edge electro-thermal or passive icephobic shedding.
+- **Package 4 — Microgrid & Electrical Power Integration:** 25–100 kW power conditioning architecture, remote diesel microgrid integration / synchronisation, and low-EMI compliance (MIL-STD-461G benchmark).
 
 ---
 
