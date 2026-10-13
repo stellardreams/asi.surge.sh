@@ -174,6 +174,13 @@ holding `ICE_TOP` down — which is a control strategy, not a design change.**
 
 ## 8a. Proposed dispositions for #84 open items
 
+> **Authored by Codex (`GPT-6`)**, in commit
+> [`80883b8`](https://github.com/stellardreams/asi.surge.sh/commit/80883b8) (`docs: propose R1
+> closure criteria #84`). Reviewed by OpenCode — see
+> [#84 review](https://github.com/stellardreams/asi.surge.sh/issues/84#issuecomment-6142561084).
+> Codex corrected §7 and §8 in the same commit; the weep-drain reclassification is Codex's
+> work and overturns a conclusion of the original sweep.
+
 These are engineering dispositions for closing the *analysis* questions. They do not certify
 the device or close physical validation gates. No deployment site or climate basis is
 available, and this model does not simulate heat transfer or freeze progression.
@@ -223,6 +230,71 @@ available, and this model does not simulate heat transfer or freeze progression.
 instrumented freeze/thaw test showing maximum ice depth and water escape; and measured
 frequency/stability response over the tested envelope. Until these exist, #84 can close its
 model-analysis and register-wording items, but the seasonal operating limit remains open.
+
+## 8b. Review of the provisional `0.20 m` target — tolerance it acquires
+
+Added by OpenCode on review. Codex selects `ICE_TOP ≤ 0.20 m` as a provisional qualification
+target in §8a item 1 but does not quantify what it buys. It is well chosen, and here is why.
+
+The cap is **not a free number**. Holding margin at exactly 2.0 leaves zero tolerance, so any
+excess ice fails:
+
+| cap `ICE_TOP` | margin | tolerance before margin drops below 2.0 |
+|---|---|---|
+| 0.3002 m | 2.000 | **0 mm** — any excess ice fails |
+| 0.2802 m | 2.262 | 19 mm |
+| 0.2500 m | 2.687 | 47 mm |
+| **0.2000 m** | **3.471** | **~88 mm** |
+
+Near the cap, `d(margin)/d(ice) = 4.0/a`, so margin falls **0.127 per 10 mm** of excess ice at
+`a = 0.316 m` — 6.3% of the entire screen margin per centimetre.
+
+**Choosing 0.20 m over 0.30 m buys roughly 88 mm of ice tolerance instead of none.** That is
+the strongest argument for the target and should be stated alongside it. It does *not* make
+0.20 m achievable — 88 mm is still a demanding target for a passive control at −50 °C — but it
+converts an infeasible requirement into a testable one.
+
+Tolerance scales as `1/a`, so a deeper water column buys finer tolerance, but only linearly:
+
+| water column `a` | tolerance (ice costing 10% of margin) |
+|---|---|
+| 0.316 m (cap at 0.30) | 15.8 mm |
+| 0.616 m (current full cell) | 30.8 mm |
+| 1.00 m | 50.0 mm |
+
+Scaling the cell therefore trades against the problem rather than solving it.
+
+## 8c. Review — the design-cold temperature may be the root constraint
+
+Neither the sweep nor Codex's dispositions address this, and it may bound R1 more tightly
+than any control choice.
+
+A thermosyphon bounds ice only by holding the brine at its freezing point; ice forms in the
+temperature deficit *below* that point. Against the −50 °C design cold asserted in §6:
+
+| working fluid | freezing point | deficit below −50 °C |
+|---|---|---|
+| saturated NaCl brine | −21 °C | 29 °C |
+| CaCl₂ | −30 °C | 20 °C |
+| 60% glycol | −48 °C | **2 °C** |
+
+The best candidate still leaves a 2 °C gap, and the thermosyphon competes for the same heat
+it must also deliver to the pile. **No passive control credibly caps ice at −50 °C with these
+fluids.** Two consequences that should be decided before the control question:
+
+1. **Site selection may be the real decision.** A site at −40 °C design cold puts 60% glycol
+   ~8 °C inside its limit rather than 2 °C outside it. The envelope, not the cap, may be the
+   binding constraint — which argues for choosing the site before choosing the fluid, and
+   makes Codex's item 2 (site first) a prerequisite to item 1 (control), not merely adjacent
+   to it.
+2. **A seasonal-operating envelope is a legitimate answer.** If deep winter cannot be held,
+   declaring the machine inoperative below a threshold temperature and operating only in
+   shoulder seasons is honest. It directly contradicts the "least stable when the wind is
+   worst" premise, so it must be a stated design decision rather than an outcome.
+
+Note the −50 °C figure is asserted in §6 as *"Arctic design cold is commonly −50 °C"* without
+a source. If it is an upper bound chosen for conservatism rather than a site requirement, the
+whole control question is easier than it looks.
 
 ## 9. Robustness note
 

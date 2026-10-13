@@ -342,8 +342,10 @@ def main():
     print(f"  full freeze is {CELL_H:.3f} m.")
     print()
     print("  CONCLUSION: no geometry change closes a meaningful part of this gap. R1 must")
-    print("  be solved by holding ICE_TOP down -- a CONTROL strategy (drain / thermosyphon")
-    print("  / active), not a design change. That puts R6 and R5 on R1's critical path.")
+    print("  be solved by holding ICE_TOP down -- a CONTROL strategy, not a design change.")
+    print("  The weep drain is NOT one of those controls: it moves liquid, not ice. Only a")
+    print("  thermal control (thermosyphon) or an active one can bound an ice front. R5 is")
+    print("  therefore the prerequisite, with R6 a separate water-path prerequisite.")
 
     # 7. candidate classification
     print()
@@ -351,9 +353,15 @@ def main():
     print("7. CANDIDATE FIX CLASSIFICATION")
     print("=" * 78)
     for name, kind, note in [
-        ("drain / weep drain (R6)", "CONTROL on ICE_TOP",
-         "not a geometry parameter; the swept value is the OUTCOME, not an input. "
-         "Cannot be evaluated by this sweep; needs R6 thermal work"),
+        ("drain / weep drain (R6)", "WATER-PATH control only",
+         "a drain moves LIQUID, not ice. Ice leaves the cell only by melting or mechanical "
+         "removal, so the drain cannot by itself cap the advancing ice front. Reclassified "
+         "from 'control on ICE_TOP' by Codex in 80883b8. Needs separate freeze/thermal "
+         "validation; this sweep cannot assess it"),
+        ("thermosyphon (R5)", "CANDIDATE thermal control",
+         "can bound ice only by holding the brine at its freezing point; ice then forms in "
+         "the temperature deficit below that point. Do not credit it with any particular "
+         "ICE_TOP until a heat balance and a cold-chamber or field test demonstrate it"),
         ("active re-freeze control", "CONTROL on ICE_TOP",
          "same; no geometric evaluation is possible in this model"),
         ("cells further below pivot", "PROXY via L_SAIL only",
