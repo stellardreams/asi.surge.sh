@@ -10,7 +10,7 @@ THE QUESTION
     script supplies that missing feedback analytically and asks whether any wind speed
     produces net-negative damping.
 
-GEOMETRY (from amu_wind_sail_v5.scad — verified against the `cube([SAIL_W, SAIL_T, bh])`
+GEOMETRY (from wind_sail_v5_arctic.scad — verified against the `cube([SAIL_W, SAIL_T, bh])`
 blade construction and the `-SAIL_T/2` cutaway, which fixes Y as the wind direction):
 
     SAIL_W = 0.56 m   panel width, along the pivot axis (X)
@@ -56,7 +56,7 @@ import matplotlib.pyplot as plt
 RHO = 1.225        # kg/m^3, air at sea level (matches WIND_AIR_DENSITY in the .scad)
 G = 9.81
 
-# sail geometry, from amu_wind_sail_v5.scad
+# sail geometry, from wind_sail_v5_arctic.scad
 CHORD = 0.26       # SAIL_T, along the wind
 SPAN = 2.55        # SAIL_H
 PANEL_W = 0.56     # SAIL_W, along the pivot axis

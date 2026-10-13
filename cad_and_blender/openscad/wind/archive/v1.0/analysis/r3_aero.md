@@ -2,7 +2,7 @@
 
 Status: **desk study complete** — see [#82](https://github.com/stellardreams/asi.surge.sh/issues/82)
 *Next steps* item 1
-Model source: `amu_wind_sail_v5.scad` @ `d9d25af`
+Model source: `wind_sail_v5_arctic.scad` @ `d9d25af`
 Script: `amu_wind_sail_v5_r3_aero.py` (same directory)
 Tooling: Python 3.13 · numpy 2.5.3 · scipy 1.18.1 · matplotlib 3.11.2
 

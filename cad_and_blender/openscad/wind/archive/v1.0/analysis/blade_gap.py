@@ -6,7 +6,7 @@ decided one", and that it is simultaneously a service clearance, a thermal break
 height. This computes what each driver actually requires, so the value can be chosen from a
 tolerance stack rather than inherited.
 
-Every figure below is computed from the geometry in amu_wind_sail_v5.scad. Assumptions are
+Every figure below is computed from the geometry in wind_sail_v5_arctic.scad. Assumptions are
 stated inline and repeated in the summary, because the point of this script is to make the
 assumptions visible rather than to produce a number nobody can audit.
 """

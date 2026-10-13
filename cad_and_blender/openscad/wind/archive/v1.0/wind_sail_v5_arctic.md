@@ -1,8 +1,8 @@
 # AMU — Arctic Two-Phase Sail Concept (v5)
 
 Issue #82 · vertical sail on stepped base with two-phase cells at the sail foot
-Geometry: `amu_wind_sail_v5.scad` (same directory)
-Concept: `concept-10-07-2026-2131.jpg`
+Geometry: `wind_sail_v5_arctic.scad` (same directory)
+Concept: `../archive/v1.0/concept-10-07-2026-2131.jpg`
 
 ---
 
@@ -347,7 +347,7 @@ No tools, which is the entire point at a remote site in gloves at −40 °C.
 `BLADE_LIFT` and `CASSETTE_SLIDE` drive an exploded view:
 
 ```
-openscad -D 'BLADE_LIFT=0.75' -D 'CASSETTE_SLIDE=0.55' amu_wind_sail_v5.scad
+openscad -D 'BLADE_LIFT=0.75' -D 'CASSETTE_SLIDE=0.55' wind_sail_v5_arctic.scad
 ```
 
 ### 🐛 Defect found on review — the cells were rendering in the wrong place
@@ -500,7 +500,7 @@ cd asi.surge.sh
 ### Look at it
 
 ```bash
-openscad cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+openscad cad_and_blender/openscad/wind/wind_sail_v5_arctic.scad
 ```
 
 Then **F5** to render. Press **F7** to look in.
@@ -509,7 +509,7 @@ Then **F5** to render. Press **F7** to look in.
 
 ```bash
 openscad -D 'BLADE_LIFT=0.30' -D 'CASSETTE_SLIDE=0.22' \
-  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+  cad_and_blender/openscad/wind/wind_sail_v5_arctic.scad
 ```
 
 Blade lifts, cassette withdraws sideways, studs exposed, cells accessible.
@@ -517,7 +517,7 @@ Blade lifts, cassette withdraws sideways, studs exposed, cells accessible.
 ### Motion
 
 ```bash
-openscad -D 'ANIM_MODE="wind"' cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+openscad -D 'ANIM_MODE="wind"' cad_and_blender/openscad/wind/wind_sail_v5_arctic.scad
 ```
 
 Press **F6**, then **View → Animate**. `dynamic` (the default) is free decay with no wind.
@@ -552,6 +552,6 @@ scripts/render_sail_animation.sh --name wind-gust \
 
 ---
 
-*Issue #82 · per concept-10-07-2026-2131.jpg*
+*Issue #82 · per ../archive/v1.0/concept-10-07-2026-2131.jpg*
 *Supersedes v4 (portal-frame pendulum). Recoverable in git: chassis fae41f7, anchor
 ring d4c8a9c, grove a17a023, sail v4 0c54d94.*

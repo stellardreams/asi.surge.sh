@@ -27,7 +27,7 @@ G = 9.81
 AMBIENT_C = -60.0
 WIND_KMH = (80.0, 120.0)
 
-# geometry + model state, all from amu_wind_sail_v5.scad
+# geometry + model state, all from wind_sail_v5_arctic.scad
 SAIL_W, SAIL_T, SAIL_H, SAIL_WALL = 0.56, 0.26, 2.55, 0.004
 CELL_BAND_H, CELL_COLS = 0.62, 2
 L_SAIL, ZETA = 1.30, 0.040

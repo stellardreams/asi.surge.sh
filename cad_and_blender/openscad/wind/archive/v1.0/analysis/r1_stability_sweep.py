@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""R1 seasonal-toppling sweep and lever analysis for amu_wind_sail_v5.scad.
+"""R1 seasonal-toppling sweep and lever analysis for wind_sail_v5_arctic.scad.
 
 Issue #84. Companion to amu_wind_sail_v5_r1_stability.md.
 
@@ -27,7 +27,7 @@ GOVERNING RELATIONSHIP
     (inverse linear).
 
 USAGE
-    python3 amu_wind_sail_v5_r1_sweep.py
+    python3 r1_stability_sweep.py
 
     Requires openscad on PATH for the verification step. Verification runs first; if the
     reimplementation does not match the binary the script exits non-zero and the sweep
@@ -40,7 +40,7 @@ import subprocess
 import sys
 import tempfile
 
-# --- defaults, from amu_wind_sail_v5.scad ---
+# --- defaults, from wind_sail_v5_arctic.scad ---
 SAIL_W, SAIL_T, SAIL_H, SAIL_WALL = 0.56, 0.26, 2.55, 0.004
 CELL_BAND_H, CELL_COLS = 0.62, 2
 L_SAIL = 1.30
@@ -48,7 +48,8 @@ G_ACC = 9.81
 SCREEN = 2.0
 AL = 2700
 
-SCAD = os.path.join(os.path.dirname(os.path.abspath(__file__)), "amu_wind_sail_v5.scad")
+SCAD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+               "wind_sail_v5_arctic.scad")
 CELL_H = CELL_BAND_H - SAIL_WALL
 
 
@@ -383,7 +384,7 @@ def main():
     print(f"  At ICE_TOP = cell height, a = 0 and mu_crit = inf -- a division-by-zero")
     print("  artifact, not a diagnostic. The run still classifies unstable and fails the")
     print("  screen, so the direction is right, but inf must not be read as a result.")
-    print(f"    openscad -o /tmp/ff.csg -D 'RENDER_SCENE=false' -D 'ICE_TOP={CELL_H}' amu_wind_sail_v5.scad")
+    print(f"    openscad -o /tmp/ff.csg -D 'RENDER_SCENE=false' -D 'ICE_TOP={CELL_H}' wind_sail_v5_arctic.scad")
     return 0
 
 

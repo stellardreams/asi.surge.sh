@@ -374,7 +374,7 @@ release artefacts.
 The static geometry port lives at
 `cad_and_blender/openscad/wind/amu_wind_sail_v5_build123d.py`. It is intentionally
 additive and does not replace the canonical OpenSCAD source
-`cad_and_blender/openscad/wind/amu_wind_sail_v5.scad`.
+`cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad`.
 
 It includes the footing, pile, collar, flange, and static blade geometry, but it
 still leaves the dynamic sweep, modeled ice/water state, thermosyphons, and cassette-side
@@ -444,7 +444,7 @@ equation's behavior; they do not validate real airflow response, flutter, or pow
 
 ```bash
 openscad -o /tmp/sail-free.csg -D '$t=0.375' \
-  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+  cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad
 ```
 
 - [x] **Zero wind.** The `MOTION_STATE` angle should equal the free-decay baseline;
@@ -453,7 +453,7 @@ openscad -o /tmp/sail-free.csg -D '$t=0.375' \
 ```bash
 openscad -o /tmp/sail-zero.csg -D '$t=0.375' \
   -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=0' -D 'WIND_GUST_AMPLITUDE=0' \
-  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+  cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad
 ```
 
 - [x] **Steady wind.** At 8 m/s with no gust, expect about `67.17 N` force and
@@ -462,7 +462,7 @@ openscad -o /tmp/sail-zero.csg -D '$t=0.375' \
 ```bash
 openscad -o /tmp/sail-steady.csg -D '$t=0.375' \
   -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=8' -D 'WIND_GUST_AMPLITUDE=0' \
-  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+  cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad
 ```
 
 - [x] **Gust.** At `$t=0.375` (simulation time `0.825 s`), the default half-cosine
@@ -471,7 +471,7 @@ openscad -o /tmp/sail-steady.csg -D '$t=0.375' \
 
 ```bash
 openscad -o /tmp/sail-gust.csg -D '$t=0.375' -D 'ANIM_MODE="wind"' \
-  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+  cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad
 ```
 
 - [x] **Reverse direction.** At the same time and settings, positive and negative
@@ -481,10 +481,10 @@ openscad -o /tmp/sail-gust.csg -D '$t=0.375' -D 'ANIM_MODE="wind"' \
 ```bash
 openscad -o /tmp/sail-positive.csg -D '$t=0.375' \
   -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=8' -D 'WIND_GUST_AMPLITUDE=0' \
-  -D 'WIND_DIRECTION=1' cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+  -D 'WIND_DIRECTION=1' cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad
 openscad -o /tmp/sail-negative.csg -D '$t=0.375' \
   -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=8' -D 'WIND_GUST_AMPLITUDE=0' \
-  -D 'WIND_DIRECTION=-1' cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+  -D 'WIND_DIRECTION=-1' cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad
 ```
 
 **All five checks verified 2026-10-13 (OpenCode), commit

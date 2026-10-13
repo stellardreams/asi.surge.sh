@@ -1,7 +1,7 @@
 # R1 — seasonal toppling: parametric sweep and lever analysis
 
 Status: study complete — see [#84](https://github.com/stellardreams/asi.surge.sh/issues/84)
-Model: `cad_and_blender/openscad/wind/amu_wind_sail_v5.scad` @ `670aefc`
+Model: `cad_and_blender/openscad/wind/wind_sail_v5_arctic.scad` @ `670aefc`
 Tooling: OpenSCAD 2021.01, run headless with `RENDER_SCENE=false`; Python 3
 Sweep script: `amu_wind_sail_v5_r1_sweep.py` (same directory)
 
@@ -303,7 +303,7 @@ division-by-zero artifact, not a diagnostic. The run still classifies as unstabl
 the screen, so the direction is right, but `inf` must not be read as a physical result.
 
 ```bash
-openscad -o /tmp/ff.csg -D 'RENDER_SCENE=false' -D 'ICE_TOP=0.616' amu_wind_sail_v5.scad
+openscad -o /tmp/ff.csg -D 'RENDER_SCENE=false' -D 'ICE_TOP=0.616' wind_sail_v5_arctic.scad
 # a (water col) = 0 ... mu_crit = inf ... EQUATION STABLE? = false ... SCREEN PASS? = false
 ```
 

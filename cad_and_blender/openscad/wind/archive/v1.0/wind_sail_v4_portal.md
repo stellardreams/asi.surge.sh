@@ -1,7 +1,7 @@
 # AMU — Arctic Ice-Tuned Sail Unit (v4)
 
 Issue #82 · flat wind sail on a portal frame, ice-frozen ballast, water-column tuning
-Geometry: `amu_wind_sail_v4.scad` (same directory)
+Geometry: `wind_sail_v4_portal.scad` (same directory)
 
 ---
 

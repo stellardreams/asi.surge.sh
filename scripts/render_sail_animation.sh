@@ -17,8 +17,8 @@
 #   scripts/render_sail_animation.sh --name stiction02 --az 215 --cam 0,0,0,74,0,0,9
 #
 # Named views already rendered (see wind/renders/):
-#   amu_wind_sail_v5_anim_close_*   joint detail, default close preset
-#   amu_wind_sail_v5_anim_wide_*     whole unit
+#   wind_sail_v5_anim_close_*   joint detail, default close preset
+#   wind_sail_v5_anim_wide_*     whole unit
 #   stiction02_*                     rotated 215 deg onto the joint, datum off —
 #                                    puts the flange, cassette gap and the bearing race
 #                                    at the centre of frame. Command used:
@@ -31,7 +31,7 @@
 
 set -uo pipefail
 
-SCAD="cad_and_blender/openscad/wind/amu_wind_sail_v5.scad"
+SCAD="${SCAD:-cad_and_blender/openscad/wind/archive/v1.0/wind_sail_v5_arctic.scad}"
 OUTDIR="cad_and_blender/openscad/wind/renders"
 FRAMES=48
 FPS=24
@@ -46,7 +46,7 @@ CAM_WIDE="0,0,0,66,0,20,15.0"
 # distance that moves very few pixels — the motion is essentially invisible there.
 CAM_CLOSE="0,0,0,50,0,10,7.5"
 VIEW="${VIEW:-close}"
-BASENAME="${BASENAME:-amu_wind_sail_v5_anim}"
+BASENAME="${BASENAME:-wind_sail_v5_anim}"
 CAM=""
 CAM_SET=0   # an explicit --cam must survive the view presets
 AZ="${AZ:-}"   # optional azimuth override, appended as rot_z
@@ -169,7 +169,7 @@ if [[ "${STILL:-0}" == "1" ]]; then
 fi
 
 if [[ $CLEAN -eq 1 ]]; then
-  # Only this run's frames. A broader glob (e.g. "$OUTDIR"/amu_wind_sail_v5_anim_*.mp4)
+  # Only this run's frames. A broader glob (e.g. "$OUTDIR"/wind_sail_v5_anim_*.mp4)
   # has already twice destroyed committed renders — do not reintroduce one.
   rm -f "$OUTDIR"/frame_*.png
   echo "  frames cleaned (--keep to retain them)"

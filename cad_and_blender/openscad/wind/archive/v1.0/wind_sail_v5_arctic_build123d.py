@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-amu_wind_sail_v5_build123d.py — build123d port of the v5 Arctic wind sail (issue #82).
+wind_sail_v5_arctic_build123d.py — build123d port of the v5 Arctic wind sail (issue #82).
 
-Source of truth: cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+Source of truth: cad_and_blender/openscad/wind/wind_sail_v5_arctic.scad
 That file remains the reference for everything published in the v1.2 release. This is
 additive, not a replacement.
 
@@ -16,8 +16,8 @@ those units directly. Validation compares against the measured OpenSCAD bounding
 not the prose figures in amu_wind_sail_v5.md — see validate_bbox() below.
 
 Usage:
-    python amu_wind_sail_v5_build123d.py            # print validation report
-    python amu_wind_sail_v5_build123d.py --export out/   # STEP + STL
+    python wind_sail_v5_arctic_build123d.py            # print validation report
+    python wind_sail_v5_arctic_build123d.py --export out/   # STEP + STL
 """
 
 from __future__ import annotations
