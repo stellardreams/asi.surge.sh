@@ -433,6 +433,125 @@ volume and warning lines only. Both files now use a flat polygon ribbon.
 
 ---
 
+## 10. Acceptance criteria — current sail concept
+
+Replaces the obsolete *"one minimal chassis file"* criterion, which no longer describes the
+work: the v5 concept has no chassis hull.
+
+The criteria are layered by **what kind of evidence closes them**. Layer A is closed today.
+Layer B is closed analytically. Layer C cannot close without physical work.
+
+### Layer A — model integrity *(closed 2026-10-13)*
+
+- [x] Geometry is manifold and renders with **zero errors and zero warnings** across the
+      parameter variations.
+- [x] The prescribed-force equation self-verifies against its own diagnostics —
+      [`amu_wind_sail_v5_r1_sweep.py`](amu_wind_sail_v5_r1_sweep.py), 49 field comparisons
+      agreeing to ~1e-6, non-zero exit on mismatch.
+- [x] The four recorded baselines reproduce exactly: `ICE_TOP` `0.10` → margin `5.340` ·
+      `0.30` → `2.003` · `0.35` → `1.419` (screen fail) · `0.40` → unstable.
+- [x] Full-freeze degradation is understood and documented (`a = 0` → `mu_crit = inf`).
+- [x] Any verifier guarding a claim must itself be proven to fail on drift — otherwise a
+      false pass is indistinguishable from a correct one.
+
+### Layer B — analytical *(closed 2026-10-13)*
+
+- [x] **Will it oscillate?** In the linear attached-flow regime, **no.** Aerodynamic damping is
+      0.014%–0.656% of structural; the quasi-steady moment is restoring because the lift acts
+      0.065 m from a pivot 1.275 m below it. Recorded in
+      [`amu_wind_sail_v5_r3_aero.md`](amu_wind_sail_v5_r3_aero.md).
+- [x] **Can it stand up in winter?** Only if ice depth is bounded. No geometric lever reaches a
+      defensible budget, so this is a control problem, and the control question is dominated by
+      the design-cold envelope — a **site input**, not a constant. See §6.
+- [x] **Which candidate fixes are real?** "Cells below pivot" downgraded; "larger margin at low
+      water" is self-contradictory; the weep drain is a water-path control and cannot cap ice.
+
+### Layer C — physical validation *(open — no test has been run)*
+
+- [ ] **Operating purpose declared.** Passive deflector, or a device that must sustain motion.
+      This gates everything else in this list.
+- [ ] **Site selected**, with its NRC 2½%-basis design temperature and climate-based ice case.
+- [ ] **Coupled fluid–structure or wind-tunnel test** on the actual geometry and pivot, with
+      declared Reynolds range, showing a repeatable bounded limit cycle after perturbation — if
+      the declared purpose is oscillation. Large-amplitude and separated regimes are outside
+      Layer B.
+- [ ] **Instrumented freeze/thaw test** showing maximum achievable ice depth and water escape.
+- [ ] **Load path sized** against a wind rose. The root flange (`FLANGE_BOLTS`,
+      `FLANGE_BOLT_D`) is still a placeholder and is the joint most likely to be under-designed.
+- [ ] **Measured frequency and stability response** over the tested envelope.
+- [ ] **Net electrical energy measured** after conversion losses — only if generation is
+      intended, and only after the mechanical test passes.
+
+> ⚠️ No item in Layer A or B is evidence of physical behaviour. Both are properties of an
+> idealised equation and of linear attached-flow theory.
+
+---
+
+## 11. Quick start — sail v5
+
+Shortest path from a clean checkout to the checks above. No build step; OpenSCAD reads the
+`.scad` directly.
+
+```bash
+git clone https://github.com/stellardreams/asi.surge.sh.git
+cd asi.surge.sh
+```
+
+### Look at it
+
+```bash
+openscad cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
+Then **F5** to render. Press **F7** to look in.
+
+### Service sequence
+
+```bash
+openscad -D 'BLADE_LIFT=0.30' -D 'CASSETTE_SLIDE=0.22' \
+  cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
+Blade lifts, cassette withdraws sideways, studs exposed, cells accessible.
+
+### Motion
+
+```bash
+openscad -D 'ANIM_MODE="wind"' cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
+```
+
+Press **F6**, then **View → Animate**. `dynamic` (the default) is free decay with no wind.
+
+> The wind mode applies a **prescribed** torque that does not respond to sail angle. It is a
+> visualisation of the equation, not airflow. See §3.
+
+### Run the analysis
+
+```bash
+cd cad_and_blender/openscad/wind
+
+# R1 — stability sweep, self-verifying
+~/.venvs/cad/bin/python amu_wind_sail_v5_r1_sweep.py
+
+# R3 — will it oscillate?
+~/.venvs/cad/bin/python amu_wind_sail_v5_r3_aero.py
+
+# BLADE_GAP — what does the gap actually have to clear?
+~/.venvs/cad/bin/python amu_wind_sail_v5_blade_gap.py
+```
+
+Each exits non-zero if its own guard fails, so they are safe to wire into CI. Full readings are
+in [`TEST_TALLY.md`](../../../../TEST_TALLY.md).
+
+### Optional — rendered assets
+
+```bash
+scripts/render_sail_animation.sh --name wind-gust \
+  --def 'ANIM_MODE="wind"' --def 'WIND_MEAN_SPEED=8' --def 'WIND_GUST_AMPLITUDE=4'
+```
+
+---
+
 *Issue #82 · per concept-10-07-2026-2131.jpg*
 *Supersedes v4 (portal-frame pendulum). Recoverable in git: chassis fae41f7, anchor
 ring d4c8a9c, grove a17a023, sail v4 0c54d94.*
