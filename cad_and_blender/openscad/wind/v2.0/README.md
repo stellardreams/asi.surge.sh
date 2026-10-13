@@ -95,8 +95,10 @@ Each trades against something.
 | [`envelope.py`](envelope.py) / [`.md`](envelope.md) | site envelope; why the v1.0 cell is infeasible; cold-density effect |
 | [`power_resource.py`](power_resource.py) | wind resource screen; rotor sizing for 25–100 kW |
 | [`container_sizing.py`](container_sizing.py) | container envelope → section and mass budget; what it does and does not decide |
+| [`foundation_load_envelope.py`](foundation_load_envelope.py) / [`foundation.md`](foundation.md) | Package 1: foundation load envelope, overturning safety, permafrost anchors (#85) |
+| [`wind_v2_foundation.scad`](wind_v2_foundation.scad) | Package 1: 3D CAD foundation assembly (container, cribbing, anchors, trunnion) |
 
-All three exit `0` and self-check.
+All self-check and exit `0`.
 
 ## Program tracking structure
  
