@@ -439,7 +439,7 @@ temporary CSG and prints a `MOTION_STATE` diagnostic; wind mode also prints
 small-angle `WIND_MEAN_EQUILIBRIUM` estimate. These checks verify the prescribed-force
 equation's behavior; they do not validate real airflow response, flutter, or power.
 
-- [ ] **Free-decay baseline.** Record the sail angle at the same `$t` used by the
+- [x] **Free-decay baseline.** Record the sail angle at the same `$t` used by the
   other checks.
 
 ```bash
@@ -447,7 +447,7 @@ openscad -o /tmp/sail-free.csg -D '$t=0.375' \
   cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
 ```
 
-- [ ] **Zero wind.** The `MOTION_STATE` angle should equal the free-decay baseline;
+- [x] **Zero wind.** The `MOTION_STATE` angle should equal the free-decay baseline;
   `WIND_STATE` should report zero velocity, force, and torque.
 
 ```bash
@@ -456,7 +456,7 @@ openscad -o /tmp/sail-zero.csg -D '$t=0.375' \
   cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
 ```
 
-- [ ] **Steady wind.** At 8 m/s with no gust, expect about `67.17 N` force and
+- [x] **Steady wind.** At 8 m/s with no gust, expect about `67.17 N` force and
   `85.65 N*m` torque; the angle should differ from free decay.
 
 ```bash
@@ -465,7 +465,7 @@ openscad -o /tmp/sail-steady.csg -D '$t=0.375' \
   cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
 ```
 
-- [ ] **Gust.** At `$t=0.375` (simulation time `0.825 s`), the default half-cosine
+- [x] **Gust.** At `$t=0.375` (simulation time `0.825 s`), the default half-cosine
   gust is at its peak: expect `12 m/s` wind speed with the default `8 m/s` mean and
   `4 m/s` gust amplitude.
 
@@ -474,7 +474,7 @@ openscad -o /tmp/sail-gust.csg -D '$t=0.375' -D 'ANIM_MODE="wind"' \
   cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
 ```
 
-- [ ] **Reverse direction.** At the same time and settings, positive and negative
+- [x] **Reverse direction.** At the same time and settings, positive and negative
   wind must produce equal-and-opposite wind-induced angle changes relative to the
   free-decay angle (tolerance `0.002 deg`).
 
@@ -486,6 +486,27 @@ openscad -o /tmp/sail-negative.csg -D '$t=0.375' \
   -D 'ANIM_MODE="wind"' -D 'WIND_MEAN_SPEED=8' -D 'WIND_GUST_AMPLITUDE=0' \
   -D 'WIND_DIRECTION=-1' cad_and_blender/openscad/wind/amu_wind_sail_v5.scad
 ```
+
+**All five checks verified 2026-10-13 (OpenCode), commit
+[`2598b37`](https://github.com/stellardreams/asi.surge.sh/commit/2598b37).** Recorded values:
+
+| check | expected | measured |
+|---|---|---|
+| Free-decay baseline | — | `sail_angle=-0.283314 deg` |
+| Zero wind | equals baseline | `sail_angle=-0.283314 deg`, `velocity=0`, `force=0 N`, `torque=0 N*m` |
+| Steady wind, 8 m/s | ~`67.17 N`, ~`85.65 N*m` | `force=67.1731 N`, `torque=85.6457 N*m`, angle differs from free decay |
+| Gust peak at `$t=0.375` | `12 m/s` | `velocity=12 m/s`, `force=151.14 N`, `torque=192.703 N*m` |
+| Reverse direction | equal-and-opposite, tol `0.002 deg` | deltas from baseline `+0.710392` / `-0.710393` deg → **`1e-6 deg`** |
+
+> ⚠️ Note on the reverse-direction check: compare the **change from the free-decay baseline**,
+> not the raw angle. The raw angles (`+0.427078` / `-0.993707`) are *not* symmetric — that is
+> correct, because the free-decay component is common to both. Only the wind-induced delta is
+> antisymmetric.
+
+These remain **model checks on a prescribed-force equation**. They do not validate airflow
+response, flutter, or power — see the R3 analysis in
+[`amu_wind_sail_v5_r3_aero.md`](cad_and_blender/openscad/wind/amu_wind_sail_v5_r3_aero.md),
+which concludes the sail will **not** sustain self-excited oscillation in the linear regime.
 
 ### Not required for the token or web work
 
