@@ -4,24 +4,31 @@ Everything awaiting @genidma's test, in one place. Maintained by OpenCode.
 Updated 2026-10-13.
 
 The wind work is split across **#82** (parent) · **#83** (cassette) · **#84** (R1 stability).
-This file is the single place to look for what needs checking. Per-commit "How to Test"
-notes exist too; this supersedes them for anything still open.
 
 ---
 
-## Status at a glance
+# 👈 START HERE
 
-| | |
-|---|---|
-| Branch with new work | `main-dev` |
-| `master` | `2afe749` — merged, CI green |
-| Awaiting merge to `master` | `d22ad6f`, `3263942`, `b18555f`, `997bcac` |
-| CI on `main-dev` | ✅ `Validate AMU Design` green on all four |
-| Open checkboxes | #82: 8 · #83: 4 · #84: 10 |
+Each issue now opens with a **👈 YOUR TURN** block at the top of its body, listing exactly
+what needs your eyes and what decisions are yours. Assigned to `@genidma` on all three.
 
-**All automated checks below have already been run and pass.** Your test is parts B and C.
+**Open the issues in this order — the first two decisions unlock ~20 checkboxes:**
+
+| # | why this order | what you do there |
+|---|---|---|
+| **1. [#82](https://github.com/stellardreams/asi.surge.sh/issues/82)** | **Start here.** The master blocker. | Declare the **operating purpose** (passive deflector vs must sustain motion), then name a **site**. |
+| **2. [#83](https://github.com/stellardreams/asi.surge.sh/issues/83)** | Independent of #82. | Look at the **two renders** (only you can), then set the **lean limit**, which unblocks `BLADE_GAP`. |
+| **3. [#84](https://github.com/stellardreams/asi.surge.sh/issues/84)** | Mostly downstream of #82 item 1. | Four decisions. **Check my risk-register edit** — I changed a register, not just added notes. |
+
+Then come back to me. After items 1 and 2 I can close most of the remainder myself.
 
 ---
+
+## What is already done
+
+Automated checks are **Part A** below and are green — you do not need to re-run them.
+Item counts: **#82** 5 of yours · **#83** 10 · **#84** 15. I have closed 12 checkboxes with
+recorded evidence this session.
 
 ## Part A — Automated (already green, re-run any time)
 
@@ -77,7 +84,7 @@ openscad -o /tmp/m.csg -D 'RENDER_SCENE=true' amu_wind_sail_v5.scad
 
 ## Part B — Needs your eyes 👈
 
-### B1 — Cassette service sequence (#83, the open `YOUR TURN` item)
+### B1 — Cassette service sequence (#83 item 1)
 
 Two renders committed at [`997bcac`](https://github.com/stellardreams/asi.surge.sh/commit/997bcac):
 
