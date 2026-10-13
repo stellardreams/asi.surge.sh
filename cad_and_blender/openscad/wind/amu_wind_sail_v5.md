@@ -127,10 +127,30 @@ within the stability screen below.
 
 ## 6. Thermosyphon constraint
 
-Water freezes at 0 °C; Arctic design cold is commonly −50 °C. Saturated NaCl brine
-reaches only −21 °C, CaCl₂ about −30 °C, 60% glycol −48 °C. Cells are held at the
-freezing point by **passive thermosyphons** — no power, no consumable, and needed
-anyway to stop the steel pile conducting heat into the frozen soil.
+Water freezes at 0 °C. Saturated NaCl brine reaches only −21 °C, CaCl₂ about −30 °C,
+60% glycol −48 °C. Cells are held at the freezing point by **passive thermosyphons** — no
+power, no consumable, and needed anyway to stop the steel pile conducting heat into the
+frozen soil.
+
+**The design-cold envelope is a site input, not a constant, and it is not −50 °C by
+default.** The authoritative source for a Canadian Arctic site is the National Research
+Council of Canada's *Canadian winter design temperatures, 2½% basis* table, which publishes
+per-station values on a 2½%-of-January-hours basis. Most Canadian Arctic communities sit
+nearer **−40 to −45 °C**; −50 °C corresponds to the very coldest high-Arctic stations. USACE
+and CRREL guidance likewise uses **−40 °C** as the general outdoor-equipment design floor.
+
+This is not a detail, because the working fluid's headroom depends on it directly:
+
+| design cold | 60% glycol (−48 °C) | thermosyphon headroom |
+|---|---|---|
+| −40 °C | 8 °C **inside** its limit | real |
+| −50 °C | 2 °C **outside** | none |
+
+At −50 °C no passive control closes the gap. At −40 °C the thermosyphon has genuine margin
+and the problem is solvable. **The same cell is plausible at one site and infeasible at
+another**, so site selection is a prerequisite to the control decision rather than a
+consequence of it. Cite the NRC table for the chosen site instead of asserting a single
+figure.
 
 **Failure is benign:** if a thermosyphon fails and a cell freezes solid, the cell stops
 being a spring and the sail rocks unabsorbed. It does not break and does not shed a
