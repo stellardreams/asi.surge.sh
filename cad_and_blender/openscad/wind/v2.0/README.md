@@ -99,6 +99,8 @@ Each trades against something.
 | [`wind_v2_foundation.scad`](wind_v2_foundation.scad) | Package 1: 3D CAD foundation assembly (container, cribbing, anchors, trunnion) |
 | [`erection_kinematics.py`](erection_kinematics.py) / [`mast_erection.md`](mast_erection.md) | Package 2: tilt-up kinematics, winch line tension, gin-pole buckling (#86) |
 | [`wind_v2_mast_erection.scad`](wind_v2_mast_erection.scad) | Package 2: 3D CAD modular mast, gin-pole A-frame, and tilt-up stages |
+| [`powertrain_envelope.py`](powertrain_envelope.py) / [`powertrain.md`](powertrain.md) | Package 3: Arctic direct-drive PMSG sizing, thermal self-heating, bearing grease (#87) |
+| [`wind_v2_nacelle.scad`](wind_v2_nacelle.scad) | Package 3: 3D CAD nacelle bedplate, PMSG generator, yaw drive, fail-safe brake |
 
 All self-check and exit `0`.
 
@@ -110,6 +112,19 @@ Wind v2.0 is tracked under parent **[#82](https://github.com/stellardreams/asi.s
 - **[#86 — Package 2: Mast Structure & Tilt-Up Erection Kinematics](https://github.com/stellardreams/asi.surge.sh/issues/86):** Modular sectional tower (transportable in 20 ft ISO box), gin-pole (A-frame) rigging, winch trajectory (zero heavy lift), and guy-wire load paths under 120 km/h winds.
 - **[#87 — Package 3: Arctic Direct-Drive Powertrain (−60 °C) & Nacelle](https://github.com/stellardreams/asi.surge.sh/issues/87):** Direct-drive PMSG (no freeze-prone gearbox lubricants), low-temperature bearing selection, fail-safe aerodynamic braking, and thermal containment.
 - **[#88 — Package 4: Sectional Rotor, Anti-Icing & Microgrid System Packaging](https://github.com/stellardreams/asi.surge.sh/issues/88):** 50 kW sectional composite rotor blades, quick-connect spar joints, leading-edge anti-icing to counter [rime icing](https://en.wikipedia.org/wiki/Hard_rime), low-EMI microgrid converter, and total 20 ft container stowage layout.
+
+### Arctic Powertrain Engineering Decisions (−60 °C)
+
+1. **Direct-Drive Permanent Magnet Synchronous Generator (PMSG):**
+   - Eliminates the mechanical gearbox completely. At −60 °C, traditional gear oils and synthetic gear lubes (even ISO VG 320 low-temp blends) freeze or channel, resulting in catastrophic gear tooth stripping and bearing seizure.
+   - Low-speed multi-pole outer/inner rotor topology directly coupled to the rotor hub.
+2. **Low-Temperature Bearings & Synthetic Grease:**
+   - Sealed hybrid ceramic / vacuum-degassed chrome steel bearings packed with low-temperature synthetic ester/PFPE greases rated for continuous operation at **−65 °C to +120 °C** (e.g. AeroShell Grease 33 / Mobilith SHC 007).
+3. **Thermal Containment & Fine Snow Ingress Sealing:**
+   - Double-lip labyrinth seals and heated air purge prevent fine Arctic windblown powder snow from entering stator air gaps.
+   - Internal copper losses ($I^2 R$) act as an operational self-heating source, maintaining nacelle internals above −20 °C during rotation without requiring massive auxiliary heating.
+4. **Fail-Safe Mechanical Braking:**
+   - Spring-applied, electrically released caliper disc brakes — completely eliminating freeze-prone hydraulic fluid lines.
 
 ---
 
