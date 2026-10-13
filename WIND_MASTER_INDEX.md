@@ -26,55 +26,72 @@ these three is touched by the wind work.**
 
 ---
 
-## 🎯 Read this part and nothing else is missed
+## 🎯 Status — both decisions answered, but one reopened
 
-Three decisions unlock most of the rest. **None need me — they need you.**
+**Decision 2 (site) — ANSWERED.** Operating envelope declared: **−60 °C**, **80–120 km/h**
+(22.22–33.33 m/s), frozen ground, deep snow, rugged terrain, permafrost, ice rimming,
+thawing and refreezing. Full analysis:
+[`amu_wind_sail_v5_envelope.md`](cad_and_blender/openscad/wind/amu_wind_sail_v5_envelope.md).
 
-### 🔴 Decision 1 — the operating purpose *(#82)*
+### 🔴 What −60 °C does: the cell concept is infeasible
 
-**Is the device a passive deflector, or must it sustain motion?**
+| fluid | freezing point | headroom at −60 °C | verdict |
+|---|---|---|---|
+| saturated NaCl brine | −21 °C | −39 °C | **solid at site** |
+| CaCl₂ brine | −30 °C | −30 °C | **solid at site** |
+| 60% glycol (best nominated) | −48 °C | **−12 °C** | **solid at site** |
 
-> **My recommendation: passive deflector.** The R3 analysis concludes it will not sustain
-> self-excited oscillation in the linear regime — aerodynamic damping is 0.014%–0.656% of
-> structural, because the lift acts **0.065 m** from a pivot **1.275 m** below it.
-> Full reasoning: [`amu_wind_sail_v5_r3_aero.md`](cad_and_blender/openscad/wind/amu_wind_sail_v5_r3_aero.md)
+**Every fluid the design nominates freezes solid.** Liquid column → 0, margin → 0, machine
+topples. R5 stops being a sizing question and becomes a feasibility one: *there is no passive,
+non-flammable working fluid that holds this cell at −60 °C.*
 
-**If passive deflector** → the thermosyphon, cells and cassette stop being *necessary*. A much
-simpler machine; most of the cold-weather risk evaporates. **No energy output.**
-**If oscillation** → you are choosing the hard path: a stabiliser or moment-arm change is
-needed first, and CFD becomes worth installing.
+That retires **R1, R4, R5, R6** and the #83 fluid items (fill/drain, seal). The static-deflector
+verdict, meanwhile, **holds and strengthens** — damping stays 0.33%–0.49% across 22–33 m/s.
 
-### 🔴 Decision 2 — the site *(#82)*
+---
 
-**Where?** Or give me your constraints: latitude, coastal vs inland, access.
+### Decision 1 (operating purpose) — ANSWERED as *passive deflector*, but worth one more look
 
-**This decides whether the thermosyphon works at all.** The design-cold temperature is a site
-input, not a constant:
+You answered **passive deflector**, and asked for more context. Here is the context, and it
+changes the shape of the question rather than just confirming it.
 
-| design cold | 60% glycol (−48 °C) | result |
-|---|---|---|
-| **−40 °C** | 8 °C **inside** its limit | real headroom, R1 solvable |
-| **−50 °C** | 2 °C **outside** | no passive control closes the gap |
+**Codex's framing is right and better than mine:** the fork is *deflector* **or** *electricity*,
+decided first. My framing treated it as a single axis.
 
-Most Canadian Arctic communities are **−40 to −45 °C** per
-[NRC Canada's 2½%-basis table](https://nrc-publications.canada.ca/eng/view/object?id=95e63f97-a6a8-40cc-a0ac-8b8c7e4b2f35).
-The −50 °C originally in the model was unsourced and is now corrected. **Name a site and I'll
-pull its exact figure and derive the ice budget.**
+**If deflector** — the sail works as designed, minus the fluids. Remaining work is structural and
+geotechnical. Nothing needs a liquid.
 
-### 🔴 Decision 3 — the lean limit *(#83)*
+**If electricity** — the pivot is much larger than the sail. Adding a generator to it harvests
+nothing, because the sail settles to a static deflection and has no motion to convert. The
+vehicle would have to be a conventional small turbine.
 
-**How far may the sail lean?** 1° · 2° · 3° · other?
+**And that path has an unresolved conflict** (new — see
+[`amu_wind_sail_v5_power.md`](cad_and_blender/openscad/wind/amu_wind_sail_v5_power.md)):
 
-This is the **R7 latch/brake** decision, and it is what actually sets `BLADE_GAP` — not the
-thermal break, as originally assumed.
+| rotor diameter | @5 m/s | @6 m/s | @7 m/s |
+|---|---|---|---|
+| 5 m (flies, goes on ice road) | 0.42 kW | 0.73 kW | 1.16 kW |
+| 7 m | 0.83 kW | 1.43 kW | 2.27 kW |
+| **24 m — needed for 10 kW** | 10 kW | — | — |
+| **172 m — needed for 500 kW** | 500 kW | — | — |
 
-| lean limit | `BLADE_GAP` needed | 35 mm enough? |
-|---|---|---|
-| 1° | 16.3 mm | yes |
-| 2° | 26.0 mm | yes |
-| 3° | 35.8 mm | **no** |
+**Modularity and useful output cannot both hold.** A rotor that will actually fly is 3–7 m and
+yields sub-kilowatt to about 1 kW. Reaching 10 kW at 5 m/s mean needs a 24 m rotor.
 
-The implemented 35 mm implicitly bounds lean at **2.9°** — a number nobody chose.
+> **This is an envelope problem, not a sail problem and not a turbine problem.** Either the
+> target drops to ~1 kW, or the mean wind is far higher than 5–7 m/s, or the transport
+> constraint softens. All three cannot hold at once — and it should be settled *before*
+> choosing a vehicle, because it decides whether a generator is worth pursuing at all.
+
+### Two gaps in the declared envelope you should know about
+
+1. **No mean wind.** The envelope gives *high* wind. A power estimate is about the *mean*.
+   Sizing against 25 m/s instead of 5 m/s overstates output by **128×**.
+2. **Cold air is an advantage, and a cost.** At −60 °C the air is **1.35× denser**, so the same
+   rotor makes 1.35× the power — partly offsetting icing. But loads rise by the same 1.35×.
+
+Mean-wind figures used above are an explicit **placeholder band**, not measured data and not a
+citation. They must be replaced with site-specific data before use.
 
 ---
 
@@ -165,12 +182,12 @@ three clean. Full readings in §Part A of [`TEST_TALLY.md`](TEST_TALLY.md).
 | | |
 |---|---|
 | `master` | `2afe749` |
-| `main-dev` | `b541f75`, CI green |
-| **Awaiting your test → merge** | **9 commits** |
+| `main-dev` | `11cc59e`, CI green |
+| **Awaiting your test → merge** | **11 commits** |
 
 Merge is deliberately gated on your review (branching workflow Step 7).
 
 ---
 
 > 🤖 **Maintained by:** OpenCode, powered by **opencode/space-bunny-free**
-> 📅 **Last updated:** October 13, 2026 — 7:10 AM Eastern (ET) / 11:10 UTC
+> 📅 **Last updated:** October 13, 2026 — 7:45 AM Eastern (ET) / 11:45 UTC
