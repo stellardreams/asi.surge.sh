@@ -5,6 +5,20 @@
 
 ---
 
+## Glossary of Technical Terms & Hyperlinks
+
+- **[Direct-Drive Powertrain](https://en.wikipedia.org/wiki/Direct-drive_mechanism):** Eliminates gearbox transmissions, directly coupling the rotating aerodynamic turbine blades to the electrical generator rotor.
+- **[Nacelle](https://en.wikipedia.org/wiki/Nacelle#Wind_turbines):** The structural aerodynamic housing atop the wind turbine tower enclosing generator, bearings, yaw drive, and electrical systems.
+- **Tophead:** The collective mechanical assembly (nacelle, generator, bedplate, and yaw drive) positioned at the top of the mast.
+- **[Deadweight Ballast](https://en.wikipedia.org/wiki/Ballast):** Solid mass counterweight (gravel/ballast in ISO container floor) providing overturning stability without wet concrete foundations.
+- **[Permafrost Ground Interface](https://en.wikipedia.org/wiki/Permafrost):** Non-destructive foundation anchor into frozen ground that avoids thermal degradation (thaw slumping).
+- **[Permanent Magnet Synchronous Generator (PMSG)](https://en.wikipedia.org/wiki/Permanent_magnet_synchronous_generator):** AC generator utilizing high-flux neodymium magnets (NdFeB) on its rotor, operating efficiently at low rotational speeds (60–75 RPM).
+- **[Low-Temperature Mechanical Bearings](https://en.wikipedia.org/wiki/Rolling-element_bearing):** Heavy-duty roller bearings packed with synthetic ester/PFPE grease rated down to **−65 °C**, preventing low-temperature channeling and seizure.
+- **[Thermal Cowl Enclosure](https://en.wikipedia.org/wiki/Building_envelope):** Weather-sealed insulated composite shell lined with aerogel blanket protecting electrical internals from windblown snow.
+- **[Yaw Bedplate](https://en.wikipedia.org/wiki/Wind_turbine_design#Yaw_system):** Welded structural chassis carrying the main shaft and generator, mounted atop a [slewing ring bearing](https://en.wikipedia.org/wiki/Slewing_bearing) to steer the turbine into the wind.
+
+---
+
 ## 1. Overview & Core Architecture
 
 In high-latitude Arctic deployments down to **−60 °C**, traditional wind turbine geared powertrains represent the single highest failure mode:
