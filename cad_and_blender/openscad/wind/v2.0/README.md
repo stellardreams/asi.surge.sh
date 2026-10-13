@@ -20,7 +20,7 @@ Tracked in [#82](https://github.com/stellardreams/asi.surge.sh/issues/82).
 | Extreme cold | **−60 °C** |
 | High wind | **80–120 km/h** (22.22–33.33 m/s) |
 | Ground | frozen, deep snow, rugged terrain, permafrost |
-| Icing | ice rimming on the rotor |
+| Icing | [rime icing](https://en.wikipedia.org/wiki/Hard_rime) on the rotor |
 | Cycling | thawing and refreezing |
 
 
