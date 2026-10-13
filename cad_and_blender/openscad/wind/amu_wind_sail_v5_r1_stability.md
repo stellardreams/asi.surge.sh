@@ -152,18 +152,17 @@ holding `ICE_TOP` down — which is a control strategy, not a design change.**
 
 | candidate | type | finding |
 |---|---|---|
-| drain / weep drain (R6) | **control on `ICE_TOP`** | Not a geometry parameter. The swept value is the *outcome*, not an input. Cannot be evaluated by this sweep; needs R6 thermal work. |
+| drain / weep drain (R6) | **water-path control only** | Can release displaced/melt water but cannot by itself cap the advancing ice front. Requires separate freeze/thermal validation; this sweep cannot assess it. |
 | active re-freeze control | **control on `ICE_TOP`** | Same. No geometric evaluation is possible in this model. |
 | cells further below pivot | **proxy only, via `L_SAIL`** | The model has no coordinate for cell vertical position. `L_SAIL` is a proxy that also moves the structure CoM, so it is not a faithful stand-in. Best case +0.047 m at a defensible `L_SAIL`. |
 | larger margin at low water | **self-contradictory as written** | Margin falls *quadratically* as fill falls. "More margin at low water" cannot be achieved by filling less; it must be paired with `L_SAIL`, `m_s` or `CELL_COLS`. |
 
 ## 8. Consequences for the register
 
-1. **R6 (weep drain) is on R1's critical path.** The register recommends testing R6 first on
-   detection-cost grounds. This sweep adds an independent, quantitative reason: the drain is
-   the only candidate fix that acts on the variable that actually governs margin. My earlier
-   suggestion to keep R6 and R1 as separate issues still stands for *tracking* purposes — but
-   they are not independent engineering problems, and neither can be closed first.
+1. **R6 (weep drain) is a water-path dependency for R1.** A working drain may prevent trapped
+   meltwater from changing the liquid column, but it cannot by itself cap ice depth. Keep R6
+   separate for tracking; R1's ice-depth control must be demonstrated independently, while
+   the drain is validated as part of the same winter-state test.
 2. **R5 (thermosyphon capacity) is likewise load-bearing.** If the thermosyphon holds the
    cells at freezing point, ice forms only outside the thermosiphoned region. If it fails,
    the cell can freeze toward 0.616 m, where this model has no answer at all.
@@ -172,6 +171,58 @@ holding `ICE_TOP` down — which is a control strategy, not a design change.**
 4. **R1 and R4 are coupled more tightly than recorded.** The frequency collapse in §5 is an
    R4 finding (no loss curve, no Cp, unverified tuning) that only becomes visible through an
    R1 sweep.
+
+## 8a. Proposed dispositions for #84 open items
+
+These are engineering dispositions for closing the *analysis* questions. They do not certify
+the device or close physical validation gates. No deployment site or climate basis is
+available, and this model does not simulate heat transfer or freeze progression.
+
+1. **Control and provisional limit:** do not treat the weep drain as an ice-depth controller.
+   It provides a path for displaced/melt water; it cannot prevent the ice front advancing.
+   Treat the thermosyphon as the candidate passive thermal control, but do not credit it with
+   holding a particular `ICE_TOP` until a heat-balance model and cold-chamber or field test
+   show that result under the declared ambient and wind envelope. For the next design
+   iteration, use `ICE_TOP ≤ 0.20 m` as a *provisional qualification target*, not an
+   operating guarantee or final requirement. The model gives margin 3.471 and
+   `f_sail = 0.687 Hz` there, compared with margin 2.003 at 0.30 m and instability at
+   0.3927 m. Add independent ice-depth monitoring and a defined safe response if the limit
+   is exceeded; if monitoring or a safe response cannot be provided, demonstrate the target
+   by passive thermal design alone. R5 thermal capacity is a prerequisite; R6 drain sizing is
+   a separate water-path prerequisite, not the primary ice cap.
+2. **Climate basis:** leave the final ice budget open until a deployment site is selected.
+   For that site, derive the required winter case from joint cold-duration, wind/gust,
+   precipitation/freezing-rain, and melt/refreeze exposure, with a stated return period and
+   consequence class. Use local authoritative weather/design data and a site survey; do not
+   infer an ice depth from air temperature alone. Convert the environmental case into a
+   measured or validated maximum `ICE_TOP`. The provisional 0.20 m target is a test point
+   pending this work, not evidence that a climate delivers less ice.
+3. **Acceptance metric:** require both stability margin and tuning performance at every
+   tested ice state. Retain margin ≥ 2.0 as the current model screen, and add a separately
+   declared allowed frequency band or minimum useful response based on the intended
+   operating purpose and measured response. Report `ICE_TOP`, margin, `f_sail`, and `f_abs`
+   together; do not pass a design on margin alone. These equations remain screening metrics
+   until validated against coupled dynamics and physical measurements.
+4. **Cells below pivot:** downgrade this from a candidate fix to an unverified geometry
+   sensitivity. The current model has no cell-height coordinate and `L_SAIL` also changes
+   assumed structure center of mass. Do not claim a benefit without a revised center-of-mass
+   and coupled model; the current proxy gives only about +0.047 m at `L_SAIL = 1.80 m`.
+5. **Low-water claim:** correct the register wording. Lower fill/greater ice depth reduces
+   margin quadratically in this model. It is not a stability fix. Any low-water proposal must
+   identify an independent change (for example `L_SAIL`, structure mass, or `CELL_COLS`) and
+   show both margin and frequency consequences; current plausible geometry changes do not
+   establish a defensible full-winter ice budget.
+6. **R5/R6 dependency:** update the register to make R5 (thermosyphon heat balance and
+   capacity) a direct prerequisite to demonstrating the ice-depth bound, and R6 (weep-drain
+   flow, ice bridging, and meltwater escape) a separate prerequisite to maintaining the
+   assumed liquid/ice geometry. They are coupled validation work, not interchangeable
+   controls. Failure of either must be represented in the winter-state test matrix, including
+   detection delay and the chosen safe response.
+
+**Closure evidence needed:** site climate/design basis; thermal model with stated assumptions;
+instrumented freeze/thaw test showing maximum ice depth and water escape; and measured
+frequency/stability response over the tested envelope. Until these exist, #84 can close its
+model-analysis and register-wording items, but the seasonal operating limit remains open.
 
 ## 9. Robustness note
 
