@@ -97,6 +97,8 @@ Each trades against something.
 | [`container_sizing.py`](container_sizing.py) | container envelope → section and mass budget; what it does and does not decide |
 | [`foundation_load_envelope.py`](foundation_load_envelope.py) / [`foundation.md`](foundation.md) | Package 1: foundation load envelope, overturning safety, permafrost anchors (#85) |
 | [`wind_v2_foundation.scad`](wind_v2_foundation.scad) | Package 1: 3D CAD foundation assembly (container, cribbing, anchors, trunnion) |
+| [`erection_kinematics.py`](erection_kinematics.py) / [`mast_erection.md`](mast_erection.md) | Package 2: tilt-up kinematics, winch line tension, gin-pole buckling (#86) |
+| [`wind_v2_mast_erection.scad`](wind_v2_mast_erection.scad) | Package 2: 3D CAD modular mast, gin-pole A-frame, and tilt-up stages |
 
 All self-check and exit `0`.
 
