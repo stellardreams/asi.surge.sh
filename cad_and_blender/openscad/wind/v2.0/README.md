@@ -100,12 +100,12 @@ All three exit `0` and self-check.
 
 ## Program tracking structure
  
-Wind v2.0 is tracked under parent **[#82](https://github.com/stellardreams/asi.surge.sh/issues/82)**, with work organized into dedicated work packages / child issues:
+Wind v2.0 is tracked under parent **[#82](https://github.com/stellardreams/asi.surge.sh/issues/82)**, sequenced from the ground up across four dedicated child issues:
  
-- **Package 1 — Modular Rotor & Container Stowage:** 20 ft ISO packaging envelope, sectional blade segment joints (1.7–1.9 m), transport restraints, and root/nacelle packaging.
-- **Package 2 — Erection Kinematics & Foundation Interface:** Tilt-up guyed mast geometry, container corner-casting hinge plates, A-frame / gin-pole winch line rigging (zero heavy lift), and permafrost mechanical ground-anchor scheme.
-- **Package 3 — Arctic Powertrain (−60 °C) & Anti-Icing Strategy:** Direct-drive permanent magnet generator (eliminating cold-sensitive gearbox lubricants), thermal containment, and leading-edge electro-thermal or passive icephobic shedding.
-- **Package 4 — Microgrid & Electrical Power Integration:** 25–100 kW power conditioning architecture, remote diesel microgrid integration / synchronisation, and low-EMI compliance (MIL-STD-461G benchmark).
+- **[#85 — Package 1: Foundation & Arctic Ground Interface](https://github.com/stellardreams/asi.surge.sh/issues/85):** Container reaction footing/ballasting, permafrost ground anchoring (no wet concrete), thermal isolation pad, and ISO corner-casting hinge interfaces.
+- **[#86 — Package 2: Mast Structure & Tilt-Up Erection Kinematics](https://github.com/stellardreams/asi.surge.sh/issues/86):** Modular sectional tower (transportable in 20 ft ISO box), gin-pole (A-frame) rigging, winch trajectory (zero heavy lift), and guy-wire load paths under 120 km/h winds.
+- **[#87 — Package 3: Arctic Direct-Drive Powertrain (−60 °C) & Nacelle](https://github.com/stellardreams/asi.surge.sh/issues/87):** Direct-drive PMSG (no freeze-prone gearbox lubricants), low-temperature bearing selection, fail-safe aerodynamic braking, and thermal containment.
+- **[#88 — Package 4: Sectional Rotor, Anti-Icing & Microgrid System Packaging](https://github.com/stellardreams/asi.surge.sh/issues/88):** 50 kW sectional composite rotor blades, quick-connect spar joints, leading-edge anti-icing to counter [rime icing](https://en.wikipedia.org/wiki/Hard_rime), low-EMI microgrid converter, and total 20 ft container stowage layout.
 
 ---
 
