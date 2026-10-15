@@ -1,11 +1,16 @@
 // BSC Testnet deployment script for TestToken
 // Usage: npx hardhat run scripts/deploy-testtoken-bsc.js --network bscTestnet
 
-import pkg from "hardhat";
-const { ethers } = pkg;
+import hre from "hardhat";
 
 async function main() {
   console.log("🚀 Deploying TestToken to BSC Testnet...");
+
+  // Hardhat 3 attaches ethers to the network connection, not to the
+  // runtime environment. `hre.ethers` does not exist; the plugin
+  // extends NetworkConnection instead.
+  const connection = await hre.network.connect();
+  const { ethers } = connection;
 
   // Get deployer
   const [deployer] = await ethers.getSigners();
