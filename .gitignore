@@ -94,14 +94,15 @@ Thumbs.db
 desktop.ini
 
 # ---------------------------------------------------------------------------
-# Node / Solidity leftovers
+# Node / Solidity
 # ---------------------------------------------------------------------------
-# These predate the CAD work and are still on disk from an earlier Ethereum
-# project on this repo. Kept ignored so they cannot be committed by accident —
-# delete the directories when you no longer need them.
+# The Ethereum project is NOT leftover: contracts/ and test/ are tracked, and
+# Token Contract CI builds and tests them on every push. package-lock.json is
+# deliberately NOT ignored — 'npm ci' requires it, and pinning transitive
+# dependencies is what makes the install reproducible and auditable.
+# Only build output is ignored.
 
 node_modules/
-package-lock.json
 
 # Hardhat / Solidity build output. Note: contracts/ is NOT ignored — it holds
 # four tracked .sol sources, and ignoring tracked paths is a no-op anyway.
