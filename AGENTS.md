@@ -74,8 +74,8 @@ Never check off an item because it looks done, because a comment claims it was
 done, or because of a blanket instruction like "mark them all done". A stale
 claim in an old comment is not evidence.
 
-**User-owned items** — anything requiring Adeel's MetaMask, private key, funds,
-credentials, or manual approval — may only be checked off when Adeel explicitly
+**User-owned items** — anything requiring @genidma's MetaMask, private key, funds,
+credentials, or manual approval — may only be checked off when @genidma explicitly
 names that specific item. Never under a general completion request.
 
 A checklist ledger is an *auditing* tool. It reports truth. It never justifies
