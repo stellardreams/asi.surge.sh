@@ -3,10 +3,10 @@ name: Token Contract CI
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 permissions:
   contents: read
@@ -35,7 +35,7 @@ jobs:
     
     - name: Upload artifacts
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: contracts-artifacts
         path: artifacts/
