@@ -39,6 +39,9 @@ The Wind v2.0 codebase was designed from inception to be 100% physically decoupl
 | `container_pack_audit.py` | Full cargo mass reconciliation ($9\text{ }216.8\text{ kg} \le 10\text{ }886\text{ kg}$, $15.3\%$ margin) | Pass (`exit 0`) ✅ |
 | `microgrid_dispatch.py` | 8760-hour diesel displacement simulation ($21\text{ }087\text{ L/yr}$ saved) | Pass (`exit 0`) ✅ |
 | `weibull_wind_resource.py` | Weibull AEP matrix & capacity factor sensitivity ($186 - 360\text{ MWh/yr}$) | Pass (`exit 0`) ✅ |
+| `aero_icing_loads.py` | 50-year storm gust ($42\text{ m/s}$), asymmetric rime icing unbalance, guy wire $FS = 5.95$ | Pass (`exit 0`) ✅ |
+| `cold_climate_fmea.py` | Quantitative IEC 60812 FMEA (all residual risk RPN $< 50$, aggregate risk $-90.9\%$) | Pass (`exit 0`) ✅ |
+| `levelized_cost_energy.py` | Arctic LCOE ($0.340\text{ CAD/kWh}$ vs $0.743\text{ CAD/kWh}$ diesel), 5.75-year payback | Pass (`exit 0`) ✅ |
 
 ### C. Technical Specifications & Release Notes
 | Source Path | Document Role |
