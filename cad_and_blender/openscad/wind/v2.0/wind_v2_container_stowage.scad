@@ -28,7 +28,8 @@ c_mode = 0;
 // -----------------------------------------------------------------------------
 
 module iso_container_frame() {
-    color([0.65, 0.22, 0.22, c_mode == 0 ? 0.25 : 1.0]) {
+    // Solar-absorptive matte dark charcoal / black for passive solar gain in cold Arctic climates
+    color([0.18, 0.19, 0.21, c_mode == 0 ? 0.35 : 1.0]) {
         difference() {
             cube([box_l + 160, box_w + 120, box_h + 160], center=true);
             cube([box_l, box_w, box_h], center=true);
