@@ -101,6 +101,9 @@ Each trades against something.
 | [`wind_v2_mast_erection.scad`](wind_v2_mast_erection.scad) | Package 2: 3D CAD modular mast, gin-pole A-frame, and tilt-up stages |
 | [`powertrain_envelope.py`](powertrain_envelope.py) / [`powertrain.md`](powertrain.md) | Package 3: Arctic direct-drive PMSG sizing, thermal self-heating, bearing grease (#87) |
 | [`wind_v2_nacelle.scad`](wind_v2_nacelle.scad) | Package 3: 3D CAD nacelle bedplate, PMSG generator, yaw drive, fail-safe brake |
+| [`container_pack_audit.py`](container_pack_audit.py) / [`stowage_and_microgrid.md`](stowage_and_microgrid.md) | Package 4: 20 ft ISO stowage audit, electro-thermal anti-icing, microgrid (#88) |
+| [`wind_v2_blade_joint.scad`](wind_v2_blade_joint.scad) | Package 4: 3D CAD 1.8 m sectional blade module, carbon spar joint, anti-icing foil |
+| [`wind_v2_container_stowage.scad`](wind_v2_container_stowage.scad) | Package 4: 3D CAD full 20 ft ISO shipping container packing & internal equipment racks |
 
 All self-check and exit `0`.
 
