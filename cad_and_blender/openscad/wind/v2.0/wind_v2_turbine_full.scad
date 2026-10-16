@@ -47,8 +47,17 @@ module full_operational_rotor() {
                 }
                 // High-visibility orange anti-icing leading edge (outer 60% span)
                 color([0.95, 0.45, 0.1]) {
-                    translate([-60, -180, blade_len * 0.70])
-                    cube([40, 60, blade_len * 0.60], center=true);
+                    hull() {
+                        translate([0, -950*0.22/2 * 0.70, blade_len * 0.40])
+                        rotate([0, 90, 0])
+                        scale([1.05, 0.25, 1.05])
+                        cylinder(d=280, h=185, center=true);
+
+                        translate([0, -420*0.14/2, blade_len])
+                        rotate([0, 90, 0])
+                        scale([1.05, 0.18, 1.05])
+                        cylinder(d=180, h=95, center=true);
+                    }
                 }
             }
         }
