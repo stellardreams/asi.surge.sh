@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  cora_m_manipulator.urdf - Space ROS Kinematic Model for CORA-M 7-DoF Robotic Arm
+  Tracked under Issue #81 ("Tool-Grab" Mission)
+  
+  Physical & Kinematic Baseline:
+  - Stroke: 580.0 mm along top prismatic apex guide rail (scale factor: 0.014 AMU units/mm)
+  - Reach: 320.0 mm total extended reach across 6 revolute articulation links
+  - Cross-Contamination Safety: Hardware-level zone constraint interlocking for Module II
+-->
+<robot name="cora_m_manipulator">
+
+  <!-- World / AMU Vault Apex Gantry Rail Baseline -->
+  <link name="amu_apex_rail">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.828 0.040 0.030"/>
+      </geometry>
+      <material name="dark_grey">
+        <color rgba="0.22 0.24 0.26 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.828 0.040 0.030"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="25.0"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="1.5" iyz="0" izz="1.5"/>
+    </inertial>
+  </link>
+
+  <!-- Joint 1: Prismatic Rail Traverse (Effective Stroke = 580 mm, Home = 100 mm, Target = 400 mm) -->
+  <joint name="prismatic_rail_joint" type="prismatic">
+    <parent link="amu_apex_rail"/>
+    <child link="cora_carriage_link"/>
+    <origin xyz="-0.200 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0.000" upper="0.580" effort="850.0" velocity="0.45"/>
+    <safety_controller k_velocity="10.0" k_position="20.0" soft_lower_limit="0.010" soft_upper_limit="0.570"/>
+  </joint>
+
+  <!-- Carriage Link -->
+  <link name="cora_carriage_link">
+    <visual>
+      <origin xyz="0 0 0.020" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.060 0.050 0.030"/>
+      </geometry>
+      <material name="steel_blue">
+        <color rgba="0.15 0.45, 0.85 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.020" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.060 0.050 0.030"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.5"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <!-- Joint 2: Base Turret Yaw -->
+  <joint name="turret_yaw_joint" type="revolute">
+    <parent link="cora_carriage_link"/>
+    <child link="base_turret_link"/>
+    <origin xyz="0 0 0.035" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="220.0" velocity="1.2"/>
+    <safety_controller k_velocity="8.0" k_position="15.0" soft_lower_limit="-3.0" soft_upper_limit="3.0"/>
+  </joint>
+
+  <link name="base_turret_link">
+    <visual>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.025" length="0.030"/>
+      </geometry>
+      <material name="white_casing">
+        <color rgba="0.92 0.94 0.96 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.025" length="0.030"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="3.2"/>
+      <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.003"/>
+    </inertial>
+  </link>
+
+  <!-- Joint 3: Shoulder Pitch -->
+  <joint name="shoulder_pitch_joint" type="revolute">
+    <parent link="base_turret_link"/>
+    <child link="upper_arm_link"/>
+    <origin xyz="0 0 0.030" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.5708" upper="2.0944" effort="310.0" velocity="0.8"/>
+    <safety_controller k_velocity="12.0" k_position="18.0" soft_lower_limit="-1.50" soft_upper_limit="2.00"/>
+  </joint>
+
+  <link name="upper_arm_link">
+    <visual>
+      <origin xyz="0 0 0.060" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.028 0.034 0.120"/>
+      </geometry>
+      <material name="white_casing"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.060" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.028 0.034 0.120"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="5.8"/>
+      <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.005"/>
+    </inertial>
+  </link>
+
+  <!-- Joint 4: Elbow Pitch -->
+  <joint name="elbow_pitch_joint" type="revolute">
+    <parent link="upper_arm_link"/>
+    <child link="forearm_link"/>
+    <origin xyz="0 0 0.120" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.356" upper="0.785" effort="210.0" velocity="1.0"/>
+    <safety_controller k_velocity="10.0" k_position="15.0" soft_lower_limit="-2.30" soft_upper_limit="0.75"/>
+  </joint>
+
+  <link name="forearm_link">
+    <visual>
+      <origin xyz="0 0 0.050" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.022 0.026 0.100"/>
+      </geometry>
+      <material name="steel_blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.050" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.022 0.026 0.100"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="3.8"/>
+      <inertia ixx="0.015" ixy="0" ixz="0" iyy="0.015" iyz="0" izz="0.003"/>
+    </inertial>
+  </link>
+
+  <!-- Joint 5: Wrist Pitch -->
+  <joint name="wrist_pitch_joint" type="revolute">
+    <parent link="forearm_link"/>
+    <child link="wrist_pitch_link"/>
+    <origin xyz="0 0 0.100" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.5708" upper="1.5708" effort="95.0" velocity="1.5"/>
+  </joint>
+
+  <link name="wrist_pitch_link">
+    <visual>
+      <origin xyz="0 0 0.010" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.018"/>
+      </geometry>
+      <material name="white_casing"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.010" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.018"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.2"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <!-- Joint 6: Wrist Roll -->
+  <joint name="wrist_roll_joint" type="revolute">
+    <parent link="wrist_pitch_link"/>
+    <child link="wrist_roll_link"/>
+    <origin xyz="0 0 0.020" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="70.0" velocity="2.0"/>
+  </joint>
+
+  <link name="wrist_roll_link">
+    <visual>
+      <origin xyz="0 0 0.007" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.016" length="0.015"/>
+      </geometry>
+      <material name="steel_blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.007" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.016" length="0.015"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.9"/>
+      <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.0005"/>
+    </inertial>
+  </link>
+
+  <!-- Joint 7: Gripper End Effector -->
+  <joint name="gripper_tool_joint" type="fixed">
+    <parent link="wrist_roll_link"/>
+    <child link="gripper_end_effector"/>
+    <origin xyz="0 0 0.015" rpy="0 0 0"/>
+  </joint>
+
+  <link name="gripper_end_effector">
+    <visual>
+      <origin xyz="0 0 0.012" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.035 0.024"/>
+      </geometry>
+      <material name="gold_coating">
+        <color rgba="0.85 0.68 0.25 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.012" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.035 0.024"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.8"/>
+      <inertia ixx="0.0003" ixy="0" ixz="0" iyy="0.0003" iyz="0" izz="0.0003"/>
+    </inertial>
+  </link>
+
+  <!-- ===================================================================== -->
+  <!-- Space ROS Safety Fencing & Cross-Contamination Constraints            -->
+  <!-- ===================================================================== -->
+  <ros2_control name="CoraMSpaceRosInterface" type="system">
+    <hardware>
+      <plugin>space_ros_hardware_interface/GenericSpaceArmHardware</plugin>
+      <!-- Hardware Zone Enforcement: Locks out Module II agricultural/biological clean zones -->
+      <param name="assigned_zone">ZONE_MANUFACTURING_POWER_SERVICING</param>
+      <param name="module_ii_cross_contamination_interlock">ACTIVE_LOCKED</param>
+      <param name="sterile_bypass_allowed">false</param>
+      <param name="decontamination_cycle_verified">false</param>
+      <param name="max_cartesian_linear_velocity">0.35</param>
+    </hardware>
+  </ros2_control>
+
+</robot>

@@ -1,0 +1,85 @@
+{
+  "system_id": "AMU-CORA-M-7DOF",
+  "name": "CORA-M Compact Robotic Arm",
+  "subsystem": "Autonomous Microbioreactor Unit (AMU) Core Manipulation",
+  "version": "1.0.0",
+  "github_tracking": {
+    "parent_issue": 81,
+    "parent_issue_url": "https://github.com/stellardreams/asi.surge.sh/issues/81",
+    "kinematics_audit_script": "cad_and_blender/openscad/opencode/amu_arm_kinematics_audit.py",
+    "space_ros_urdf": "cad_and_blender/openscad/opencode/cora_m_manipulator.urdf"
+  },
+  "kinematic_specifications": {
+    "degrees_of_freedom": 7,
+    "configuration": "Prismatic Linear Rail (1-DoF) + Articulated Arm (6-DoF)",
+    "linear_rail_stroke_mm": 580.0,
+    "linear_rail_axis": "Z",
+    "articulated_reach_mm": 320.0,
+    "total_accessible_envelope_z_mm": 900.0,
+    "joints": [
+      {
+        "name": "rail_prismatic_joint",
+        "type": "prismatic",
+        "axis": [0, 0, 1],
+        "limits": { "lower_m": 0.0, "upper_m": 0.58, "velocity_mps": 0.2, "effort_nm": 150.0 }
+      },
+      {
+        "name": "arm_joint_1_pan",
+        "type": "revolute",
+        "axis": [0, 0, 1],
+        "limits": { "lower_rad": -3.14159, "upper_rad": 3.14159, "velocity_radps": 1.57, "effort_nm": 25.0 }
+      },
+      {
+        "name": "arm_joint_2_lift",
+        "type": "revolute",
+        "axis": [0, 1, 0],
+        "limits": { "lower_rad": -1.5708, "upper_rad": 1.5708, "velocity_radps": 1.57, "effort_nm": 40.0 }
+      },
+      {
+        "name": "arm_joint_3_elbow",
+        "type": "revolute",
+        "axis": [0, 1, 0],
+        "limits": { "lower_rad": -2.61799, "upper_rad": 2.61799, "velocity_radps": 2.09, "effort_nm": 25.0 }
+      },
+      {
+        "name": "arm_joint_4_wrist_roll",
+        "type": "revolute",
+        "axis": [0, 0, 1],
+        "limits": { "lower_rad": -3.14159, "upper_rad": 3.14159, "velocity_radps": 3.14, "effort_nm": 10.0 }
+      },
+      {
+        "name": "arm_joint_5_wrist_pitch",
+        "type": "revolute",
+        "axis": [0, 1, 0],
+        "limits": { "lower_rad": -1.5708, "upper_rad": 1.5708, "velocity_radps": 3.14, "effort_nm": 10.0 }
+      },
+      {
+        "name": "arm_joint_6_wrist_yaw",
+        "type": "revolute",
+        "axis": [0, 0, 1],
+        "limits": { "lower_rad": -3.14159, "upper_rad": 3.14159, "velocity_radps": 3.14, "effort_nm": 10.0 }
+      }
+    ]
+  },
+  "safety_and_interlocks": {
+    "cross_contamination_control": {
+      "module_ii_interlock": "ACTIVE_LOCKED",
+      "zone_restriction": "Forbidden Cartesian travel into Module II clean bio-containment boundaries during automated reagent handling",
+      "collision_avoidance_zones": [
+        {
+          "zone_id": "MODULE_II_CLEAN_BOUNDARY",
+          "x_bounds_m": [0.15, 0.45],
+          "y_bounds_m": [-0.20, 0.20],
+          "z_bounds_m": [0.00, 0.60],
+          "status": "RESTRICTED"
+        }
+      ]
+    }
+  },
+  "electrical_and_power": {
+    "bus_voltage_v": 24.0,
+    "peak_power_consumption_w": 180.0,
+    "nominal_power_w": 45.0,
+    "communication_bus": "CANopen / Space ROS 2 Hardware Interface"
+  }
+}
