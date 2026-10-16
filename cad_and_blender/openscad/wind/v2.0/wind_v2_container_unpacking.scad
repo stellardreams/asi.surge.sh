@@ -136,9 +136,15 @@ module overhead_crane_monorail() {
 }
 
 module deploying_nacelle_and_skid() {
-    // Nacelle tophead travels out on the monorail and lands on the site ground pad
+    // Nacelle tophead travels out on the monorail and lands cleanly on ground sleeper cribbing
     slide_x = s_nacelle * 3600;
-    drop_z = s_nacelle * (-box_h/2 + 200);
+    // Stowed inside container at Z = -box_h/2 + 750.
+    // Bottom of skid is at -650 - 70 = -720 mm relative to nacelle center.
+    // Ground plane is at Z = -box_h/2 - 200.
+    // Timber cribbing sleeper height = 60 mm.
+    // Target nacelle center at rest: (-box_h/2 - 200) + 60 + 720 = -box_h/2 + 580.
+    // Total vertical travel = 580 - 750 = -170 mm.
+    drop_z = s_nacelle * (-170);
 
     translate([box_l/2 - 1500 + slide_x, 0, -box_h/2 + 750 + drop_z]) {
         // Direct-drive nacelle body
@@ -154,6 +160,12 @@ module deploying_nacelle_and_skid() {
         translate([650, 0, 0])
         rotate([0, 90, 0])
         cylinder(d=1200, h=220, center=true);
+
+        // Timber cribbing sleeper pads beneath skid
+        color([0.55, 0.35, 0.20]) {
+            translate([-600, 0, -750]) cube([300, 1500, 60], center=true);
+            translate([600, 0, -750]) cube([300, 1500, 60], center=true);
+        }
     }
 }
 
