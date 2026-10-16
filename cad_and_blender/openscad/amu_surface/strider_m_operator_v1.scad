@@ -3,22 +3,21 @@
 // Version Control & Engineering Audit:
 // - Version: v1.0
 // - Tracked Under: Issue #97 (Parent #81, Cross-ref #82, #88)
-// - Operational Classification: Non-Autonomous Unit (Human-Controlled Operation / Micro-Installer)
-//   Utilized for complex assisted maneuvers, precision field repairs, and tactile micro-wind installation.
+// - Operational Classification: Non-Autonomous Unit (Manned Arctic Scout / Zero-Crush Safety Cell)
+//   Utilized for safe crew transport, tactical field recon, environmental sensor monitoring, and emergency response.
+//   *CRUSH HAZARD ZEROED*: Industrial crane completely removed from operator platform to eliminate all personnel drop/crush risk.
 //
 // Key Subsystems & Design Features (from Arctic Fleet Classification Schematic):
 // 1. Visible Operator Cockpit & Safety Cell (NASCAR-Style Full Roll Cage):
 //    - Heavy-duty high-tensile tubular steel roll cage (ROPS/FOPS - Roll-Over & Falling Object Protection)
-//      fully encasing the human operator from overhead, lateral impact, and falling loads.
-//    - Overhead steel canopy / deflector shield completely protecting the operator against accidental crane drop.
+//      fully encasing the human operator from overhead, lateral impact, and falling terrain/ice.
+//    - Overhead steel canopy / deflector shield providing overhead weather and impact protection.
 //    - Human-scale operator saddle seat, handlebar steering controls, and direct operator feedback HUD/display.
-//    - Manual hydraulic override control lever rack protected inside the armored safety cell.
-// 2. Separate Isolated Crane Module & Kinematic Barrier:
-//    - Articulating micro-installer crane boom is mounted on a structurally isolated rear turret pedestal
-//      behind a solid armored deflection bulkhead wall separating the crane envelope from the operator.
-// 2. Heavy Articulating Micro-Installer Crane Boom:
-//    - 3-segment hydraulic boom arm with heavy base turret, elbow actuator, and rotating wrist.
-//    - Hydraulic grapple claw end-effector holding/installing a Modular Micro-Wind Unit (Type A, Assy P/N: 12845).
+//    - Manual control bank and heated glove grips protected inside the armored safety cell.
+// 2. Safe Crew Gear Trunk & Life-Support Equipment Locker:
+//    - Rear chassis deck outfitted with an enclosed composite equipment locker, dual waterproof access lids,
+//      and strapped modular emergency packs (first aid, survival kits, and backup field power batteries).
+//    - ZERO heavy overhead machinery or articulating booms above or near the human operator.
 // 3. Four Independent Arctic Crawler Bogies:
 //    - Identical high-traction triangular bogies with gold ice grousers and chrome road wheels.
 // 4. Ruggedized Field Maintenance Sponsons & Driving Lights:
@@ -264,79 +263,45 @@ module nascar_operator_safety_cell() {
 }
 
 // -----------------------------------------------------------------------------
-// Subsystem 3: Articulating Micro-Installer Crane Boom & Modular Wind Unit
+// Subsystem 3: Safe Crew Gear Trunk & Life-Support Equipment Locker
+// (Zero heavy overhead machinery -- completely eliminated crush/drop hazard)
 // -----------------------------------------------------------------------------
 
-module micro_installer_crane_arm() {
-    // Base Turret on Rear Chassis Deck
-    translate([-1.8, 0, CHASSIS_H + 0.35]) {
-        color(COL_BOOM_DARK) {
-            cylinder(h=0.45, r=0.65, center=true, $fn=32);
-            // Turret bearing ring
-            translate([0, 0, 0.25])
-                cylinder(h=0.15, r=0.55, center=true, $fn=32);
+COL_EXPEDITION_BOX  = [0.22, 0.24, 0.26];
+COL_EXPEDITION_LID  = [0.88, 0.40, 0.10]; // High-vis Arctic safety orange latch/lid
+
+module expedition_crew_gear_trunk() {
+    // Heavy reinforced low-profile composite cargo trunk on rear deck
+    translate([-1.85, 0, CHASSIS_H + 0.35]) {
+        color(COL_EXPEDITION_BOX) {
+            cube([1.9, 1.65, 0.65], center=true);
+            // Tie-down side rails
+            for (ty = [-0.85, 0.85]) {
+                translate([0, ty, 0.25])
+                    cube([1.8, 0.06, 0.12], center=true);
+            }
         }
-
-        // Lower Mast / Shoulder Segment (Leaning backwards/upward matching schematic)
-        translate([0, 0, 0.45]) rotate([0, -25, 0]) {
-            color(COL_BOOM_ORANGE) {
-                translate([0, 0, 1.2])
-                    cube([0.45, 0.55, 2.4], center=true);
+        // Hinged dual waterproof access lids
+        color(COL_EXPEDITION_LID) {
+            for (lx = [-0.48, 0.48]) {
+                translate([lx, 0, 0.35])
+                    cube([0.88, 1.58, 0.08], center=true);
             }
-            // Shoulder Hydraulic Ram
-            translate([-0.3, 0, 0.6]) rotate([0, 15, 0]) {
-                color(COL_BOOM_DARK) cylinder(h=1.2, r=0.12, center=true);
-                color(COL_HYDRAULIC_RAM) translate([0, 0, 0.6])
-                    cylinder(h=0.8, r=0.07, center=true);
-            }
-
-            // Elbow Joint & Upper Jib Arm (Reaching forward horizontally towards rear/side payload)
-            translate([0, 0, 2.4]) rotate([0, 105, 0]) {
-                color(COL_BOOM_ORANGE) {
-                    translate([0, 0, 1.3])
-                        cube([0.38, 0.45, 2.6], center=true);
-                }
-                // Elbow actuator
-                translate([0.25, 0, 0.8]) rotate([0, -15, 0]) {
-                    color(COL_BOOM_DARK) cylinder(h=1.0, r=0.10, center=true);
-                    color(COL_HYDRAULIC_RAM) translate([0, 0, 0.5])
-                        cylinder(h=0.6, r=0.06, center=true);
-                }
-
-                // Rotating Wrist & Heavy Hydraulic Grapple Claw
-                translate([0, 0, 2.6]) rotate([0, -80, 0]) {
-                    color(COL_BOOM_DARK) {
-                        cylinder(h=0.35, r=0.25, center=true);
-                        translate([0, 0, 0.25]) cube([0.45, 0.45, 0.15], center=true);
-                    }
-                    // Hydraulic Grapple Jaws
-                    color(COL_CHASSIS_DARK) {
-                        for (jy = [-0.22, 0.22]) {
-                            translate([0, jy, 0.45]) rotate([0, 0, jy > 0 ? -25 : 25])
-                                cube([0.15, 0.12, 0.45], center=true);
-                        }
-                    }
-
-                    // Modular Micro-Wind Unit (Type A, Assy P/N: 12845, Serial: 0001-A)
-                    translate([0, 0, 1.05]) {
-                        color(COL_MICRO_WIND_UNIT) {
-                            cube([1.4, 0.95, 0.85], center=true);
-                            translate([0.72, 0, 0]) rotate([0, 90, 0])
-                                cylinder(h=0.25, r=0.35, center=true, $fn=28);
-                        }
-                        color([0.2, 0.2, 0.25]) {
-                            translate([0, 0.49, 0])
-                                cube([1.1, 0.04, 0.55], center=true);
-                        }
-                    }
-                }
-            }
+        }
+        // Modular survival/first-aid pelican cases strapped to top rack
+        translate([0, 0, 0.52]) {
+            color([0.82, 0.22, 0.15]) // Red emergency case
+                translate([-0.45, -0.35, 0]) cube([0.55, 0.55, 0.24], center=true);
+            color([0.75, 0.65, 0.25]) // Tan survival kit
+                translate([-0.45, 0.35, 0]) cube([0.55, 0.55, 0.24], center=true);
+            color([0.25, 0.55, 0.85]) // Blue field battery pack
+                translate([0.45, 0, 0]) cube([0.65, 0.95, 0.22], center=true);
         }
     }
 }
 
 // -----------------------------------------------------------------------------
-// Complete Non-Autonomous Stryder Assembly
+// Complete Non-Autonomous Stryder Assembly (Zero-Crush Manned Arctic Scout)
 // -----------------------------------------------------------------------------
 
 module strider_m_operator_v1() {
@@ -366,8 +331,8 @@ module strider_m_operator_v1() {
     // 1b. NASCAR-Style Full Roll Cage & Overhead Deflection Shield (Safety Cell)
     nascar_operator_safety_cell();
 
-    // 2. Structurally Isolated Articulating Micro-Installer Crane Boom (Rear-Mounted behind Bulkhead)
-    micro_installer_crane_arm();
+    // 2. Safe Crew Gear Trunk & Life-Support Equipment Locker (Zero heavy machinery)
+    expedition_crew_gear_trunk();
 
     // 3. Four Independent High-Traction Triangular Bogies
     for (bx = [-1.8, 1.8]) {
@@ -380,3 +345,4 @@ module strider_m_operator_v1() {
 
 // Top-Level Assembly
 strider_m_operator_v1();
+

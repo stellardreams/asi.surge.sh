@@ -3,8 +3,9 @@
 // Version Control & Engineering Audit:
 // - Version: v1.0
 // - Tracked Under: Issue #97 (Parent #81, Cross-ref #82, #88)
-// - Operational Classification: Autonomous Unit (AI-Driven Mission Control)
-//   Deployed for swarm logistics, remote installation, and unattended micro-wind unit staging.
+// - Operational Classification: Autonomous Unit (AI-Driven Heavy Crane Installer)
+//   Deployed for swarm logistics, automated micro-wind unit handling, and precision robotic installation.
+//   *ZERO HUMAN CRUSH ZONE*: All industrial crane operations are executed autonomously via perception and LiDAR.
 //
 // Key Subsystems & Design Features (from Arctic Fleet Classification Schematic):
 // 1. Complete Removal of Operator Controls:
@@ -14,9 +15,12 @@
 //      and ruggedized computational bus.
 // 3. Multiple-Redundant Sensor Array:
 //    - Dorsal sensor pod (elevated cube housing with rotating LiDAR dome, dual forward cameras).
-// 4. Modular Cargo Staging Deck:
-//    - Rear cargo bay formatted with stacked modular micro-wind units (Assy P/N: 12845).
-// 5. Heavy Continuous Arctic Crawler Tracks:
+// 4. Heavy Articulating Micro-Installer Crane Boom:
+//    - 3-segment hydraulic boom arm with heavy base turret, elbow actuator, and rotating wrist.
+//    - Hydraulic grapple claw end-effector gripping and installing Modular Micro-Wind Units (Assy P/N: 12845).
+// 5. Modular Cargo Staging Deck:
+//    - Rear cargo bay with retention rails and staged micro-wind crates.
+// 6. Heavy Continuous Arctic Crawler Tracks:
 //    - 4x independent triangular track bogies with gold ice grousers and exposed chrome road wheels.
 //
 // Units: OpenSCAD model units
@@ -192,8 +196,82 @@ module autonomous_chassis() {
 function sgn(v) = v >= 0 ? 1 : -1;
 
 // -----------------------------------------------------------------------------
-// Subsystem 3: Modular Unit Staging (Autonomous Mission Cargo Deck)
+// Subsystem 3: AI-Directed Heavy Articulating Crane Boom & Modular Wind Staging
+// (Automated robotic installation -- zero humans in crush zone)
 // -----------------------------------------------------------------------------
+
+COL_BOOM_ORANGE     = [0.88, 0.40, 0.10];
+COL_BOOM_DARK       = [0.22, 0.24, 0.26];
+COL_HYDRAULIC_RAM   = [0.88, 0.90, 0.92];
+COL_MICRO_WIND_UNIT = [0.65, 0.68, 0.72];
+
+module autonomous_micro_installer_crane() {
+    // Base Turret on Rear Chassis Deck
+    translate([-1.2, 0, CHASSIS_H + 0.35]) {
+        color(COL_BOOM_DARK) {
+            cylinder(h=0.45, r=0.65, center=true, $fn=32);
+            // Turret bearing ring
+            translate([0, 0, 0.25])
+                cylinder(h=0.15, r=0.55, center=true, $fn=32);
+        }
+
+        // Lower Mast / Shoulder Segment (Leaning backwards/upward)
+        translate([0, 0, 0.45]) rotate([0, -25, 0]) {
+            color(COL_BOOM_ORANGE) {
+                translate([0, 0, 1.2])
+                    cube([0.45, 0.55, 2.4], center=true);
+            }
+            // Shoulder Hydraulic Ram
+            translate([-0.3, 0, 0.6]) rotate([0, 15, 0]) {
+                color(COL_BOOM_DARK) cylinder(h=1.2, r=0.12, center=true);
+                color(COL_HYDRAULIC_RAM) translate([0, 0, 0.6])
+                    cylinder(h=0.8, r=0.07, center=true);
+            }
+
+            // Elbow Joint & Upper Jib Arm (Reaching forward toward staged micro-wind crates)
+            translate([0, 0, 2.4]) rotate([0, 105, 0]) {
+                color(COL_BOOM_ORANGE) {
+                    translate([0, 0, 1.3])
+                        cube([0.38, 0.45, 2.6], center=true);
+                }
+                // Elbow actuator
+                translate([0.25, 0, 0.8]) rotate([0, -15, 0]) {
+                    color(COL_BOOM_DARK) cylinder(h=1.0, r=0.10, center=true);
+                    color(COL_HYDRAULIC_RAM) translate([0, 0, 0.5])
+                        cylinder(h=0.6, r=0.06, center=true);
+                }
+
+                // Rotating Wrist & Heavy Hydraulic Grapple Claw
+                translate([0, 0, 2.6]) rotate([0, -80, 0]) {
+                    color(COL_BOOM_DARK) {
+                        cylinder(h=0.35, r=0.25, center=true);
+                        translate([0, 0, 0.25]) cube([0.45, 0.45, 0.15], center=true);
+                    }
+                    // Hydraulic Grapple Jaws
+                    color(COL_CHASSIS_DARK) {
+                        for (jy = [-0.22, 0.22]) {
+                            translate([0, jy, 0.45]) rotate([0, 0, jy > 0 ? -25 : 25])
+                                cube([0.15, 0.12, 0.45], center=true);
+                        }
+                    }
+
+                    // Modular Micro-Wind Unit (Type A, Assy P/N: 12845) gripped by crane
+                    translate([0, 0, 1.05]) {
+                        color(COL_MICRO_WIND_UNIT) {
+                            cube([1.4, 0.95, 0.85], center=true);
+                            translate([0.72, 0, 0]) rotate([0, 90, 0])
+                                cylinder(h=0.25, r=0.35, center=true, $fn=28);
+                        }
+                        color([0.2, 0.2, 0.25]) {
+                            translate([0, 0.49, 0])
+                                cube([1.1, 0.04, 0.55], center=true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 module modular_micro_wind_cargo_crate(cx, cy, cz) {
     translate([cx, cy, cz]) {
@@ -220,29 +298,28 @@ module modular_micro_wind_cargo_crate(cx, cy, cz) {
 module autonomous_cargo_staging() {
     // Rear utility rack deck
     color(COL_CHASSIS_DARK) {
-        translate([-1.8, 0, CHASSIS_H + 0.45])
-            cube([2.2, 1.8, 0.12], center=true);
+        translate([-2.2, 0, CHASSIS_H + 0.35])
+            cube([1.8, 1.8, 0.12], center=true);
         // Perimeter cargo retention rails
         for (ry = [-0.9, 0.9]) {
-            translate([-1.8, ry, CHASSIS_H + 0.65])
-                cube([2.1, 0.08, 0.35], center=true);
+            translate([-2.2, ry, CHASSIS_H + 0.55])
+                cube([1.7, 0.08, 0.35], center=true);
         }
     }
 
-    // Staged Modular Micro-Wind Units (Assy P/N: 12845 Type A)
-    modular_micro_wind_cargo_crate(-1.2, -0.5, CHASSIS_H + 0.95);
-    modular_micro_wind_cargo_crate(-1.2, 0.5, CHASSIS_H + 0.95);
-    modular_micro_wind_cargo_crate(-2.3, -0.5, CHASSIS_H + 0.95);
-    modular_micro_wind_cargo_crate(-2.3, 0.5, CHASSIS_H + 0.95);
+    // Staged backup crates on rear rack
+    modular_micro_wind_cargo_crate(-2.3, -0.48, CHASSIS_H + 0.85);
+    modular_micro_wind_cargo_crate(-2.3, 0.48, CHASSIS_H + 0.85);
 }
 
 // -----------------------------------------------------------------------------
-// Complete Autonomous Stryder Assembly
+// Complete Autonomous Stryder Assembly (AI-Driven Micro-Installer Crane)
 // -----------------------------------------------------------------------------
 
 module strider_m_autonomous_v1() {
     autonomous_chassis();
     autonomous_cargo_staging();
+    autonomous_micro_installer_crane();
 
     for (bx = [-1.8, 1.8]) {
         for (by = [-ROVER_W/2 + BOGIE_W/2, ROVER_W/2 - BOGIE_W/2]) {
@@ -254,3 +331,4 @@ module strider_m_autonomous_v1() {
 
 // Top-Level Assembly
 strider_m_autonomous_v1();
+
