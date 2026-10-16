@@ -68,7 +68,7 @@ def audit_strider_m_ground_pressure():
 
 def audit_tracked_dual_amu_ground_pressure():
     print("\n" + "=" * 70)
-    print("1B. DUAL TRACKED AMU HULL GROUND PRESSURE & SOIL BEARING AUDIT")
+    print("1B. SOLO TRACKED AMU HULL (v1.0) GROUND PRESSURE & SOIL BEARING AUDIT")
     print("=" * 70)
 
     # 18 m Mobile AMU Dimensions & Track Geometry

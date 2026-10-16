@@ -1,22 +1,28 @@
-// amu_mobile_surface_duo.scad -- Dual AMU Surface Architecture with Flattened Base & Continuous Tracks
+// amu_mobile_surface_solo_v1.scad -- Surface AMU Mobile Unit (Solo Architecture v1.0)
 //
-// Adapts the two legacy AMUs (Autonomous Manufacturing Units) from orbital configuration
-// to heavy mobile surface exploration / manufacturing platforms:
+// Version Control & Engineering Audit:
+// - Version: v1.0
+// - Tracked Under: Issue #97 (Parent #81, Cross-ref #82, #88)
+// - Architectural Decision: Split the previously linked "duo" concept into standalone,
+//   independent mobile AMU surface units. In surface gravity / terrain environments (Earth permafrost,
+//   Moon, Mars), physical inter-module umbilical gangway bridges suffer immense torsional, shear, and
+//   bending stresses due to uneven terrain differentials and surface gravity. Each AMU unit is therefore
+//   completely self-contained on its own crawler chassis.
+//
 // 1. Flattened Base:
-//    - Truncates the cylindrical hull bottom at Z = -MMS_RADIUS + FLAT_TRUNCATE (e.g. Z = -5.0)
-//    - Replaces the curved underside with a heavy reinforced structural belly plate and foundation deck.
-// 2. Heavy Continuous Crawler Tracks ("Snowshoes"):
-//    - Equips each AMU with dual heavy-duty continuous wide-track bogies scaled from STRIDER-M.
-//    - Track length: 16.5 m (spanning the 17.92 m AMU hull length).
-//    - Track width: 1.8 m wide per track (delivering ultra-low ground pressure across 120+ tonnes).
+//    - Truncates the cylindrical hull bottom at Z = FLAT_Z_CUT (-4.2 m).
+//    - Replaces curved underside with reinforced structural belly plate and foundation deck.
+// 2. Heavy Continuous Crawler Tracks ("Snowshoes" Scaled from STRIDER-M):
+//    - Equips the AMU unit with dual heavy-duty continuous wide-track bogies.
+//    - Track length: 16.4 m (spanning the 17.92 m AMU hull length).
+//    - Track width: 1.8 m wide per track (delivering ultra-low ground pressure 19.19 kPa <= 25 kPa).
 //    - Gold traction cleats / ice grousers for permafrost, lunar regolith, or martian terrain.
-// 3. Dual Architecture & Articulation:
-//    - Retains quad lateral CORA-M guide rails (dorsal + lateral) across both AMUs (#81).
-//    - Preserves central umbilical/logistics spine bridge connecting the two mobile AMUs.
+// 3. Autonomous Subsystems:
+//    - Retains quad lateral CORA-M guide rails (dorsal + lateral) (#81).
 //    - Features high-bay entrance portals and internal production/greenhouse tiers.
+//    - Self-contained dorsal solar arrays and thermal regulation sponsons.
 //
 // Units: OpenSCAD model units (Scale: MMS_RADIUS = 6.0, MMS_LENGTH = 17.92)
-// Tracked under Issue #97 / #81 (Child to #81, cross-ref #82)
 
 $fn = 40;
 
@@ -35,10 +41,6 @@ TRACK_W             = 1.8;   // Width of track
 TRACK_H             = 2.2;   // Height of track bogie
 TRACK_Y_OFFSET      = 4.6;   // Lateral offset from hull centerline (Y = ±4.6)
 GROUSER_COUNT       = 32;
-
-// Inter-AMU connection
-SPINE_LENGTH        = 24.0;
-AMU_SEPARATION      = 28.0;
 
 // Colors
 HULL_TAN            = [0.78, 0.70, 0.60];
@@ -196,10 +198,10 @@ module flattened_amu_hull() {
 }
 
 // -----------------------------------------------------------------------------
-// Complete Mobile Surface AMU Unit
+// Complete Mobile Surface AMU Solo Unit
 // -----------------------------------------------------------------------------
 
-module mobile_surface_amu_unit() {
+module amu_mobile_surface_solo_v1() {
     // 1. Flattened Hull & Sponsons
     flattened_amu_hull();
 
@@ -211,45 +213,5 @@ module mobile_surface_amu_unit() {
     }
 }
 
-// -----------------------------------------------------------------------------
-// Articulated Inter-AMU Logistics Bridge
-// -----------------------------------------------------------------------------
-
-module inter_amu_articulated_bridge() {
-    // Heavy telescoping gangway & power/slurry umbilical bridge connecting the two mobile AMUs
-    color([0.3, 0.32, 0.35]) {
-        // Central telescoping box beam
-        translate([0, 0, FLAT_Z_CUT + 1.2]) {
-            cube([AMU_SEPARATION - MMS_LENGTH - 1.2, 2.4, 1.8], center=true);
-            // Flexible rubber bellows / accordion seals at joints
-            for (bx = [-(AMU_SEPARATION - MMS_LENGTH)/2 + 0.8, (AMU_SEPARATION - MMS_LENGTH)/2 - 0.8]) {
-                translate([bx, 0, 0])
-                    color([0.15, 0.15, 0.15]) cube([1.2, 2.6, 2.0], center=true);
-            }
-        }
-        // Heavy umbilical cabling & cryogenic pipes
-        for (dy = [-1.4, 1.4]) {
-            translate([0, dy, FLAT_Z_CUT + 0.4])
-                rotate([0, 90, 0]) cylinder(h=AMU_SEPARATION - MMS_LENGTH + 0.5, r=0.18, center=true);
-        }
-    }
-}
-
-// -----------------------------------------------------------------------------
-// Top-Level Assembly: Dual Mobile AMUs on Tracks
-// -----------------------------------------------------------------------------
-
-module dual_mobile_surface_amu_system() {
-    // Lead Mobile AMU Unit (Manufacturing / Foundry / Power Core)
-    translate([AMU_SEPARATION/2, 0, 0])
-        mobile_surface_amu_unit();
-
-    // Trail Mobile AMU Unit (Greenhouse / Habitation / Workshop)
-    translate([-AMU_SEPARATION/2, 0, 0])
-        mobile_surface_amu_unit();
-
-    // Articulated Inter-AMU Logistics Bridge
-    inter_amu_articulated_bridge();
-}
-
-dual_mobile_surface_amu_system();
+// Top-Level Assembly
+amu_mobile_surface_solo_v1();

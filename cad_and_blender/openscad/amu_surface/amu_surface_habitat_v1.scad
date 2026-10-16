@@ -1,4 +1,15 @@
-// amu_surface_habitat.scad -- AMU-Surface Base Habitat & Overhead Ceiling Gantry Architecture
+// amu_surface_habitat_v1.scad -- AMU-Surface Base Habitat & Overhead Ceiling Gantry Architecture (v1.0)
+//
+// Version Control & Engineering Audit:
+// - Version: v1.0
+// - Tracked Under: Issue #97 (Parent #81, Cross-ref #82, #88)
+// - Architectural Source Authority: This file defines the canonical spatial geometry
+//   and coordinate frames for the AMU-Surface vault shelter, apex ceiling gantry rail
+//   (CEILING_Z = HAB_R - 0.35 = 5.15 m), and high-bay staging portal (PORTAL_W = 5.2 m, PORTAL_H = 3.2 m).
+// - Downstream Interface Maintenance Rule:
+//   Every time this file is updated (e.g. changing HAB_R, CEILING_Z, or portal dimensions),
+//   downstream kinematic files that include it (specifically `amu_surface_transfer_docking_v1.scad`)
+//   MUST be updated and re-verified in lockstep to maintain kinematic mate alignment.
 //
 // Adapts the cylindrical AMU structure (asi.surge.sh/img/portfolio/amu/amu-orbiting-greenhouses.png)
 // to planetary and remote permafrost surfaces (Moon, Mars, Arctic).
@@ -11,7 +22,6 @@
 // 5. Umbilical power coupling mast for surface grid / wind turbine interconnection.
 //
 // Units: OpenSCAD model units (compatible with STRIDER-M and CORA-M)
-// Tracked under Issue #97 (Parent #81, Cross-ref #82, #88)
 
 $fn = 36;
 

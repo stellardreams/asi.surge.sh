@@ -1,7 +1,17 @@
-// amu_surface_transfer_docking.scad -- Ceiling-to-Rover CORA-M Arm Transfer Simulation
+// amu_surface_transfer_docking_v1.scad -- Ceiling-to-Rover CORA-M Arm Transfer Simulation (v1.0)
 //
-// Models the autonomous sequence where the CORA-M 7-DoF robotic manipulator hops
-// from the AMU-Surface ceiling gantry rail down to the STRIDER-M transporter deck:
+// Version Control & Engineering Audit:
+// - Version: v1.0
+// - Tracked Under: Issue #97 (Parent #81, Cross-ref #82, #88)
+// - Architectural Dependency & Maintenance Rule:
+//   Source geometry is defined in `amu_surface_habitat_v1.scad` (vault shelter, apex ceiling rail at Z=5.15 m)
+//   and `strider_m_transporter_v1.scad` (chassis height, latch collar dock at X=0.8 m, Z=1.55 m).
+//   Whenever `amu_surface_habitat_v1.scad` or `strider_m_transporter_v1.scad` is revised, this file
+//   must be updated in lockstep to maintain kinematic mating alignment and phase continuity.
+// - Design Rectification (golden_calipers_off fix):
+//   Replaced legacy offset caliper cubes with canonical symmetric end-effector calipers matching
+//   `amu_CORA-M-arm-opencode_v1.scad`. The caliper jaws now symmetrically sandwich the wrist center axis
+//   with dynamic clamping gap `_APAS_caliper_gap` scaled precisely with arm dimension parameter `s`.
 //
 // Transfer Mechanics:
 // 1. STRIDER-M rover reverses into the AMU-Surface airlock staging pad directly under ceiling gantry.
@@ -18,12 +28,11 @@
 //   0.65 -> 1.00: STRIDER-M rolls out through the portal carrying the mounted CORA-M arm
 //
 // Units: OpenSCAD model units
-// Tracked under Issue #97 (Parent #81, Cross-ref #82, #88)
 
 $fn = 32;
 
-use <amu_surface_habitat.scad>
-use <strider_m_transporter.scad>
+use <amu_surface_habitat_v1.scad>
+use <strider_m_transporter_v1.scad>
 
 // -----------------------------------------------------------------------------
 // Parameters & Kinematic Phases
@@ -31,7 +40,7 @@ use <strider_m_transporter.scad>
 t_override = undef;
 anim_t = is_undef(t_override) ? $t : t_override;
 
-s = 0.014 * 6.5; // Scale factor for CORA-M arm to match surface vehicle proportions
+s = 0.010; // Scaled so arm length (120*s = 1.2 m) fits rover deck perfectly
 
 // Kinematic timeline anim_t:
 // Phase 1: Ceiling rail traverse (X: -2.0 -> 4.5)
@@ -50,7 +59,17 @@ arm_base_z  = 4.80 - 3.25 * _t_dock;   // Lowers from ceiling rail (4.80) to rov
 
 // Joint articulation during transfer
 j_pitch     = -15 + 25 * _t_dock;
-caliper_gap = (_t_dock > 0.5) ? 6 * s : 14 * s;
+// Canonical caliper gap: starts open (14*s), clamps down during dock (3*s)
+_APAS_caliper_gap = (14 - 11 * _t_dock);
+
+// Helper for arm segments
+module arm_seg(len, r1, r2, col) {
+    color(col) {
+        cylinder(h=len, r1=r1, r2=r2, center=false, $fn=24);
+        sphere(r=r1, $fn=16);
+        translate([0, 0, len]) sphere(r=r2, $fn=16);
+    }
+}
 
 // -----------------------------------------------------------------------------
 // Sub-Modules
@@ -72,32 +91,33 @@ module cora_m_arm_assembly() {
         
         // Shoulder Pitch Joint
         translate([0, 0, 0.22]) rotate([0, j_pitch, 0]) {
-            color("WhiteSmoke") {
-                cylinder(h=1.2, r1=0.22, r2=0.18, center=false);
-                sphere(r=0.22);
-                translate([0, 0, 1.2]) sphere(r=0.18);
-            }
+            arm_seg(120*s, 16*s, 12*s, "WhiteSmoke");
             
             // Elbow Joint & Dual Arm Split
-            translate([0, 0, 1.2]) rotate([0, -25 + 30 * _t_dock, 0]) {
-                color("CadetBlue") cylinder(h=0.30, r=0.18, center=true);
+            translate([0, 0, 120*s]) rotate([0, -25 + 30 * _t_dock, 0]) {
+                arm_seg(25*s, 12*s, 12*s, "CadetBlue");
                 
-                // Y-shaped dual branches
+                // Y-shaped dual branches (Monkey Y)
                 for (branch = [-1, 1]) {
-                    rotate([branch * 22, 0, 0]) {
-                        translate([0, 0, 0.15]) {
-                            color("WhiteSmoke") cylinder(h=1.0, r1=0.16, r2=0.12, center=false);
-                            // Wrist & Gold Calipers
-                            translate([0, 0, 1.0]) {
-                                color("CadetBlue") sphere(r=0.14);
-                                translate([0, 0, 0.12]) rotate([0, 20, 0]) {
+                    translate([0, 0, 25*s]) rotate([branch * 22, 0, 0]) {
+                        arm_seg(100*s, 12*s, 10*s, "WhiteSmoke");
+                        
+                        // Wrist articulation
+                        translate([0, 0, 100*s]) {
+                            arm_seg(20*s, 10*s, 10*s, "CadetBlue");
+                            translate([0, 0, 20*s]) {
+                                arm_seg(15*s, 10*s, 8*s, "LightGray");
+                                
+                                // Canonical Gold End-Effector Calipers
+                                translate([0, 0, 15*s]) {
                                     color("Gold") {
-                                        cylinder(h=0.20, r1=0.12, r2=0.06, center=false);
-                                        // End-effector grasping calipers
-                                        translate([-(caliper_gap/2 + 0.05), 0, 0.20])
-                                            cube([0.04, 0.10, 0.22]);
-                                        translate([(caliper_gap/2), 0, 0.20])
-                                            cube([0.04, 0.10, 0.22]);
+                                        // Caliper tool hub
+                                        cylinder(h=10*s, r1=8*s, r2=4*s, center=false, $fn=24);
+                                        // Symmetrically centered caliper grasping jaws
+                                        translate([-(_APAS_caliper_gap/2 + 2)*s, -3*s, 10*s])
+                                            cube([2*s, 6*s, 12*s]);
+                                        translate([(_APAS_caliper_gap/2)*s, -3*s, 10*s])
+                                            cube([2*s, 6*s, 12*s]);
                                     }
                                 }
                             }
@@ -110,13 +130,18 @@ module cora_m_arm_assembly() {
 }
 
 module overhead_transfer_trolley() {
-    // Overhead carriage on ceiling gantry rail
+    // Overhead carriage riding along top of ceiling gantry rail
     color([0.33, 0.35, 0.40]) {
-        translate([rail_pos_x, 0, 5.15]) {
-            cube([0.9, 0.8, 0.25], center=true);
-            // Telescoping hoist / docking release clamp
-            translate([0, 0, -0.20])
-                cylinder(h=0.25, r=0.28, center=true);
+        translate([rail_pos_x, 0, 5.38]) {
+            // Carriage saddle riding above rail
+            cube([0.9, 0.85, 0.18], center=true);
+            // Side guide rollers gripping rail flanges
+            for (gy = [-0.38, 0.38]) {
+                translate([0, gy, -0.15]) cube([0.8, 0.10, 0.22], center=true);
+            }
+            // Under-slung swivel turret coupling
+            translate([0, 0, -0.32])
+                cylinder(h=0.18, r=0.28, center=true);
         }
     }
 }

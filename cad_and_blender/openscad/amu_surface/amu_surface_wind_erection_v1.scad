@@ -1,16 +1,30 @@
-// amu_surface_wind_erection.scad -- Autonomous Field Wind Erection by STRIDER-M & CORA-M
+// amu_surface_wind_erection_v1.scad -- Autonomous Field Wind Erection by STRIDER-M & CORA-M (v1.0)
+//
+// Version Control & Engineering Audit:
+// - Version: v1.0
+// - Tracked Under: Issue #97 (Parent #81, Cross-ref #82, #85, #86, #88)
+// - Hoist Kinematics Rectification (position of hoist fix):
+//   In canonical gin-pole tilt-up kinematics (`wind_v2_mast_erection.scad` / #86), the mast tilts
+//   toward the north (+X), and the gin-pole A-frame is rigidly fixed perpendicular to the mast,
+//   leaning back toward the south (-X). The winch hoist unit is mounted on the south side (-X)
+//   of the container roof. As the winch line retracts, tension on the gin-pole apex pulls the
+//   mast upright toward the north. Previously the hoist vector was inverted; this is now fully
+//   aligned with mechanical principles.
+// - STRIDER-M Blue Tail Rectification (stryder_blue_tail_ visible fix):
+//   The previously visible blue bar beneath the rover deck was a prototype ground umbilical line.
+//   Per review, this loose ground line has been eliminated. In v1.0, power coupling is integrated
+//   cleanly into the internal chassis battery reservoir and rover deck umbilical collar.
 //
 // Models the complete autonomous field erection scenario:
 // 1. 20 ft ISO Container foundation footing situated on permafrost/regolith with extended outriggers.
-// 2. STRIDER-M Transporter positioned alongside the container with CORA-M dual-arm manipulator mounted on its deck.
-// 3. Robotic Manipulator Operations:
+// 2. Winch hoist station mounted on south side of container roof.
+// 3. Tilting 24 m modular mast with gin-pole A-frame and rigging lines.
+// 4. STRIDER-M Transporter positioned alongside the container with CORA-M dual-arm manipulator mounted on its deck.
+// 5. Robotic Manipulator Operations:
 //    - CORA-M dual arms reach into the container storage racks, extracting 1.71 m sectional blade segments.
 //    - CORA-M sets titanium shear pins and torques structural joints into the 50 kW direct-drive PMSG hub.
-//    - Conductive umbilical power link connects STRIDER-M to the container's microgrid AFE power bus.
-// 4. Gin-Pole A-Frame and winch line rigged for autonomous tilt-up mast erection.
 //
 // Units: OpenSCAD model units (scaled consistently: 1 unit ~ 1 meter)
-// Tracked under Issue #97 (Parent #81, Cross-ref #82, #85, #86, #88)
 
 $fn = 32;
 
@@ -28,9 +42,16 @@ TRACK_H         = 1.4 * 0.7; // 0.98 m
 
 MAST_L          = 24.0;  // 24 m tower height
 MAST_D          = 0.508; // 508 mm diameter
+GIN_L           = 7.0;   // 7 m gin-pole A-frame lever arm
 
-// Erection Angle (0 = horizontal assembly, 35 = lifting, 90 = upright)
+// Erection Angle: 25 deg tilt from vertical (tilts toward +X north)
 tilt_deg        = 25;
+
+// Winch hoist location on container roof (South side -X)
+WINCH_X         = -CONT_L/2 + 0.8;
+WINCH_Z         = CONT_H + 0.3;
+TRUNNION_X      = CONT_L/2 - 0.8;
+TRUNNION_Z      = CONT_H + 0.2;
 
 // Animation Variable
 t_override      = undef;
@@ -44,7 +65,8 @@ COL_ROTOR       = [0.93, 0.95, 0.97];
 COL_ORANGE_EDGE = [0.95, 0.45, 0.10];
 COL_TRACK       = [0.25, 0.26, 0.28];
 COL_DECK        = [0.88, 0.42, 0.12];
-COL_ARM_BLUE    = [0.15, 0.45, 0.85];
+COL_GIN_POLE    = [0.85, 0.55, 0.15];
+COL_WINCH       = [0.30, 0.32, 0.35];
 
 // -----------------------------------------------------------------------------
 // Modules
@@ -72,27 +94,23 @@ module wind_container_foundation() {
         }
     }
 
-    // Hinged Mast Base Trunnion atop container roof
+    // Heavy Industrial Winch Hoist Unit on South Roof (-X)
+    color(COL_WINCH) {
+        translate([WINCH_X, 0, WINCH_Z]) {
+            cube([0.9, 0.8, 0.4], center=true);
+            // Winch drum & drive motor
+            translate([0, 0, 0.22]) rotate([90, 0, 0])
+                cylinder(h=0.6, r=0.18, center=true);
+        }
+    }
+
+    // Hinged Mast Base Trunnion atop container roof (+X)
     color([0.35, 0.38, 0.42]) {
-        translate([CONT_L/2 - 0.8, 0, CONT_H + 0.2]) {
+        translate([TRUNNION_X, 0, TRUNNION_Z]) {
             cube([0.8, 1.2, 0.4], center=true);
             // Trunnion pivot pin
             rotate([90, 0, 0])
                 cylinder(h=1.4, r=0.12, center=true);
-        }
-    }
-
-    // A-Frame Gin-Pole for tilt-up winching
-    color([0.85, 0.35, 0.15]) {
-        translate([CONT_L/2 - 0.8, 0, CONT_H + 0.2]) {
-            rotate([0, -(tilt_deg + 45), 0]) {
-                for (gy = [-0.5, 0.5]) {
-                    hull() {
-                        translate([0, gy, 0]) sphere(r=0.08);
-                        translate([7.0, 0, 0]) sphere(r=0.08);
-                    }
-                }
-            }
         }
     }
 }
@@ -166,20 +184,12 @@ module strider_m_ground_unit() {
             }
         }
     }
-
-    // Heavy-duty flexible conductive umbilical line to container microgrid bay
-    color(COL_ARM_BLUE) {
-        hull() {
-            translate([-ROVER_L/2 + 0.2, 0, TRACK_H + 0.1]) sphere(r=0.08);
-            translate([-ROVER_L/2 - 1.2, 1.5, 0.1]) sphere(r=0.08);
-        }
-    }
 }
 
 module tilting_mast_and_rotor() {
-    // Mast pivoted at Trunnion (CONT_L/2 - 0.8, 0, CONT_H + 0.2)
-    translate([CONT_L/2 - 0.8, 0, CONT_H + 0.2]) {
-        rotate([0, -tilt_deg, 0]) {
+    // Mast pivoted at Trunnion (tilts toward +X)
+    translate([TRUNNION_X, 0, TRUNNION_Z]) {
+        rotate([0, tilt_deg, 0]) {
             // Tubular Mast
             color(COL_MAST) {
                 cylinder(d=MAST_D, h=MAST_L);
@@ -219,6 +229,45 @@ module tilting_mast_and_rotor() {
                     }
                 }
             }
+
+            // A-Frame Gin-Pole (rigidly perpendicular to mast, leaning back toward -X south)
+            rotate([0, -90, 0]) {
+                color(COL_GIN_POLE) {
+                    for (gy = [-0.6, 0.6]) {
+                        hull() {
+                            translate([0, gy, 0]) sphere(r=0.08);
+                            translate([0, 0, GIN_L]) sphere(r=0.08);
+                        }
+                    }
+                    // Cross spreader
+                    translate([0, 0, GIN_L * 0.45])
+                        rotate([90, 0, 0]) cylinder(h=1.0, r=0.06, center=true);
+                }
+            }
+        }
+    }
+
+    // Rigging Cables (Winch line from south hoist to gin apex; backstay to mast)
+    gin_tip_x = TRUNNION_X + GIN_L * sin(tilt_deg - 90);
+    gin_tip_z = TRUNNION_Z + GIN_L * cos(tilt_deg - 90);
+
+    // 1. Red Winch Hoist Cable (South hoist drum to Gin apex)
+    color([0.85, 0.2, 0.2]) {
+        hull() {
+            translate([WINCH_X, 0, WINCH_Z + 0.25]) sphere(r=0.035);
+            translate([gin_tip_x, 0, gin_tip_z]) sphere(r=0.035);
+        }
+    }
+
+    // 2. High-Strength Wire Rope Backstay (Gin apex to Mast at 14m)
+    stay_x = TRUNNION_X + 14.0 * sin(tilt_deg);
+    stay_z = TRUNNION_Z + 14.0 * cos(tilt_deg);
+    color([0.15, 0.15, 0.15]) {
+        for (dy = [-0.3, 0.3]) {
+            hull() {
+                translate([gin_tip_x, dy, gin_tip_z]) sphere(r=0.025);
+                translate([stay_x, dy, stay_z]) sphere(r=0.025);
+            }
         }
     }
 }
@@ -227,10 +276,10 @@ module tilting_mast_and_rotor() {
 // Top-Level Field Erection Assembly
 // -----------------------------------------------------------------------------
 module field_erection_scene() {
-    // 1. Container Foundation Footing on Permafrost
+    // 1. Container Foundation Footing on Permafrost with South Hoist
     wind_container_foundation();
 
-    // 2. Tilting Mast & Sectional Rotor
+    // 2. Tilting Mast, Sectional Rotor & South-Leaning Rigged Gin-Pole
     tilting_mast_and_rotor();
 
     // 3. Mobile STRIDER-M with Mounted CORA-M Arm Assembling Blades

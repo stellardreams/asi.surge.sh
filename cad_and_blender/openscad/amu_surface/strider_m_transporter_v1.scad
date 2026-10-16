@@ -1,4 +1,11 @@
-// strider_m_transporter.scad -- STRIDER-M Surface Transport & Robotic Installation Deployment Rover
+// strider_m_transporter_v1.scad -- STRIDER-M Surface Transporter (v1.0)
+//
+// Version Control & Engineering Audit:
+// - Version: v1.0
+// - Tracked Under: Issue #97 (Parent #81, Cross-ref #82, #88)
+// - Interface Dependency: Mates with CORA-M robotic arm deployed from amu_surface_habitat_v1.scad
+//   via standard latch collar dock (R = 0.55 m, H = 0.25 m).
+// - Design Baseline: Maintained as verified in v1.0 per @genidma directive.
 //
 // Repurposed from the heavy mining vehicle architecture (asi.surge.sh/img/portfolio/effort/mining.png).
 // Equipped with low-ground-pressure continuous wide crawler tracks ("heavy-duty snowshoes" / tundra grousers / regolith treads)
@@ -12,7 +19,6 @@
 // 5. Automated Payload Deck for Wind Turbine components / tool magazines
 //
 // Units: OpenSCAD model units (Scale compatible with AMU-Surface: 1 unit ~ 71.4 mm; or mm scale)
-// Tracked under Issue #97 (Parent #81, Cross-ref #82, #88)
 
 $fn = 32;
 

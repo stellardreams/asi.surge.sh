@@ -21,14 +21,14 @@ While orbital AMU variants are engineered as spinning cylindrical habitats for m
 
 ## 2. Repository File Index
 
-| File | Subsystem & Description |
-|:---|:---|
-| [`amu_mobile_surface_duo.scad`](amu_mobile_surface_duo.scad) | Dual mobile AMU production units with flattened hull bases, lateral sponsons, heavy-duty continuous crawler tracks ("snowshoes" scaled from STRIDER-M), quad CORA-M rails, and articulated logistics bridge. |
-| [`amu_surface_habitat.scad`](amu_surface_habitat.scad) | Pressurized surface vault shelter, permafrost thermal-siphon footings, overhead ceiling gantry rail, and high-bay rover deployment portal. |
-| [`strider_m_transporter.scad`](strider_m_transporter.scad) | Low-ground-pressure continuous wide-track crawler rover ("snowshoes" / grousers), heated battery reservoir, and CORA-M latch collar dock. |
-| [`amu_surface_transfer_docking.scad`](amu_surface_transfer_docking.scad) | Phased kinematics simulation of CORA-M arm transferring from ceiling gantry down to the STRIDER-M rover deck. |
-| [`amu_surface_wind_erection.scad`](amu_surface_wind_erection.scad) | Field erection assembly showing STRIDER-M with mounted CORA-M arm assembling sectional rotor blades at the 20 ft ISO turbine container footing. |
-| [`amu_surface_audit.py`](amu_surface_audit.py) | Verification suite checking ground pressure ($6.92\text{ kPa}$ rover, $19.19\text{ kPa}$ tracked AMU vs $\le 25\text{ kPa}$ limit), shoulder torque ($FS = 1.23 \ge 1.20$), and battery energy margin ($77.5\% \ge 20\%$). |
+| File | Version | Subsystem & Description |
+|:---|:---:|:---|
+| [`amu_mobile_surface_solo_v1.scad`](amu_mobile_surface_solo_v1.scad) | `v1.0` | Standalone mobile AMU production unit with flattened hull base, lateral sponsons, heavy-duty continuous crawler tracks ("snowshoes" scaled from STRIDER-M), and quad CORA-M rails. Separated from "duo" concept to eliminate terrain/gravity joint stress. |
+| [`amu_surface_habitat_v1.scad`](amu_surface_habitat_v1.scad) | `v1.0` | Pressurized surface vault shelter, permafrost thermal-siphon footings, overhead ceiling gantry rail, and high-bay rover deployment portal. Source authority for internal ceiling spatial coordinates. |
+| [`strider_m_transporter_v1.scad`](strider_m_transporter_v1.scad) | `v1.0` | Low-ground-pressure continuous wide-track crawler rover ("snowshoes" / grousers), heated battery reservoir, and CORA-M latch collar dock. |
+| [`amu_surface_transfer_docking_v1.scad`](amu_surface_transfer_docking_v1.scad) | `v1.0` | Phased kinematics simulation of CORA-M arm transferring from ceiling gantry down to the STRIDER-M rover deck. Updated with symmetrically centered canonical golden calipers matching `amu_CORA-M-arm-opencode_v1.scad`. |
+| [`amu_surface_wind_erection_v1.scad`](amu_surface_wind_erection_v1.scad) | `v1.0` | Field erection assembly showing STRIDER-M with mounted CORA-M arm assembling sectional rotor blades at the 20 ft ISO turbine container footing. Rectified south-mounted hoist winch and backward-leaning gin-pole rigging; eliminated stray blue ground umbilical. |
+| [`amu_surface_audit.py`](amu_surface_audit.py) | `v1.0` | Verification suite checking ground pressure ($6.92\text{ kPa}$ rover, $19.19\text{ kPa}$ tracked AMU vs $\le 25\text{ kPa}$ limit), shoulder torque ($FS = 1.23 \ge 1.20$), and battery energy margin ($77.5\% \ge 20\%$). |
 
 ---
 
@@ -38,7 +38,7 @@ While orbital AMU variants are engineered as spinning cylindrical habitats for m
    * Total rover operating mass: $9\text{ }150\text{ kg}$ (chassis, tracks, 120 kWh battery, CORA-M arm, and payload).
    * Total ground contact area: $12.96\text{ m}^2$ ($2 \times 5.4\text{ m} \times 1.2\text{ m}$ continuous tracks).
    * Result: Mean ground pressure is only $6.92\text{ kPa}$—exceeding tundra active layer and lunar regolith trafficability standards with a factor of safety of $3.61$.
-2. **Dual Tracked AMU Hull Ground Pressure ($19.19\text{ kPa}$ vs $\le 25\text{ kPa}$ limit, $FS = 1.30$):**
+2. **Solo Tracked AMU Hull Ground Pressure ($19.19\text{ kPa}$ vs $\le 25\text{ kPa}$ limit, $FS = 1.30$):**
    * Single mobile AMU operating mass: $95\text{ }800\text{ kg}$ ($95.8\text{ tonnes}$ structure, life support, factory tooling, power systems).
    * Flattened hull base at $Z = -4.2\text{ m}$ with reinforced lateral sponsons out to width $9.6\text{ m}$.
    * Continuous crawler tracks: dual $13.6\text{ m} \times 1.8\text{ m}$ ground contact bearing tracks ($48.96\text{ m}^2$ total contact area per unit).
