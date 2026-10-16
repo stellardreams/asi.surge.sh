@@ -144,8 +144,9 @@ _APAS_rail_w = 40 * _APAS_arm_scale;
 _APAS_rail_t = 15 * _APAS_arm_scale;
 
 // Issue #81: "Tool-Grab" Kinematic State & Dynamic Animation Support
-// Smooth cyclic factor: 0.0 (compact stowed at home) -> 1.0 (translated to 400mm & fully extended) -> 0.0
-_t_factor = $t > 0 ? (1 - cos($t * 360)) / 2 : 1.0;
+// Smooth cyclic factor: 0.0 (stowed at home) -> 1.0 (translated to 400mm & fully extended) -> 0.0
+// Uses full cosine cycle so 0 -> 1 -> 0 is seamless across $t in [0, 1)
+_t_factor = (1 - cos($t * 360)) / 2;
 
 // Prismatic Carriage Position: 0.20 * _APAS_rail_len (home) -> 0.80 * _APAS_rail_len (400mm target coordinate)
 _APAS_carriage_pos = (0.20 + 0.60 * _t_factor) * _APAS_rail_len;
