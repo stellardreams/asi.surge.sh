@@ -149,23 +149,43 @@ _APAS_rail_w = 40 * _APAS_arm_scale;
 _APAS_rail_t = 15 * _APAS_arm_scale;
 
 // Issue #81: "Tool-Grab" Kinematic State & Dynamic Animation Support
-// Smooth cyclic factor: 0.0 (stowed) -> 1.0 (extended across sector) -> 0.0
-_t_factor = (1 - cos($t * 360)) / 2;
+// Sequential Phased Animation:
+// Phase 1 ($t in [0.0, 0.30]): Robot carriages translate along guide rails (arms strictly stowed, calipers open)
+// Phase 2 ($t in [0.30, 0.45]): Carriages stop at target sector; dual arms articulate uncurling and reaching down
+// Phase 3 ($t in [0.45, 0.55]): Arms held at target; end-effector calipers dynamically clamp onto tool/rivet
+// Phase 4 ($t in [0.55, 0.70]): Calipers release; arms restow into compact travel posture
+// Phase 5 ($t in [0.70, 1.00]): Carriages translate along rails back to home base (arms stowed, calipers open)
+
+_t_car = ($t < 0.30) ? (1 - cos(180 * $t / 0.30)) / 2 :
+         ($t <= 0.70) ? 1.0 :
+         (1 + cos(180 * ($t - 0.70) / 0.30)) / 2;
+
+_t_arm = ($t < 0.30) ? 0.0 :
+         ($t < 0.45) ? (1 - cos(180 * ($t - 0.30) / 0.15)) / 2 :
+         ($t <= 0.55) ? 1.0 :
+         ($t <= 0.70) ? (1 + cos(180 * ($t - 0.55) / 0.15)) / 2 :
+         0.0;
+
+_t_grip = ($t < 0.45) ? 0.0 :
+          ($t < 0.49) ? (1 - cos(180 * ($t - 0.45) / 0.04)) / 2 :
+          ($t <= 0.51) ? 1.0 :
+          ($t <= 0.55) ? (1 + cos(180 * ($t - 0.51) / 0.04)) / 2 :
+          0.0;
 
 // Prismatic Carriage Position: traverses across the full sector span (-0.35 * len to +0.35 * len)
-_APAS_carriage_pos = (-0.35 + 0.70 * _t_factor) * _APAS_rail_len;
+_APAS_carriage_pos = (-0.35 + 0.70 * _t_car) * _APAS_rail_len;
 
-// Dynamic Joint Articulation & Arm Motion:
-_APAS_j2 = 25 * (1 - 0.7 * _t_factor); 
-_APAS_j3 = -35 + 40 * _t_factor;        // Shoulder pitches forward from -35° stowed to +5° reach
-_APAS_j4 = 45 * (1 - _t_factor);        // Forearm aligns
-_APAS_j5 = -65 + 55 * _t_factor;        // Elbow uncurls from -65° stowed to -10° grasping pose
-_APAS_j6 = 15 + 20 * sin($t * 360);     // Wrist orient roll dynamic adjustment
-_APAS_j7 = 35 - 45 * _t_factor;         // Wrist pitch tilts down into grab engagement (-10°)
+// Dynamic Joint Articulation & Arm Motion (activates ONLY when carriage comes to a complete stop):
+_APAS_j2 = 25 * (1 - 0.7 * _t_arm); 
+_APAS_j3 = -35 + 40 * _t_arm;        // Shoulder pitches forward from -35° stowed to +5° reach
+_APAS_j4 = 45 * (1 - _t_arm);        // Forearm aligns
+_APAS_j5 = -65 + 55 * _t_arm;        // Elbow uncurls from -65° stowed to -10° grasping pose
+_APAS_j6 = 15 + 20 * sin($t * 360) * _t_arm; // Wrist roll adjustment active during reach
+_APAS_j7 = 35 - 45 * _t_arm;         // Wrist pitch tilts down into grab engagement (-10°)
 _APAS_j8 = 90;
 
-// Dynamic End-Effector Caliper Clamping:
-_APAS_caliper_gap = (14 - 11 * _t_factor); // in units of s
+// Dynamic End-Effector Caliper Clamping (clamps ONLY when carriage stopped and arm at target):
+_APAS_caliper_gap = (14 - 11 * _t_grip); // in units of s
 
 module apas_arm_seg(len, r1, r2, col) {
     color(col) {
@@ -196,7 +216,7 @@ module apas_7dof_arm() {
                 apas_arm_seg(25*s,12*s,12*s,"CadetBlue");
                 // Branch at middle joint — Y-shaped dual arms
                 for (branch = [-1, 1]) {
-                    translate([0,0,25*s]) rotate([0,_APAS_j5,0]) rotate([branch*(20 + 8*_t_factor),0,0]) {
+                    translate([0,0,25*s]) rotate([0,_APAS_j5,0]) rotate([branch*(20 + 8*_t_arm),0,0]) {
                         apas_arm_seg(100*s,12*s,10*s,"WhiteSmoke");
                         translate([0,0,100*s]) rotate([0,0,_APAS_j6]) {
                             apas_arm_seg(20*s,10*s,10*s,"CadetBlue");
