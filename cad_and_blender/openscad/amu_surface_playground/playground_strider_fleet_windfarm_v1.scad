@@ -59,6 +59,10 @@ COL_SLED        = [0.28, 0.30, 0.33];
 COL_PERMAFROST  = [0.75, 0.78, 0.82];
 COL_HAB_SHELL   = [0.86, 0.88, 0.90];
 COL_HAB_FRAME   = [0.22, 0.24, 0.26];
+COL_FRAME       = [0.22, 0.24, 0.26];
+COL_THERMAL_PAD = [0.35, 0.37, 0.40]; // DimGray
+COL_STEEL_GREY  = [0.65, 0.68, 0.72]; // Metallic steel
+COL_STRUT_DARK  = [0.20, 0.28, 0.30]; // DarkSlateGray
 
 // -----------------------------------------------------------------------------
 // Modular Component: Low-Poly Lightweight 50 kW Turbine
@@ -66,23 +70,89 @@ COL_HAB_FRAME   = [0.22, 0.24, 0.26];
 module macro_wind_turbine(stage="operating", phase_deg=0) {
     // stage: "operating" (mast up, spinning), "erecting" (mast tilting), "unpacked" (container on pad)
     
+    // 5. Thermal Break Footing Pad underneath container base
+    color(COL_THERMAL_PAD) {
+        translate([0, 0, 0.05]) cube([CONT_L + 0.2, CONT_W + 0.2, 0.10], center=true);
+    }
+
     // ISO container foundation
     color(COL_CONTAINER) {
-        translate([0, 0, CONT_H/2]) cube([CONT_L, CONT_W, CONT_H], center=true);
+        translate([0, 0, CONT_H/2 + 0.10]) cube([CONT_L, CONT_W, CONT_H], center=true);
     }
-    // Outriggers
+
+    // 1. Symmetrical Outriggers (4 symmetrical feet: 2 front, 2 rear)
+    // 2. Ice-Screw Anchor Pins with hex flange and shaft extending below z=0
+    // 5. Thermal Break Footing Pads under each circular pad
     color(COL_OUTRIGGER) {
-        for (oy = [-1, 1]) {
-            translate([0, oy * (CONT_W/2 + 0.8), 0.15]) cube([CONT_L - 1, 1.6, 0.3], center=true);
+        for (ox = [-CONT_L/2 + 0.6, CONT_L/2 - 0.6]) {
+            for (oy = [-1, 1]) {
+                translate([ox, oy * (CONT_W/2 + 1.0), 0.2]) {
+                    // Outrigger box beam
+                    cube([0.5, 2.0, 0.3], center=true);
+                    
+                    // Circular footpad
+                    translate([0, oy * 0.8, -0.15]) {
+                        cylinder(h=0.22, r=0.42, center=true);
+                        
+                        // 5. Thermal pad
+                        color(COL_THERMAL_PAD)
+                            translate([0, 0, -0.16]) cylinder(h=0.10, r=0.45, center=true);
+
+                        // 2. Ice-screw anchor pin
+                        color(COL_STEEL_GREY) {
+                            translate([0, 0, 0.12]) cylinder(h=0.06, r=0.16, center=true, $fn=6);
+                            translate([0, 0, -0.25]) cylinder(h=0.85, r=0.06, center=true, $fn=8);
+                        }
+                    }
+                }
+            }
         }
     }
 
-    hinge_x = CONT_L/2 - 0.4;
-    hinge_z = CONT_H;
+    hinge_x = CONT_L/2 - 0.5;
+    hinge_z = CONT_H + 0.10;
+    mast_r  = 0.50; // Average base radius
+
+    // 4. Triangulated Bracing Struts
+    color(COL_STRUT_DARK) {
+        // Strut 1: angled toward box center (-X)
+        hull() {
+            translate([hinge_x, 0, hinge_z + mast_r * 2.5]) sphere(r=mast_r * 0.35);
+            translate([hinge_x - 2.0, 0, CONT_H + 0.10 + 0.1]) sphere(r=mast_r * 0.35);
+        }
+        // Strut 2: angled toward front-left corner (+Y)
+        hull() {
+            translate([hinge_x, 0, hinge_z + mast_r * 2.5]) sphere(r=mast_r * 0.35);
+            translate([hinge_x + 0.4, CONT_W/2 - 0.25, CONT_H + 0.10 + 0.1]) sphere(r=mast_r * 0.35);
+        }
+        // Strut 3: angled toward front-right corner (-Y)
+        hull() {
+            translate([hinge_x, 0, hinge_z + mast_r * 2.5]) sphere(r=mast_r * 0.35);
+            translate([hinge_x + 0.4, -CONT_W/2 + 0.25, CONT_H + 0.10 + 0.1]) sphere(r=mast_r * 0.35);
+        }
+        // Deck mounting blocks
+        translate([hinge_x - 2.0, 0, CONT_H + 0.10 + 0.1]) cube([0.4, 0.4, 0.2], center=true);
+        translate([hinge_x + 0.4, CONT_W/2 - 0.25, CONT_H + 0.10 + 0.1]) cube([0.4, 0.4, 0.2], center=true);
+        translate([hinge_x + 0.4, -CONT_W/2 + 0.25, CONT_H + 0.10 + 0.1]) cube([0.4, 0.4, 0.2], center=true);
+    }
 
     if (stage == "operating") {
         // Fully erected vertical mast & spinning rotor
         translate([hinge_x, 0, hinge_z]) {
+            // 3. Reinforced Mast Trunnion Collar & Clevis
+            color(COL_FRAME) {
+                cylinder(h=mast_r * 3.5, r=mast_r * 1.45, center=false, $fn=16);
+                for (side = [-1, 1]) {
+                    translate([0, side * (mast_r * 1.45 + 0.05), (mast_r * 3.5)/2])
+                        cube([mast_r * 2.2, 0.10, mast_r * 3.2], center=true);
+                }
+            }
+            // Red mechanical cross lock-pin
+            color("Red") {
+                translate([0, 0, (mast_r * 3.5)/2])
+                    rotate([90, 0, 0]) cylinder(h=mast_r * 3.8, r=0.08, center=true);
+            }
+
             color(COL_MAST) {
                 translate([0, 0, MAST_L/2]) cylinder(h=MAST_L, r1=0.60, r2=0.40, center=true);
             }
@@ -106,6 +176,19 @@ module macro_wind_turbine(stage="operating", phase_deg=0) {
         // Tilted mast in active assembly (e.g. 35 deg angle)
         tilt = 35 + 10 * sin(anim_t * 360);
         translate([hinge_x, 0, hinge_z]) {
+            // 3. Reinforced Mast Trunnion Collar & Clevis
+            color(COL_FRAME) {
+                cylinder(h=mast_r * 3.5, r=mast_r * 1.45, center=false, $fn=16);
+                for (side = [-1, 1]) {
+                    translate([0, side * (mast_r * 1.45 + 0.05), (mast_r * 3.5)/2])
+                        cube([mast_r * 2.2, 0.10, mast_r * 3.2], center=true);
+                }
+            }
+            color("Red") {
+                translate([0, 0, (mast_r * 3.5)/2])
+                    rotate([90, 0, 0]) cylinder(h=mast_r * 3.8, r=0.08, center=true);
+            }
+
             rotate([0, 90 - tilt, 0]) {
                 color(COL_MAST) translate([0, 0, MAST_L/2]) cylinder(h=MAST_L, r1=0.60, r2=0.40, center=true);
                 translate([0, 0, MAST_L]) {

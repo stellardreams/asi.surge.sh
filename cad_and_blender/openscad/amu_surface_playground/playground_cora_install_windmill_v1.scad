@@ -65,6 +65,9 @@ COL_ARM_BLUE    = [0.15, 0.45, 0.85];
 COL_GOLD        = [0.85, 0.68, 0.25];
 COL_WINCH       = [0.30, 0.32, 0.35];
 COL_FRAME       = [0.22, 0.24, 0.26];
+COL_THERMAL_PAD = [0.35, 0.37, 0.40]; // DimGray
+COL_STEEL_GREY  = [0.65, 0.68, 0.72]; // Metallic steel
+COL_STRUT_DARK  = [0.20, 0.28, 0.30]; // DarkSlateGray
 COL_PERMAFROST  = [0.75, 0.78, 0.82];
 
 // -----------------------------------------------------------------------------
@@ -77,20 +80,47 @@ module wind_turbine_foundation_and_mast() {
             cube([28, 22, 0.4], center=true);
     }
 
+    // 5. Thermal Break Footing Pad underneath main cuboid base
+    color(COL_THERMAL_PAD) {
+        translate([0, 0, 0.05])
+            cube([CONT_L + 0.2, CONT_W + 0.2, 0.10], center=true);
+    }
+
     // 20 ft ISO Container Foundation
     color(COL_CONTAINER) {
-        translate([0, 0, CONT_H/2])
+        translate([0, 0, CONT_H/2 + 0.10])
             cube([CONT_L, CONT_W, CONT_H], center=true);
     }
 
-    // Foundation outriggers
+    // 1. Symmetrical Outriggers (4 symmetrical feet: 2 front +X, 2 rear -X)
+    // 2. Ice-Screw Anchor Pins with top hex flange and shaft extending below z=0
+    // 5. Thermal Break Footing Pads underneath each of the 4 circular pads
     color(COL_OUTRIGGER) {
         for (ox = [-CONT_L/2 + 0.6, CONT_L/2 - 0.6]) {
             for (oy = [-1, 1]) {
                 translate([ox, oy * (CONT_W/2 + 1.2), 0.2]) {
+                    // Outrigger structural box beam
                     cube([0.5, 2.4, 0.35], center=true);
-                    translate([0, oy * 1.0, -0.15])
+                    
+                    // Circular footpad
+                    translate([0, oy * 1.0, -0.15]) {
                         cylinder(h=0.25, r=0.45, center=true);
+
+                        // 5. Thermal insulation pad underneath circular footpad
+                        color(COL_THERMAL_PAD)
+                            translate([0, 0, -0.18])
+                                cylinder(h=0.10, r=0.48, center=true);
+
+                        // 2. Ice-Screw Anchor Pin: vertical metallic grey cylinder with hex flange
+                        color(COL_STEEL_GREY) {
+                            // Top hexagonal flange resting flush on upper face
+                            translate([0, 0, 0.14])
+                                cylinder(h=0.06, r=0.18, center=true, $fn=6);
+                            // Driven ice anchor shaft extending below z = 0
+                            translate([0, 0, -0.25])
+                                cylinder(h=0.85, r=0.06, center=true, $fn=16);
+                        }
+                    }
                 }
             }
         }
@@ -98,7 +128,7 @@ module wind_turbine_foundation_and_mast() {
 
     // South Roof Winch Hoist
     color(COL_WINCH) {
-        translate([-CONT_L/2 + 0.8, 0, CONT_H + 0.3]) {
+        translate([-CONT_L/2 + 0.8, 0, CONT_H + 0.10 + 0.3]) {
             cube([0.9, 0.8, 0.4], center=true);
             translate([0, 0, 0.22]) rotate([90, 0, 0])
                 cylinder(h=0.6, r=0.18, center=true);
@@ -106,14 +136,54 @@ module wind_turbine_foundation_and_mast() {
     }
 
     // Tilting Mast & Gin-Pole
-    trunnion_x = CONT_L/2 - 0.8;
-    trunnion_z = CONT_H + 0.2;
+    mast_r      = 0.26;
+    trunnion_x  = CONT_L/2 - 0.8;
+    trunnion_z  = CONT_H + 0.10 + 0.2;
+
+    // 4. Triangulated Bracing Struts (mounting blocks on top deck to trunnion base)
+    color(COL_STRUT_DARK) {
+        // Strut 1: angled toward center (-X)
+        hull() {
+            translate([trunnion_x, 0, trunnion_z + mast_r * 2.5]) sphere(r=mast_r * 0.35);
+            translate([trunnion_x - 1.8, 0, CONT_H + 0.10 + 0.1]) sphere(r=mast_r * 0.35);
+        }
+        // Strut 2: angled toward front-left corner (+Y)
+        hull() {
+            translate([trunnion_x, 0, trunnion_z + mast_r * 2.5]) sphere(r=mast_r * 0.35);
+            translate([trunnion_x + 0.4, CONT_W/2 - 0.25, CONT_H + 0.10 + 0.1]) sphere(r=mast_r * 0.35);
+        }
+        // Strut 3: angled toward front-right corner (-Y)
+        hull() {
+            translate([trunnion_x, 0, trunnion_z + mast_r * 2.5]) sphere(r=mast_r * 0.35);
+            translate([trunnion_x + 0.4, -CONT_W/2 + 0.25, CONT_H + 0.10 + 0.1]) sphere(r=mast_r * 0.35);
+        }
+        // Mounting anchor blocks on top deck
+        translate([trunnion_x - 1.8, 0, CONT_H + 0.10 + 0.1]) cube([0.35, 0.35, 0.2], center=true);
+        translate([trunnion_x + 0.4, CONT_W/2 - 0.25, CONT_H + 0.10 + 0.1]) cube([0.35, 0.35, 0.2], center=true);
+        translate([trunnion_x + 0.4, -CONT_W/2 + 0.25, CONT_H + 0.10 + 0.1]) cube([0.35, 0.35, 0.2], center=true);
+    }
 
     translate([trunnion_x, 0, trunnion_z]) {
         rotate([0, tilt_deg, 0]) {
+            // 3. Reinforced Mast Trunnion Collar (r = mast_r * 1.45, h = mast_r * 3.5)
+            color(COL_FRAME) {
+                cylinder(h=mast_r * 3.5, r=mast_r * 1.45, center=false, $fn=32);
+                // Vertical rectangular clevis plates
+                for (side = [-1, 1]) {
+                    translate([0, side * (mast_r * 1.45 + 0.05), (mast_r * 3.5)/2])
+                        cube([mast_r * 2.2, 0.08, mast_r * 3.2], center=true);
+                }
+            }
+            // Mechanical lock pin engaged by CORA arm (color Red/Orange)
+            color("Red") {
+                translate([0, 0, (mast_r * 3.5)/2])
+                    rotate([90, 0, 0])
+                        cylinder(h=mast_r * 3.8, r=0.06, center=true);
+            }
+
             // 24m Tubular Mast
             color(COL_MAST) {
-                cylinder(h=MAST_L, r=0.26, center=false, $fn=24);
+                cylinder(h=MAST_L, r=mast_r, center=false, $fn=24);
                 for (fl = [4.8, 9.6, 14.4, 19.2]) {
                     translate([0, 0, fl]) cylinder(h=0.12, r=0.32, center=true);
                 }
