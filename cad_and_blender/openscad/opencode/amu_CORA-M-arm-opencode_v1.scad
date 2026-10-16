@@ -143,20 +143,20 @@ _APAS_rail_len = 500 * _APAS_arm_scale;
 _APAS_rail_w = 40 * _APAS_arm_scale;
 _APAS_rail_t = 15 * _APAS_arm_scale;
 
-// Issue #81: "Tool-Grab" Kinematic State
-// Prismatic Carriage Position: 0.80 * _APAS_rail_len (targets 400mm extraction coordinate down 500mm rail)
-_APAS_carriage_pos = 0.80 * _APAS_rail_len;
+// Issue #81: "Tool-Grab" Kinematic State & Dynamic Animation Support
+// Smooth cyclic factor: 0.0 (compact stowed at home) -> 1.0 (translated to 400mm & fully extended) -> 0.0
+_t_factor = $t > 0 ? (1 - cos($t * 360)) / 2 : 1.0;
 
-// Dynamic Animation Support: if $t is active in OpenSCAD animation, interpolate reach; else default to uncurled
-TOOL_GRAB_ACTIVE = true;
-_t_factor = $t > 0 ? sin($t * 360) * 0.5 + 0.5 : 1.0;
+// Prismatic Carriage Position: 0.20 * _APAS_rail_len (home) -> 0.80 * _APAS_rail_len (400mm target coordinate)
+_APAS_carriage_pos = (0.20 + 0.60 * _t_factor) * _APAS_rail_len;
 
+// Dynamic Joint Articulation:
 _APAS_j2 = 25 * (1 - 0.5 * _t_factor); 
-_APAS_j3 = TOOL_GRAB_ACTIVE ? 0 : -30; // Shoulder Pitch fully straight for uncurled retrieval
-_APAS_j4 = 45 * (1 - _t_factor); 
-_APAS_j5 = TOOL_GRAB_ACTIVE ? 0 : -60; // Elbow Pitch fully straight for rigid reaching profile
+_APAS_j3 = -30 * (1 - _t_factor); // Shoulder uncurls from -30° stowed to 0° straight reaching profile
+_APAS_j4 = 45 * (1 - _t_factor);  // Forearm aligns
+_APAS_j5 = -60 * (1 - _t_factor); // Elbow uncurls from -60° stowed to 0° straight reaching profile
 _APAS_j6 = 15; 
-_APAS_j7 = 30 * (1 - _t_factor); 
+_APAS_j7 = 30 * (1 - _t_factor);  // Wrist pitches into cargo capture alignment
 _APAS_j8 = 90;
 
 module apas_arm_seg(len, r1, r2, col) {

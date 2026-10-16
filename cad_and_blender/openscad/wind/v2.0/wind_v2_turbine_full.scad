@@ -1,45 +1,17 @@
-// wind_v2_system_snow.scad -- Full Arctic Wind v2.0 System in Operational Snow Scene
+// wind_v2_turbine_full.scad -- Full Wind v2.0 Operational 50 kW Wind Turbine Architecture
 //
-// Complete 3D CAD scene showing the fully erected 50 kW turbine operating in an
-// Arctic blizzard/permafrost terrain:
-// - 20 ft ISO foundation container with deployed leveling outriggers seated in snow
-// - 24 m modular tubular steel mast reaching vertical operational height
-// - Direct-drive PMSG nacelle with aerodynamic cowl and snow louvers
-// - Complete 26 m diameter 3-bladed sectional rotor rotating in wind stream
-// - Sastrugi snowdrifts, frozen ground pad, and high-visibility anti-icing leading edges
+// Complete 3D CAD engineering model showing the fully erected 50 kW modular wind turbine:
+// - Package 1: 20 ft ISO container foundation footing with 4x extended structural outriggers & anchor pads
+// - Package 2: 24 m modular tubular steel mast (Ø508 mm) with flanged joints & 4-point guy wire rigging
+// - Package 3: Arctic direct-drive PMSG nacelle tophead with aerodynamic composite cowl & cooling louvers
+// - Package 4: 26 m diameter 3-bladed sectional composite rotor with high-visibility anti-icing leading edges
 //
-// Tracked under Issue #82 (Parent Roadmap)
+// Tracked under Issue #82 (Parent Program Architecture)
 
 $fn = 32;
 
 use </vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.scad>
 use </vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_nacelle.scad>
-
-// Ground Snowfield with sastrugi wind ripples
-module arctic_vast_snowscape() {
-    color([0.94, 0.96, 0.99]) {
-        translate([4000, 0, -200])
-        difference() {
-            cube([36000, 24000, 400], center=true);
-            // Sastrugi snow drift ridges
-            for (dx = [-14000 : 3500 : 16000]) {
-                translate([dx, 0, 190])
-                rotate([0, 10, 20])
-                cube([1800, 28000, 90], center=true);
-            }
-        }
-    }
-
-    // Packed snow bank around container base
-    color([0.88, 0.92, 0.96, 0.9]) {
-        for (a = [0 : 45 : 315]) {
-            rotate([0, 0, a])
-            translate([3500, 0, 50])
-            scale([2.5, 1.2, 0.6])
-            sphere(d=1200);
-        }
-    }
-}
 
 // Full 26 m 3-bladed rotor assembly with realistic chord taper and anti-icing edges
 module full_operational_rotor() {
@@ -84,16 +56,14 @@ module full_operational_rotor() {
 }
 
 module complete_arctic_wind_system() {
-    // 1. Natural terrain
-    arctic_vast_snowscape();
-
-    // 2. 20 ft ISO Container foundation (Package 1)
+    // 1. 20 ft ISO Container foundation (Package 1)
+    // Matte dark charcoal shell with corner castings
     color([0.18, 0.19, 0.21]) {
         translate([-6058/2 + 500, 0, 2591/2])
         cube([6058, 2438, 2591], center=true);
     }
 
-    // Foundation outriggers extended into snow
+    // Foundation structural outriggers extended for overturning stability
     color([0.85, 0.55, 0.15]) {
         for (dx = [-2600, 2600]) {
             for (dy = [-1800, 1800]) {
@@ -106,9 +76,9 @@ module complete_arctic_wind_system() {
         }
     }
 
-    // 3. Upright 24 m modular tubular steel mast (Package 2)
+    // 2. Upright 24 m modular tubular steel mast (Package 2)
     translate([0, 0, 2591 + 35]) {
-        // Mast column
+        // Mast column (Ø508 mm)
         color([0.88, 0.90, 0.93]) {
             difference() {
                 cylinder(d=508, h=24000);
@@ -121,7 +91,7 @@ module complete_arctic_wind_system() {
             }
         }
 
-        // Guy wires stabilizing upper tower
+        // 4-Point Guy wires stabilizing upper tower
         color([0.4, 0.45, 0.5, 0.7]) {
             for (g_ang = [45, 135, 225, 315]) {
                 hull() {
@@ -131,19 +101,19 @@ module complete_arctic_wind_system() {
             }
         }
 
-        // 4. Nacelle tophead (Package 3)
+        // 3. Nacelle tophead (Package 3)
         translate([0, 0, 24000]) {
             // Yaw interface & bedplate
             color([0.35, 0.38, 0.42])
             cylinder(d=680, h=160, center=true);
 
-            // Aerodynamic cowl with snow louvers
+            // Aerodynamic cowl with cooling louvers
             color([0.94, 0.95, 0.98]) {
                 translate([400, 0, 790])
                 scale([1.1, 0.75, 0.8])
                 sphere(d=2200);
 
-                // Rear cooling snow louvers
+                // Rear cooling louvers
                 translate([-600, 0, 950])
                 for (lz = [-100 : 40 : 100]) {
                     translate([0, 0, lz])
@@ -151,7 +121,7 @@ module complete_arctic_wind_system() {
                 }
             }
 
-            // 5. Sectional Rotor Assembly (Package 4)
+            // 4. Sectional Rotor Assembly (Package 4)
             translate([1700, 0, 790])
             full_operational_rotor();
         }
