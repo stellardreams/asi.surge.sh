@@ -137,22 +137,25 @@ module spine_double(len) {
 }
 
 // --- 7-DoF Rail-Mounted Arm from Issue 5 & 81 ("Tool-Grab" Kinematics) ---
-// Sample: rail 500mm, carriage 60mm, 7 joints — scaled to AMU units
-_APAS_arm_scale = 0.014; // sample mm -> AMU units (tuned: 500*0.014=7.0, arm reach ~4.5)
-_APAS_rail_len = 500 * _APAS_arm_scale;
+// Lateral CORA Guide Rails & Multi-Sector Traversal (Green Rectangles from user review)
+// Positioned symmetrically at Y = ±2.4 (theta ≈ 23.6°, Z = 5.50 on hull cylinder)
+// Spans X from -5.8 to +5.8 (length 11.6 units), making arms accessible across solar panels, entrance/exit, and grooves.
+_APAS_arm_scale = 0.014;
+_APAS_lateral_y = 2.4;
+_APAS_lateral_theta = asin(_APAS_lateral_y / MMS_RADIUS); // 23.58 deg
+_APAS_lateral_z = MMS_RADIUS * cos(_APAS_lateral_theta);  // 5.499 units
+_APAS_rail_len = 11.6;
 _APAS_rail_w = 40 * _APAS_arm_scale;
 _APAS_rail_t = 15 * _APAS_arm_scale;
 
 // Issue #81: "Tool-Grab" Kinematic State & Dynamic Animation Support
-// Smooth cyclic factor: 0.0 (stowed at home) -> 1.0 (translated to 400mm & fully extended) -> 0.0
-// Uses full cosine cycle so 0 -> 1 -> 0 is seamless across $t in [0, 1)
+// Smooth cyclic factor: 0.0 (stowed) -> 1.0 (extended across sector) -> 0.0
 _t_factor = (1 - cos($t * 360)) / 2;
 
-// Prismatic Carriage Position: 0.20 * _APAS_rail_len (home) -> 0.80 * _APAS_rail_len (400mm target coordinate)
-_APAS_carriage_pos = (0.20 + 0.60 * _t_factor) * _APAS_rail_len;
+// Prismatic Carriage Position: traverses across the full sector span (-0.35 * len to +0.35 * len)
+_APAS_carriage_pos = (-0.35 + 0.70 * _t_factor) * _APAS_rail_len;
 
 // Dynamic Joint Articulation & Arm Motion:
-// Shoulder and elbow articulate through a reach-and-grab arc
 _APAS_j2 = 25 * (1 - 0.7 * _t_factor); 
 _APAS_j3 = -35 + 40 * _t_factor;        // Shoulder pitches forward from -35° stowed to +5° reach
 _APAS_j4 = 45 * (1 - _t_factor);        // Forearm aligns
@@ -162,7 +165,6 @@ _APAS_j7 = 35 - 45 * _t_factor;         // Wrist pitch tilts down into grab enga
 _APAS_j8 = 90;
 
 // Dynamic End-Effector Caliper Clamping:
-// Calipers start open (gap 14*s), close firmly onto tool/rivet (gap 3*s) when extended, then re-open
 _APAS_caliper_gap = (14 - 11 * _t_factor); // in units of s
 
 module apas_arm_seg(len, r1, r2, col) {
@@ -194,7 +196,6 @@ module apas_7dof_arm() {
                 apas_arm_seg(25*s,12*s,12*s,"CadetBlue");
                 // Branch at middle joint — Y-shaped dual arms
                 for (branch = [-1, 1]) {
-                    // Arms spread dynamically and pitch towards grab target
                     translate([0,0,25*s]) rotate([0,_APAS_j5,0]) rotate([branch*(20 + 8*_t_factor),0,0]) {
                         apas_arm_seg(100*s,12*s,10*s,"WhiteSmoke");
                         translate([0,0,100*s]) rotate([0,0,_APAS_j6]) {
@@ -203,9 +204,7 @@ module apas_7dof_arm() {
                                 apas_arm_seg(15*s,10*s,8*s,"LightGray");
                                 translate([0,0,15*s]) rotate([0,0,_APAS_j8]) {
                                     color("Gold") {
-                                        // Palm / wrist mount
                                         cylinder(h=10*s,r1=8*s,r2=4*s,$fn=24);
-                                        // Dynamic caliper jaws grasping and releasing
                                         translate([-(_APAS_caliper_gap/2 + 2)*s, 0, 10*s]) cube([2*s,6*s,12*s]);
                                         translate([(_APAS_caliper_gap/2)*s, 0, 10*s]) cube([2*s,6*s,12*s]);
                                     }
@@ -219,16 +218,26 @@ module apas_7dof_arm() {
     }
 }
 module apas_arm_near_hatch() {
-    // Issue #81: Rail-mounted 7-DoF arm with prismatic translation to 400mm mark (0.80 * _APAS_rail_len)
-    translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.08]) {
-        // Guide rail mounted along hull top
-        apas_arm_rail();
-        // Carriage translated along rail to 400mm target coordinate
-        translate([_APAS_carriage_pos - _APAS_rail_len/2, 0, _APAS_rail_t/2 + 4*_APAS_arm_scale]) {
-            apas_arm_carriage();
-            translate([0, 0, 8*_APAS_arm_scale])
-                rotate([0, 0, -12])
-                    apas_7dof_arm();
+    // Quad longitudinal CORA guide rails: 2 on dorsal (+Z) and 2 on flip/ventral (-Z) side
+    // Positioned at angles a ≈ 66.4°, 113.6°, 246.4°, 293.6° (corresponding to lateral Y = ±2.4 on both sides)
+    // Symmetrically deployed across both AMUs in the system
+    for (sideZ = [1, -1]) {
+        for (sideY = [-1, 1]) {
+            base_ang = sideZ > 0 ? 90 : 270;
+            a = base_ang - sideY * _APAS_lateral_theta;
+            rotate([a - 90, 0, 0]) {
+                translate([0, 0, MMS_RADIUS + 0.08]) {
+                    // Guide rail mounted tangent to hull cylinder along X
+                    apas_arm_rail();
+                    // Carriage translated dynamically along rail
+                    translate([_APAS_carriage_pos, 0, _APAS_rail_t/2 + 4*_APAS_arm_scale]) {
+                        apas_arm_carriage();
+                        translate([0, 0, 8*_APAS_arm_scale])
+                            rotate([0, 0, sideY > 0 ? -12 : 168])
+                                apas_7dof_arm();
+                    }
+                }
+            }
         }
     }
 }
