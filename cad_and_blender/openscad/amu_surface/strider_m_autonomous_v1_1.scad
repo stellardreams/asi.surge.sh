@@ -8,7 +8,7 @@
 //   and pulling heavy sledged payloads across arctic sea ice, snowpack, permafrost, and lunar/martian regolith.
 //
 // Key Subsystems & Design Features (from Arctic Field Expedition Photographs):
-// 1. Sleek Monocoque Low-Profile Aerodynamic Hull:
+// 1. Sleek Monocoque Low-Profile Aerodynamic Hull (https://www.merriam-webster.com/dictionary/monocoque):
 //    - Seamless bronze/metallic copper thermal skin with smooth integrated mudguards.
 //    - Low center-of-gravity flatbed deck with rear solar trickle charging array.
 // 2. Integrated Sensor Suite & Autonomous Avionics:
