@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT_DIR="/tmp/wind_v2_unpack_frames"
-SCAD_FILE="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_container_unpacking.scad"
-GIF_OUT="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_container_unpacking.gif"
-MP4_OUT="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_container_unpacking.mp4"
+SCAD_FILE="${REPO_ROOT}/cad_and_blender/openscad/wind/v2.0/wind_v2_container_unpacking.scad"
+GIF_OUT="${REPO_ROOT}/cad_and_blender/openscad/wind/v2.0/wind_v2_container_unpacking.gif"
+MP4_OUT="${REPO_ROOT}/cad_and_blender/openscad/wind/v2.0/wind_v2_container_unpacking.mp4"
 
 mkdir -p "$OUT_DIR"
 rm -f "$OUT_DIR"/*.png

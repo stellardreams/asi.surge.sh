@@ -34,4 +34,4 @@
 *   **The Sentry Layer**: A faint hexagonal grid or computer-vision overlay periodically appearing across LEO and MEO to represent the **Orbital Sentry** compute layer.
 
 ---
-*Reference Drawing: [img/Inner-Solar-System-Vision-2018-2026.jpg](file:///vms_and_github/Github/asi.surge.sh/img/Inner-Solar-System-Vision-2018-2026.jpg)*
+*Reference Drawing: [img/Inner-Solar-System-Vision-2018-2026.jpg](img/Inner-Solar-System-Vision-2018-2026.jpg)*

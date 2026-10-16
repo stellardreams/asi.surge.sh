@@ -17,8 +17,8 @@
 
 $fn = 32;
 
-use </vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.scad>
-use </vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_nacelle.scad>
+use <wind_v2_mast_erection.scad>
+use <wind_v2_nacelle.scad>
 
 // Full 26 m 3-bladed rotor assembly with realistic chord taper and anti-icing edges
 module full_operational_rotor() {

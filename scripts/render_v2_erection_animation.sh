@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# render_v2_erection_animation.sh -- Render wide-view tilt-up erection animation for Wind v2.0
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT_DIR="/tmp/wind_v2_anim_frames"
-SCAD_FILE="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.scad"
-GIF_OUT="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.gif"
-MP4_OUT="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.mp4"
+SCAD_FILE="${REPO_ROOT}/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.scad"
+GIF_OUT="${REPO_ROOT}/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.gif"
+MP4_OUT="${REPO_ROOT}/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.mp4"
 
 mkdir -p "$OUT_DIR"
 rm -f "$OUT_DIR"/*.png
