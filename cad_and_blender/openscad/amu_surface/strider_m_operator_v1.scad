@@ -7,9 +7,15 @@
 //   Utilized for complex assisted maneuvers, precision field repairs, and tactile micro-wind installation.
 //
 // Key Subsystems & Design Features (from Arctic Fleet Classification Schematic):
-// 1. Visible Operator Cockpit & Ergonomics:
+// 1. Visible Operator Cockpit & Safety Cell (NASCAR-Style Full Roll Cage):
+//    - Heavy-duty high-tensile tubular steel roll cage (ROPS/FOPS - Roll-Over & Falling Object Protection)
+//      fully encasing the human operator from overhead, lateral impact, and falling loads.
+//    - Overhead steel canopy / deflector shield completely protecting the operator against accidental crane drop.
 //    - Human-scale operator saddle seat, handlebar steering controls, and direct operator feedback HUD/display.
-//    - Manual hydraulic override control lever rack mounted on side chassis deck.
+//    - Manual hydraulic override control lever rack protected inside the armored safety cell.
+// 2. Separate Isolated Crane Module & Kinematic Barrier:
+//    - Articulating micro-installer crane boom is mounted on a structurally isolated rear turret pedestal
+//      behind a solid armored deflection bulkhead wall separating the crane envelope from the operator.
 // 2. Heavy Articulating Micro-Installer Crane Boom:
 //    - 3-segment hydraulic boom arm with heavy base turret, elbow actuator, and rotating wrist.
 //    - Hydraulic grapple claw end-effector holding/installing a Modular Micro-Wind Unit (Type A, Assy P/N: 12845).
@@ -177,6 +183,86 @@ module operator_cockpit() {
     }
 }
 
+
+// -----------------------------------------------------------------------------
+// Subsystem 2b: NASCAR-Style Tubular Steel Roll Cage & Safety Cell (ROPS/FOPS)
+// -----------------------------------------------------------------------------
+
+COL_CAGE_STEEL      = [0.16, 0.18, 0.20]; // High-tensile DOM seamless structural tubing
+COL_CANOPY_SHIELD   = [0.22, 0.25, 0.28]; // Armored overhead deflection plate
+
+module nascar_operator_safety_cell() {
+    // 1. Armored Deflection Bulkhead (Solid wall separating crane turret from operator)
+    translate([-1.05, 0, CHASSIS_H + 0.85]) {
+        color(COL_CANOPY_SHIELD) {
+            // Thick vertical steel firewall / blast & crush bulkhead
+            cube([0.18, 1.6, 1.4], center=true);
+            // Angled deflector lip at top
+            translate([0.12, 0, 0.72]) rotate([0, 35, 0])
+                cube([0.25, 1.62, 0.12], center=true);
+        }
+    }
+
+    // 2. NASCAR-Style Tubular Space-Frame Roll Cage
+    color(COL_CAGE_STEEL) {
+        // Main A-Pillar Hoops (Front of cockpit)
+        for (sy = [-0.75, 0.75]) {
+            // Front uprights
+            translate([0.65, sy, CHASSIS_H + 0.95])
+                rotate([0, 18, 0]) cylinder(h=1.5, r=0.065, center=true);
+            // Rear B-Pillar uprights (at the firewall bulkhead)
+            translate([-1.0, sy, CHASSIS_H + 0.95])
+                cylinder(h=1.5, r=0.075, center=true);
+            // Lower chassis sill bar
+            translate([-0.18, sy, CHASSIS_H + 0.35])
+                rotate([0, 90, 0]) cylinder(h=1.65, r=0.06, center=true);
+            // Mid door impact intrusion bar (NASCAR ladder bar)
+            translate([-0.18, sy, CHASSIS_H + 0.75])
+                rotate([0, 90, 0]) cylinder(h=1.65, r=0.06, center=true);
+            // Diagonal side bracing
+            translate([-0.18, sy, CHASSIS_H + 0.95])
+                rotate([0, 42, 0]) cylinder(h=1.85, r=0.05, center=true);
+        }
+
+        // Overhead Roof Halo / Roll Hoop
+        translate([-0.18, 0, CHASSIS_H + 1.68]) {
+            // Lateral side roof bars
+            for (sy = [-0.75, 0.75]) {
+                translate([0, sy, 0]) rotate([0, 90, 0])
+                    cylinder(h=1.65, r=0.065, center=true);
+            }
+            // Front and rear cross-spanners
+            for (rx = [-0.8, 0.8]) {
+                translate([rx, 0, 0]) rotate([90, 0, 0])
+                    cylinder(h=1.5, r=0.065, center=true);
+            }
+            // Diagonal overhead roof gusset brace
+            rotate([0, 0, 40]) cube([0.08, 1.8, 0.08], center=true);
+        }
+
+        // Front Windscreen Protection Mesh / Brow Bars
+        translate([0.72, 0, CHASSIS_H + 1.25]) {
+            rotate([0, 18, 0]) {
+                for (gy = [-0.5, 0, 0.5]) {
+                    translate([0, gy, 0]) cylinder(h=0.8, r=0.035, center=true);
+                }
+            }
+        }
+    }
+
+    // 3. Heavy Armored Overhead Deflector Shield (Protects against falling crane loads)
+    translate([-0.20, 0, CHASSIS_H + 1.72]) {
+        color(COL_CANOPY_SHIELD) {
+            cube([1.75, 1.55, 0.08], center=true);
+            // Longitudinal stiffener ribs across roof plate
+            for (ry = [-0.5, 0, 0.5]) {
+                translate([0, ry, 0.06])
+                    cube([1.72, 0.06, 0.08], center=true);
+            }
+        }
+    }
+}
+
 // -----------------------------------------------------------------------------
 // Subsystem 3: Articulating Micro-Installer Crane Boom & Modular Wind Unit
 // -----------------------------------------------------------------------------
@@ -277,7 +363,10 @@ module strider_m_operator_v1() {
     // 1. Visible Operator Cockpit & Controls
     operator_cockpit();
 
-    // 2. Articulating Micro-Installer Crane Boom with Micro-Wind Unit
+    // 1b. NASCAR-Style Full Roll Cage & Overhead Deflection Shield (Safety Cell)
+    nascar_operator_safety_cell();
+
+    // 2. Structurally Isolated Articulating Micro-Installer Crane Boom (Rear-Mounted behind Bulkhead)
     micro_installer_crane_arm();
 
     // 3. Four Independent High-Traction Triangular Bogies
