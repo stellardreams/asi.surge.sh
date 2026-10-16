@@ -140,42 +140,44 @@ module operator_cockpit() {
     }
 
     // Steering Column, Handlebars & Direct Operator HUD
-    translate([0.9, 0, CHASSIS_H + 0.75]) {
+    // Positioned safely inside the NASCAR roll cage cell (A-pillars at X = 0.65, seat at X = -0.2)
+    translate([0.35, 0, CHASSIS_H + 0.75]) {
         // Steering post
         color(COL_BOOM_DARK) {
-            rotate([0, 22, 0]) cylinder(h=0.8, r=0.08, center=true);
+            rotate([0, 18, 0]) cylinder(h=0.75, r=0.07, center=true);
         }
-        // Handlebars
-        translate([0.15, 0, 0.42]) {
+        // Handlebars (Width = 0.95m, well within the 1.5m wide safety cell cage)
+        translate([0.10, 0, 0.38]) {
             color(COL_HANDLEBAR_STEEL) {
-                rotate([90, 0, 0]) cylinder(h=1.1, r=0.04, center=true);
+                rotate([90, 0, 0]) cylinder(h=0.95, r=0.04, center=true);
                 // Rubber handgrips
-                for (gy = [-0.55, 0.55]) {
+                for (gy = [-0.48, 0.48]) {
                     translate([0, gy, 0]) rotate([90, 0, 0])
-                        cylinder(h=0.22, r=0.06, center=true);
+                        cylinder(h=0.20, r=0.055, center=true);
                 }
             }
             // Direct Operator Feedback HUD & Instrument Console
             color(COL_BOOM_DARK) {
-                translate([0.08, 0, 0.12]) rotate([0, -35, 0]) {
-                    cube([0.18, 0.42, 0.22], center=true);
+                translate([0.06, 0, 0.12]) rotate([0, -30, 0]) {
+                    cube([0.18, 0.40, 0.20], center=true);
                     // Active digital display screen
                     color([0.15, 0.85, 0.35]) translate([0.09, 0, 0])
-                        cube([0.02, 0.34, 0.16], center=true);
+                        cube([0.02, 0.32, 0.15], center=true);
                 }
             }
         }
     }
 
-    // Manual Hydraulic Override Controls (Bank of lever joysticks on starboard flank)
-    translate([0.1, 0.75, CHASSIS_H + 0.55]) {
+    // Manual Hydraulic & Field Override Controls
+    // Located internally on starboard side within the safety cell (Y = 0.42 < 0.75 cage limit)
+    translate([0.15, 0.42, CHASSIS_H + 0.62]) {
         color(COL_BOOM_DARK) {
-            cube([0.5, 0.28, 0.2], center=true);
+            cube([0.45, 0.22, 0.18], center=true);
             // 4x Hydraulic override levers
-            for (lx = [-0.15, -0.05, 0.05, 0.15]) {
-                translate([lx, 0, 0.18]) rotate([15, 0, 0]) {
-                    color(COL_HANDLEBAR_STEEL) cylinder(h=0.22, r=0.02, center=true);
-                    color("Red") translate([0, 0, 0.12]) sphere(r=0.035);
+            for (lx = [-0.14, -0.05, 0.05, 0.14]) {
+                translate([lx, 0, 0.15]) rotate([12, 0, 0]) {
+                    color(COL_HANDLEBAR_STEEL) cylinder(h=0.18, r=0.018, center=true);
+                    color("Red") translate([0, 0, 0.10]) sphere(r=0.03);
                 }
             }
         }
