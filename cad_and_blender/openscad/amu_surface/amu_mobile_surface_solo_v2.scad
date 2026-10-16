@@ -6,6 +6,8 @@
 // - Subsystems & Features from High-Fidelity Arctic Schematic:
 //   1. External Exo-Skeleton Truss Cage:
 //      - A36 Structural steel tubular reinforcement ribs and diagrid cross-bracing framing the arched cylinder.
+//      - Diagrid "X" Struts Dual Rationale: (a) Optical anti-whiteout fiducials for approaching aerial/ground vehicles;
+//        (b) Structural triangulation resisting torsional/shear racking under crawler terrain differentials.
 //      - Longitudinal dorsal spine truss and lateral load-distribution stringers.
 //   2. Arctic Air Handling Unit (AHU) & HVAC Filtration Pack:
 //      - Reconfigured Arctic Air Handling Unit mounted laterally with modular radiator grille.
@@ -162,7 +164,13 @@ module exo_truss_cage() {
         }
 
         // Conformal Diagrid Cross-Bracing Struts (Conforming to curved hull radius)
-        // In the illustration, the black steel struts form a diamond lattice across the cylindrical hull
+        // Diagrid Hull Cross-Braces ("X" Patterns) Dual-Purpose Rationale:
+        // 1. Optical Anti-Whiteout & Fiducial Grid: In extreme Arctic blizzard or whiteout
+        //    conditions, high-contrast dark steel markings provide essential visual landmarks
+        //    and feature tracking for approaching cargo drones, landers, and automated rovers.
+        // 2. Structural Torsional & Shear Rigidity: While circular hoops resist hoop stress,
+        //    the diagonal "X" triangulation stiffens the 18m hull against twisting (torsion)
+        //    and racking forces caused by uneven terrain differentials under crawler tracks.
         for (side = [-1, 1]) {
             for (bx = [-MMS_LENGTH/2 + 2.2 : 4.4 : MMS_LENGTH/2 - 2.2]) {
                 for (ang = [25 : 25 : 75]) {
