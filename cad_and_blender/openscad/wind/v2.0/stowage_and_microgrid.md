@@ -45,6 +45,9 @@ Derived from [`container_pack_audit.py`](container_pack_audit.py):
 ## 4. Verification & CAD Artifacts
 
 ```bash
+# 0. Activate the CAD Python virtual environment:
+source ~/.venvs/cad/bin/activate
+
 # 1. Run container stowage & mass audit:
 python3 cad_and_blender/openscad/wind/v2.0/container_pack_audit.py
 # Exit 0: All 4 container transport & anti-icing assertions satisfied
@@ -64,17 +67,29 @@ The operational wind turbine CAD model ([`wind_v2_turbine_full.scad`](wind_v2_tu
 
 - **Rotational Velocity:** Rated direct-drive rotor speed of $65\text{ RPM}$ ($\lambda = 6.8$, $88.5\text{ m/s}$ tip speed).
 - **Angular Period:** Each full cycle maps $\$t \times 360^\circ$, producing a seamless $360^\circ$ rotation for video and looping GIF formats.
-- **Headless Render Automation:** Handled via [`scripts/render_turbine_animation.sh`](../../../scripts/render_turbine_animation.sh):
-  ```bash
-  # Render landscape perspective (1024x576):
-  scripts/render_turbine_animation.sh --view landscape --frames 24 --fps 20
 
-  # Render hero perspective (800x800):
-  scripts/render_turbine_animation.sh --view hero --frames 24 --fps 20
+### How to Run the Animation Yourself:
 
-  # Render both views:
-  scripts/render_turbine_animation.sh --view both
-  ```
+1. **Option A: Interactively in the OpenSCAD GUI**
+   - Open the model: `openscad cad_and_blender/openscad/wind/v2.0/wind_v2_turbine_full.scad`
+   - In the menu, click **View → Animate** (or press `Ctrl+Alt+A`).
+   - In the bottom animation bar, set:
+     - **FPS:** `20`
+     - **Steps:** `24`
+   - The turbine rotor will spin continuously in real time.
+
+2. **Option B: Headless Command Line (Exports GIF & MP4)**
+   - Run the automated render script directly from the repository root:
+     ```bash
+     # Landscape view:
+     scripts/render_turbine_animation.sh --view landscape
+
+     # Upward Hero view:
+     scripts/render_turbine_animation.sh --view hero
+
+     # Both views:
+     scripts/render_turbine_animation.sh --view both
+     ```
 - **Generated Deliverables:**
   - Landscape: `cad_and_blender/openscad/wind/v2.0/wind_v2_turbine_spinning_landscape.gif` & `.mp4`
   - Hero: `cad_and_blender/openscad/wind/v2.0/wind_v2_turbine_spinning_hero.gif` & `.mp4`
