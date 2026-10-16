@@ -67,18 +67,25 @@ module full_operational_rotor() {
 module complete_arctic_wind_system() {
     // 1. 20 ft ISO Container foundation (Package 1)
     // Matte dark charcoal shell with corner castings
+    cont_cx = -6058/2 + 500;
+    cont_cy = 0;
+    cont_cz = 2591/2;
+
     color([0.18, 0.19, 0.21]) {
-        translate([-6058/2 + 500, 0, 2591/2])
+        translate([cont_cx, cont_cy, cont_cz])
         cube([6058, 2438, 2591], center=true);
     }
 
     // Foundation structural outriggers extended for overturning stability
     color([0.85, 0.55, 0.15]) {
-        for (dx = [-2600, 2600]) {
-            for (dy = [-1800, 1800]) {
-                translate([dx, dy, 150]) {
-                    cube([300, 1200, 200], center=true);
-                    translate([0, (dy > 0 ? 600 : -600), -100])
+        for (x_sign = [-1, 1]) {
+            for (y_sign = [-1, 1]) {
+                ext_dist = 1200;
+                ox = cont_cx + x_sign * (6058/2 - 400);
+                oy = cont_cy + y_sign * (2438/2 + ext_dist/2);
+                translate([ox, oy, 150]) {
+                    cube([300, ext_dist, 200], center=true);
+                    translate([0, y_sign * (ext_dist/2 - 100), -100])
                     cylinder(d=450, h=100);
                 }
             }
