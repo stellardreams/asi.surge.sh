@@ -6,6 +6,13 @@
 // - Package 3: Arctic direct-drive PMSG nacelle tophead with aerodynamic composite cowl & cooling louvers
 // - Package 4: 26 m diameter 3-bladed sectional composite rotor with high-visibility anti-icing leading edges
 //
+// Animation Parameterization:
+// - Driven by OpenSCAD `$t` variable ($t: 0 -> 1 sweeps 0 -> 360 deg blade rotation).
+// - Rated operational speed: 65 RPM direct-drive (tip speed 88.5 m/s at 26 m diameter).
+// - Headless render command:
+//     scripts/render_turbine_animation.sh --view landscape
+//     scripts/render_turbine_animation.sh --view hero
+//
 // Tracked under Issue #82 (Parent Program Architecture)
 
 $fn = 32;
@@ -28,8 +35,10 @@ module full_operational_rotor() {
     }
 
     // 3 Aerodynamic blades spaced 120 deg
+    // Parameterized with $t (animation time 0 -> 1) for dynamic rotation (360 deg per full cycle)
+    rot_offset = $t * 360;
     for (ang = [0, 120, 240]) {
-        rotate([ang + 15, 0, 0]) { // Dynamic rotation offset
+        rotate([ang + rot_offset, 0, 0]) { // Dynamic rotation driven by $t
             translate([200, 0, 0]) {
                 // Main blade shell
                 color([0.93, 0.95, 0.97]) {

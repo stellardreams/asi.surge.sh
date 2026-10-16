@@ -55,3 +55,27 @@ openscad -o /tmp/wind_v2_blade_joint.csg cad_and_blender/openscad/wind/v2.0/wind
 # 3. Compile full 20 ft container stowage CAD:
 openscad -o /tmp/wind_v2_container_stowage.csg cad_and_blender/openscad/wind/v2.0/wind_v2_container_stowage.scad
 ```
+
+---
+
+## 5. Dynamic Operational Rotor Kinematics & Animation
+
+The operational wind turbine CAD model ([`wind_v2_turbine_full.scad`](wind_v2_turbine_full.scad)) incorporates dynamic blade rotation driven by OpenSCAD's `$t` animation variable ($t \in [0, 1)$):
+
+- **Rotational Velocity:** Rated direct-drive rotor speed of $65\text{ RPM}$ ($\lambda = 6.8$, $88.5\text{ m/s}$ tip speed).
+- **Angular Period:** Each full cycle maps $\$t \times 360^\circ$, producing a seamless $360^\circ$ rotation for video and looping GIF formats.
+- **Headless Render Automation:** Handled via [`scripts/render_turbine_animation.sh`](../../../scripts/render_turbine_animation.sh):
+  ```bash
+  # Render landscape perspective (1024x576):
+  scripts/render_turbine_animation.sh --view landscape --frames 24 --fps 20
+
+  # Render hero perspective (800x800):
+  scripts/render_turbine_animation.sh --view hero --frames 24 --fps 20
+
+  # Render both views:
+  scripts/render_turbine_animation.sh --view both
+  ```
+- **Generated Deliverables:**
+  - Landscape: `cad_and_blender/openscad/wind/v2.0/wind_v2_turbine_spinning_landscape.gif` & `.mp4`
+  - Hero: `cad_and_blender/openscad/wind/v2.0/wind_v2_turbine_spinning_hero.gif` & `.mp4`
+
