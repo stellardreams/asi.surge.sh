@@ -136,13 +136,28 @@ module spine_double(len) {
         }
 }
 
-// --- 7-DoF Rail-Mounted Arm from Issue 5 sample (APAS hatch vicinity) — scaled to AMU units ---
-// Sample: rail 500mm, carriage 60mm, 7 joints — scaled 0.015≈500->7.5 units to fit MMS_LENGTH 17.92, placed at TOP Z+ near APAS
-_APAS_arm_scale = 0.014; // sample mm -> AMU units (tuned: 500*0.014=7.0, arm reach ~4.5 to reach hatch at Z=6)
+// --- 7-DoF Rail-Mounted Arm from Issue 5 & 81 ("Tool-Grab" Kinematics) ---
+// Sample: rail 500mm, carriage 60mm, 7 joints — scaled to AMU units
+_APAS_arm_scale = 0.014; // sample mm -> AMU units (tuned: 500*0.014=7.0, arm reach ~4.5)
 _APAS_rail_len = 500 * _APAS_arm_scale;
 _APAS_rail_w = 40 * _APAS_arm_scale;
 _APAS_rail_t = 15 * _APAS_arm_scale;
-_APAS_j2 = 25; _APAS_j3 = -30; _APAS_j4 = 45; _APAS_j5 = -60; _APAS_j6 = 15; _APAS_j7 = 30; _APAS_j8 = 90;
+
+// Issue #81: "Tool-Grab" Kinematic State
+// Prismatic Carriage Position: 0.80 * _APAS_rail_len (targets 400mm extraction coordinate down 500mm rail)
+_APAS_carriage_pos = 0.80 * _APAS_rail_len;
+
+// Dynamic Animation Support: if $t is active in OpenSCAD animation, interpolate reach; else default to uncurled
+TOOL_GRAB_ACTIVE = true;
+_t_factor = $t > 0 ? sin($t * 360) * 0.5 + 0.5 : 1.0;
+
+_APAS_j2 = 25 * (1 - 0.5 * _t_factor); 
+_APAS_j3 = TOOL_GRAB_ACTIVE ? 0 : -30; // Shoulder Pitch fully straight for uncurled retrieval
+_APAS_j4 = 45 * (1 - _t_factor); 
+_APAS_j5 = TOOL_GRAB_ACTIVE ? 0 : -60; // Elbow Pitch fully straight for rigid reaching profile
+_APAS_j6 = 15; 
+_APAS_j7 = 30 * (1 - _t_factor); 
+_APAS_j8 = 90;
 
 module apas_arm_seg(len, r1, r2, col) {
     color(col) {
@@ -195,12 +210,16 @@ module apas_7dof_arm() {
     }
 }
 module apas_arm_near_hatch() {
-    // No railing — arm uses rivets to climb (mountain-climber, per request)
-    // Base directly on hull at TOP Z+ near APAS, gripping nearest rivet — rail/carriage eliminated
+    // Issue #81: Rail-mounted 7-DoF arm with prismatic translation to 400mm mark (0.80 * _APAS_rail_len)
     translate([ROOF_HATCH_X, 0, MMS_RADIUS + 0.08]) {
-        translate([0,0, 0.02]) {
-            rotate([0,0, -12])
-                apas_7dof_arm();
+        // Guide rail mounted along hull top
+        apas_arm_rail();
+        // Carriage translated along rail to 400mm target coordinate
+        translate([_APAS_carriage_pos - _APAS_rail_len/2, 0, _APAS_rail_t/2 + 4*_APAS_arm_scale]) {
+            apas_arm_carriage();
+            translate([0, 0, 8*_APAS_arm_scale])
+                rotate([0, 0, -12])
+                    apas_7dof_arm();
         }
     }
 }
