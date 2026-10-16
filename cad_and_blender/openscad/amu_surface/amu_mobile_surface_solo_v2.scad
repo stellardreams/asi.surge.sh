@@ -122,16 +122,18 @@ module heavy_amu_crawler_track() {
 // -----------------------------------------------------------------------------
 
 module exo_truss_arch(rx) {
-    // Structural circular perimeter arch framing the hull
+    // Structural perimeter arch framing the cylindrical hull
     translate([rx, 0, 0]) {
-        rotate([0, 90, 0]) {
-            difference() {
-                cylinder(h=0.28, r=MMS_RADIUS + 0.35, center=true, $fn=64);
-                cylinder(h=0.35, r=MMS_RADIUS + 0.05, center=true, $fn=64);
-                // Truncate below base deck
-                translate([0, -(MMS_RADIUS + 1.0), 0])
-                    cube([2*(MMS_RADIUS + 1.0), 2*(MMS_RADIUS + 1.0), 0.4], center=true);
+        difference() {
+            rotate([0, 90, 0]) {
+                difference() {
+                    cylinder(h=0.28, r=MMS_RADIUS + 0.35, center=true, $fn=64);
+                    cylinder(h=0.35, r=MMS_RADIUS + 0.05, center=true, $fn=64);
+                }
             }
+            // Truncate cleanly below base deck in global Z (FLAT_Z_CUT)
+            translate([0, 0, FLAT_Z_CUT - (MMS_RADIUS + 1.0)])
+                cube([1.0, 2*(MMS_RADIUS + 2.0), 2*(MMS_RADIUS + 1.0)], center=true);
         }
     }
 }
