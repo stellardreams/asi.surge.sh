@@ -89,12 +89,19 @@ module yaw_drive_motors() {
 
 module bedplate() {
     color([0.45, 0.48, 0.52]) {
-        translate([-bedplate_length * 0.35, -bedplate_width/2, 0])
-        cube([bedplate_length, bedplate_width, bedplate_thick]);
+        // Main structural weldment plate (trimmed forward so PMSG wheel has complete free clearance)
+        difference() {
+            translate([-bedplate_length * 0.40, -bedplate_width/2, 0])
+            cube([bedplate_length * 0.72, bedplate_width, bedplate_thick]);
+
+            // Front wheel rotation clearance notch
+            translate([380, 0, 0])
+            cylinder(d=stator_outer_dia + 40, h=bedplate_thick * 3, center=true);
+        }
 
         for (y = [-bedplate_width/2 + 40, bedplate_width/2 - 70]) {
-            translate([-bedplate_length * 0.35, y, bedplate_thick])
-            cube([bedplate_length, 30, 160]);
+            translate([-bedplate_length * 0.40, y, bedplate_thick])
+            cube([bedplate_length * 0.65, 30, 160]);
         }
 
         // Bearing pedestal front
@@ -181,10 +188,10 @@ module fail_safe_caliper_brake() {
 
 module pmsg_direct_drive_generator() {
     shaft_center_z = bedplate_thick + 240;
-    gen_center_x = 380;
+    gen_pos_x = 380;
 
     color([0.2, 0.35, 0.65]) {
-        translate([gen_center_x, 0, shaft_center_z])
+        translate([gen_pos_x, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=stator_outer_dia, h=stack_length, center=true);
@@ -198,7 +205,7 @@ module pmsg_direct_drive_generator() {
     }
 
     color([0.85, 0.5, 0.15]) {
-        translate([gen_center_x, 0, shaft_center_z])
+        translate([380, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=stator_inner_dia + 30, h=stack_length + 60, center=true);
@@ -207,14 +214,14 @@ module pmsg_direct_drive_generator() {
     }
 
     color([0.8, 0.85, 0.9]) {
-        translate([gen_center_x, 0, shaft_center_z])
+        translate([380, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=rotor_magnet_dia, h=stack_length, center=true);
             cylinder(d=rotor_magnet_dia - 120, h=stack_length + 2, center=true);
         }
         for (a = [0 : 60 : 300]) {
-            translate([gen_center_x, 0, shaft_center_z])
+            translate([380, 0, shaft_center_z])
             rotate([a, 0, 0])
             cube([stack_length - 20, rotor_magnet_dia - 120, 30], center=true);
         }

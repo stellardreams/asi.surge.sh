@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# render_v2_erection_animation.sh -- Render tilt-up erection animation for Wind v2.0
+# render_v2_erection_animation.sh -- Render wide-view tilt-up erection animation for Wind v2.0
 OUT_DIR="/tmp/wind_v2_anim_frames"
 SCAD_FILE="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.scad"
 GIF_OUT="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/wind_v2_mast_erection.gif"
@@ -10,14 +10,15 @@ MP4_OUT="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/
 mkdir -p "$OUT_DIR"
 rm -f "$OUT_DIR"/*.png
 
-echo "Rendering 31 frames of mast erection (0° to 90°)..."
+echo "Rendering 31 frames of mast erection (0° to 90°) with zoomed-out camera..."
 for i in $(seq 0 30); do
     angle=$(echo "scale=1; $i * 3.0" | bc)
     frame=$(printf "%03d" "$i")
+    # Camera pulled back: distance increased from ~20m to ~40m to capture full 30m tower height
     openscad -o "$OUT_DIR/frame_${frame}.png" \
              -D "tilt_angle=${angle}" \
-             --imgsize=960,720 \
-             --camera=12000,-16000,10000,3000,0,8000 \
+             --imgsize=1024,768 \
+             --camera=22000,-28000,18000,4000,0,12000 \
              --colorscheme=Tomorrow \
              "$SCAD_FILE" >/dev/null 2>&1
     echo -n "."
