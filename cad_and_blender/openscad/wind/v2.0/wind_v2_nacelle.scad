@@ -26,9 +26,12 @@ hub_flange_dia       = 480;   // Rotor hub connection flange
 hub_flange_thick     = 45;    // Flange thickness
 
 // Bedplate & Yaw
-bedplate_length      = 1800;  // Bedplate main spine length
+bedplate_length      = 1500;  // Bedplate main spine length
 bedplate_width       = 700;   // Bedplate width
 bedplate_thick       = 40;    // Structural plate thickness
+pedestal_height      = 750;   // Elevated bearing pedestal height (60 mm air gap to wheel bottom under vibration)
+shaft_center_z       = bedplate_thick + pedestal_height; // 790 mm
+
 mast_top_dia         = 508;   // Mast top connection flange diameter (matches mast trunk)
 yaw_bearing_outer    = 680;   // Yaw slewing ring outer diameter
 yaw_bearing_inner    = 460;   // Yaw inner bore
@@ -39,9 +42,9 @@ brake_disc_dia       = 620;   // Ventilated brake disc diameter
 brake_disc_thick     = 30;    // Disc thickness
 
 // Cowl Enclosure
-cowl_length          = 2200;  // Nacelle shell length
-cowl_width           = 1450;  // Nacelle shell width
-cowl_height          = 1500;  // Nacelle shell height
+cowl_length          = 2300;  // Nacelle shell length
+cowl_width           = 1500;  // Nacelle shell width
+cowl_height          = 1650;  // Nacelle shell height
 cowl_wall_thick      = 15;    // Composite skin thickness
 
 // Visual Display Mode: 0 = Full Cowl, 1 = Cutaway Cowl, 2 = Powertrain Skeleton Only
@@ -89,35 +92,24 @@ module yaw_drive_motors() {
 
 module bedplate() {
     color([0.45, 0.48, 0.52]) {
-        // Main structural weldment plate (trimmed forward so PMSG wheel has complete free clearance)
+        // Main structural weldment plate terminates at X = 220, providing complete longitudinal separation
+        translate([-bedplate_length * 0.48, -bedplate_width/2, 0])
+        cube([bedplate_length * 0.65, bedplate_width, bedplate_thick]);
+
+        // Heavy bearing pedestal front (X: [50, 230])
+        translate([50, -bedplate_width/2 + 60, bedplate_thick])
         difference() {
-            translate([-bedplate_length * 0.40, -bedplate_width/2, 0])
-            cube([bedplate_length * 0.72, bedplate_width, bedplate_thick]);
-
-            // Front wheel rotation clearance notch
-            translate([380, 0, 0])
-            cylinder(d=stator_outer_dia + 40, h=bedplate_thick * 3, center=true);
-        }
-
-        for (y = [-bedplate_width/2 + 40, bedplate_width/2 - 70]) {
-            translate([-bedplate_length * 0.40, y, bedplate_thick])
-            cube([bedplate_length * 0.65, 30, 160]);
-        }
-
-        // Bearing pedestal front
-        translate([150, -bedplate_width/2 + 60, bedplate_thick])
-        difference() {
-            cube([220, bedplate_width - 120, 240]);
-            translate([110, (bedplate_width - 120)/2, 240])
+            cube([180, bedplate_width - 120, pedestal_height]);
+            translate([90, (bedplate_width - 120)/2, pedestal_height])
             rotate([0, 90, 0])
-            cylinder(d=shaft_dia + 80, h=240, center=true);
+            cylinder(d=shaft_dia + 80, h=200, center=true);
         }
 
-        // Bearing pedestal rear
-        translate([-350, -bedplate_width/2 + 60, bedplate_thick])
+        // Heavy bearing pedestal rear (X: [-450, -270])
+        translate([-450, -bedplate_width/2 + 60, bedplate_thick])
         difference() {
-            cube([180, bedplate_width - 120, 240]);
-            translate([90, (bedplate_width - 120)/2, 240])
+            cube([180, bedplate_width - 120, pedestal_height]);
+            translate([90, (bedplate_width - 120)/2, pedestal_height])
             rotate([0, 90, 0])
             cylinder(d=shaft_dia + 80, h=200, center=true);
         }
@@ -125,16 +117,14 @@ module bedplate() {
 }
 
 module main_shaft_and_bearings() {
-    shaft_center_z = bedplate_thick + 240;
-
     color([0.7, 0.72, 0.75]) {
-        translate([-420, 0, shaft_center_z])
+        translate([-500, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
-            cylinder(d=shaft_dia, h=shaft_length);
-            cylinder(d=shaft_dia - 60, h=shaft_length + 2, center=true);
+            cylinder(d=shaft_dia, h=shaft_length + 150);
+            cylinder(d=shaft_dia - 60, h=shaft_length + 152, center=true);
         }
-        translate([shaft_length - 420, 0, shaft_center_z])
+        translate([shaft_length - 350, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=hub_flange_dia, h=hub_flange_thick);
@@ -148,13 +138,15 @@ module main_shaft_and_bearings() {
     }
 
     color([0.25, 0.28, 0.32]) {
-        translate([260, 0, shaft_center_z])
+        // Front main bearing block
+        translate([140, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=shaft_dia + 76, h=140, center=true);
             cylinder(d=shaft_dia, h=142, center=true);
         }
-        translate([-260, 0, shaft_center_z])
+        // Rear main bearing block
+        translate([-360, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=shaft_dia + 76, h=120, center=true);
@@ -164,9 +156,8 @@ module main_shaft_and_bearings() {
 }
 
 module fail_safe_caliper_brake() {
-    shaft_center_z = bedplate_thick + 240;
     color([0.6, 0.6, 0.65]) {
-        translate([0, 0, shaft_center_z])
+        translate([-100, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=brake_disc_dia, h=brake_disc_thick, center=true);
@@ -181,14 +172,13 @@ module fail_safe_caliper_brake() {
         }
     }
     color([0.85, 0.2, 0.15]) {
-        translate([0, brake_disc_dia/2 - 40, shaft_center_z])
+        translate([-100, brake_disc_dia/2 - 40, shaft_center_z])
         cube([130, 160, 110], center=true);
     }
 }
 
 module pmsg_direct_drive_generator() {
-    shaft_center_z = bedplate_thick + 240;
-    gen_pos_x = 380;
+    gen_pos_x = 440;
 
     color([0.2, 0.35, 0.65]) {
         translate([gen_pos_x, 0, shaft_center_z])
@@ -205,7 +195,7 @@ module pmsg_direct_drive_generator() {
     }
 
     color([0.85, 0.5, 0.15]) {
-        translate([380, 0, shaft_center_z])
+        translate([gen_pos_x, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=stator_inner_dia + 30, h=stack_length + 60, center=true);
@@ -214,14 +204,14 @@ module pmsg_direct_drive_generator() {
     }
 
     color([0.8, 0.85, 0.9]) {
-        translate([380, 0, shaft_center_z])
+        translate([gen_pos_x, 0, shaft_center_z])
         rotate([0, 90, 0])
         difference() {
             cylinder(d=rotor_magnet_dia, h=stack_length, center=true);
             cylinder(d=rotor_magnet_dia - 120, h=stack_length + 2, center=true);
         }
         for (a = [0 : 60 : 300]) {
-            translate([380, 0, shaft_center_z])
+            translate([gen_pos_x, 0, shaft_center_z])
             rotate([a, 0, 0])
             cube([stack_length - 20, rotor_magnet_dia - 120, 30], center=true);
         }
@@ -230,7 +220,6 @@ module pmsg_direct_drive_generator() {
 
 module aerodynamic_cowl() {
     if (cowl_mode < 2) {
-        shaft_center_z = bedplate_thick + 240;
         cowl_offset_x = 50;
 
         color([0.92, 0.93, 0.95, cowl_mode == 0 ? 0.92 : 0.4]) {

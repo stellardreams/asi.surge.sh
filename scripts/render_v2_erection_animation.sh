@@ -10,15 +10,15 @@ MP4_OUT="/vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/v2.0/
 mkdir -p "$OUT_DIR"
 rm -f "$OUT_DIR"/*.png
 
-echo "Rendering 31 frames of mast erection (0° to 90°) with zoomed-out camera..."
+echo "Rendering 31 frames of mast erection (0° to 90°) zoomed out by an additional 30%..."
 for i in $(seq 0 30); do
     angle=$(echo "scale=1; $i * 3.0" | bc)
     frame=$(printf "%03d" "$i")
-    # Camera pulled back: distance increased from ~20m to ~40m to capture full 30m tower height
+    # Camera distance increased by 30% (from ~40m to ~52m): 28000,-36000,23000
     openscad -o "$OUT_DIR/frame_${frame}.png" \
              -D "tilt_angle=${angle}" \
              --imgsize=1024,768 \
-             --camera=22000,-28000,18000,4000,0,12000 \
+             --camera=28000,-36000,23000,4000,0,12000 \
              --colorscheme=Tomorrow \
              "$SCAD_FILE" >/dev/null 2>&1
     echo -n "."
