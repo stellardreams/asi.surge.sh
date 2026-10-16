@@ -56,6 +56,12 @@ cowl_mode = 0;
 
 module mast_top_interface() {
     color([0.35, 0.38, 0.42]) {
+        // Mast tubular section stub (visible tower trunk beneath nacelle)
+        translate([0, 0, -420])
+        difference() {
+            cylinder(d=mast_top_dia, h=300);
+            cylinder(d=mast_top_dia - 16, h=302, center=true);
+        }
         // Mast top landing flange
         translate([0, 0, -120])
         difference() {
