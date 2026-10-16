@@ -66,6 +66,49 @@ def audit_strider_m_ground_pressure():
 
     return ground_pressure_kpa, m_total
 
+def audit_tracked_dual_amu_ground_pressure():
+    print("\n" + "=" * 70)
+    print("1B. DUAL TRACKED AMU HULL GROUND PRESSURE & SOIL BEARING AUDIT")
+    print("=" * 70)
+
+    # 18 m Mobile AMU Dimensions & Track Geometry
+    track_l = 16.4  # m (crawler track total length)
+    track_w = 1.8   # m (crawler track width)
+    track_contact_l = 13.6 # m (flat ground contact length excluding end ramps)
+    num_tracks_per_amu = 2
+
+    # Mass breakdown for single 18 m Mobile AMU Unit (kg)
+    # Mass of pressurized hull, internal greenhouse/foundry racks, solar wings, CORA rails
+    m_hull_structure = 38000.0   # Structural alloy & composite pressure vessel
+    m_tracks_bogies  = 16000.0   # Heavy continuous rubber-steel crawler assemblies
+    m_power_plant    = 18000.0   # Molten salt thermal / cryo fuel cell & battery banks
+    m_internal_fit   = 22000.0   # Automated machinery, robotic tooling, fluids, hydroponics
+    m_cora_arms      = 1800.0    # 4x CORA-M manipulators & carriages
+    
+    m_amu_single = m_hull_structure + m_tracks_bogies + m_power_plant + m_internal_fit + m_cora_arms
+    g_earth = 9.80665 # m/s^2
+
+    weight_earth_n = m_amu_single * g_earth
+
+    # Contact Area for single AMU
+    contact_area_m2 = num_tracks_per_amu * (track_contact_l * track_w)
+    ground_pressure_kpa = (weight_earth_n / contact_area_m2) / 1000.0
+
+    # Sensitive Permafrost / Summer Tundra / Regolith bearing limit
+    max_allowable_kpa = 25.0
+    fs_bearing = max_allowable_kpa / ground_pressure_kpa if ground_pressure_kpa > 0 else 999
+
+    print(f"Single Mobile AMU Operating Mass:  {m_amu_single:,.1f} kg ({m_amu_single/1000:.1f} tonnes)")
+    print(f"Total Ground Contact Area (AMU):   {contact_area_m2:.2f} m^2 (2 tracks x {track_contact_l:.1f}m x {track_w:.1f}m)")
+    print(f"Mean Ground Pressure (Earth):      {ground_pressure_kpa:.2f} kPa")
+    print(f"Target Sensitive Surface Limit:    <= {max_allowable_kpa:.1f} kPa")
+    print(f"Ground Pressure Compliance:        {'PASS' if ground_pressure_kpa <= max_allowable_kpa else 'FAIL'} (FS = {fs_bearing:.2f})")
+
+    if ground_pressure_kpa > max_allowable_kpa:
+        raise ValueError(f"AMU ground pressure {ground_pressure_kpa:.2f} kPa exceeds limit {max_allowable_kpa:.1f} kPa!")
+
+    return ground_pressure_kpa, m_amu_single
+
 def audit_cora_arm_manipulation_envelope():
     print("\n" + "=" * 70)
     print("2. CORA-M MANIPULATOR TORQUE & BLADE HANDLING ENVELOPE")
@@ -137,6 +180,7 @@ def audit_field_erection_power_budget(m_total):
 def main():
     print("RUNNING AMU-SURFACE & STRIDER-M VERIFICATION SUITE (#97)...")
     p_ground, m_tot = audit_strider_m_ground_pressure()
+    p_amu, m_amu = audit_tracked_dual_amu_ground_pressure()
     fs_t = audit_cora_arm_manipulation_envelope()
     soc = audit_field_erection_power_budget(m_tot)
     print("\n" + "=" * 70)

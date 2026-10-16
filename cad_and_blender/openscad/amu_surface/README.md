@@ -23,24 +23,30 @@ While orbital AMU variants are engineered as spinning cylindrical habitats for m
 
 | File | Subsystem & Description |
 |:---|:---|
+| [`amu_mobile_surface_duo.scad`](amu_mobile_surface_duo.scad) | Dual mobile AMU production units with flattened hull bases, lateral sponsons, heavy-duty continuous crawler tracks ("snowshoes" scaled from STRIDER-M), quad CORA-M rails, and articulated logistics bridge. |
 | [`amu_surface_habitat.scad`](amu_surface_habitat.scad) | Pressurized surface vault shelter, permafrost thermal-siphon footings, overhead ceiling gantry rail, and high-bay rover deployment portal. |
 | [`strider_m_transporter.scad`](strider_m_transporter.scad) | Low-ground-pressure continuous wide-track crawler rover ("snowshoes" / grousers), heated battery reservoir, and CORA-M latch collar dock. |
 | [`amu_surface_transfer_docking.scad`](amu_surface_transfer_docking.scad) | Phased kinematics simulation of CORA-M arm transferring from ceiling gantry down to the STRIDER-M rover deck. |
 | [`amu_surface_wind_erection.scad`](amu_surface_wind_erection.scad) | Field erection assembly showing STRIDER-M with mounted CORA-M arm assembling sectional rotor blades at the 20 ft ISO turbine container footing. |
-| [`amu_surface_audit.py`](amu_surface_audit.py) | Verification suite checking ground pressure ($6.92\text{ kPa} \le 25\text{ kPa}$), shoulder torque ($FS = 1.23 \ge 1.20$), and battery energy margin ($77.5\% \ge 20\%$). |
+| [`amu_surface_audit.py`](amu_surface_audit.py) | Verification suite checking ground pressure ($6.92\text{ kPa}$ rover, $19.19\text{ kPa}$ tracked AMU vs $\le 25\text{ kPa}$ limit), shoulder torque ($FS = 1.23 \ge 1.20$), and battery energy margin ($77.5\% \ge 20\%$). |
 
 ---
 
 ## 3. Physics & Kinematics Proof Points (`amu_surface_audit.py`)
 
-1. **Ground Pressure ($6.92\text{ kPa}$ vs $\le 25\text{ kPa}$ limit, $FS = 3.61$):**
+1. **STRIDER-M Ground Pressure ($6.92\text{ kPa}$ vs $\le 25\text{ kPa}$ limit, $FS = 3.61$):**
    * Total rover operating mass: $9\text{ }150\text{ kg}$ (chassis, tracks, 120 kWh battery, CORA-M arm, and payload).
    * Total ground contact area: $12.96\text{ m}^2$ ($2 \times 5.4\text{ m} \times 1.2\text{ m}$ continuous tracks).
    * Result: Mean ground pressure is only $6.92\text{ kPa}$—exceeding tundra active layer and lunar regolith trafficability standards with a factor of safety of $3.61$.
-2. **CORA-M Blade Handling Envelope ($FS = 1.23 \ge 1.20$):**
+2. **Dual Tracked AMU Hull Ground Pressure ($19.19\text{ kPa}$ vs $\le 25\text{ kPa}$ limit, $FS = 1.30$):**
+   * Single mobile AMU operating mass: $95\text{ }800\text{ kg}$ ($95.8\text{ tonnes}$ structure, life support, factory tooling, power systems).
+   * Flattened hull base at $Z = -4.2\text{ m}$ with reinforced lateral sponsons out to width $9.6\text{ m}$.
+   * Continuous crawler tracks: dual $13.6\text{ m} \times 1.8\text{ m}$ ground contact bearing tracks ($48.96\text{ m}^2$ total contact area per unit).
+   * Result: Mean ground pressure is $19.19\text{ kPa} \le 25.0\text{ kPa}$—safely traversing sensitive active-layer permafrost and planetary soils without shear failure.
+3. **CORA-M Blade Handling Envelope ($FS = 1.23 \ge 1.20$):**
    * Evaluated lifting a $44.5\text{ kg}$ sectional composite blade module at $2.40\text{ m}$ reach.
    * Peak combined gravity and inertial dynamic torque: $1\text{ }180.9\text{ N}\cdot\text{m}$.
    * Harmonic Drive actuator rating ($1\text{ }450\text{ N}\cdot\text{m}$) satisfies structural safety with $FS = 1.23$.
-3. **Autonomous Power & Energy Margin ($77.5\%$ Remaining):**
+4. **Autonomous Power & Energy Margin ($77.5\%$ Remaining):**
    * Complete mission energy demand (transit, blade extraction, joint torquing, anchor driving, winch rigging, and $-60^\circ\text{C}$ thermal heating): $27.03\text{ kWh}$.
    * Remaining battery SoC on 120 kWh reservoir: $77.5\% \gg 20.0\%$ reserve threshold.
