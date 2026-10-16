@@ -151,14 +151,19 @@ _t_factor = (1 - cos($t * 360)) / 2;
 // Prismatic Carriage Position: 0.20 * _APAS_rail_len (home) -> 0.80 * _APAS_rail_len (400mm target coordinate)
 _APAS_carriage_pos = (0.20 + 0.60 * _t_factor) * _APAS_rail_len;
 
-// Dynamic Joint Articulation:
-_APAS_j2 = 25 * (1 - 0.5 * _t_factor); 
-_APAS_j3 = -30 * (1 - _t_factor); // Shoulder uncurls from -30° stowed to 0° straight reaching profile
-_APAS_j4 = 45 * (1 - _t_factor);  // Forearm aligns
-_APAS_j5 = -60 * (1 - _t_factor); // Elbow uncurls from -60° stowed to 0° straight reaching profile
-_APAS_j6 = 15; 
-_APAS_j7 = 30 * (1 - _t_factor);  // Wrist pitches into cargo capture alignment
+// Dynamic Joint Articulation & Arm Motion:
+// Shoulder and elbow articulate through a reach-and-grab arc
+_APAS_j2 = 25 * (1 - 0.7 * _t_factor); 
+_APAS_j3 = -35 + 40 * _t_factor;        // Shoulder pitches forward from -35° stowed to +5° reach
+_APAS_j4 = 45 * (1 - _t_factor);        // Forearm aligns
+_APAS_j5 = -65 + 55 * _t_factor;        // Elbow uncurls from -65° stowed to -10° grasping pose
+_APAS_j6 = 15 + 20 * sin($t * 360);     // Wrist orient roll dynamic adjustment
+_APAS_j7 = 35 - 45 * _t_factor;         // Wrist pitch tilts down into grab engagement (-10°)
 _APAS_j8 = 90;
+
+// Dynamic End-Effector Caliper Clamping:
+// Calipers start open (gap 14*s), close firmly onto tool/rivet (gap 3*s) when extended, then re-open
+_APAS_caliper_gap = (14 - 11 * _t_factor); // in units of s
 
 module apas_arm_seg(len, r1, r2, col) {
     color(col) {
@@ -189,7 +194,8 @@ module apas_7dof_arm() {
                 apas_arm_seg(25*s,12*s,12*s,"CadetBlue");
                 // Branch at middle joint — Y-shaped dual arms
                 for (branch = [-1, 1]) {
-                    translate([0,0,25*s]) rotate([0,_APAS_j5,0]) rotate([branch*22,0,0]) {
+                    // Arms spread dynamically and pitch towards grab target
+                    translate([0,0,25*s]) rotate([0,_APAS_j5,0]) rotate([branch*(20 + 8*_t_factor),0,0]) {
                         apas_arm_seg(100*s,12*s,10*s,"WhiteSmoke");
                         translate([0,0,100*s]) rotate([0,0,_APAS_j6]) {
                             apas_arm_seg(20*s,10*s,10*s,"CadetBlue");
@@ -197,9 +203,11 @@ module apas_7dof_arm() {
                                 apas_arm_seg(15*s,10*s,8*s,"LightGray");
                                 translate([0,0,15*s]) rotate([0,0,_APAS_j8]) {
                                     color("Gold") {
+                                        // Palm / wrist mount
                                         cylinder(h=10*s,r1=8*s,r2=4*s,$fn=24);
-                                        translate([-7*s,0,10*s]) cube([2*s,6*s,12*s]);
-                                        translate([5*s,0,10*s]) cube([2*s,6*s,12*s]); // widened gap 12*s for r0.18 rivet hook
+                                        // Dynamic caliper jaws grasping and releasing
+                                        translate([-(_APAS_caliper_gap/2 + 2)*s, 0, 10*s]) cube([2*s,6*s,12*s]);
+                                        translate([(_APAS_caliper_gap/2)*s, 0, 10*s]) cube([2*s,6*s,12*s]);
                                     }
                                 }
                             }
