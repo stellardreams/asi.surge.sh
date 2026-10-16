@@ -51,7 +51,7 @@ The Wind v2.0 codebase was designed from inception to be 100% physically decoupl
 | `cad_and_blender/openscad/wind/v2.0/powertrain.md` | Package 3 Direct-Drive PMSG & Nacelle Architecture |
 | `cad_and_blender/openscad/wind/v2.0/stowage_and_microgrid.md` | Package 4 Stowage & Microgrid Specifications |
 | `cad_and_blender/openscad/wind/v2.0/microgrid_specs.md` | Microgrid Droop Control & AFE Inverter Specification |
-| `docs/release_notes/v1.3.0-draft.md` | Living Project Tracker & Complete Engineering Release Notes |
+| `docs/release_notes/v1.3.0.md` | Living Project Tracker & Complete Engineering Release Notes |
 
 ### D. Render Pipelines & Visual Assets
 | Source Path | Deliverable Format |
@@ -83,7 +83,7 @@ cp -r cad_and_blender/openscad/wind/* "$TARGET_REPO/"
 mkdir -p "$TARGET_REPO/scripts"
 cp scripts/render_v2_*.sh "$TARGET_REPO/scripts/"
 mkdir -p "$TARGET_REPO/docs"
-cp docs/release_notes/v1.3.0-draft.md "$TARGET_REPO/docs/README.md"
+cp docs/release_notes/v1.3.0.md "$TARGET_REPO/docs/README.md"
 cp docs/repo_extraction_manifest.md "$TARGET_REPO/docs/"
 
 # 3. Verify numerical suite integrity in destination
