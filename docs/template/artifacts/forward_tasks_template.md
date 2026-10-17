@@ -13,16 +13,21 @@
         - Do not accumulate finished task logs in the focus box.
         - When a task is completed, move it to the "Completed Milestones" table.
      4. Use standard status badges:
+        - 📌 PINNED / ACTIVE
         - 🟢 ACTIVE
         - 🟡 AUDITED / HOLD_OFF_GATE
         - ⏸️ ON_HOLD / DEFERRED
         - ✅ DONE
      5. Maintain the Task Hierarchy & Lineage tree to show parent/child issues.
+     6. Mermaid.js Visual Diagrams:
+        - Embed fenced `mermaid` code blocks for visual dependency flows and system hierarchies.
+        - Supported natively in Google Antigravity (AGY) markdown artifacts.
      ===================================================================== -->
 
 # Forward Engineering Task Tracker ([Initiative / System Name])
 
 > **Status:** Active  
+> **Environment:** Google Antigravity (AGY)  
 > **Parent Initiatives:** [#00](https://github.com/owner/repo/issues/00) ([Parent Initiative Title])  
 > **Active Child Packages:** [#01](https://github.com/owner/repo/issues/01) ([Package 1 Title]), [#02](https://github.com/owner/repo/issues/02) ([Package 2 Title])  
 > **Target Release:** `vX.Y.Z` (tracked in `docs/release_notes/vX.Y.Z-draft.md`)
@@ -67,6 +72,34 @@
 
 ## 🔍 Task Hierarchy & Lineage
 
+### 📊 Visual Dependency Flow (Mermaid.js)
+
+```mermaid
+graph TD
+    P00["#00 Parent Roadmap"] --> C04["#04 Verification Suite [DONE]"]
+    P00 --> C01["#01 Active Governance & Registry [OPEN]"]
+    P00 --> T02["TASK-02 Secondary Explorations [ON HOLD]"]
+    P00 --> C03["#03 Showcase Overhaul [DEFERRED]"]
+
+    C01 --> T01A["📌 TASK-01A Active Implementation [PINNED / ACTIVE]"]
+    C01 --> G01["TASK-01-AUDIT Merge Hold-Off Gate [GATE ACTIVE]"]
+
+    classDef active fill:#2ea44f,stroke:#22863a,stroke-width:2px,color:#fff;
+    classDef gate fill:#d73a49,stroke:#cb2431,stroke-width:2px,color:#fff;
+    classDef done fill:#6f42c1,stroke:#5a32a3,stroke-width:2px,color:#fff;
+    classDef hold fill:#6a737d,stroke:#586069,stroke-width:1px,color:#fff;
+
+    class T01A active;
+    class G01 gate;
+    class C04 done;
+    class T02,C03 hold;
+```
+
+> [!NOTE]
+> This forward engineering tracking artifact and its embedded Mermaid.js architecture diagrams are natively rendered, maintained, and verified within **Google Antigravity** (AGY).
+
+### 🌳 Text Hierarchy Tree
+
 ```
 #00 [Grandparent / High-Level Program Tracker]
  ├── ✅ #04 [Completed Child Work Package] (Closed ✅ Commit abc1234)
@@ -81,3 +114,4 @@
  ├── ⏸️ TASK-02: [Secondary Concept Explorations] (On Hold ⏸️)
  └── ⏸️ #03: [Public Documentation & Portfolio Overhaul] (Deferred / Tracked Separately ⏸️)
 ```
+
