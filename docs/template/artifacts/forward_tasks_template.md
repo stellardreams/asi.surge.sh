@@ -9,6 +9,7 @@
      2. Replace the bracketed placeholders [LIKE_THIS] with project data.
      3. Keep the "Zone of Current Focus" lean and uncluttered:
         - Only list 1-3 active, immediate engineering priorities.
+        - Always identify each focus item with its Task ID (e.g. `TASK-01`).
         - Do not accumulate finished task logs in the focus box.
         - When a task is completed, move it to the "Completed Milestones" table.
      4. Use standard status badges:
@@ -34,8 +35,8 @@
 > **Primary Engineering Initiative**: [Brief 1-sentence description of the overarching goal under Parent Issue #00].
 > 
 > - **Immediate Active Focus**:
->   1. [First immediate priority: e.g. CAD geometry refinements and mechanical stress analysis].
->   2. [Second immediate priority: e.g. Thermal equilibrium solver and test suite coupling].
+>   1. [First immediate priority: e.g. CAD geometry refinements and mechanical stress analysis] (`TASK-01`).
+>   2. [Second immediate priority: e.g. Thermal equilibrium solver and test suite coupling] (`TASK-02`).
 > - **Active Quality Gate**: [State active quality/audit gates, e.g. Merge hold-off gate on main-dev $\to$ master remains active until lead sign-off].
 > - **Tracked Separately (Deferred)**: [Any secondary initiatives paused to preserve current focus, e.g. Documentation overhaul (#03) is deferred].
 
