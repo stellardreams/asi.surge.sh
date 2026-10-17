@@ -175,35 +175,23 @@ def get_cora_m_arm_groups():
 def get_surface_habitat_groups():
     mod = load_module("surface_habitat_v1", "cad_and_blender/freecad/amu_surface/surface_habitat_v1.py")
     
-    outer_cyl = Part.makeCylinder(mod.HAB_R, mod.HAB_L, FreeCAD.Vector(-mod.HAB_L/2.0, 0, 0), FreeCAD.Vector(1, 0, 0))
-    inner_cyl = Part.makeCylinder(mod.HAB_R - mod.HAB_WALL_T, mod.HAB_L - 0.8, FreeCAD.Vector(-(mod.HAB_L - 0.8)/2.0, 0, 0), FreeCAD.Vector(1, 0, 0))
-    vault_tube = outer_cyl.cut(inner_cyl)
-    ground_cutter = Part.makeBox(mod.HAB_L + 4.0, 2.0 * mod.HAB_R + 4.0, mod.HAB_R + 2.0, FreeCAD.Vector(-(mod.HAB_L + 4.0)/2.0, -(mod.HAB_R + 2.0), -(mod.HAB_R + 2.0)))
-    arch_shell = vault_tube.cut(ground_cutter)
-    portal_cutter = Part.makeBox(2.0, mod.PORTAL_W, mod.PORTAL_H, FreeCAD.Vector(mod.HAB_L/2.0 - 1.0, -mod.PORTAL_W/2.0, 0.0))
-    habitat_shell = arch_shell.cut(portal_cutter)
+    shell = mod.create_vaulted_shell()
+    ribs = mod.create_catenary_arch_ribs()
+    foundation = mod.create_foundation_diagrid()
+    gantry = mod.create_ceiling_gantry()
+    portal_and_pad = mod.create_staging_portal_and_pad()
+    utility = mod.create_interior_utility_bays()
     
-    floor_slab = Part.makeBox(mod.HAB_L, mod.HAB_FLOOR_Y, 0.30, FreeCAD.Vector(-mod.HAB_L/2.0, -mod.HAB_FLOOR_Y/2.0, -0.30))
-    for fy in [-mod.HAB_R - 0.4, mod.HAB_R + 0.4 - 1.2]:
-        footing = Part.makeBox(mod.HAB_L + 1.2, 1.2, 0.8, FreeCAD.Vector(-(mod.HAB_L + 1.2)/2.0, fy, -0.80))
-        floor_slab = floor_slab.fuse(footing)
-        
-    top_flange = Part.makeBox(mod.CEILING_RAIL_L, 0.60, 0.06, FreeCAD.Vector(-mod.CEILING_RAIL_L/2.0, -0.30, mod.CEILING_Z))
-    web = Part.makeBox(mod.CEILING_RAIL_L, 0.08, 0.25, FreeCAD.Vector(-mod.CEILING_RAIL_L/2.0, -0.04, mod.CEILING_Z - 0.25))
-    bot_flange = Part.makeBox(mod.CEILING_RAIL_L, 0.60, 0.06, FreeCAD.Vector(-mod.CEILING_RAIL_L/2.0, -0.30, mod.CEILING_Z - 0.25 - 0.06))
-    gantry_rail = top_flange.fuse(web).fuse(bot_flange)
-    
-    portal_post_l = Part.makeBox(0.40, 0.35, mod.PORTAL_H + 0.3, FreeCAD.Vector(mod.HAB_L/2.0 - 0.40, -mod.PORTAL_W/2.0 - 0.35, 0.0))
-    portal_post_r = Part.makeBox(0.40, 0.35, mod.PORTAL_H + 0.3, FreeCAD.Vector(mod.HAB_L/2.0 - 0.40, mod.PORTAL_W/2.0, 0.0))
-    portal_lintel = Part.makeBox(0.40, mod.PORTAL_W + 1.05, 0.35, FreeCAD.Vector(mod.HAB_L/2.0 - 0.40, -mod.PORTAL_W/2.0 - 0.35, mod.PORTAL_H))
-    portal_frame = portal_post_l.fuse(portal_post_r).fuse(portal_lintel)
+    gold_features = ribs.fuse(portal_and_pad)
     
     return [
-        {"shape": habitat_shell, "face": "#c5cbd4", "edge": "#687384", "tol": 0.25},
-        {"shape": floor_slab, "face": "#3b4252", "edge": "#252a34", "tol": 0.25},
-        {"shape": gantry_rail, "face": "#b8c5d6", "edge": "#536275", "tol": 0.20},
-        {"shape": portal_frame, "face": "#d49b28", "edge": "#7a550e", "tol": 0.20},
+        {"shape": shell, "face": "#c5cbd4", "edge": "#687384", "tol": 0.25},
+        {"shape": foundation, "face": "#3b4252", "edge": "#252a34", "tol": 0.25},
+        {"shape": gantry, "face": "#b8c5d6", "edge": "#536275", "tol": 0.20},
+        {"shape": gold_features, "face": "#d49b28", "edge": "#7a550e", "tol": 0.20},
+        {"shape": utility, "face": "#a3be8c", "edge": "#5b7348", "tol": 0.20},
     ]
+
 
 
 def get_amu_heritage_orbital_groups():
