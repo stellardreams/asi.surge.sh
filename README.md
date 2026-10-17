@@ -75,6 +75,8 @@ Our foundational technology is the **3-stage AMU (Autonomous Manufacturing Unit)
 - **Self-Replication**: Designed for exponential scale.
 - **Reorientation**: Capable of on-orbit re-tasking for diverse manufacturing needs.
 - **TRL Target**: We are currently bridging the gap from TRL 1 to TRL 9 for orbital deployment.
+- **Hardware Invention & Model Registry**: See [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md) for the authoritative mechanical catalog, dimensional envelopes, CAD source files, and cinematic video assets for the STRIDER-M heavy rover, CORA-M 7-DoF robotic arm, AMU-Surface polar habitat, and Modular Arctic Wind Turbine.
+
 
 ## 🪙 Space Infrastructure Token (SIT)
 
