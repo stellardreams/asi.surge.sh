@@ -423,7 +423,7 @@ MODELS_CATALOG = [
     },
     {
         "name": "strider_m_v2",
-        "title": "STRIDER-M v2.0 Transporter",
+        "title": "STRIDER-M v2.1 Transporter",
         "getter": get_strider_m_v2_groups,
         "out_dir": "cad_and_blender/freecad/mobility/renders",
         "elev": 22,
@@ -506,10 +506,11 @@ def render_frame_worker(args):
     return frame_idx
 
 
-def render_model(m, pool, cpu_cores, total_frames=TOTAL_FRAMES):
-    """Renders a single model to high-res MP4 and GIF turntable animations (37% slower rotation)."""
+def render_model(m, pool, cpu_cores, total_frames=TOTAL_FRAMES, slower=False):
+    """Renders a single model to high-res MP4 and GIF turntable animations."""
+    speed_tag = " (37% slower speed)" if slower else ""
     print(f"\n=======================================================")
-    print(f"🎬 Processing High-Res Turntable: {m['title']} ({m['name']})")
+    print(f"🎬 Processing High-Res Turntable: {m['title']} ({m['name']}){speed_tag}")
     print(f"=======================================================")
     
     groups = m["getter"]()
@@ -554,26 +555,33 @@ def render_model(m, pool, cpu_cores, total_frames=TOTAL_FRAMES):
     
     frame_pattern = os.path.join(frames_dir, "frame_%04d.png")
     
-    # MP4: 48 frames at 15.12 fps gives 3.17s period (~37% slower angular velocity than 18 fps / 36 frames)
+    # Calculate target fps:
+    # Baseline: 3.17s MP4 period (15.12 fps at 48 frames), 4.08s GIF period (11.76 fps at 48 frames)
+    # Slower (37% slower): 5.04s MP4 period, 6.48s GIF period
+    if slower:
+        mp4_fps = total_frames / 5.039
+        gif_fps = total_frames / 6.479
+    else:
+        mp4_fps = total_frames / 3.1746
+        gif_fps = total_frames / 4.0816
+    
     cmd_mp4 = [
-        "ffmpeg", "-y", "-framerate", "15.12", "-i", frame_pattern,
+        "ffmpeg", "-y", "-framerate", f"{mp4_fps:.2f}", "-i", frame_pattern,
         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "16",
         "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
         mp4_out,
     ]
     subprocess.run(cmd_mp4, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     
-    # GIF: 48 frames at 11.76 fps gives 4.08s period (~37% slower angular velocity than 14 fps / 36 frames)
-    # Scaled to 768px width (high-res retina crispness)
     cmd_gif = [
-        "ffmpeg", "-y", "-framerate", "11.76", "-i", frame_pattern,
+        "ffmpeg", "-y", "-framerate", f"{gif_fps:.2f}", "-i", frame_pattern,
         "-vf", "scale=768:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse",
         gif_out,
     ]
     subprocess.run(cmd_gif, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     
-    print(f"✅ Generated: {mp4_out} ({os.path.getsize(mp4_out):,} bytes)")
-    print(f"✅ Generated: {gif_out} ({os.path.getsize(gif_out):,} bytes)")
+    print(f"✅ Generated: {mp4_out} ({os.path.getsize(mp4_out):,} bytes, {mp4_fps:.2f} fps)")
+    print(f"✅ Generated: {gif_out} ({os.path.getsize(gif_out):,} bytes, {gif_fps:.2f} fps)")
 
 
 def main():
@@ -581,6 +589,7 @@ def main():
     parser.add_argument("--model", type=str, help="Specific model name to render (e.g. modular_wind_turbine_v3)")
     parser.add_argument("--cores", type=int, default=mp.cpu_count(), help="Number of CPU cores to utilize")
     parser.add_argument("--frames", type=int, default=TOTAL_FRAMES, help="Total frames per 360° rotation")
+    parser.add_argument("--slower", action="store_true", help="Render at 37%% slower angular velocity (target period 5.04s MP4 / 6.48s GIF)")
     args = parser.parse_args()
 
     targets = MODELS_CATALOG
@@ -594,7 +603,7 @@ def main():
     pool = mp.Pool(processes=args.cores)
     
     for m in targets:
-        render_model(m, pool, args.cores, args.frames)
+        render_model(m, pool, args.cores, args.frames, args.slower)
 
     pool.close()
     pool.join()
