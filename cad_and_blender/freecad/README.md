@@ -19,8 +19,20 @@ cad_and_blender/freecad/
 ├── robotics/                           # CORA-M 7-DoF arms & end-effectors
 ├── mobility/                           # STRIDER-M heavy tracked rovers & outriggers
 ├── wind/                               # Modular Arctic wind turbine v2.0 & container
-└── step_exports/                       # Headless auto-generated STEP/IGES solid exports
 ```
+
+### Canonical Model Mapping (OpenSCAD $\to$ FreeCAD)
+| Hardware System / Component | Existing OpenSCAD Path | Target FreeCAD Module Path | Solid Model / STEP Export |
+|:---|:---|:---|:---|
+| **STRIDER-M Rover v1.0** (Baseline) | `cad_and_blender/openscad/amu_surface/strider_m_transporter_v1.scad` | `cad_and_blender/freecad/mobility/strider_m_v1.py` | `step_exports/strider_m_v1.step` |
+| **STRIDER-M Rover v2.0** (Outriggers & Cradle) | `cad_and_blender/openscad/amu_surface/strider_m_transporter_v2.scad` | `cad_and_blender/freecad/mobility/strider_m_v2.py` | `step_exports/strider_m_v2.step` |
+| **CORA-M 7-DoF Arm v1.0** (Manipulator) | `cad_and_blender/openscad/amu_surface/amu_CORA-M-arm-opencode_v1.scad` | `cad_and_blender/freecad/robotics/cora_m_arm_v1.py` | `step_exports/cora_m_arm_v1.step` |
+| **AMU-Surface Habitat v1.0** (Vault Arch) | `cad_and_blender/openscad/amu_surface/amu_surface_habitat_v1.scad` | `cad_and_blender/freecad/amu_surface/surface_habitat_v1.py` | `step_exports/surface_habitat_v1.step` |
+| **Gantry Transfer Docking v1.0** | `cad_and_blender/openscad/amu_surface/amu_surface_transfer_docking_v1.scad` | `cad_and_blender/freecad/amu_surface/transfer_docking_v1.py` | `step_exports/transfer_docking_v1.step` |
+| **AMU Heritage Orbital v1.0** (Cylinder Hull) | `cad_and_blender/openscad/opencode/amu_heritage_opencode_v1.scad` | `cad_and_blender/freecad/amu_orbital/amu_heritage_orbital_v1.py` | `step_exports/amu_heritage_orbital_v1.step` |
+| **ZeroClaw Node & Lattice Vocab** | `cad_and_blender/openscad/zeroclaw/07-19-2026_zeroclaw_amu_node.scad` | `cad_and_blender/freecad/amu_orbital/zeroclaw_truss_node_v1.py` | `step_exports/zeroclaw_truss_node_v1.step` |
+| **Wind Turbine Full Assembly v2.0** | `cad_and_blender/openscad/wind/v2.0/wind_v2_turbine_full.scad` | `cad_and_blender/freecad/wind/modular_wind_turbine_v2.py` | `step_exports/modular_wind_turbine_v2.step` |
+| **Wind Container Stowage v2.0** | `cad_and_blender/openscad/wind/v2.0/wind_v2_container_stowage.scad` | `cad_and_blender/freecad/wind/container_stowage_v2.py` | `step_exports/container_stowage_v2.step` |
 
 > [!NOTE]
 > ### 💡 What is a "Solid Model / STEP Export"?
