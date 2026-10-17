@@ -1,36 +1,54 @@
 # Hardware Invention & Model Registry
 
 > **Authoritative Specification:** Single source of truth for all mechanical, structural, and robotic hardware inventions across `asi.surge.sh`.
-> **Governing Standards:** Tracked under Issue [#101](https://github.com/stellardreams/asi.surge.sh/issues/101). Direct lineage from [#81](https://github.com/stellardreams/asi.surge.sh/issues/81), [#82](https://github.com/stellardreams/asi.surge.sh/issues/82), [#97](https://github.com/stellardreams/asi.surge.sh/issues/97), [#98](https://github.com/stellardreams/asi.surge.sh/issues/98), and [#100](https://github.com/stellardreams/asi.surge.sh/issues/100).
+> **Governing Standards:** Tracked under Issue [#101](https://github.com/stellardreams/asi.surge.sh/issues/101). Direct lineage from [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#81](https://github.com/stellardreams/asi.surge.sh/issues/81), [#82](https://github.com/stellardreams/asi.surge.sh/issues/82), [#97](https://github.com/stellardreams/asi.surge.sh/issues/97), [#98](https://github.com/stellardreams/asi.surge.sh/issues/98), and [#100](https://github.com/stellardreams/asi.surge.sh/issues/100).
 > **Rule of Promotion:** Baseline models (e.g. `v1.0`) are permanently preserved. New geometric modifications or kinematic enhancements must be versioned iteratively as clean variants (`v2.0`, `v3.0`).
 
 ---
 
 ## 🏗️ Hardware System Taxonomy
 
-The repository's physical systems are categorized into four core technology domains:
+The repository's physical systems span five core technology domains across orbital and surface deployments:
 
 ```mermaid
 graph TD
-    A["Hardware Invention Registry"] --> B["1. Heavy Planetary Rovers (STRIDER)"]
-    A --> C["2. Articulated Robotic Manipulators (CORA-M)"]
-    A --> D["3. Polar Habitat & Surface Facilities (AMU-Surface)"]
-    A --> E["4. Modular Containerized Wind Turbines (Wind v2.0)"]
+    A["Hardware Invention Registry"] --> B["1. Orbital Manufacturing (AMU Orbital)"]
+    A --> C["2. Heavy Planetary Transporters (STRIDER)"]
+    A --> D["3. Articulated Robotic Manipulators (CORA-M)"]
+    A --> E["4. Polar Surface Habitats & Facilities (AMU-Surface)"]
+    A --> F["5. Modular Containerized Wind Turbines (Wind v2.0)"]
     
-    B --> B1["STRIDER-M v1.0 (Baseline Heavy Tundra Grouser Transporter)"]
-    B --> B2["STRIDER-M v2.0 (A-Frame Knee Outriggers + Transit Park Cradle)"]
+    B --> B1["AMU Heritage Orbital v1.0 (Canonical Cylinder Hull, APAS, Solar Wings)"]
+    B --> B2["AMU Orbital CORA-M (Mobile 7-DoF Rail Arm, Via Ferrata Rivets)"]
+    B --> B3["ZeroClaw Node & Lattice Vocab (Self-Replicating Octahedral Truss)"]
     
-    C --> C1["CORA-M Arm v1.0 (7-DoF Articulation + Dual-Grip Golden Calipers)"]
+    C --> C1["STRIDER-M v1.0 (Baseline Heavy Tundra Grouser Transporter)"]
+    C --> C2["STRIDER-M v2.0 (A-Frame Knee Outriggers + Transit Park Cradle)"]
     
-    D --> D1["AMU-Surface Solo v1/v2 (Structural Vault Arch + Diagrid Frame)"]
-    D --> D2["Gantry Transfer Portal v1.0 (Ceiling-to-Rover Kinematic Dock)"]
+    D --> D1["CORA-M Arm v1.0 (7-DoF Articulation + Dual-Grip Golden Calipers)"]
     
-    E --> E1["Wind v2.0 Containerized System (20 ft ISO, Guyed Mast, 25-100 kW)"]
+    E --> E1["AMU-Surface Solo v1/v2 (Structural Vault Arch + Diagrid Frame)"]
+    E --> E2["Gantry Transfer Portal v1.0 (Ceiling-to-Rover Kinematic Dock)"]
+    
+    F --> F1["Wind v2.0 Containerized System (20 ft ISO, Guyed Mast, 25-100 kW)"]
 ```
 
 ---
 
-## 1. Heavy Planetary & Polar Transporters (STRIDER-M)
+## 1. Orbital Autonomous Manufacturing Units (AMU Orbital)
+
+### System Summary
+The foundational orbital self-replicating manufacturing spacecraft engineered to bridge the gap from TRL 1 to TRL 9 for in-space manufacturing, orbital hygiene, space debris mitigation, and infrastructure expansion.
+
+| Variant | Authoritative CAD Source | Dimensions / Mass Envelope | Power & Stationkeeping | Key Subsystems & Payloads | Derived Verification Assets |
+|:---|:---|:---|:---|:---|:---|
+| **AMU Heritage Orbital v1.0** | [`openscad/opencode/amu_heritage_opencode_v1.scad`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/opencode/amu_heritage_opencode_v1.scad) | Length: $17.92\text{ m}$<br>Radius: $6.0\text{ m}$<br>Modular Cylinder Hull | Dual articulating solar wing arrays ($4\times$ tiers), chemical/cold-gas RCS thruster clusters | • Cylindrical pressurized MMS manufacturing core<br>• Standardized APAS-95 and CBM docking collars<br>• Modular payload bays for materials processing | • Stills: [`renders/amu_opencode_v1-09-16-2026-2331-est.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/opencode/renders/amu_opencode_v1-09-16-2026-2331-est.png)<br>• Heritage spec: Issue [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) |
+| **AMU Orbital CORA-M Mobile** | [`openscad/opencode/amu_CORA-M-arm-opencode_v1.scad`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/opencode/amu_CORA-M-arm-opencode_v1.scad) | Length: $17.92\text{ m}$<br>Hull Radius: $6.0\text{ m}$<br>Rivets: 42 across 8 sectors | Orbital high-voltage bus bar + umbilical slip ring | • **7-DoF CORA-M Robotic Arm**: Rail-mounted carriage along E-W structural spine<br>• **Via Ferrata Rivet Grid**: $1.4\text{ m}$ grid pitch for locomotive end-effector hand-holds<br>• **Monkey-Y Symmetrical Golden Gripper**: Caliper jaws with dynamic clamping gap for truss manipulation<br>• Dual/Quad AMU constellation variants (`variant_dual`, `variant_quad`) | • Renders: [`renders/amu_CORA-M-arm-opencode_v1-monkey-Y-golden-grip.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/opencode/renders/amu_CORA-M-arm-opencode_v1-monkey-Y-golden-grip.png)<br>• Caliper Demo: [`renders/amu_CORA-M-arm-opencode_v1-caliper-demo.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/opencode/renders/amu_CORA-M-arm-opencode_v1-caliper-demo.png)<br>• Tool Grab Kinematics: [`amu_arm_tool_grab_kinematics.mp4`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/opencode/amu_arm_tool_grab_kinematics.mp4) |
+| **ZeroClaw Structural Node** | [`openscad/zeroclaw/07-19-2026_zeroclaw_amu_node.scad`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/zeroclaw/07-19-2026_zeroclaw_amu_node.scad) | Node Radius: $12\text{ mm}$<br>Strut Length: $30\text{ mm}$<br>Flange Dia: $14\text{ mm}$ | Passive mechanical interlock | 6-axis octahedral lattice truss connector node for in-space robotic assembly and self-replicating frame construction | Parametric solid geometry for space lattice assembly |
+
+---
+
+## 2. Heavy Planetary & Polar Transporters (STRIDER-M)
 
 ### System Summary
 Heavy-duty, low-ground-pressure continuous crawler platform engineered for traversing Arctic permafrost, lunar regolith, or martian terrain without ground subsidence or disruption ($P_{\text{ground}} \le 25\text{ kPa}$).
@@ -42,7 +60,7 @@ Heavy-duty, low-ground-pressure continuous crawler platform engineered for trave
 
 ---
 
-## 2. Articulated Robotic Manipulators (CORA-M)
+## 3. Articulated Robotic Manipulators (CORA-M)
 
 ### System Summary
 Heavy 7-DoF robotic manipulation arm designed for autonomous dual-mode operations: overhead facility ceiling gantry traversing ($Z = 5.15\text{ m}$) and mobile field deployment aboard STRIDER-M transporter ($Z = 1.55\text{ m}$).
@@ -53,7 +71,7 @@ Heavy 7-DoF robotic manipulation arm designed for autonomous dual-mode operation
 
 ---
 
-## 3. Polar Habitat & Surface Facilities (AMU-Surface)
+## 4. Polar Habitat & Surface Facilities (AMU-Surface)
 
 ### System Summary
 Modular vaulted habitat architecture featuring A36 structural steel exoskeleton, perimeter thermal diagrid, environmental Air Handling Units (AHU), and automated ceiling gantry crane corridors.
@@ -65,7 +83,7 @@ Modular vaulted habitat architecture featuring A36 structural steel exoskeleton,
 
 ---
 
-## 4. Modular Containerized Arctic Wind Turbines (Wind v2.0)
+## 5. Modular Containerized Arctic Wind Turbines (Wind v2.0)
 
 ### System Summary
 Containerized Arctic wind turbine system designed for deployment without heavy cranes in extreme polar environments ($−60\ ^\circ\text{C}$, $55\text{ m/s}$ survival gusts). Shipped as a standard 20 ft ISO sea container.
@@ -77,10 +95,11 @@ Containerized Arctic wind turbine system designed for deployment without heavy c
 
 ---
 
-## 5. Promotion & Archival Policy
+## 6. Promotion & Archival Policy
 
 1. **Immutable Historical Records**:
    - `wind/v1.0` (two-phase thermal sail) is archived in [`openscad/wind/archive/v1.0/`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/openscad/wind/archive/v1.0/) and must not be modified.
+   - Heritage orbital AMU (`amu_heritage_opencode_v1.scad`) is frozen as baseline reference for orbital self-replication.
 2. **Sequential Semantic Versioning**:
    - All physical hardware files must include an explicit version suffix (`_v1`, `_v2`).
    - Minor parameter adjustments (e.g. gear ratio, cleat count) are recorded via git commits under the active version file.
