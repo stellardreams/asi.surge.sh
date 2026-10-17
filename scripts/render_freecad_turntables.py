@@ -483,7 +483,7 @@ MODELS_CATALOG = [
     },
 ]
 
-TOTAL_FRAMES = 36
+TOTAL_FRAMES = 48
 
 
 def render_frame_worker(args):
@@ -491,11 +491,12 @@ def render_frame_worker(args):
     frame_idx, azim, elev, mesh_data, limits, frame_path = args
     cx, cy, cz, max_range = limits
     
-    fig = plt.figure(figsize=(8, 4.5), facecolor="#0a0c10")
+    # High-resolution 16:9 canvas (1600x900 native resolution at 160 DPI)
+    fig = plt.figure(figsize=(10.0, 5.625), facecolor="#0a0c10")
     ax = fig.add_subplot(111, projection="3d", facecolor="#0a0c10")
     
     for triangles, face, edge in mesh_data:
-        coll = Poly3DCollection(triangles, alpha=0.96, facecolors=face, edgecolors=edge, linewidths=0.18)
+        coll = Poly3DCollection(triangles, alpha=0.96, facecolors=face, edgecolors=edge, linewidths=0.28)
         ax.add_collection3d(coll)
         
     ax.set_xlim(cx - max_range, cx + max_range)
@@ -506,7 +507,7 @@ def render_frame_worker(args):
     
     plt.savefig(
         frame_path,
-        dpi=100,
+        dpi=160,
         bbox_inches="tight",
         pad_inches=0.0,
         facecolor=fig.get_facecolor(),
@@ -517,9 +518,9 @@ def render_frame_worker(args):
 
 
 def render_model(m, pool, cpu_cores, total_frames=TOTAL_FRAMES):
-    """Renders a single model to MP4 and GIF turntable animations."""
+    """Renders a single model to high-res MP4 and GIF turntable animations (37% slower rotation)."""
     print(f"\n=======================================================")
-    print(f"🎬 Processing Turntable: {m['title']} ({m['name']})")
+    print(f"🎬 Processing High-Res Turntable: {m['title']} ({m['name']})")
     print(f"=======================================================")
     
     groups = m["getter"]()
@@ -555,7 +556,7 @@ def render_model(m, pool, cpu_cores, total_frames=TOTAL_FRAMES):
         frame_path = os.path.join(frames_dir, f"frame_{f:04d}.png")
         tasks.append((f, azim, m["elev"], mesh_data, limits, frame_path))
         
-    print(f"Rendering {total_frames} frames across {cpu_cores} parallel workers...")
+    print(f"Rendering {total_frames} high-res frames across {cpu_cores} parallel workers...")
     pool.map(render_frame_worker, tasks)
     
     os.makedirs(m["out_dir"], exist_ok=True)
@@ -563,17 +564,21 @@ def render_model(m, pool, cpu_cores, total_frames=TOTAL_FRAMES):
     gif_out = os.path.join(m["out_dir"], f"{m['name']}_turntable.gif")
     
     frame_pattern = os.path.join(frames_dir, "frame_%04d.png")
+    
+    # MP4: 48 frames at 15.12 fps gives 3.17s period (~37% slower angular velocity than 18 fps / 36 frames)
     cmd_mp4 = [
-        "ffmpeg", "-y", "-framerate", "18", "-i", frame_pattern,
-        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18",
+        "ffmpeg", "-y", "-framerate", "15.12", "-i", frame_pattern,
+        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "16",
         "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
         mp4_out,
     ]
     subprocess.run(cmd_mp4, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     
+    # GIF: 48 frames at 11.76 fps gives 4.08s period (~37% slower angular velocity than 14 fps / 36 frames)
+    # Scaled to 768px width (high-res retina crispness)
     cmd_gif = [
-        "ffmpeg", "-y", "-framerate", "14", "-i", frame_pattern,
-        "-vf", "scale=480:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse",
+        "ffmpeg", "-y", "-framerate", "11.76", "-i", frame_pattern,
+        "-vf", "scale=768:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse",
         gif_out,
     ]
     subprocess.run(cmd_gif, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
