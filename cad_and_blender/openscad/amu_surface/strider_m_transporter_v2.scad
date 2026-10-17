@@ -3,7 +3,7 @@
 // Version Control & Engineering Audit:
 // - Version: v2.0
 // - Tracked Under: Task-01 / Task-02 (Issues #82 & #98 Offshoot)
-// - Informed by Gemini Argon High-Fidelity Cinematic Render 02 (docs/assets/macrogrid_renders/cora_transfer_render02.mp4)
+// - Informed by Gemini Flash-Lite High-Fidelity Cinematic Render 02 (docs/assets/macrogrid_renders/cora_transfer_render02.mp4)
 // - Retains v1.0 baseline in `strider_m_transporter_v1.scad` without destructive overwrite.
 //
 // New Engineering Subsystems in v2.0:
