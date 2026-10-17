@@ -1,0 +1,42 @@
+name: Wind v2.0 Arctic Engineering Verification
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cad_and_blender/openscad/wind/v2.0/**'
+      - 'scripts/test_wind_v2.sh'
+      - '.github/workflows/wind-v2-verification.yml'
+  pull_request:
+    paths:
+      - 'cad_and_blender/openscad/wind/v2.0/**'
+      - 'scripts/test_wind_v2.sh'
+      - '.github/workflows/wind-v2-verification.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify-wind-v2:
+    name: Verify 12 Arctic Engineering Physics Models
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: ''
+
+      - name: Run Modular Arctic Wind v2.0 Verification Suite
+        run: |
+          chmod +x scripts/test_wind_v2.sh
+          ./scripts/test_wind_v2.sh
