@@ -19,6 +19,17 @@ import sys
 import os
 import math
 
+# -----------------------------------------------------------------------------
+# Module Metadata & Semantic Versioning
+# -----------------------------------------------------------------------------
+__version__     = "1.0.0"
+__revision__    = "v1.0.0-baseline"
+__author__      = "Stellar Dreams Engineering"
+__date__        = "2026-10-17"
+__target_spec__ = "STRIDER-M Heavy Surface Transporter Chassis (v1.0 Baseline)"
+__kernel__      = "OpenCASCADE (B-Rep analytical geometry) via FreeCAD Part module"
+__lineage__     = "cad_and_blender/openscad/amu_surface/strider_m_transporter_v1.scad"
+
 # Ensure FreeCAD library is accessible if running headless via Python
 for lib_path in ["/usr/lib/freecad/lib", "/usr/lib/freecad-python3/lib"]:
     if os.path.exists(lib_path) and lib_path not in sys.path:

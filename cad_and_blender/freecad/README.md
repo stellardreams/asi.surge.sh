@@ -32,6 +32,7 @@ cad_and_blender/freecad/
 | **AMU Heritage Orbital v1.0** (Cylinder Hull) | `cad_and_blender/openscad/opencode/amu_heritage_opencode_v1.scad` | `cad_and_blender/freecad/amu_orbital/amu_heritage_orbital_v1.py` | `step_exports/amu_heritage_orbital_v1.step` |
 | **ZeroClaw Node & Lattice Vocab** | `cad_and_blender/openscad/zeroclaw/07-19-2026_zeroclaw_amu_node.scad` | `cad_and_blender/freecad/amu_orbital/zeroclaw_truss_node_v1.py` | `step_exports/zeroclaw_truss_node_v1.step` |
 | **Wind Turbine Full Assembly v2.0** | `cad_and_blender/openscad/wind/v2.0/wind_v2_turbine_full.scad` | `cad_and_blender/freecad/wind/modular_wind_turbine_v2.py` | `step_exports/modular_wind_turbine_v2.step` |
+| **Modular Arctic Wind Turbine v3.0** | Evolved from v2.0 with NACA airfoils & rigging | `cad_and_blender/freecad/wind/modular_wind_turbine_v3.py` | `step_exports/modular_wind_turbine_v3.step` |
 | **Wind Container Stowage v2.0** | `cad_and_blender/openscad/wind/v2.0/wind_v2_container_stowage.scad` | `cad_and_blender/freecad/wind/container_stowage_v2.py` | `step_exports/container_stowage_v2.step` |
 
 > [!NOTE]

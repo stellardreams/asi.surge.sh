@@ -21,6 +21,17 @@ import sys
 import os
 import math
 
+# -----------------------------------------------------------------------------
+# Module Metadata & Semantic Versioning
+# -----------------------------------------------------------------------------
+__version__     = "2.0.0"
+__revision__    = "v2.0.0-spider-outriggers"
+__author__      = "Stellar Dreams Engineering"
+__date__        = "2026-10-17"
+__target_spec__ = "STRIDER-M Heavy Surface Transporter Chassis with A-Frame Outriggers (v2.0)"
+__kernel__      = "OpenCASCADE (B-Rep analytical geometry) via FreeCAD Part module"
+__lineage__     = "cad_and_blender/openscad/amu_surface/strider_m_transporter_v2.scad"
+
 # Ensure FreeCAD library is accessible
 for lib_path in ["/usr/lib/freecad/lib", "/usr/lib/freecad-python3/lib"]:
     if os.path.exists(lib_path) and lib_path not in sys.path:
