@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-strider_m_v2.py - Parametric FreeCAD/Python Solid Model for STRIDER-M Surface Transporter (v2.0)
+strider_m_v2.py - Parametric FreeCAD/Python Solid Model for STRIDER-M Surface Transporter (v2.1)
 
 Lineage:
 - Ported from OpenSCAD: cad_and_blender/openscad/amu_surface/strider_m_transporter_v2.scad
@@ -11,8 +11,13 @@ Features:
 - Dual wide continuous crawler tracks with 24 perimeter traction grousers
 - 4x Heavy A-frame knee-jointed outrigger trusses ("Spider Outriggers") with clevis mounts,
   hydraulic cylinders, and wide rectangular polar footpad shoes
+- Modular Wind Cargo Retention Cradle & Stanchion System:
+  - Dual lateral mast pipe saddles for 4.80 m sectional mast tubes (OD 0.51 m)
+  - Modular blade sleeve retaining racks for segmented blade transport units (<= 1.90 m)
+  - Perimeter ratchet tie-down winch assemblies and forged clevis D-rings
+  - Aft transom loading guide rollers for crane-less horizontal module roll-off
+  - Transit park-mode CORA-M manipulator arm clamp cradle
 - Front tubular bull-bar crash cage with X-brace and recovery shackles
-- Transit park-mode U-saddle cradle with locking clamp jaws
 - Broadened 8-lug turret mounting rim (DOCK_COLLAR_R = 0.68 m)
 - Amber hazard warning beacons and forward high-intensity LED headlight clusters
 """
@@ -24,11 +29,11 @@ import math
 # -----------------------------------------------------------------------------
 # Module Metadata & Semantic Versioning
 # -----------------------------------------------------------------------------
-__version__     = "2.0.0"
-__revision__    = "v2.0.0-spider-outriggers"
+__version__     = "2.1.0"
+__revision__    = "v2.1.0-wind-cargo-retention"
 __author__      = "Stellar Dreams Engineering"
 __date__        = "2026-10-17"
-__target_spec__ = "STRIDER-M Heavy Surface Transporter Chassis with A-Frame Outriggers (v2.0)"
+__target_spec__ = "STRIDER-M Heavy Surface Transporter with Wind Cargo Retention & A-Frame Outriggers (v2.1)"
 __kernel__      = "OpenCASCADE (B-Rep analytical geometry) via FreeCAD Part module"
 __lineage__     = "cad_and_blender/openscad/amu_surface/strider_m_transporter_v2.scad"
 
@@ -192,24 +197,91 @@ def create_front_crash_cage():
     return compound
 
 
-def create_park_mode_cradle():
-    """Generates transit park-mode latch saddle to clamp folded CORA-M arm during rover travel."""
+def create_cargo_retention_cradle():
+    """
+    Generates modular wind cargo retention cradle, mast saddles, blade racks,
+    winches, aft transom rollers, and CORA-M park latch on the utility deck.
+    """
     solids = []
+    cz = CHASSIS_H * 0.5 + DECK_H  # Deck surface = 0.925 m
+
+    # 1. Dual Lateral Mast Pipe Saddles (3 longitudinal stations, port & starboard)
+    # Designed to retain 4.80 m sectional mast pipes (OD 0.51 m)
+    saddle_stations = [-2.30, -0.60, 1.50]
+    saddle_ys = [-1.15, 1.15]
+    saddle_r_inner = 0.28
+    saddle_r_outer = 0.35
+    saddle_width = 0.16
+
+    for sx in saddle_stations:
+        for sy in saddle_ys:
+            # Base structural riser box
+            riser = Part.makeBox(saddle_width, 0.40, 0.25, FreeCAD.Vector(sx - saddle_width/2.0, sy - 0.20, cz))
+            
+            # Semicircular concave cradle saddle
+            outer_cyl = Part.makeCylinder(saddle_r_outer, saddle_width, FreeCAD.Vector(sx - saddle_width/2.0, sy, cz + 0.35), FreeCAD.Vector(1, 0, 0))
+            inner_cyl = Part.makeCylinder(saddle_r_inner, saddle_width + 0.02, FreeCAD.Vector(sx - saddle_width/2.0 - 0.01, sy, cz + 0.35), FreeCAD.Vector(1, 0, 0))
+            top_cut = Part.makeBox(saddle_width + 0.04, saddle_r_outer * 2.2, saddle_r_outer * 1.5, FreeCAD.Vector(sx - saddle_width/2.0 - 0.02, sy - saddle_r_outer * 1.1, cz + 0.35))
+            
+            saddle_ring = outer_cyl.cut(inner_cyl)
+            saddle_half = saddle_ring.cut(top_cut)
+            
+            # Upright clamping posts
+            post_l = Part.makeBox(saddle_width, 0.08, 0.35, FreeCAD.Vector(sx - saddle_width/2.0, sy - saddle_r_outer, cz + 0.20))
+            post_r = Part.makeBox(saddle_width, 0.08, 0.35, FreeCAD.Vector(sx - saddle_width/2.0, sy + saddle_r_outer - 0.08, cz + 0.20))
+            
+            cradle_unit = riser.fuse(saddle_half).fuse(post_l).fuse(post_r)
+            solids.append(cradle_unit)
+
+    # 2. Outer Blade Sleeve Retention Racks (perimeter stanchions & longitudinal top rail)
+    # Secures segmented rotor blade sleeve modules (length <= 1.90 m)
+    for sign_y in [-1.0, 1.0]:
+        ry = sign_y * (DECK_W / 2.0 - 0.10)
+        # Stanchion posts
+        for px in [-2.50, -1.30, 0.0, 1.30, 2.50]:
+            post = Part.makeBox(0.08, 0.08, 0.50, FreeCAD.Vector(px - 0.04, ry - 0.04, cz))
+            solids.append(post)
+        # Longitudinal coaming rail
+        rail = Part.makeBox(5.08, 0.08, 0.06, FreeCAD.Vector(-2.54, ry - 0.04, cz + 0.44))
+        solids.append(rail)
+        # Vertical divider slats for modular blade segments
+        for bx in [-1.90, -0.65, 0.65, 1.90]:
+            divider = Part.makeBox(0.04, 0.24, 0.38, FreeCAD.Vector(bx - 0.02, ry - 0.12 * sign_y, cz))
+            solids.append(divider)
+
+    # 3. Ratchet Winch Tie-Down Hardware (4 winches + 8 clevis D-rings)
+    for sign_y in [-1.0, 1.0]:
+        wy = sign_y * 1.45
+        for wx in [-1.80, 0.80]:
+            winch_drum = Part.makeCylinder(0.09, 0.22, FreeCAD.Vector(wx, wy - 0.11, cz + 0.12), FreeCAD.Vector(0, 1, 0))
+            winch_base = Part.makeBox(0.24, 0.26, 0.12, FreeCAD.Vector(wx - 0.12, wy - 0.13, cz))
+            solids.append(winch_drum.fuse(winch_base))
+
+    for sign_y in [-1.0, 1.0]:
+        dy = sign_y * (DECK_W / 2.0 - 0.05)
+        for dx in [-2.60, -1.30, 1.0, 2.60]:
+            dring = Part.makeCylinder(0.06, 0.04, FreeCAD.Vector(dx, dy, cz + 0.05), FreeCAD.Vector(1, 0, 0))
+            solids.append(dring)
+
+    # 4. Transom Loading Rollers at aft deck (enables horizontal winch-assisted roll-off)
+    roller_x = -DECK_L / 2.0  # -2.80 m
+    for ry in [-1.15, 1.15]:
+        roller = Part.makeCylinder(0.08, 0.60, FreeCAD.Vector(roller_x - 0.04, ry - 0.30, cz + 0.06), FreeCAD.Vector(0, 1, 0))
+        bearing_l = Part.makeBox(0.12, 0.08, 0.16, FreeCAD.Vector(roller_x - 0.10, ry - 0.38, cz))
+        bearing_r = Part.makeBox(0.12, 0.08, 0.16, FreeCAD.Vector(roller_x - 0.10, ry + 0.30, cz))
+        solids.append(roller.fuse(bearing_l).fuse(bearing_r))
+
+    # 5. Center Transit Park-Mode Cradle for Folded CORA-M Arm
     cx = -1.60
     cy = 0.0
-    cz = CHASSIS_H * 0.5 + DECK_H
-
-    # U-shaped saddle base
     saddle_base = Part.makeBox(0.55, 1.30, 0.22, FreeCAD.Vector(cx - 0.275, cy - 0.65, cz))
     left_jaw = Part.makeBox(0.55, 0.22, 0.40, FreeCAD.Vector(cx - 0.275, cy - 0.65, cz))
     right_jaw = Part.makeBox(0.55, 0.22, 0.40, FreeCAD.Vector(cx - 0.275, cy + 0.43, cz))
-    cradle = saddle_base.fuse(left_jaw).fuse(right_jaw)
-    solids.append(cradle)
-
-    # Dual motorized clamping latches
+    park_cradle = saddle_base.fuse(left_jaw).fuse(right_jaw)
     for sign_y in [-1.0, 1.0]:
         latch_bar = Part.makeBox(0.35, 0.16, 0.18, FreeCAD.Vector(cx - 0.175, cy + sign_y * 0.35 - 0.08, cz + 0.32))
-        solids.append(latch_bar)
+        park_cradle = park_cradle.fuse(latch_bar)
+    solids.append(park_cradle)
 
     compound = solids[0]
     for s in solids[1:]:
@@ -241,7 +313,7 @@ def create_turret_dock_v2():
 
 
 def build_strider_m_v2():
-    """Builds complete STRIDER-M v2.0 solid model assembly with outriggers, cage, and cradle."""
+    """Builds complete STRIDER-M v2.1 solid model assembly with outriggers, cage, wind cargo retention, and cradle."""
     track_offset_y = ROVER_W / 2.0 - TRACK_W / 2.0
     left_track = create_crawler_track_v2(center_y=track_offset_y)
     right_track = create_crawler_track_v2(center_y=-track_offset_y)
@@ -259,9 +331,9 @@ def build_strider_m_v2():
     outrigger_rr = create_outrigger(sign_x=-1.0, sign_y=-1.0)
     outriggers = outrigger_fl.fuse(outrigger_fr).fuse(outrigger_rl).fuse(outrigger_rr)
 
-    # Crash cage, park cradle, turret dock
+    # Crash cage, cargo retention cradle, turret dock
     cage = create_front_crash_cage()
-    cradle = create_park_mode_cradle()
+    cradle = create_cargo_retention_cradle()
     dock = create_turret_dock_v2()
 
     assembly = left_track.fuse(right_track).fuse(body).fuse(outriggers).fuse(cage).fuse(cradle).fuse(dock)
@@ -279,7 +351,7 @@ def export_step(solid, output_path):
 
 # Main execution block
 if __name__ == "__main__":
-    print("Building STRIDER-M Transporter (v2.0) solid model via FreeCAD...")
+    print("Building STRIDER-M Transporter (v2.1) solid model via FreeCAD...")
     model = build_strider_m_v2()
 
     # In GUI mode, insert shape into active FreeCAD document

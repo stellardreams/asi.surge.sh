@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-cora_m_arm_v1.py - Parametric FreeCAD/Python Solid Model for CORA-M 7-DoF Manipulator Arm (v1.0)
+cora_m_arm_v1.py - Parametric FreeCAD/Python Solid Model for CORA-M 7-DoF Manipulator Arm (v1.1)
 
 Lineage:
 - Ported from OpenSCAD: cad_and_blender/openscad/amu_surface/amu_CORA-M-arm-opencode_v1.scad
@@ -10,11 +10,12 @@ Lineage:
 
 Features:
 - Standardized circular cam-lock docking collar base (R = 0.48 m) with power umbilical
-- Shoulder yaw turret and articulating shoulder pitch joint
-- Primary bicep boom and elbow articulation knuckle
-- Y-shaped dual-branch forearm structure (Monkey-Y architecture)
+- Shoulder yaw turret (360° continuous) and articulating shoulder pitch joint (-30° to +95°)
+- Primary bicep boom (1.35 m) and elbow articulation knuckle (-120° to +120°)
+- Y-shaped dual-branch forearm structure (1.10 m, Monkey-Y architecture)
 - Dual wrist roll/pitch/yaw assemblies
 - Canonical symmetrical golden end-effector caliper jaws with parametric clamping gap
+- Forward kinematic analysis and operational reach envelope verification
 """
 
 import sys
@@ -24,11 +25,11 @@ import math
 # -----------------------------------------------------------------------------
 # Module Metadata & Semantic Versioning
 # -----------------------------------------------------------------------------
-__version__     = "1.0.0"
-__revision__    = "v1.0.0-baseline"
+__version__     = "1.1.0"
+__revision__    = "v1.1.0-kinematic-envelope"
 __author__      = "Stellar Dreams Engineering"
 __date__        = "2026-10-17"
-__target_spec__ = "CORA-M 7-DoF Robotic Manipulator Arm with Dual Caliper Jaws (v1.0)"
+__target_spec__ = "CORA-M 7-DoF Robotic Manipulator Arm with Kinematic Solver (v1.1)"
 __kernel__      = "OpenCASCADE (B-Rep analytical geometry) via FreeCAD Part module"
 __lineage__     = "cad_and_blender/openscad/amu_surface/amu_CORA-M-arm-opencode_v1.scad"
 
@@ -152,6 +153,46 @@ def build_cora_m_arm(shoulder_pitch=SHOULDER_PITCH, elbow_pitch=ELBOW_PITCH, cal
     return compound
 
 
+def verify_kinematic_reach():
+    """
+    Computes analytical forward kinematic reach metrics for CORA-M mounted on
+    STRIDER-M transporter deck (Z_pivot = 1.735 m above ground).
+    Verifies reachability across wind energy deployment stations.
+    """
+    boom_len = 1.35
+    forearm_len = 1.10
+    caliper_len = 0.28
+    max_reach = boom_len + forearm_len + caliper_len
+    pivot_z = 1.735  # STRIDER-M deck (0.925) + turret dock (0.28) + shoulder base (0.53)
+
+    targets = {
+        "Aft Mast Saddle (Starboard)": (-2.30, -1.15, 1.275),
+        "Aft Mast Saddle (Port)": (-2.30, 1.15, 1.275),
+        "Mid Mast Saddle (Starboard)": (-0.60, -1.15, 1.275),
+        "Forward Mast Saddle (Starboard)": (1.50, -1.15, 1.275),
+        "Park Mode Transit Cradle": (-1.60, 0.0, 1.145),
+        "Starboard Blade Sleeve Divider": (-0.65, -1.55, 1.115),
+        "Port Blade Sleeve Divider": (0.65, 1.55, 1.115),
+        "Aft Transom Rollers (Deployment)": (-2.80, 0.0, 0.985),
+    }
+
+    print("\nCORA-M 7-DoF Kinematic Reach Verification:")
+    print(f"Maximum Spherical Reach Radius: {max_reach:.2f} m from shoulder pitch pivot")
+    print(f"{'Operational Station':<36} | {'Target (X, Y, Z)':<22} | {'Distance':<10} | {'Reachability'}")
+    print("-" * 85)
+
+    results = {}
+    for name, (tx, ty, tz) in targets.items():
+        dist = math.sqrt(tx**2 + ty**2 + (tz - pivot_z)**2)
+        reachable = dist <= max_reach
+        margin = max_reach - dist
+        results[name] = {"dist": dist, "reachable": reachable, "margin": margin}
+        status = f"✅ REACHABLE (+{margin:.2f}m)" if reachable else f"⚠️ EXTENDED (+{-margin:.2f}m)"
+        print(f"{name:<36} | ({tx:5.2f}, {ty:5.2f}, {tz:5.2f}) | {dist:5.2f} m   | {status}")
+
+    return results
+
+
 def export_step(solid, output_path):
     """Exports solid to standard ISO 10303 STEP format."""
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -163,7 +204,7 @@ def export_step(solid, output_path):
 
 # Main execution block
 if __name__ == "__main__":
-    print("Building CORA-M 7-DoF Manipulator Arm (v1.0) solid model via FreeCAD...")
+    print("Building CORA-M 7-DoF Manipulator Arm (v1.1) solid model via FreeCAD...")
     model = build_cora_m_arm()
 
     if FreeCAD.GuiUp:
@@ -176,3 +217,6 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
     step_out = os.path.join(script_dir, "..", "step_exports", "cora_m_arm_v1.step")
     export_step(model, os.path.abspath(step_out))
+
+    # Run kinematic verification report
+    verify_kinematic_reach()

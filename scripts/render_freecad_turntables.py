@@ -102,16 +102,17 @@ def get_strider_m_v2_groups():
     outriggers = outrigger_fl.fuse(outrigger_fr).fuse(outrigger_rl).fuse(outrigger_rr)
     
     cage = mod.create_front_crash_cage()
-    cradle = mod.create_park_mode_cradle()
+    cradle = mod.create_cargo_retention_cradle()
     dock = mod.create_turret_dock_v2()
-    accents = cage.fuse(cradle).fuse(dock)
+    accents = cage.fuse(dock)
     
     return [
         {"shape": tracks, "face": "#2e3440", "edge": "#1e222b", "tol": 0.18},
         {"shape": chassis_frame, "face": "#3b4252", "edge": "#252a34", "tol": 0.18},
         {"shape": deck_plate, "face": "#e06c28", "edge": "#9e4410", "tol": 0.18},
         {"shape": outriggers, "face": "#b8c5d6", "edge": "#536275", "tol": 0.18},
-        {"shape": accents, "face": "#d49b28", "edge": "#7a550e", "tol": 0.18},
+        {"shape": cradle, "face": "#d49b28", "edge": "#7a550e", "tol": 0.18},
+        {"shape": accents, "face": "#a3be8c", "edge": "#5b7348", "tol": 0.18},
     ]
 
 
