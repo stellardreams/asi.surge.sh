@@ -21,6 +21,7 @@ secrets.json
 # NOTE: the tracked file prompts_for_AI/prompt_01_AMU_cylinder_only.sty predates
 # this rule and stays tracked until explicitly untracked with `git rm --cached`.
 prompts_for_AI/
+scratch/
 
 # ---------------------------------------------------------------------------
 # Python (build123d / CadQuery / FreeCAD scripting)
