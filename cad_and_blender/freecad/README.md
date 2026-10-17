@@ -22,6 +22,15 @@ cad_and_blender/freecad/
 └── step_exports/                       # Headless auto-generated STEP/IGES solid exports
 ```
 
+> [!NOTE]
+> ### 💡 What is a "Solid Model / STEP Export"?
+> - **Solid Model (B-Rep Geometry)**: Unlike OpenSCAD which evaluates shapes as polygon meshes (triangulated faceted surfaces via CSG), FreeCAD uses the OpenCASCADE kernel to represent true continuous analytical geometry: exact cylinders, spheres, NURBS surfaces, fillets, and chamfers with mathematical curvature.
+> - **STEP (`.step` / `.stp`) Format**: Standard for the Exchange of Product Model Data (ISO 10303). It is the universal standard interchange format for mechanical CAD/CAM/CAE engineering.
+> - **Why it Matters for our Repository**:
+>   1. **Cross-Platform Interoperability**: STEP files can be opened and verified directly in any major CAD package (FreeCAD, SolidWorks, Autodesk Fusion, Rhino, Onshape) with zero loss of dimensional fidelity.
+>   2. **Engineering Simulation**: Enables direct import into Finite Element Analysis (FEA for chassis stress/strain) and Computational Fluid Dynamics (CFD for Arctic wind gusts).
+>   3. **Automated Headless Builds**: Headless CI scripts run FreeCAD in background mode to compile Python parametric code directly into `.step` files without needing a display server.
+
 ---
 
 ## 🖱️ Navigation & Reviewing Models in FreeCAD
