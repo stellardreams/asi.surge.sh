@@ -107,7 +107,8 @@ node_modules/
 
 # Hardhat / Solidity build output. Note: contracts/ is NOT ignored — it holds
 # four tracked .sol sources, and ignoring tracked paths is a no-op anyway.
-artifacts/
+/artifacts/
+!docs/**/artifacts/
 cache/
 typechain-types/
 deployments/
