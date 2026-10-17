@@ -15,6 +15,7 @@ Usage:
 
 import sys
 import os
+import math
 import shutil
 import argparse
 import subprocess
@@ -302,7 +303,7 @@ def get_wind_turbine_v3_groups():
                 corner = Part.makeBox(0.30, 0.30, 0.30, FreeCAD.Vector(cx, cy, sz))
                 cont_box = cont_box.fuse(corner)
 
-    # 2. Outriggers & Bearing Pads
+    # 2. Outriggers & Bearing Pads with Helical Caps & Brackets
     outriggers = []
     for sign_x in [-1.0, 1.0]:
         for sign_y in [-1.0, 1.0]:
@@ -310,22 +311,41 @@ def get_wind_turbine_v3_groups():
             oy = sign_y * (mod.CONT_W / 2.0)
             beam_y = min(oy, oy + sign_y * mod.OUTRIGGER_EXT)
             beam = Part.makeBox(mod.OUTRIGGER_W, mod.OUTRIGGER_EXT, 0.28, FreeCAD.Vector(ox - mod.OUTRIGGER_W / 2.0, beam_y, 0.12))
+            hinge_pin = Part.makeCylinder(0.06, 0.35, FreeCAD.Vector(ox, oy, 0.10), FreeCAD.Vector(1, 0, 0))
             pad_y = oy + sign_y * (mod.OUTRIGGER_EXT - 0.25)
             pad = Part.makeCylinder(mod.PAD_RADIUS, mod.PAD_THICK, FreeCAD.Vector(ox, pad_y, 0.0), FreeCAD.Vector(0, 0, 1))
-            outriggers.append(beam.fuse(pad))
+            helical_cap = Part.makeCylinder(0.12, 0.14, FreeCAD.Vector(ox, pad_y, mod.PAD_THICK), FreeCAD.Vector(0, 0, 1))
+            dring_bracket = Part.makeBox(0.12, 0.12, 0.16, FreeCAD.Vector(ox - 0.06, pad_y - 0.06, mod.PAD_THICK))
+            outriggers.append(beam.fuse(hinge_pin).fuse(pad).fuse(helical_cap).fuse(dring_bracket))
     outriggers_solid = outriggers[0]
     for o in outriggers[1:]:
         outriggers_solid = outriggers_solid.fuse(o)
 
-    # 3. Microgrid Cabinet & Gin-Pole Rigging
+    # 3. Microgrid Cabinet & Gin-Pole Rigging Mechanics
     cab_l, cab_w, cab_h = 0.90, 1.40, 1.80
     cabinet = Part.makeBox(cab_l, cab_w, cab_h, FreeCAD.Vector(-mod.CONT_L / 2.0 - cab_l, -cab_w / 2.0, 0.40))
-    gin_pole_l = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, -0.70, mod.CONT_H), FreeCAD.Vector(-0.25, 0.15, 1.0))
-    gin_pole_r = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, 0.70, mod.CONT_H), FreeCAD.Vector(-0.25, -0.15, 1.0))
-    winch = Part.makeBox(0.60, 0.70, 0.50, FreeCAD.Vector(1.40, -0.35, mod.CONT_H))
-    rigging = cabinet.fuse(gin_pole_l).fuse(gin_pole_r).fuse(winch)
+    trunnion_l = Part.makeBox(0.24, 0.22, 0.26, FreeCAD.Vector(0.68, -0.81, mod.CONT_H))
+    trunnion_r = Part.makeBox(0.24, 0.22, 0.26, FreeCAD.Vector(0.68, 0.59, mod.CONT_H))
+    gin_pole_l = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, -0.70, mod.CONT_H + 0.13), FreeCAD.Vector(-0.25, 0.15, 1.0))
+    gin_pole_r = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, 0.70, mod.CONT_H + 0.13), FreeCAD.Vector(-0.25, -0.15, 1.0))
+    apex_z = mod.CONT_H + 0.13 + 4.20 * (1.0 / math.sqrt(0.25**2 + 0.15**2 + 1.0))
+    apex_x = 0.80 - 4.20 * (0.25 / math.sqrt(0.25**2 + 0.15**2 + 1.0))
+    sheave_wheel = Part.makeCylinder(0.14, 0.10, FreeCAD.Vector(apex_x, -0.05, apex_z - 0.05), FreeCAD.Vector(0, 1, 0))
+    apex_cross = Part.makeCylinder(0.06, 0.40, FreeCAD.Vector(apex_x, -0.20, apex_z), FreeCAD.Vector(0, 1, 0))
+    winch_frame = Part.makeBox(0.60, 0.70, 0.50, FreeCAD.Vector(1.40, -0.35, mod.CONT_H))
+    winch_drum  = Part.makeCylinder(0.16, 0.40, FreeCAD.Vector(1.50, -0.20, mod.CONT_H + 0.25), FreeCAD.Vector(0, 1, 0))
+    winch_motor = Part.makeCylinder(0.13, 0.25, FreeCAD.Vector(1.50, 0.20, mod.CONT_H + 0.25), FreeCAD.Vector(0, 1, 0))
+    lift_collar_z = mod.CONT_H + 6.0
+    lift_collar = Part.makeCylinder(mod.MAST_D / 2.0 + 0.10, 0.28, FreeCAD.Vector(0, 0, lift_collar_z), FreeCAD.Vector(0, 0, 1))
+    hoist_to_apex = Part.makeCylinder(0.016, math.sqrt((apex_x - 1.50)**2 + (apex_z - (mod.CONT_H + 0.25))**2),
+                                      FreeCAD.Vector(1.50, 0, mod.CONT_H + 0.25),
+                                      FreeCAD.Vector(apex_x - 1.50, 0, apex_z - (mod.CONT_H + 0.25)))
+    hoist_to_mast = Part.makeCylinder(0.016, math.sqrt((0 - apex_x)**2 + (lift_collar_z - apex_z)**2),
+                                      FreeCAD.Vector(apex_x, 0, apex_z),
+                                      FreeCAD.Vector(-apex_x, 0, lift_collar_z - apex_z))
+    rigging = cabinet.fuse(trunnion_l).fuse(trunnion_r).fuse(gin_pole_l).fuse(gin_pole_r).fuse(apex_cross).fuse(sheave_wheel).fuse(winch_frame).fuse(winch_drum).fuse(winch_motor).fuse(lift_collar).fuse(hoist_to_apex).fuse(hoist_to_mast)
 
-    # 4. Mast, Flanges, Guy Collar & Guy Cables
+    # 4. Mast, Flanges, Guy Collar & Guy Cables with Clevis Lugs & Turnbuckles
     mast = Part.makeCylinder(mod.MAST_D / 2.0, mod.MAST_H, FreeCAD.Vector(0, 0, mod.CONT_H), FreeCAD.Vector(0, 0, 1))
     sec_len = mod.MAST_H / float(mod.SECTIONS_COUNT)
     for s in range(1, mod.SECTIONS_COUNT):
@@ -342,10 +362,17 @@ def get_wind_turbine_v3_groups():
         for sign_y in [-1.0, 1.0]:
             anchor_x = sign_x * (mod.CONT_L / 2.0 - 0.60)
             anchor_y = sign_y * (mod.CONT_W / 2.0 + mod.OUTRIGGER_EXT - 0.25)
-            collar_pt = FreeCAD.Vector(sign_x * 0.35, sign_y * 0.35, collar_z + 0.15)
-            target_pt = FreeCAD.Vector(anchor_x, anchor_y, mod.PAD_THICK)
+            anchor_z = mod.PAD_THICK
+            collar_pt = FreeCAD.Vector(sign_x * 0.38, sign_y * 0.38, collar_z + 0.17)
+            target_pt = FreeCAD.Vector(anchor_x, anchor_y, anchor_z + 0.16)
             cable_vec = target_pt - collar_pt
-            cables.append(Part.makeCylinder(mod.GUY_CABLE_D / 2.0, cable_vec.Length, collar_pt, cable_vec))
+            cable_len = cable_vec.Length
+            lug_ear = Part.makeBox(0.14, 0.14, 0.20, FreeCAD.Vector(sign_x * 0.32 - 0.07, sign_y * 0.32 - 0.07, collar_z + 0.07))
+            tb_upper = Part.makeCylinder(0.045, 0.45, collar_pt, cable_vec)
+            tb_lower_pt = target_pt - cable_vec * (0.50 / cable_len)
+            tb_lower = Part.makeCylinder(0.045, 0.45, tb_lower_pt, cable_vec)
+            cable = Part.makeCylinder(mod.GUY_CABLE_D / 2.0, cable_len, collar_pt, cable_vec)
+            cables.append(lug_ear.fuse(tb_upper).fuse(tb_lower).fuse(cable))
     cables_solid = cables[0]
     for c in cables[1:]:
         cables_solid = cables_solid.fuse(c)

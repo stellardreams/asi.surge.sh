@@ -1,32 +1,36 @@
 #!/usr/bin/env python3
 """
-modular_wind_turbine_v3.py - Parametric FreeCAD/Python Solid Model for Modular Arctic Wind Turbine (v3.0)
+modular_wind_turbine_v3.py - Parametric FreeCAD/Python Solid Model for Modular Arctic Wind Turbine (v3.1)
 
 =============================================================================
 METADATA & SPECIFICATION TRACEABILITY
 =============================================================================
-__version__     = "3.0.0"
-__revision__    = "v3.0.0-arctic-baseline"
+__version__     = "3.1.0"
+__revision__    = "v3.1.0-rigging-and-airfoil-refinements"
 __author__      = "Stellar Dreams Engineering"
 __date__        = "2026-10-17"
 __target_spec__ = "Modular Arctic / Northern Operations Wind Energy System (50 kW Class, -60°C Survival, 120 km/h Gusts, 20ft ISO Pack)"
 __kernel__      = "OpenCASCADE (B-Rep analytical geometry) via FreeCAD Part module"
-__lineage__     = "Evolved from modular_wind_turbine_v2.py and wind_v2_turbine_full.scad"
+__lineage__     = "Evolved from modular_wind_turbine_v2.py under Issues #104 and #82"
 =============================================================================
 
-Key Engineering Upgrades in v3.0:
-1. Aerodynamic Lofted Blades: Replaced simplified cone geometry with true NACA 4-digit
-   airfoil sections, non-linear chord taper (1.20 m root to 0.45 m tip), and 10° -> 1°
+Key Engineering Upgrades in v3.1:
+1. Aerodynamic Lofted Blades: 28-point discretized NACA 4415/4418 airfoil section
+   lofting with continuous chord taper (1.20 m root to 0.45 m tip) and 10° -> 1°
    aerodynamic wash-out twist.
 2. Segmented Blade Sleeve Joints: Integrated structural sleeve joint flanges at 1.9 m
    spanwise intervals, enabling 100% packing compliance inside a standard 20 ft container.
-3. 4-Point Guyed Mast Tension Ring: Structural guy-wire attachment collar at z = 16.0 m
-   with tension cables anchored to container outrigger terminals for 120 km/h survival.
-4. Gin-Pole Winch Erection Rigging: Integrated A-frame erection mast on container roof for
-   crane-less on-site tilt-up erection by small field teams.
-5. Microgrid Interconnection Bay: Exterior weatherproof 400V 3-phase power conversion &
+3. 4-Point Guyed Mast Tension Ring & Mechanical Rigging: Structural collar at z = 16.0 m
+   fitted with 4x discrete clevis lug ears, pin bosses, and upper/lower turnbuckle
+   tensioners anchoring 24 mm high-tensile steel cables to outrigger terminals.
+4. Deployable Ground Bearing Pads & Helical Anchor Caps: Outrigger footpads detailed
+   with central helical screw anchor drive caps, hinge locking shear pins, and D-ring brackets.
+5. Crane-Less Gin-Pole Winch Erection Rigging: Integrated A-frame on container roof with
+   dual base pivot trunnions, apex sheave pulley wheel, electric winch planetary motor drum,
+   and hoist wire rope line running to the lower mast lifting collar at z = 6.0 m.
+6. Microgrid Interconnection Bay: Exterior weatherproof 400V 3-phase power conversion &
    hybrid microgrid control cabinet integrated on the container rear bulkhead.
-6. Low-Temperature Nacelle Cowl: Aerodynamic insulated nacelle cowl with rime-ice shedding
+7. Low-Temperature Nacelle Cowl: Aerodynamic insulated nacelle cowl with rime-ice shedding
    geometry and internal thermal equilibrium management for -60°C ambient operation.
 """
 
@@ -37,13 +41,13 @@ import math
 # -----------------------------------------------------------------------------
 # Module Metadata & Semantic Versioning
 # -----------------------------------------------------------------------------
-__version__     = "3.0.0"
-__revision__    = "v3.0.0-arctic-baseline"
+__version__     = "3.1.0"
+__revision__    = "v3.1.0-rigging-and-airfoil-refinements"
 __author__      = "Stellar Dreams Engineering"
 __date__        = "2026-10-17"
 __target_spec__ = "Modular Arctic / Northern Operations Wind Energy System (50 kW Class, -60°C Survival, 120 km/h Gusts, 20ft ISO Pack)"
 __kernel__      = "OpenCASCADE (B-Rep analytical geometry) via FreeCAD Part module"
-__lineage__     = "Evolved from modular_wind_turbine_v2.py and wind_v2_turbine_full.scad"
+__lineage__     = "Evolved from modular_wind_turbine_v2.py under Issues #104 and #82"
 
 # Ensure FreeCAD library is accessible
 for lib_path in ["/usr/lib/freecad/lib", "/usr/lib/freecad-python3/lib"]:
@@ -89,11 +93,10 @@ BLADE_TIP_CHORD = 0.45    # Minimum chord at blade tip
 BLADE_SECTIONS  = 7       # Modular segments per blade (each <= 1.90 m)
 
 
-def make_airfoil_wire(chord, thickness=0.18, z=0.0, twist_deg=0.0):
+def make_airfoil_wire(chord, thickness=0.18, z=0.0, twist_deg=0.0, n_pts=28):
     """Generates a closed NACA 4-digit airfoil wire scaled and twisted at elevation z."""
     pts_upper = []
     pts_lower = []
-    n_pts = 10
     for i in range(n_pts + 1):
         xc = i / float(n_pts)
         yt = 5.0 * thickness * (
@@ -123,10 +126,10 @@ def make_airfoil_wire(chord, thickness=0.18, z=0.0, twist_deg=0.0):
 
 def create_modular_aerodynamic_blade():
     """Constructs a lofted aerodynamic blade with segmented structural sleeve collars."""
-    w_root = make_airfoil_wire(chord=BLADE_ROOT_CHORD, thickness=0.21, z=0.40, twist_deg=10.0)
-    w_st1  = make_airfoil_wire(chord=1.05, thickness=0.18, z=3.80, twist_deg=6.5)
-    w_st2  = make_airfoil_wire(chord=0.75, thickness=0.16, z=8.00, twist_deg=3.2)
-    w_tip  = make_airfoil_wire(chord=BLADE_TIP_CHORD, thickness=0.14, z=BLADE_SPAN, twist_deg=0.8)
+    w_root = make_airfoil_wire(chord=BLADE_ROOT_CHORD, thickness=0.21, z=0.40, twist_deg=10.0, n_pts=28)
+    w_st1  = make_airfoil_wire(chord=1.05, thickness=0.18, z=3.80, twist_deg=6.5, n_pts=28)
+    w_st2  = make_airfoil_wire(chord=0.75, thickness=0.16, z=8.00, twist_deg=3.2, n_pts=28)
+    w_tip  = make_airfoil_wire(chord=BLADE_TIP_CHORD, thickness=0.14, z=BLADE_SPAN, twist_deg=0.8, n_pts=28)
 
     airfoil_solid = Part.makeLoft([w_root, w_st1, w_st2, w_tip], True)
 
@@ -145,7 +148,7 @@ def create_modular_aerodynamic_blade():
 
 
 def build_modular_wind_turbine_v3():
-    """Builds complete Modular Arctic Wind Turbine v3.0 solid assembly."""
+    """Builds complete Modular Arctic Wind Turbine v3.1 solid assembly."""
     solids = []
 
     # 1. 20 ft ISO Container Foundation Sled
@@ -160,7 +163,7 @@ def build_modular_wind_turbine_v3():
                 corner = Part.makeBox(0.30, 0.30, 0.30, FreeCAD.Vector(cx, cy, sz))
                 solids.append(corner)
 
-    # 4x Deployable Foundation Outriggers with Ground Bearing Pads
+    # 4x Deployable Foundation Outriggers with Ground Bearing Pads & Helical Anchor Caps
     for sign_x in [-1.0, 1.0]:
         for sign_y in [-1.0, 1.0]:
             ox = sign_x * (CONT_L / 2.0 - 0.60)
@@ -168,9 +171,19 @@ def build_modular_wind_turbine_v3():
             beam_y = min(oy, oy + sign_y * OUTRIGGER_EXT)
             beam = Part.makeBox(OUTRIGGER_W, OUTRIGGER_EXT, 0.28, FreeCAD.Vector(ox - OUTRIGGER_W / 2.0, beam_y, 0.12))
             
+            # Hinge locking shear pin boss
+            hinge_pin = Part.makeCylinder(0.06, 0.35, FreeCAD.Vector(ox, oy, 0.10), FreeCAD.Vector(1, 0, 0))
+            
             pad_y = oy + sign_y * (OUTRIGGER_EXT - 0.25)
             pad = Part.makeCylinder(PAD_RADIUS, PAD_THICK, FreeCAD.Vector(ox, pad_y, 0.0), FreeCAD.Vector(0, 0, 1))
-            solids.append(beam.fuse(pad))
+            
+            # Central helical screw anchor drive cap
+            helical_cap = Part.makeCylinder(0.12, 0.14, FreeCAD.Vector(ox, pad_y, PAD_THICK), FreeCAD.Vector(0, 0, 1))
+            
+            # Guy cable D-ring anchor bracket on bearing pad
+            dring_bracket = Part.makeBox(0.12, 0.12, 0.16, FreeCAD.Vector(ox - 0.06, pad_y - 0.06, PAD_THICK))
+            
+            solids.append(beam.fuse(hinge_pin).fuse(pad).fuse(helical_cap).fuse(dring_bracket))
 
     # Rear Microgrid Interconnection Power Cabinet
     cab_l = 0.90
@@ -182,11 +195,40 @@ def build_modular_wind_turbine_v3():
     )
     solids.append(microgrid_cabinet)
 
-    # Gin-Pole Erection A-Frame Winch Rigging
-    gin_pole_l = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, -0.70, CONT_H), FreeCAD.Vector(-0.25, 0.15, 1.0))
-    gin_pole_r = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, 0.70, CONT_H), FreeCAD.Vector(-0.25, -0.15, 1.0))
-    gin_winch = Part.makeBox(0.60, 0.70, 0.50, FreeCAD.Vector(1.40, -0.35, CONT_H))
-    solids.append(gin_pole_l.fuse(gin_pole_r).fuse(gin_winch))
+    # Gin-Pole Erection A-Frame with Base Pivot Trunnions, Sheave, and Winch
+    # Base pivot trunnion brackets on container roof
+    trunnion_l = Part.makeBox(0.24, 0.22, 0.26, FreeCAD.Vector(0.68, -0.81, CONT_H))
+    trunnion_r = Part.makeBox(0.24, 0.22, 0.26, FreeCAD.Vector(0.68, 0.59, CONT_H))
+    
+    # A-Frame Tubular Legs
+    gin_pole_l = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, -0.70, CONT_H + 0.13), FreeCAD.Vector(-0.25, 0.15, 1.0))
+    gin_pole_r = Part.makeCylinder(0.08, 4.20, FreeCAD.Vector(0.80, 0.70, CONT_H + 0.13), FreeCAD.Vector(-0.25, -0.15, 1.0))
+    
+    # Apex Cross-Spreader and Sheave Pulley Wheel
+    apex_z = CONT_H + 0.13 + 4.20 * (1.0 / math.sqrt(0.25**2 + 0.15**2 + 1.0))
+    apex_x = 0.80 - 4.20 * (0.25 / math.sqrt(0.25**2 + 0.15**2 + 1.0))
+    sheave_wheel = Part.makeCylinder(0.14, 0.10, FreeCAD.Vector(apex_x, -0.05, apex_z - 0.05), FreeCAD.Vector(0, 1, 0))
+    apex_cross = Part.makeCylinder(0.06, 0.40, FreeCAD.Vector(apex_x, -0.20, apex_z), FreeCAD.Vector(0, 1, 0))
+    
+    # Planetary Electric Winch Drum & Motor Gearbox
+    winch_frame = Part.makeBox(0.60, 0.70, 0.50, FreeCAD.Vector(1.40, -0.35, CONT_H))
+    winch_drum  = Part.makeCylinder(0.16, 0.40, FreeCAD.Vector(1.50, -0.20, CONT_H + 0.25), FreeCAD.Vector(0, 1, 0))
+    winch_motor = Part.makeCylinder(0.13, 0.25, FreeCAD.Vector(1.50, 0.20, CONT_H + 0.25), FreeCAD.Vector(0, 1, 0))
+    
+    # Tower Lifting Trunnion Collar on Lower Mast (z = CONT_H + 6.0 m)
+    lift_collar_z = CONT_H + 6.0
+    lift_collar = Part.makeCylinder(MAST_D / 2.0 + 0.10, 0.28, FreeCAD.Vector(0, 0, lift_collar_z), FreeCAD.Vector(0, 0, 1))
+    
+    # Erection Hoist Cable (from Winch over Apex Sheave to Lift Collar)
+    hoist_to_apex = Part.makeCylinder(0.016, math.sqrt((apex_x - 1.50)**2 + (apex_z - (CONT_H + 0.25))**2),
+                                      FreeCAD.Vector(1.50, 0, CONT_H + 0.25),
+                                      FreeCAD.Vector(apex_x - 1.50, 0, apex_z - (CONT_H + 0.25)))
+    hoist_to_mast = Part.makeCylinder(0.016, math.sqrt((0 - apex_x)**2 + (lift_collar_z - apex_z)**2),
+                                      FreeCAD.Vector(apex_x, 0, apex_z),
+                                      FreeCAD.Vector(-apex_x, 0, lift_collar_z - apex_z))
+
+    gin_rigging = trunnion_l.fuse(trunnion_r).fuse(gin_pole_l).fuse(gin_pole_r).fuse(apex_cross).fuse(sheave_wheel).fuse(winch_frame).fuse(winch_drum).fuse(winch_motor).fuse(lift_collar).fuse(hoist_to_apex).fuse(hoist_to_mast)
+    solids.append(gin_rigging)
 
     # 2. Sectional Tubular Steel Mast (Hub Height = 24.0 m)
     mast = Part.makeCylinder(MAST_D / 2.0, MAST_H, FreeCAD.Vector(0, 0, CONT_H), FreeCAD.Vector(0, 0, 1))
@@ -198,25 +240,37 @@ def build_modular_wind_turbine_v3():
         flange = Part.makeCylinder(MAST_D / 2.0 + 0.12, 0.14, FreeCAD.Vector(0, 0, fz - 0.07), FreeCAD.Vector(0, 0, 1))
         solids.append(flange)
 
-    # 4-Point Guy Wire Tension Ring Collar
+    # 4-Point Guy Wire Tension Ring Collar with Mechanical Clevis Lug Ears
     collar_z = CONT_H + GUY_RING_Z
     guy_ring = Part.makeCylinder(MAST_D / 2.0 + 0.18, 0.35, FreeCAD.Vector(0, 0, collar_z), FreeCAD.Vector(0, 0, 1))
     solids.append(guy_ring)
 
-    # 4x Guy Wire Tension Cables
+    # 4x Guy Wire Tension Cables with Clevis Lugs and Turnbuckles
     for sign_x in [-1.0, 1.0]:
         for sign_y in [-1.0, 1.0]:
             anchor_x = sign_x * (CONT_L / 2.0 - 0.60)
             anchor_y = sign_y * (CONT_W / 2.0 + OUTRIGGER_EXT - 0.25)
             anchor_z = PAD_THICK
 
-            collar_pt = FreeCAD.Vector(sign_x * 0.35, sign_y * 0.35, collar_z + 0.15)
-            target_pt = FreeCAD.Vector(anchor_x, anchor_y, anchor_z)
+            collar_pt = FreeCAD.Vector(sign_x * 0.38, sign_y * 0.38, collar_z + 0.17)
+            target_pt = FreeCAD.Vector(anchor_x, anchor_y, anchor_z + 0.16)
             cable_vec = target_pt - collar_pt
             cable_len = cable_vec.Length
 
+            # Radial Clevis Lug Ear on Guy Collar
+            lug_ear = Part.makeBox(0.14, 0.14, 0.20, FreeCAD.Vector(sign_x * 0.32 - 0.07, sign_y * 0.32 - 0.07, collar_z + 0.07))
+            
+            # Upper Turnbuckle Tensioner Body (cylinder along cable line)
+            tb_upper = Part.makeCylinder(0.045, 0.45, collar_pt, cable_vec)
+            
+            # Lower Turnbuckle Tensioner Body (near outrigger pad)
+            tb_lower_pt = target_pt - cable_vec * (0.50 / cable_len)
+            tb_lower = Part.makeCylinder(0.045, 0.45, tb_lower_pt, cable_vec)
+
+            # High-Tensile Guy Wire Cable
             cable = Part.makeCylinder(GUY_CABLE_D / 2.0, cable_len, collar_pt, cable_vec)
-            solids.append(cable)
+            
+            solids.append(lug_ear.fuse(tb_upper).fuse(tb_lower).fuse(cable))
 
     # 3. Direct-Drive Arctic Nacelle Housing & Thermal Cowl
     nacelle_z = CONT_H + MAST_H
