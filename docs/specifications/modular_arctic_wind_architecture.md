@@ -175,7 +175,7 @@ The electrical architecture provides resilient integration with remote islanded 
 
 ## 9. Verification & Authoritative Artifact Index
 
-- **FreeCAD Parametric Model:** [`cad_and_blender/freecad/wind/modular_wind_turbine_v3.py`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/wind/modular_wind_turbine_v3.py)
-- **Analytical STEP Solid Export:** [`cad_and_blender/freecad/step_exports/modular_wind_turbine_v3.step`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/step_exports/modular_wind_turbine_v3.step)
-- **360° Color Turntable Animation:** `cad_and_blender/freecad/wind/renders/modular_wind_turbine_v3_turntable.mp4` / `.gif`
-- **Model Registry Documentation:** [`cad_and_blender/REGISTRY.md`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/REGISTRY.md)
+- **FreeCAD Parametric Model:** [`cad_and_blender/freecad/wind/modular_wind_turbine_v3.py`](../../cad_and_blender/freecad/wind/modular_wind_turbine_v3.py)
+- **Analytical STEP Solid Export:** [`cad_and_blender/freecad/step_exports/modular_wind_turbine_v3.step`](../../cad_and_blender/freecad/step_exports/modular_wind_turbine_v3.step)
+- **360° Color Turntable Animation:** [`modular_wind_turbine_v3_turntable.mp4`](../../cad_and_blender/freecad/wind/renders/modular_wind_turbine_v3_turntable.mp4) / [`.gif`](../../cad_and_blender/freecad/wind/renders/modular_wind_turbine_v3_turntable.gif)
+- **Model Registry Documentation:** [`cad_and_blender/REGISTRY.md`](../../cad_and_blender/REGISTRY.md)
