@@ -282,6 +282,7 @@ def get_scene_and_camera(f, meta, total_frames=TOTAL_FRAMES):
     cora_elbow = 70.0
     mast_assembled_ratio = 1.0
     tilt_theta = 0.0
+    nacelle_pitch = 0.0
     spin_ang = 0.0
     umbilical_connected = False
     offloading_active = False
@@ -391,13 +392,9 @@ def get_scene_and_camera(f, meta, total_frames=TOTAL_FRAMES):
     # Stage 5: Foundation Lock, Microgrid Power Umbilical & Rotor Commissioning (16.5s - 20.0s, Frames 198-240)
     else:
         stage_num = 5
-        stage_title = "STAGE 5: VERTICAL LOCK, MICROGRID UMBILICAL TETHER & ROTOR COMMISSIONING [PHASE 5]"
-        stage_desc = "Tower seated in base socket; CORA-M connects 400V microgrid tether; 26m rotor spins 2.5 revs"
-        stage_color = "#2ecc71"
         p = (f - 198) / 42.0
         s = 0.5 - 0.5 * math.cos(p * math.pi)
         tilt_theta = 90.0
-        spin_ang = s * 900.0  # 2.5 revolutions (900 degrees)
         strider_x = 8.50
         strider_out_ext = 1.0
         # CORA-M routes and plugs the microgrid umbilical between turbine and STRIDER-M
@@ -406,6 +403,25 @@ def get_scene_and_camera(f, meta, total_frames=TOTAL_FRAMES):
         cora_elbow = 55.0
         umbilical_connected = True
         mast_assembled_ratio = 1.0
+
+        # Sub-phase 5.a: Nacelle tilts on masthead trunnion from vertical to horizontal (Frames 198-216, 1.5s)
+        if f < 216:
+            p_pitch = (f - 198) / 18.0
+            s_pitch = 0.5 - 0.5 * math.cos(p_pitch * math.pi)
+            nacelle_pitch = s_pitch * 90.0
+            spin_ang = 0.0
+            stage_title = f"STAGE 5: BASE SOCKET LOCK & NACELLE TILT TO HORIZONTAL [γ = {nacelle_pitch:4.1f}°] [PHASE 5]"
+            stage_desc = "Tower locked in foundation socket; nacelle pitches 90° to horizontal wind orientation; CORA-M secures umbilical"
+            stage_color = "#f39c12"
+        # Sub-phase 5.b: Commissioning rotor spin in vertical plane as a true windmill (Frames 216-240, 2.0s)
+        else:
+            nacelle_pitch = 90.0
+            p_spin = (f - 216) / 24.0
+            s_spin = 0.5 - 0.5 * math.cos(p_spin * math.pi)
+            spin_ang = s_spin * 900.0  # 2.5 revolutions in vertical plane
+            stage_title = f"STAGE 5: ARCTIC MICROGRID COMMISSIONING & 26m ROTOR SPIN-UP [ω = {spin_ang/360.0:3.1f} revs] [PHASE 5]"
+            stage_desc = "26m aerodynamic rotor spins in vertical plane like a windmill; Arctic microgrid power bus active"
+            stage_color = "#2ecc71"
 
         # Camera: majestic wide orbit framing the operational wind-diesel microgrid cluster
         cx = 3.0
@@ -429,6 +445,7 @@ def get_scene_and_camera(f, meta, total_frames=TOTAL_FRAMES):
         "cora_elbow": cora_elbow,
         "mast_assembled_ratio": mast_assembled_ratio,
         "tilt_theta": tilt_theta,
+        "nacelle_pitch": nacelle_pitch,
         "spin_ang": spin_ang,
         "umbilical_connected": umbilical_connected,
         "offloading_active": offloading_active,
@@ -456,6 +473,7 @@ def render_frame_worker(task_data):
     cx, cy, cz, max_r, azim, elev = kinematics["camera"]
     tilt_rad = math.radians(kinematics["tilt_theta"])
     spin_rad = math.radians(kinematics["spin_ang"])
+    nacelle_pitch_rad = math.radians(kinematics.get("nacelle_pitch", 0.0))
     strider_x = kinematics["strider_x"]
     strider_z = 0.825
 
@@ -526,8 +544,12 @@ def render_frame_worker(task_data):
     top_pos_local = np.array([[0.0, 0.0, MAST_H]])
     top_pos_world = to_tower(top_pos_local)[0]
     
+    # Combined rotation: Ry rotates with tower, R_pitch tilts nacelle from vertical to horizontal
+    R_pitch = rot_y(nacelle_pitch_rad)
+    R_nacelle = np.dot(R_pitch, Ry)
+
     def to_nacelle(p):
-        p_tilt = np.dot(p, Ry.T)
+        p_tilt = np.dot(p, R_nacelle.T)
         return p_tilt + top_pos_world
 
     draw_mesh(meshes["nacelle"][0], meshes["nacelle"][1], to_nacelle, "#ffb300", alpha=0.90, edge_col="#ff8f00")
