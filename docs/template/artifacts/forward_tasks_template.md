@@ -10,6 +10,9 @@
      3. Keep the "Zone of Focus" lean, uncluttered, and placed directly at
         the top right after the title for zero-scroll visibility:
         - Structure around Single-Item Flow:
+          * Use an outer double-lined rectangle around the active focus zone.
+          * Use an inner single-lined rectangle within the outer rectangle to
+            highlight the single-line current focal target.
           * 🔴 CURRENT FOCAL TARGET: Exactly ONE task being executed right now,
             with precise action cues, expected verification, and reporting flow.
           * 🟡 NEXT ON DECK: Exactly ONE preview of what follows immediately.
@@ -37,6 +40,22 @@
 
 > [!IMPORTANT]
 > ### 🎯 ZONE OF FOCUS: Single-Item Active Execution
+> 
+> ```text
+> ╔════════════════════════════════════════════════════════════════════════════╗
+> ║ ZONE OF FOCUS: SINGLE-ITEM ACTIVE EXECUTION                                ║
+> ║                                                                            ║
+> ║  ┌──────────────────────────────────────────────────────────────────────┐  ║
+> ║  │ CURRENT FOCAL TARGET: [TASK-ID] — [Task Name / One-Line Summary]     │  ║
+> ║  └──────────────────────────────────────────────────────────────────────┘  ║
+> ║                                                                            ║
+> ║ • In-Issue Search String : [Search string to Ctrl+F find exact comment]    ║
+> ║ • Assignee               : [Assignee / Lead / Agent]                       ║
+> ║ • Action Required        : [Exact command, script, or verification step]   ║
+> ║ • Verification / Criteria: [Concrete pass criteria or key check]           ║
+> ║ • Gate Unlock            : [Next milestone or gate unlocked upon sign-off] ║
+> ╚════════════════════════════════════════════════════════════════════════════╝
+> ```
 > 
 > #### 🔴 CURRENT FOCAL TARGET: [Active Task Name]
 > - **Task ID & Lineage**: 🔄 **TASK-01A** · [#01](https://github.com/owner/repo/issues/01) (Child of [#00](https://github.com/owner/repo/issues/00))
