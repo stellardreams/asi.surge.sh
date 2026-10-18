@@ -8,8 +8,10 @@ conflicts with a general habit, this file wins.
 
 ## 🚨 Protected branches — never delete
 
-**`master`, `main`, and `main-dev` are permanent. Never delete them, in any
+**`main` and `main-dev` are permanent. Never delete them, in any
 circumstance, on any branch operation.**
+
+*(Note: Legacy `master` was formally decommissioned on 2026-10-18 under Issue #109 following GitHub default branch migration to `main`).*
 
 ### Why this rule exists
 
@@ -32,18 +34,18 @@ whatever branch the PR's head points at.
 |---|---|
 | `gh pr merge 93 --delete-branch` where head is `fix/foo` | ✅ yes, throwaway branch |
 | `gh pr merge 93 --delete-branch` where head is `main-dev` | ❌ **never** |
-| `gh pr merge 93 --delete-branch` where head is `master` | ❌ **never** |
+| `gh pr merge 93 --delete-branch` where head is `main` | ❌ **never** |
 | `git branch -d <protected>` | ❌ **never** |
 
 ### Rules
 
-1. **Check the PR head before merging.** If it is `master`, `main`, or
+1. **Check the PR head before merging.** If it is `main` or
    `main-dev`, omit `--delete-branch` entirely.
 2. **After any merge that used `--delete-branch`, verify:**
    ```bash
    gh api repos/stellardreams/asi.surge.sh/branches --jq '.[].name'
    ```
-   All three protected branches must still be present.
+   Both protected branches (`main` and `main-dev`) must still be present.
 3. **`--delete-branch` is only ever for throwaway branches** — `feat/*`,
    `fix/*`, `docs/*`, `ci/*` — and only once merged.
 4. **Never substitute another branch** for a missing protected one. Stop and
@@ -54,7 +56,7 @@ whatever branch the PR's head points at.
 ```bash
 git push origin main-dev:refs/heads/main-dev      # restore the branch
 git checkout main-dev
-git reset --hard origin/master                    # squash-merge left it diverged
+git reset --hard origin/main                      # resync from main
 git push --force-with-lease origin main-dev       # resync
 ```
 
