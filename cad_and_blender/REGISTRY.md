@@ -258,9 +258,19 @@ Containerized Arctic wind turbine system designed for deployment without heavy c
 3. **Cross-Format Verification**:
    - OpenSCAD is the conceptual kinematic benchmark.
    - FreeCAD / CadQuery implementations (tracked under Issue [#18](https://github.com/stellardreams/asi.surge.sh/issues/18) and [#101](https://github.com/stellardreams/asi.surge.sh/issues/101)) maintain exact dimensional parity and provide STEP/IGES solid exports for FEA/CFD.
+4. **Render & Animation Asset Versioning Standard (Non-Destructive Media Policy)**:
+   - Never overwrite approved baseline renders in place when introducing new camera choreography, lighting, or rendering backends.
+   - **Standard Naming Convention**: `<model_name>_<render_mode>_v<N>.<ext>`
+     - **Baseline (`v1`)**: `<model_name>_turntable.mp4` / `.gif` (preserved Matplotlib CPU software rasterized 360° turntables).
+     - **Matrix Cinematic Orbit (`v2`)**: `<model_name>_cinematic_v2.mp4` / `.gif` (PyVista/VTK hardware-accelerated OpenGL 6.5s dynamic 360° pan + pitch tilt wave + radial dolly zoom).
+     - **Future Iterations (`v3+`)**: Increment the suffix (`_cinematic_v3`, `_raytraced_v4`, etc.) via `--version-tag` in [`scripts/render_freecad_turntables_pyvista.py`](../scripts/render_freecad_turntables_pyvista.py) and register the new asset alongside the preserved baseline.
 
 ---
 
 > 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Refactored Sections 1–5 into No-Scroll Specification Sheets, Embedded Version-Labeled Visual Previews (`v1.0`–`v3.1`), and Verified All Asset Paths (#101)  
 > 📅 **Date/Time:** October 18, 2026 — 07:24 AM Eastern (EDT) / 11:24 UTC  
 > 📌 **Status:** Active Authoritative Registry (Awaiting @genidma Review Sign-Off in Issue [#101](https://github.com/stellardreams/asi.surge.sh/issues/101))
+
+> 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Added Section 6.4 Render & Animation Asset Versioning Standard (`_turntable` v1 vs. `_cinematic_v2` Matrix Orbit) (#108, #101)  
+> 📅 **Date/Time:** October 18, 2026 — 10:27 AM Eastern (EDT) / 14:27 UTC  
+> 📌 **Status:** Active Authoritative Registry (Preserving `v1` Turntables & Standardizing `v2` Cinematic Renders)
