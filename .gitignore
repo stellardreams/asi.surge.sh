@@ -2,11 +2,8 @@
 # Secrets and private working material — never commit these
 # ---------------------------------------------------------------------------
 
-# Private mapping file (lives outside this repo, matched defensively).
-# Note: a leading '../' pattern does not work in gitignore — it is not part of
-# the ignore syntax, so this rule is effectively inert. The real file must be
-# kept out of the repo by being outside it, not by this line.
-../private/project-mapping.txt
+# Repository-local private material. Keep sibling private files outside the
+# repository; this file cannot ignore paths above the repository root.
 private/
 
 # API keys and local secrets. Applies to any file ending in .env.
@@ -116,3 +113,17 @@ migrations/
 
 # Stray version-number file from the Solidity tooling
 4.5.0
+
+# ---------------------------------------------------------------------------
+# Firebase
+# ---------------------------------------------------------------------------
+
+# Debug log emitted by the Firebase CLI — local, ephemeral, not useful in VCS.
+firebase-debug.log
+
+# ---------------------------------------------------------------------------
+# AI / local tooling directories
+# ---------------------------------------------------------------------------
+
+# Kilo (AI coding tool) — local config and dependency cache.
+.kilo/
