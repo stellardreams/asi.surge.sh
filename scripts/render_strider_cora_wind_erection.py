@@ -190,11 +190,13 @@ def build_cad_meshes():
     pts_sbody = np.array([[p.x, p.y, p.z] for p in pts])
     facets_sbody = np.array(facets)
 
-    # Single Spider Outrigger Assembly (for dynamic articulation)
-    single_outrigger = strider_mod.create_outrigger(sign_x=1.0, sign_y=1.0)
-    pts, facets = single_outrigger.tessellate(0.35)
-    pts_sout = np.array([[p.x, p.y, p.z] for p in pts])
-    facets_sout = np.array(facets)
+    # 4x Dedicated Spider Outriggers (Direct FreeCAD CAD extraction with accurate joint geometry)
+    strider_outriggers = {}
+    for sx in [-1.0, 1.0]:
+        for sy in [-1.0, 1.0]:
+            out_solid = strider_mod.create_outrigger(sign_x=sx, sign_y=sy)
+            pts_o, facets_o = out_solid.tessellate(0.35)
+            strider_outriggers[(sx, sy)] = (np.array([[p.x, p.y, p.z] for p in pts_o]), np.array(facets_o))
 
     # 9. CORA-M 7-DoF Manipulator Components
     # Base Turret & Shoulder Knuckle
@@ -253,7 +255,7 @@ def build_cad_meshes():
         "cribbing": (pts_crib, facets_crib),
         "strider_track": (pts_track, facets_track),
         "strider_body": (pts_sbody, facets_sbody),
-        "strider_outrigger": (pts_sout, facets_sout),
+        "strider_outriggers": strider_outriggers,
         "cora_base": (pts_cbase, facets_cbase),
         "cora_bicep": (pts_bicep, facets_bicep),
         "cora_forearm": (pts_cfa, facets_cfa)
@@ -582,21 +584,11 @@ def render_frame_worker(task_data):
         t_pos = strider_world_pos + np.array([0.0, sign_tr * track_y, 0.0])
         draw_mesh(meshes["strider_track"][0], meshes["strider_track"][1], lambda p, tp=t_pos: p + tp, "#1a2327", alpha=0.92, edge_col="#37474f")
 
-    # 4x Spider Outriggers (with dynamic deployment factor)
-    out_factor = kinematics["strider_out_ext"]
+    # 4x Spider Outriggers (direct FreeCAD solid CAD geometry, zero transparency distortion)
     for sign_x in [-1.0, 1.0]:
         for sign_y in [-1.0, 1.0]:
-            def t_sout(p, sx=sign_x, sy=sign_y, factor=out_factor):
-                p_copy = p.copy()
-                # Deploy outrigger: scale outward Y and ground Z
-                p_copy[:, 1] = p_copy[:, 1] * (0.50 + 0.50 * factor)
-                p_copy[:, 2] = p_copy[:, 2] * factor
-                if sy < 0:
-                    p_copy[:, 1] = -p_copy[:, 1]
-                if sx < 0:
-                    p_copy[:, 0] = -p_copy[:, 0]
-                return p_copy + strider_world_pos
-            draw_mesh(meshes["strider_outrigger"][0], meshes["strider_outrigger"][1], t_sout, "#ffab00", alpha=0.90, edge_col="#ff8f00")
+            o_pts, o_facets = meshes["strider_outriggers"][(sign_x, sign_y)]
+            draw_mesh(o_pts, o_facets, lambda p: p + strider_world_pos, "#ffab00", alpha=0.96, edge_col="#ff8f00", edge_w=0.25)
 
     # 9. CORA-M 7-DoF Manipulator Arm
     turret_dock_world = strider_world_pos + np.array([0.0, 0.0, 1.205])
