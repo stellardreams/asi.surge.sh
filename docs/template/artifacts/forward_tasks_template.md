@@ -41,6 +41,7 @@
 > #### 🔴 CURRENT FOCAL TARGET: [Active Task Name]
 > - **Task ID & Lineage**: 🔄 **TASK-01A** · [#01](https://github.com/owner/repo/issues/01) (Child of [#00](https://github.com/owner/repo/issues/00))
 > - **Assignee**: [Username or Agent]
+> - **In-Issue Search String**: [Search string to Ctrl+F find the exact comment/section in GitHub]
 > - **Action Required (The Cue)**: [Exact command, script, or test to execute]
 > - **Expected Verification**: [Concrete verification output or pass criteria]
 > - **Reporting Flow**: [Where to report results: Issue comment, commit, or artifact]
