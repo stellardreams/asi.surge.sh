@@ -7,43 +7,55 @@
      1. Copy this template when initializing a new multi-task initiative,
         subsystem redesign, or sprint tracking document.
      2. Replace the bracketed placeholders [LIKE_THIS] with project data.
-     3. Keep the "Zone of Focus" lean and uncluttered:
-        - Only list 1-3 active, immediate engineering priorities.
-        - Always identify each focus item with its Task ID (e.g. `TASK-01`).
-        - Do not accumulate finished task logs in the focus box.
+     3. Keep the "Zone of Focus" lean, uncluttered, and placed directly at
+        the top right after the title for zero-scroll visibility:
+        - Structure around Single-Item Flow:
+          * 🔴 CURRENT FOCAL TARGET: Exactly ONE task being executed right now,
+            with precise action cues, expected verification, and reporting flow.
+          * 🟡 NEXT ON DECK: Exactly ONE preview of what follows immediately.
+          * 📋 QUEUED INITIATIVES: 1-line pointers to other initiatives
+            detailed in the Task Matrix below.
+        - Do not accumulate finished task logs or extensive multi-task lists
+          in the focus box.
         - When a task is completed, move it to the "Completed Milestones" table.
-     4. Use standard status badges:
+     4. Place administrative metadata (Status, Environment, Parent Initiatives,
+        Active Child Packages, Target Release) at the very bottom under
+        "📌 Initiative Metadata & Lineage" to prevent top-of-document clutter.
+     5. Use standard status badges:
         - 📌 PINNED / ACTIVE
         - 🟢 ACTIVE
         - 🟡 AUDITED / HOLD_OFF_GATE
         - ⏸️ ON_HOLD / DEFERRED
         - ✅ DONE
-     5. Maintain the Task Hierarchy & Lineage tree to show parent/child issues.
-     6. Mermaid.js Visual Diagrams:
+     6. Maintain the Task Hierarchy & Lineage tree to show parent/child issues.
+     7. Mermaid.js Visual Diagrams:
         - Embed fenced `mermaid` code blocks for visual dependency flows and system hierarchies.
         - Supported natively in Google Antigravity (AGY) markdown artifacts.
      ===================================================================== -->
 
 # Forward Engineering Task Tracker ([Initiative / System Name])
 
-> **Status:** Active  
-> **Environment:** Google Antigravity (AGY)  
-> **Parent Initiatives:** [#00](https://github.com/owner/repo/issues/00) ([Parent Initiative Title])  
-> **Active Child Packages:** [#01](https://github.com/owner/repo/issues/01) ([Package 1 Title]), [#02](https://github.com/owner/repo/issues/02) ([Package 2 Title])  
-> **Target Release:** `vX.Y.Z` (tracked in `docs/release_notes/vX.Y.Z-draft.md`)
-
----
-
 > [!IMPORTANT]
-> ### 🎯 ZONE OF FOCUS: [Active Engineering Subsystem / Theme]
+> ### 🎯 ZONE OF FOCUS: Single-Item Active Execution
 > 
-> **Primary Engineering Initiative**: [Brief 1-sentence description of the overarching goal under Parent Issue #00].
+> #### 🔴 CURRENT FOCAL TARGET: [Active Task Name]
+> - **Task ID & Lineage**: 🔄 **TASK-01A** · [#01](https://github.com/owner/repo/issues/01) (Child of [#00](https://github.com/owner/repo/issues/00))
+> - **Assignee**: [Username or Agent]
+> - **Action Required (The Cue)**: [Exact command, script, or test to execute]
+> - **Expected Verification**: [Concrete verification output or pass criteria]
+> - **Reporting Flow**: [Where to report results: Issue comment, commit, or artifact]
 > 
-> - **Immediate Active Focus**:
->   1. [First immediate priority: e.g. CAD geometry refinements and mechanical stress analysis] (`TASK-01`).
->   2. [Second immediate priority: e.g. Thermal equilibrium solver and test suite coupling] (`TASK-02`).
-> - **Active Quality Gate**: [State active quality/audit gates, e.g. Merge hold-off gate on main-dev $\to$ master remains active until lead sign-off].
-> - **Tracked Separately (Deferred)**: [Any secondary initiatives paused to preserve current focus, e.g. Documentation overhaul (#03) is deferred].
+> ---
+> 
+> #### 🟡 NEXT ON DECK: [Next Task Name]
+> - **Task ID & Lineage**: 📍 **TASK-01-AUDIT** · [#01](https://github.com/owner/repo/issues/01)
+> - **Action**: [1-line preview of what unlocks once the current target completes]
+> 
+> ---
+> 
+> #### 📋 QUEUED INITIATIVES (Holding Pattern — Detailed in Task Matrix Below)
+> - ⏸️ **TASK-02**: Secondary Concept Explorations ([#00](https://github.com/owner/repo/issues/00))
+> - 🌐 **Issue #03**: Public Documentation & Showcase Overhaul ([#01](https://github.com/owner/repo/issues/01))
 
 ---
 
@@ -114,4 +126,14 @@ graph TD
  ├── ⏸️ TASK-02: [Secondary Concept Explorations] (On Hold ⏸️)
  └── ⏸️ #03: [Public Documentation & Portfolio Overhaul] (Deferred / Tracked Separately ⏸️)
 ```
+
+---
+
+## 📌 Initiative Metadata & Lineage
+
+> **Status:** Active  
+> **Environment:** Google Antigravity (AGY)  
+> **Parent Initiatives:** [#00](https://github.com/owner/repo/issues/00) ([Parent Initiative Title])  
+> **Active Child Packages:** [#01](https://github.com/owner/repo/issues/01) ([Package 1 Title]), [#02](https://github.com/owner/repo/issues/02) ([Package 2 Title])  
+> **Target Release:** `vX.Y.Z` (tracked in `docs/release_notes/vX.Y.Z-draft.md`)
 
