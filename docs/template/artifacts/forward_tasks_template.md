@@ -4,72 +4,54 @@
      TEMPLATES & INSTRUCTIONS: FORWARD ENGINEERING TASK TRACKER
      =====================================================================
      Usage Instructions:
-     1. Copy this template when initializing a new multi-task initiative,
+     1. Refer to README.md in this directory for the full Forward Tasks SOP.
+     2. Copy this template when initializing a new multi-task initiative,
         subsystem redesign, or sprint tracking document.
-     2. Replace the bracketed placeholders [LIKE_THIS] with project data.
-     3. Keep the "Zone of Focus" lean, uncluttered, and placed directly at
+     3. Replace bracketed placeholders [LIKE_THIS] with project data.
+     4. Keep the "Zone of Focus" lean, uncluttered, and placed directly at
         the top right after the title for zero-scroll visibility:
-        - Structure around Single-Item Flow:
-          * Use an outer double-lined rectangle around the active focus zone.
-          * Use an inner single-lined rectangle within the outer rectangle to
-            highlight the single-line current focal target.
-          * 🔴 CURRENT FOCAL TARGET: Exactly ONE task being executed right now,
-            with precise action cues, expected verification, and reporting flow.
-          * 🟡 NEXT ON DECK: Exactly ONE preview of what follows immediately.
-          * 📋 QUEUED INITIATIVES: 1-line pointers to other initiatives
-            detailed in the Task Matrix below.
-        - Do not accumulate finished task logs or extensive multi-task lists
-          in the focus box.
-        - When a task is completed, move it to the "Completed Milestones" table.
-     4. Place administrative metadata (Status, Environment, Parent Initiatives,
-        Active Child Packages, Target Release) at the very bottom under
-        "📌 Initiative Metadata & Lineage" to prevent top-of-document clutter.
-     5. Use standard status badges:
-        - 📌 PINNED / ACTIVE
-        - 🟢 ACTIVE
-        - 🟡 AUDITED / HOLD_OFF_GATE
-        - ⏸️ ON_HOLD / DEFERRED
-        - ✅ DONE
-     6. Maintain the Task Hierarchy & Lineage tree to show parent/child issues.
-     7. Mermaid.js Visual Diagrams:
-        - Embed fenced `mermaid` code blocks for visual dependency flows and system hierarchies.
-        - Supported natively in Google Antigravity (AGY) markdown artifacts.
+        - Structure around Single-Item Flow (1 to max 2 active targets).
+        - Nested Rectangle Standard:
+          * Outer double-line rectangle (`╔═╗║╚═╝`, width 78) frames the target.
+          * Inner single-line rectangle (`┌─┐│└─┘`, width 72) highlights the target.
+          * No redundant titles or details inside the rectangle.
+          * Exact Match Rule: The string inside the inner rectangle MUST match
+            the heading immediately below outside the rectangle character-for-character.
+        - Routing & Dispatch Standard:
+          * In-Issue Search String ➡️ : '[Search String]' for fast Ctrl+F navigation.
+          * Standard Assignees: `@genidma` (Lead) or `AGY` (Antigravity).
+          * In-situ deliverables, logs, and verification criteria live in the
+            GitHub issue comment, keeping FT minimal and uncluttered.
+     5. Place administrative metadata (Status, Environment, Lineage, Releases)
+        at the very bottom under "📌 Initiative Metadata & Lineage".
+     6. Use standard status badges: 📌, 🟢, 🟡, ⏸️, ✅.
+     7. Maintain Task Hierarchy Tree & Mermaid Dependency Flow.
      ===================================================================== -->
 
 # Forward Engineering Task Tracker ([Initiative / System Name])
 
 > [!IMPORTANT]
-> ### 🎯 ZONE OF FOCUS: Single-Item Active Execution
+> ### 🎯 ZONE OF FOCUS: Active Execution
 > 
 > ```text
 > ╔════════════════════════════════════════════════════════════════════════════╗
-> ║ ZONE OF FOCUS: SINGLE-ITEM ACTIVE EXECUTION                                ║
-> ║                                                                            ║
 > ║  ┌──────────────────────────────────────────────────────────────────────┐  ║
-> ║  │ CURRENT FOCAL TARGET: [TASK-ID] — [Task Name / One-Line Summary]     │  ║
+> ║  │ 🔴 FOCAL TARGET 1: [Task ID] — [Task Name / Summary]                  │  ║
 > ║  └──────────────────────────────────────────────────────────────────────┘  ║
-> ║                                                                            ║
-> ║ • In-Issue Search String : [Search string to Ctrl+F find exact comment]    ║
-> ║ • Assignee               : [Assignee / Lead / Agent]                       ║
-> ║ • Action Required        : [Exact command, script, or verification step]   ║
-> ║ • Verification / Criteria: [Concrete pass criteria or key check]           ║
-> ║ • Gate Unlock            : [Next milestone or gate unlocked upon sign-off] ║
 > ╚════════════════════════════════════════════════════════════════════════════╝
 > ```
 > 
-> #### 🔴 CURRENT FOCAL TARGET: [Active Task Name]
-> - **Task ID & Lineage**: 🔄 **TASK-01A** · [#01](https://github.com/owner/repo/issues/01) (Child of [#00](https://github.com/owner/repo/issues/00))
-> - **Assignee**: [Username or Agent]
-> - **In-Issue Search String**: [Search string to Ctrl+F find the exact comment/section in GitHub]
-> - **Action Required (The Cue)**: [Exact command, script, or test to execute]
-> - **Expected Verification**: [Concrete verification output or pass criteria]
-> - **Reporting Flow**: [Where to report results: Issue comment, commit, or artifact]
+> #### 🔴 FOCAL TARGET 1: [Task ID] — [Task Name / Summary]
+> - **Lineage**: [#01](https://github.com/owner/repo/issues/01) (Child of [#00](https://github.com/owner/repo/issues/00))
+> - **In-Issue Search String ➡️** : '[Unique Search String for Ctrl+F]'
+> - **Assignee**: `@genidma` or `AGY`
 > 
 > ---
 > 
 > #### 🟡 NEXT ON DECK: [Next Task Name]
-> - **Task ID & Lineage**: 📍 **TASK-01-AUDIT** · [#01](https://github.com/owner/repo/issues/01)
-> - **Action**: [1-line preview of what unlocks once the current target completes]
+> - **Lineage**: [#01](https://github.com/owner/repo/issues/01)
+> - **In-Issue Search String ➡️** : '[Unique Search String for Ctrl+F]'
+> - **Assignee**: `@genidma` or `AGY`
 > 
 > ---
 > 
