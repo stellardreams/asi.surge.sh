@@ -4,6 +4,14 @@
 
 Welcome to the official repository of the **Awakened Imagination Group of Projects**. This repository and the accompanying website seek to translate the human and machine aspiration to move away from a Type 0 civilization on a [Kardashev scale](https://en.wikipedia.org/wiki/Kardashev_scale), into plans and frameworks that can be converted into tactical execution logs.
 
+## 💡 Engineering Philosophy: Simple Innovation & Extreme Resourcefulness
+
+> ### 💬 [Ernest Rutherford Maxim](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.1)
+> *“[We haven't got the money, so we've got to think.](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.1)”*  
+> — **Ernest Rutherford**, Nobel Prize-winning physicist *(courtesy of Google.com AI-powered search — foundational ethos of [Release v1.3.1](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.1))*
+
+Across orbital infrastructure, extreme polar microgrids, and autonomous planetary robotics, our engineering ethos operates on the principle that resource scarcity is the ultimate catalyst for architectural clarity. Rather than relying on capital abundance or fragile over-complexity, we prioritize first-principles physics, parametric simplicity, and rigorous resourcefulness to invent durable, survivable systems.
+
 ## 🗺️ Project Architecture
 
 The project is structured around four primary pillars, each with a dedicated interactive hub and tactical documentation:
