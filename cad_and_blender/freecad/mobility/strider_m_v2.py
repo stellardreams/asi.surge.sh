@@ -127,29 +127,49 @@ def create_outrigger(sign_x=1.0, sign_y=1.0, deployed=True):
     solids.append(clevis.fuse(bracket))
 
     # Outrigger deployment angles
-    # Upper boom extends outward and downward
-    boom_len = 1.35
+    # Upper boom extends outward and downward along diagonal load vector
     knee_x = px
     knee_y = py + sign_y * 1.10
     knee_z = pz - 0.65
 
-    # Upper box boom
-    boom = Part.makeBox(0.24, 1.10, 0.22, FreeCAD.Vector(px - 0.12, min(py, knee_y), knee_z))
-    solids.append(boom)
-
-    # Knee knuckle
-    knuckle = Part.makeCylinder(0.18, 0.32, FreeCAD.Vector(knee_x - 0.16, knee_y, knee_z + 0.10), FreeCAD.Vector(1, 0, 0))
-    solids.append(knuckle)
-
-    # Hydraulic cylinder ram pushing knee
-    cyl_barrel = Part.makeCylinder(0.10, 0.75, FreeCAD.Vector(px, py + sign_y * 0.20, pz + 0.10), FreeCAD.Vector(0, sign_y * 0.85, -0.55))
-    solids.append(cyl_barrel)
-
-    # Lower articulated leg down to ground
     foot_y = knee_y + sign_y * 0.75
     foot_z = -TRACK_H/2.0
-    lower_leg = Part.makeBox(0.20, 0.75, 0.18, FreeCAD.Vector(knee_x - 0.10, min(knee_y, foot_y), foot_z))
-    solids.append(lower_leg)
+
+    v_clevis = FreeCAD.Vector(px, py, pz)
+    v_knee = FreeCAD.Vector(knee_x, knee_y, knee_z)
+    v_foot = FreeCAD.Vector(knee_x, foot_y, foot_z)
+
+    dir_upper = v_knee.sub(v_clevis)
+    len_upper = dir_upper.Length
+    dir_upper.normalize()
+
+    dir_lower = v_foot.sub(v_knee)
+    len_lower = dir_lower.Length
+    dir_lower.normalize()
+
+    # Twin tubular structural rails for upper boom
+    rail_r = 0.075
+    for dx in [-0.10, 0.10]:
+        start_u = FreeCAD.Vector(px + dx, py, pz)
+        solids.append(Part.makeCylinder(rail_r, len_upper, start_u, dir_upper))
+    solids.append(Part.makeCylinder(0.06, len_upper, FreeCAD.Vector(px, py, pz), dir_upper))
+
+    # Knee knuckle pivot cylinder at v_knee
+    knuckle = Part.makeCylinder(0.18, 0.36, FreeCAD.Vector(knee_x - 0.18, knee_y, knee_z), FreeCAD.Vector(1, 0, 0))
+    solids.append(knuckle)
+
+    # Hydraulic actuator ram pushing knee from fender
+    v_ram_start = FreeCAD.Vector(px, py + sign_y * 0.20, pz + 0.10)
+    dir_ram = v_knee.sub(v_ram_start)
+    len_ram = dir_ram.Length
+    dir_ram.normalize()
+    solids.append(Part.makeCylinder(0.09, len_ram, v_ram_start, dir_ram))
+
+    # Twin tubular structural rails for lower articulated leg down to footpad
+    for dx in [-0.09, 0.09]:
+        start_l = FreeCAD.Vector(knee_x + dx, knee_y, knee_z)
+        solids.append(Part.makeCylinder(rail_r, len_lower, start_l, dir_lower))
+    solids.append(Part.makeCylinder(0.06, len_lower, FreeCAD.Vector(knee_x, knee_y, knee_z), dir_lower))
 
     # Wide polar footpad shoe with permafrost biting cleats
     shoe = Part.makeBox(0.65, 0.85, 0.14, FreeCAD.Vector(knee_x - 0.325, foot_y - 0.425, foot_z - 0.07))
