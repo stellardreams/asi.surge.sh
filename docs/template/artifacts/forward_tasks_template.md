@@ -7,7 +7,7 @@
      1. Copy this template when initializing a new multi-task initiative,
         subsystem redesign, or sprint tracking document.
      2. Replace the bracketed placeholders [LIKE_THIS] with project data.
-     3. Keep the "Zone of Current Focus" lean and uncluttered:
+     3. Keep the "Zone of Focus" lean and uncluttered:
         - Only list 1-3 active, immediate engineering priorities.
         - Always identify each focus item with its Task ID (e.g. `TASK-01`).
         - Do not accumulate finished task logs in the focus box.
@@ -35,7 +35,7 @@
 ---
 
 > [!IMPORTANT]
-> ### 🎯 ZONE OF CURRENT FOCUS: [Active Engineering Subsystem / Theme]
+> ### 🎯 ZONE OF FOCUS: [Active Engineering Subsystem / Theme]
 > 
 > **Primary Engineering Initiative**: [Brief 1-sentence description of the overarching goal under Parent Issue #00].
 > 
