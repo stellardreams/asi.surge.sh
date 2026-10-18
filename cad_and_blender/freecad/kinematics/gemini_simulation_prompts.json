@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gemini Web Multi-System Simulation Prompts & Choreography Manifest",
+  "initiative": "Issue #105 (TASK-03F): STRIDER-M + CORA-M + Wind Turbine v3.1 Cooperative Field Hoisting",
+  "version": "1.0.0",
+  "author": "Stellar Dreams Engineering",
+  "date": "2026-10-18",
+  "governing_issues": ["#105", "#104", "#101", "#82"],
+  "environment": "Google Antigravity (Gemini 3.8 High & Low tiers)",
+  "simulation_engine": "Gemini on the web / Google AI Studio Multimodal Video Simulation",
+  "ground_truth_cad_reference": {
+    "strider_m": "cad_and_blender/freecad/mobility/strider_m_v2.py",
+    "cora_m": "cad_and_blender/freecad/robotics/cora_m_arm_v1.py",
+    "wind_turbine_v3": "cad_and_blender/freecad/wind/modular_wind_turbine_v3.py",
+    "field_assembly_scene": "cad_and_blender/freecad/kinematics/field_assembly_scene.py",
+    "step_model": "cad_and_blender/freecad/step_exports/field_assembly_phase1.step"
+  },
+  "coordinate_datum": {
+    "permafrost_plane_z": 0.000,
+    "turbine_foundation_origin": [0.000, 0.000, 0.000],
+    "strider_m_staging_coords": [8.500, 0.000, 0.825],
+    "cora_m_turret_dock_coords": [8.500, 0.000, 2.030],
+    "horizontal_mast_centerline_z": 2.591,
+    "inter_system_clearance_corridor_m": 1.071
+  },
+  "environmental_parameters": {
+    "climate": "High Arctic Polar Tundra (-45°C ambient, wind 8 m/s from North)",
+    "terrain": "Hard-packed permafrost with seasonal wind-sculpted sastrugi snow drifts",
+    "lighting": "Low Arctic solar elevation (8° above southern horizon, warm golden rim-light, deep polar blue shadows)",
+    "atmospheric": "Subtle blowing ground blizzard powder snow, crystal scintillation in air"
+  },
+  "simulation_stages": [
+    {
+      "stage_id": 1,
+      "phase_reference": "Phase 2",
+      "title": "STRIDER-M Tundra Arrival & Spider Outrigger Stabilization",
+      "timeline_sec": "0.0s - 4.0s",
+      "camera_view": "Low-angle dynamic ground-level tracking shot approaching STRIDER-M crawler tracks",
+      "web_simulation_prompt": "Cinematic photorealistic 8K render in polar Arctic tundra at twilight. STRIDER-M heavy polar transporter (dual wide black rubber crawler tracks with jagged steel traction cleats) rolls forward across windswept hard permafrost snow into an aligned staging position adjacent to a blue modular 20ft container sled. As the transporter halts, 4x heavy A-frame spider outriggers with yellow structural trusses articulate outward from the fenders. Dual hydraulic cylinder rams push the knee joints outward and lower wide rectangular polar footpad shoes with ice-cleats down into the snow, anchoring the chassis solidly. Low golden sunlight glints off the steel track grousers and arctic hazard lights. Hyper-realistic, engineering precision, 24fps motion coherence.",
+      "continuity_checks": [
+        "Track cleats seat firmly on Z = 0.0m snow datum",
+        "Outriggers expand footprint to 9.35m width across pads",
+        "Corridor between STRIDER-M aft transom and container cabinet maintains 1.07m clearance"
+      ]
+    },
+    {
+      "stage_id": 2,
+      "phase_reference": "Phase 3",
+      "title": "CORA-M 7-DoF Unlatching & Robotic Mast Offloading Across Transom Rollers",
+      "timeline_sec": "4.0s - 8.0s",
+      "camera_view": "Medium orbital crane shot tracking CORA-M manipulator arm and golden calipers",
+      "web_simulation_prompt": "Close-up photorealistic engineering simulation in Arctic twilight. On the rear deck of the anchored STRIDER-M transporter, the CORA-M 7-DoF robotic manipulator arm elevates out of its aft transit latch cradle. The shoulder turret yaws smoothly, articulating its dual Y-branch forearm. Symmetrical golden end-effector caliper jaws with cleated grasping teeth close securely around a 4.8m white tubular steel mast section resting in the cargo saddle rack. The robotic arm lifts the mast section, translating it aft across dual bronze transom loading guide rollers at the vehicle bumper. The mast section glides across the rollers and is deposited onto heavy timber ground cribbing stands aligned with the container roof pivot trunnions. Reflections of polar ice on the polished golden caliper surfaces. Flawless robotic mechanics, high visual fidelity.",
+      "continuity_checks": [
+        "Arm articulates within verified 2.73m spherical reach envelope",
+        "Calipers maintain dynamic 0.12m gripping gap on mast section",
+        "Mast glides horizontally over transom rollers without tipping"
+      ]
+    },
+    {
+      "stage_id": 3,
+      "phase_reference": "Phases 3 & 4",
+      "title": "Modular Mast Horizontal Sleeve Coupling & 26m Rotor Rigging",
+      "timeline_sec": "8.0s - 12.0s",
+      "camera_view": "Wide lateral crane glide moving along the 24m horizontal tower assembly",
+      "web_simulation_prompt": "Sweeping cinematic view across the snow-covered polar installation field. 5x modular 4.8m white tubular mast sections are coupled horizontally along four heavy cribbing trestles, locking flanged sleeve joint collars. At the far tower tip, an aerodynamic yellow insulated nacelle cowl and rotor hub are docked. 3x sleek 12m composite rotor blades with NACA 4415/4418 aerodynamic twist are rigged to the hub pitch bearings, resting safely on support stands above the snow. Near the container base, an electric winch cable runs over the gin-pole A-frame apex pulley wheel to the lower mast lifting collar, while an auxiliary yellow winch tether connects to STRIDER-M forward recovery shackles. Crisp cold atmosphere, photorealistic Arctic shadows.",
+      "continuity_checks": [
+        "All 5 sections remain collinear along Y = 0.0m, Z = 2.591m",
+        "Guy wire ring collar at 16m span and lifting collar at 6m span verified",
+        "Blade tip ground clearance >= 0.50m during horizontal staging"
+      ]
+    },
+    {
+      "stage_id": 4,
+      "phase_reference": "Phase 4",
+      "title": "Cooperative Gin-Pole Winch Hoisting & Tilt-Up Erection Arc",
+      "timeline_sec": "12.0s - 16.5s",
+      "camera_view": "Dramatic rising boom shot ascending with the rising wind turbine tophead",
+      "web_simulation_prompt": "Epic cinematic tilt-up erection in the Arctic tundra. The container roof-mounted gin-pole A-frame winch rope pulls with high tension as STRIDER-M auxiliary winch line assists in tandem. The entire 24m tubular wind turbine tower smoothly tilts upward in a continuous 0 to 90 degree arc around the container roof trunnions. 4x high-tensile steel guy cables unspool dynamically from the guy collar, expanding outward to anchor pads on the container outriggers. In the foreground, CORA-M manipulator arm elevates, tracking the rising tower to provide visual sensor telemetry and clearance confirmation. Low Arctic sun creates dramatic long shadows sweeping across the snow as the 26m rotor ascends into the polar sky. Breathtaking realism, photorealistic lighting.",
+      "continuity_checks": [
+        "Sinusoidal angular velocity profile with zero jerk at 0° and 90°",
+        "Dynamic guy cable length solver maintains constant geometric tension",
+        "CORA-M arm maintains positive sensor tracking corridor"
+      ]
+    },
+    {
+      "stage_id": 5,
+      "phase_reference": "Phase 5",
+      "title": "Foundation Socket Lock, Microgrid Power Umbilical & Rotor Commissioning",
+      "timeline_sec": "16.5s - 20.0s",
+      "camera_view": "Majestic slow orbit framing the fully erected turbine, STRIDER-M, and spinning rotor",
+      "web_simulation_prompt": "Master wide-angle cinematic shot of the commissioned modular Arctic wind turbine standing tall at 24m above the polar snow. The tower base is locked into the container socket with 4x guy wires tensioned rock-solid at 45 degree angles. CORA-M robotic arm has routed and locked a heavy-duty yellow 400V 3-phase microgrid power umbilical cable between the container electrical bay and the STRIDER-M power distribution bay. The 26m diameter aerodynamic rotor smoothly accelerates into 2.5 majestic commissioning rotations, kicking up gentle snow dust vortices from the blade tips. Green status LEDs illuminate on the microgrid control cabinet. Sunset glow over polar ice mountains in the distance. Masterpiece, high-definition photorealism.",
+      "continuity_checks": [
+        "Tower locked vertical at theta = 90.0°",
+        "Microgrid power umbilical catenary curve bridges 3.4m inter-bay span",
+        "Rotor executes exactly 2.5 revolutions (900°) dynamic test"
+      ]
+    }
+  ]
+}
