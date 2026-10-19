@@ -19,6 +19,7 @@ secrets.json
 # this rule and stays tracked until explicitly untracked with `git rm --cached`.
 prompts_for_AI/
 scratch/
+.sys_opt/
 
 # ---------------------------------------------------------------------------
 # Python (build123d / CadQuery / FreeCAD scripting)
