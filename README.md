@@ -10,6 +10,10 @@ Welcome to the official repository of the **Awakened Imagination Group of Projec
 > *“[We haven't got the money, so we've got to think.](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.1)”*  
 > — **Ernest Rutherford**, Nobel Prize-winning physicist *(courtesy of Google.com AI-powered search — foundational ethos of [Release v1.3.1](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.1))*
 
+> ### 🐢 [The Tortoise & The Hare Ethos](https://en.wikipedia.org/wiki/The_Tortoise_and_the_Hare)
+> *“Many people have good natural abilities which are ruined by idleness; on the other hand, sobriety, zeal and perseverance can prevail over indolence.”*  
+> — **Classical Greek Commentary on Aesop's Fable** *(foundational ethos for steady, deliberate, and compounding execution)*
+
 Across orbital infrastructure, extreme polar microgrids, and autonomous planetary robotics, our engineering ethos operates on the principle that resource scarcity is the ultimate catalyst for architectural clarity. Rather than relying on capital abundance or fragile over-complexity, we prioritize first-principles physics, parametric simplicity, and rigorous resourcefulness to invent durable, survivable systems.
 
 ## 🗺️ Project Architecture
