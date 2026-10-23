@@ -3,6 +3,7 @@
 ## Feedback Incorporated from User Discussion
 
 **User Feedback Incorporated:**
+- Clarified ethical food & biosphere policy: We do not participate in or support insect farming anywhere (terrestrial or space habitats). Focus is strictly on cellular agriculture, precision fermentation, closed-loop hydroponics/aeroponics, and supporting natural ecological thriving without industrial insect exploitation.
 - Changed 'insect farming' to 'insect colony thriving and life in general'
 - Changed 'low gravity human evolution' to 'O'Neill cylinders with artificial gravity'
 - Added Titan to moons list
@@ -36,7 +37,7 @@
 
 #### 2. Biological & Human Systems
 - **Health**: Artificial gravity solutions (centrifuges/O'Neill cylinders), radiation countermeasures, telemedicine with AI support
-- **Food Systems**: Space-adapted crops, protein production (**insect colony thriving and life in general**, cellular agriculture), closed ecological systems
+- **Food Systems**: Space-adapted crops, ethical cellular agriculture and precision fermentation (with an explicit policy against participating in or supporting insect farming anywhere), natural pollination/ecosystem support, and closed ecological polycultures
 - **Reproduction & Development**: Research into mammalian reproduction in partial gravity/O'Neill cylinders, multi-generational studies
 - **Microbiome Management**: Maintaining beneficial bacteria in closed environments
 
