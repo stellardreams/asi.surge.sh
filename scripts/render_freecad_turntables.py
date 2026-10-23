@@ -194,6 +194,18 @@ def get_surface_habitat_groups():
     ]
 
 
+def get_surface_manna_machine_groups():
+    mod = load_module("surface_manna_machine_v1", "cad_and_blender/freecad/amu_surface/surface_manna_machine_v1.py")
+    raw_groups = mod.get_manna_machine_groups()
+    return [
+        {"shape": raw_groups[0]["solid"], "face": "#b88658", "edge": "#5c3d20", "tol": 0.25}, # Rammed earth
+        {"shape": raw_groups[1]["solid"], "face": "#cca173", "edge": "#6e4b2a", "tol": 0.25}, # Adobe vault
+        {"shape": raw_groups[2]["solid"], "face": "#2ea854", "edge": "#14592a", "tol": 0.35}, # Living crops
+        {"shape": raw_groups[3]["solid"], "face": "#b3bac4", "edge": "#545b66", "tol": 0.20}, # Gantry rail
+        {"shape": raw_groups[4]["solid"], "face": "#3b6a94", "edge": "#1e3750", "tol": 0.25}, # Floor & tanks
+    ]
+
+
 
 def get_amu_heritage_orbital_groups():
     mod = load_module("amu_heritage_orbital_v1", "cad_and_blender/freecad/amu_orbital/amu_heritage_orbital_v1.py")
@@ -468,6 +480,13 @@ MODELS_CATALOG = [
         "getter": get_surface_habitat_groups,
         "out_dir": "cad_and_blender/freecad/amu_surface/renders",
         "elev": 25,
+    },
+    {
+        "name": "surface_manna_machine_v1",
+        "title": "The New Manna Machine (Automated Earthen Bio-Habitat)",
+        "getter": get_surface_manna_machine_groups,
+        "out_dir": "cad_and_blender/freecad/amu_surface/renders",
+        "elev": 28,
     },
     {
         "name": "amu_heritage_orbital_v1",
