@@ -89,6 +89,17 @@ Our foundational technology is the **3-stage AMU (Autonomous Manufacturing Unit)
 - **TRL Target**: We are currently bridging the gap from TRL 1 to TRL 9 for orbital deployment.
 - **Hardware Invention & Model Registry**: See ✨ [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md) ✨ for the authoritative mechanical catalog, dimensional envelopes, CAD source files, and cinematic video assets for the STRIDER-M heavy rover, CORA-M 7-DoF robotic arm, AMU-Surface polar habitat, and Modular Arctic Wind Turbine.
 
+## 🚀 Notable Releases & Engineering Milestones
+
+Recent notable architectural milestones and hardware iterations:
+
+| Release | Focus & Key Milestones | Visual Highlight |
+| :--- | :--- | :---: |
+| **[v1.3.3 (Mini Release)](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.3)** *(Oct 2026)* | **Standalone Arctic Wind Extraction & Web Modernization**<br>• Decoupled modular wind turbine systems into standalone repository: [`stellardreams/modular-arctic-wind`](https://github.com/stellardreams/modular-arctic-wind)<br>• Modernized public web portfolio (`effort.html`, `index.html`)<br>• Established central [`CREDITS.md`](CREDITS.md) ledger | <img src="img/portfolio/effort/modular-arctic-wind-v3-tiltup.gif" alt="Modular Arctic Wind Turbine Tilt-Up" width="220"> |
+| **[v1.3.2](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.2)** *(Oct 2026)* | **Cooperative Field Hoisting Kinematics & Standardization**<br>• Verified multi-system kinematics between **STRIDER-M v2.1** and **CORA-M v1.1** robotic arm (`field_assembly_scene.py`)<br>• Decommissioned legacy `master` branch via native branch rename to permanent `main` | <img src="img/portfolio/effort/strider-m-transporter-iso.png" alt="STRIDER-M Heavy Transporter" width="220"> |
+| **[v1.3.1](https://github.com/stellardreams/asi.surge.sh/releases/tag/v1.3.1)** *(Oct 2026)* | **Polar Macrogrid, FreeCAD Architecture & Hardware Registry**<br>• Headless parametric FreeCAD 1.0 architecture & STEP solid models<br>• Established authoritative ✨ [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md) ✨<br>• Codified Ernest Rutherford engineering philosophy | <img src="img/portfolio/effort/cora-m-robotic-arm.png" alt="CORA-M Robotic Arm" width="220"> |
+
+
 
 ## 🪙 Space Infrastructure Token (SIT)
 
