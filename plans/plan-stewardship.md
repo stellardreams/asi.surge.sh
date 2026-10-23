@@ -57,6 +57,8 @@ Time-bound:
 - Project-001 Factory Nodes
 - Blockchain Developers
 - Lead Ethicists
+- Synthetic Biologists
+- Biosafety Specialists
 - Computer Vision Specialists
 - NVIDIA, maybe?
 - SpaceApps challenge
