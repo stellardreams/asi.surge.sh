@@ -57,8 +57,8 @@ Time-bound:
 - Project-001 Factory Nodes
 - Blockchain Developers
 - Lead Ethicists
-- Synthetic Biologists
-- Biosafety Specialists
+- Bio-regenerative Life Support Specialists & Cellular Agriculturalists (ECLSS / Closed-Loop Polyculture)
+- Astrobiologists & Planetary Protection Ethicists (COSPAR space hygiene)
 - Computer Vision Specialists
 - NVIDIA, maybe?
 - SpaceApps challenge
