@@ -7,7 +7,7 @@
 
 ---
 
-## 1. Executive Summary & Architectural Triad
+## 1. Executive Summary & Architectural Framework
 
 This architectural specification details the integration of heavy automated civil earth building, open-source self-replicating 3D printing, and controlled-environment agricultural biospheres:
 
@@ -33,7 +33,7 @@ graph LR
 
 ---
 
-## 2. Multi-Tier Structural Envelope Specification
+## 2. Multi-Layer Structural Envelope Specification
 
 ### 2.1 Outer Thermal Shield: Continuous Rammed Earth (Form Earth)
 - **Wall Thickness**: $450\text{ mm} - 600\text{ mm}$ monolithic compacted earthen layer.
