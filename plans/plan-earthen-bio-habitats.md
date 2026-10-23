@@ -1,4 +1,4 @@
-# Plan: Automated Earthen Bio-Habitats (Form Earth + Shangrila-VHP #45 + AMU)
+# Plan: The New Manna Machine — Automated Earthen Bio-Habitats (Form Earth + Shangrila-VHP #45 + AMU)
 
 > **Initiative Track**: [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)  
 > **Parent Program**: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) (Global Food Security & Terrestrial Infrastructure)  
