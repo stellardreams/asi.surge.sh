@@ -74,6 +74,7 @@
   },
   "overrides": {
     "ws": "^8.21.0",
-    "serialize-javascript": "^7.0.5"
+    "serialize-javascript": "^7.0.5",
+    "node-forge": "^1.4.2"
   }
 }
