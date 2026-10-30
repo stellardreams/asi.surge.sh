@@ -62,7 +62,7 @@
 ### 🏆 Recently Completed Milestones
 
 - [x] **IDE Stale Document Cleanup & Audit Sealed (`CHORE-IDE-DOC-CLEANUP`)**: Extracted all actionable engineering specifications (umbilicals, NEMA 4X enclosures, geopolymers, permafrost foundations) into active issues (`#5`, `#100`, `#119`), transferred wind models to upstream repository, archived residual notes and ideas in `_z_archives/`, and audited machine-specific paths with zero public repository exposure *(Note: No dedicated GitHub issue ticket was opened for this chore; all atomic changes, extractions, transfers, and sanitizations are fully logged in git commit histories across both `asi.surge.sh` and `modular-arctic-wind`)*. ✅
-- [x] **Modular Arctic Wind Upstream Decoupling & Hand-Off**: Decoupled full turbine engineering architecture (FreeCAD parametric models, OpenSCAD sources, neutral STEP solids, renders, exploded blowup diagrams, and specifications) into [`stellardreams/modular-arctic-wind`](https://github.com/stellardreams/modular-arctic-wind). Verified both branches intact on `main` and `main-dev`. ✅
+- [x] **Modular Arctic Wind Upstream Decoupling & Hand-Off**: Decoupled full turbine engineering architecture (FreeCAD parametric models, OpenSCAD sources, neutral STEP solids, renders, exploded blowup diagrams, and specifications) into [`stellardreams/modular-arctic-wind`](https://github.com/stellardreams/modular-arctic-wind). Verified both branches intact on `main` and `main-dev`. *(Tracking note: Legacy wind CI action on `asi.surge.sh` failed in GitHub history post-decoupling due to moved CAD directories; the workflow was retired on `asi.surge.sh` and transferred to `modular-arctic-wind`, where its verification action is active)*. ✅
 - [x] **CAD & Spec Archival to `_z_archives`**: Archived `cad_and_blender/freecad/wind/` and wind `.step` exports to [`_z_archives/cad/`](_z_archives/cad/), modernized [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md), archived proposal reviews and foundation/enclosure specs to [`_z_archives/sys_opt/`](_z_archives/sys_opt/). Commits `2703f0c`–`1904196`. ✅
 - [x] **Draft Release Notes v1.3.4 Updated**: Documented repository decoupling, CAD archival, security remediations, and universal TRL framework in [`docs/release_notes/v1.3.4-draft.md`](docs/release_notes/v1.3.4-draft.md). Commit `5162206`. ✅
 - [x] **Universal TRL Framework**: Published [`docs/tech_guide/TRL_FRAMEWORK.md`](docs/tech_guide/TRL_FRAMEWORK.md) (100% sanitized TRL 1–9 exit gates). Commit `065e482`. ✅
@@ -132,7 +132,9 @@ graph TD
 
 > **Status:** Active  
 > **Environment:** Google Antigravity (AGY)  
-> **Active Branch:** `main-dev` (synced at `5162206`)  
+> **Active Branch:** `main-dev` (synced at `5a24f47`)  
 > **Parent Initiatives:** [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#63](https://github.com/stellardreams/asi.surge.sh/issues/63), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100), [#117](https://github.com/stellardreams/asi.surge.sh/issues/117), [#118](https://github.com/stellardreams/asi.surge.sh/issues/118), [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)  
+> **CI Notice:** Wind verification action previously failed on GitHub runs due to decoupled CAD assets; action has been retired on `asi.surge.sh` and transferred to `modular-arctic-wind`, with CI history monitored.  
+> **Slated for Release:** `v1.3.4` (currently in draft as of 10-30-2026)  
 > **Target Release:** `v1.4.0` (Core Space Infrastructure)
 
