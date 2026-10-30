@@ -541,7 +541,7 @@ cd cad_and_blender/openscad/wind
 ```
 
 Each exits non-zero if its own guard fails, so they are safe to wire into CI. Full readings are
-in [`TEST_TALLY.md`](../../../../TEST_TALLY.md).
+in [`TEST_TALLY.md`](../../../../_z_archives/tests/TEST_TALLY.md).
 
 ### Optional — rendered assets
 

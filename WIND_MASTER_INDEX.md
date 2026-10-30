@@ -173,7 +173,7 @@ cd cad_and_blender/openscad/wind
 ```
 
 Each exits non-zero if its own guard fails, so they are safe to wire into CI. Last run: all
-three clean. Full readings in §Part A of [`TEST_TALLY.md`](TEST_TALLY.md).
+three clean. Full readings in §Part A of [`TEST_TALLY.md`](_z_archives/tests/TEST_TALLY.md).
 
 ---
 
