@@ -11,20 +11,21 @@
 ```diff
 + ╔════════════════════════════════════════════════════════════════════════════╗
 + ║  ┌──────────────────────────────────────────────────────────────────────┐  ║
-+ ║  │ ⏰ TIMESTAMP: 2026-10-30 14:12 EDT / 18:12 UTC                       │  ║
++ ║  │ ⏰ TIMESTAMP: 2026-10-30 15:18 EDT / 19:18 UTC                       │  ║
 + ║  │ 📌 PRIMARY TARGET: CHORE-IDE-DOC-CLEANUP (Stale Doc Cleanup)         │  ║
 + ║  │    Assignee: @genidma & AGY                                          │  ║
-+ ║  │    Branch Sync: a9b2830 (main-dev active)                            │  ║
++ ║  │    Branch Sync: 5162206 (main-dev active)                            │  ║
 + ║  │    Active Repo: https://github.com/stellardreams/asi.surge.sh        │  ║
-+ ║  │    Issue Sequence:                                                   │  ║
-+ ║  │      1. #5   (Look 1st: AMU Physical Blueprint & Swarm Backbone)     │  ║
-+ ║  │      2. #97  (Look 2nd: AMU-Surface Baseline & Habitat Envelope)     │  ║
-+ ║  │      3. #100 (Look 3rd: STRIDER-M v2 Transporter CAD & Latches)      │  ║
-+ ║  │      4. #117 (Look 4th: ROADMAP.md Overhaul & Release Alignment)     │  ║
-+ ║  │      5. #118 (Look 5th: Global Food Security & Terrestrial AMU)      │  ║
-+ ║  │      6. #119 (Look 6th: Form Earth / Shangrila #45 Earthen Shells)   │  ║
-+ ║  │      7. #63  (Look 7th: Umbrella Space Infrastructure Governance)    │  ║
-+ ║  │    Scope Target: IDE Workspace (scratch/, .sys_opt/, root docs)      │  ║
++ ║  │    Sub-Targets (Phase 2):                                            │  ║
++ ║  │      1. Retire residual .sys_opt/ to _z_archives/sys_opt/             │  ║
++ ║  │      2. Clean scratch/ (archive/prune temporary one-offs)             │  ║
++ ║  │    Next Focal Queue:                                                 │  ║
++ ║  │      1. #5   (TASK-AMU-ORBITAL-01: Orbital Mfg Architecture)          │  ║
++ ║  │      2. #100 (TASK-AMU-SURFACE-01: AMU-Surface Habitats & STRIDER-M)  │  ║
++ ║  │      3. #119 (TASK-EARTHEN-HABITAT-119: The New Manna Machine)        │  ║
++ ║  │      4. #118 (TASK-FOOD-SECURITY-118: Global Food Security Umbrella)  │  ║
++ ║  │      5. #117 (TASK-ROADMAP-UPDATE-117: ROADMAP.md Overhaul)           │  ║
++ ║  │      6. #63  (TASK-SIT-MAP-63: SIT Governance & plans.html)           │  ║
 + ║  └──────────────────────────────────────────────────────────────────────┘  ║
 + ╚════════════════════════════════════════════════════════════════════════════╝
 + ╔═════════════════════════════════════════════════════╗
@@ -50,7 +51,7 @@
 
 | Priority | Task ID | Description | Status | Target |
 | :---: | :--- | :--- | :---: | :--- |
-| 🥇 | **CHORE-IDE-DOC-CLEANUP** | Cleanup and reconciliation of stale/ephemeral markdown drafts, scratch notes & temporary IDE documents | 🟢 `ACTIVE` | `scratch/`, `.sys_opt/` |
+| 🥇 | **CHORE-IDE-DOC-CLEANUP** | Complete residual cleanup: retire `.sys_opt/` residue to `_z_archives/sys_opt/` and sweep `scratch/` | 🟢 `ACTIVE` | `scratch/`, `.sys_opt/` |
 | 🥈 | **TASK-AMU-ORBITAL-01** | AMU Orbital manufacturing & in-space automated assembly architectural specification | 🟡 `QUEUED` | `plans/plan-amu-orbital.md` / [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) |
 | 🥉 | **TASK-AMU-SURFACE-01** | AMU-Surface habitat modules, regolith utilization & STRIDER-M transporter integration | 🟡 `QUEUED` | `plans/plan-amu-surface.md` / [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) |
 | 4️⃣ | **TASK-EARTHEN-HABITAT-119** | 🏺 The New Manna Machine (Form Earth slip-form + Shangrila-VHP #45 3D earth + AMU) | 🟡 `QUEUED` | [#119](https://github.com/stellardreams/asi.surge.sh/issues/119) / `plans/` |
@@ -62,12 +63,15 @@
 
 ### 🏆 Recently Completed Milestones
 
+- [x] **Modular Arctic Wind Upstream Decoupling & Hand-Off**: Decoupled full turbine engineering architecture (FreeCAD parametric models, OpenSCAD sources, neutral STEP solids, renders, exploded blowup diagrams, and specifications) into [`stellardreams/modular-arctic-wind`](https://github.com/stellardreams/modular-arctic-wind). Verified both branches intact on `main` and `main-dev`. ✅
+- [x] **CAD & Spec Archival to `_z_archives`**: Archived `cad_and_blender/freecad/wind/` and wind `.step` exports to [`_z_archives/cad/`](_z_archives/cad/), modernized [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md), archived proposal reviews and foundation/enclosure specs to [`_z_archives/sys_opt/`](_z_archives/sys_opt/). Commits `2703f0c`–`1904196`. ✅
+- [x] **Draft Release Notes v1.3.4 Updated**: Documented repository decoupling, CAD archival, security remediations, and universal TRL framework in [`docs/release_notes/v1.3.4-draft.md`](docs/release_notes/v1.3.4-draft.md). Commit `5162206`. ✅
+- [x] **Universal TRL Framework**: Published [`docs/tech_guide/TRL_FRAMEWORK.md`](docs/tech_guide/TRL_FRAMEWORK.md) (100% sanitized TRL 1–9 exit gates). Commit `065e482`. ✅
 - [x] **🏺 The New Manna Machine (Issue #119 Initial Baseline)**: Delivered architectural plan (`plans/plan-earthen-bio-habitats.md`), parametric OpenSCAD model with multi-tier food production, FreeCAD B-Rep solid model, neutral STEP export, and 360° turntable animations. Interlinked with Master Issue #118. Commits `db7b5a0`–`a19a17b`. ✅
 - [x] **Release v1.3.3 (Mini Release)**: Notable Releases table updated with Releases v1.2, v1.3.0–v1.3.3; Aesop philosophy and insect farming exclusion integrated. Commits `87ae2a1`, `9c18457`. ✅
 - [x] **Issue #101 Sealed**: Hardware Invention & Model Registry completed (65/65 items). ✅
 - [x] **Issue #102 Sealed**: Website Portfolio & Technical Showcase completed (25/25 items). ✅
 - [x] **Issue #106 Sealed**: Notable Releases Section in README completed (2/2 items). ✅
-- [x] **Arctic Wind Decoupling**: All Modular Arctic Wind tasks decoupled to `stellardreams/modular-arctic-wind`. ✅
 - [x] **Forward Tasks Initialized**: Added `forward_tasks.md` with single-item flow geometry and zero-open-items audits on #5 and #116. Commits `9bb6f42`, `eb87f71`, `040f6ff`. ✅
 
 ---
@@ -78,7 +82,7 @@
 
 | ID | Task Description | Scope / Context | Parent / Origin | Status |
 |:---|:---|:---|:---|:---|
-| 🔄 **CHORE-IDE-DOC-CLEANUP** | **IDE Stale Document Cleanup & Audit** | Audit, archive or prune stale documents, scratch comments, legacy review drafts, and unreferenced artifacts inside the IDE workspace. | • Tracked in: `forward_tasks.md`<br>• Target: `scratch/`, `.sys_opt/`, root workspace | 🟢 `ACTIVE` |
+| 🔄 **CHORE-IDE-DOC-CLEANUP** | **IDE Stale Document Cleanup & Audit (Phase 2)** | Retire remaining `.sys_opt/` files (`non_submission_roadmap_0700.md`, `simulations/`, `prompts/`, `workflow_backup_snapshots/`) to `_z_archives/sys_opt/` and audit/prune `scratch/`. | • Tracked in: `forward_tasks.md`<br>• Target: `scratch/`, `.sys_opt/` | 🟢 `ACTIVE` |
 | 🔄 **TASK-AMU-ORBITAL-01** | **AMU Orbital Manufacturing Architecture** | Formulate autonomous in-space fabrication, beam welding, toolhead changer, microgravity metallurgy, and MIL-STD-461G 360° braided cryogenic umbilical harness specifications. | • Tracked in: [#5](https://github.com/stellardreams/asi.surge.sh/issues/5)<br>• Target: `plans/plan-amu-orbital.md` | 🟡 `QUEUED` |
 | 🔄 **TASK-AMU-SURFACE-01** | **AMU-Surface Habitat Modules** | Define pressurized surface modules, regolith sintering / shielding shells, airlock interfaces, STRIDER-M sub-zero deck latches, and extreme NEMA 4X / IP68 enclosures. | • Parent Trackers: [#97](https://github.com/stellardreams/asi.surge.sh/issues/97) (Closed), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) (Open)<br>• Target: `plans/plan-amu-surface.md` | 🟡 `QUEUED` |
 | 🔄 **TASK-EARTHEN-HABITAT-119** | **🏺 The New Manna Machine (Earthen Bio-Habitats)** | Design dual-tier rammed earth (Form Earth) + self-replicating adobe printer (Shangrila-VHP #45) + AMU controlled polyculture shell with sub-zero alkali geopolymers. | • Tracked in: [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)<br>• Parent: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) | 🟡 `QUEUED` |
@@ -129,6 +133,7 @@ graph TD
 
 > **Status:** Active  
 > **Environment:** Google Antigravity (AGY)  
-> **Active Branch:** `main-dev` (synced with `main` at `a9b2830`)  
+> **Active Branch:** `main-dev` (synced at `5162206`)  
 > **Parent Initiatives:** [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#63](https://github.com/stellardreams/asi.surge.sh/issues/63), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100), [#117](https://github.com/stellardreams/asi.surge.sh/issues/117), [#118](https://github.com/stellardreams/asi.surge.sh/issues/118), [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)  
 > **Target Release:** `v1.4.0` (Core Space Infrastructure)
+
