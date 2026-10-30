@@ -209,7 +209,7 @@ Containerized Arctic wind turbine system designed for deployment without heavy c
 
 | Specification Field | Technical Details |
 | :--- | :--- |
-| **Authoritative CAD** | • OpenSCAD Full Assembly (`v2.0`): [`wind_v2_turbine_full.scad`](./openscad/wind/v2.0/wind_v2_turbine_full.scad)<br>• OpenSCAD Container Stowage (`v2.0`): [`wind_v2_container_stowage.scad`](./openscad/wind/v2.0/wind_v2_container_stowage.scad)<br>• FreeCAD (`v2.0`): [`modular_wind_turbine_v2.py`](./freecad/wind/modular_wind_turbine_v2.py)<br>• STEP (`v2.0`): [`modular_wind_turbine_v2.step`](./freecad/step_exports/modular_wind_turbine_v2.step) |
+| **Authoritative CAD** | • OpenSCAD Full Assembly (`v2.0`): [`wind_v2_turbine_full.scad`](../_z_archives/cad/openscad/wind/v2.0/wind_v2_turbine_full.scad)<br>• OpenSCAD Container Stowage (`v2.0`): [`wind_v2_container_stowage.scad`](../_z_archives/cad/openscad/wind/v2.0/wind_v2_container_stowage.scad)<br>• Upstream Decoupled Repo: [stellardreams/modular-arctic-wind](https://github.com/stellardreams/modular-arctic-wind)<br>• FreeCAD (`v2.0`): [`modular_wind_turbine_v2.py`](./freecad/wind/modular_wind_turbine_v2.py)<br>• STEP (`v2.0`): [`modular_wind_turbine_v2.step`](./freecad/step_exports/modular_wind_turbine_v2.step) |
 | **Dimensions & Stowage** | Rated: $25\text{–}100\text{ kW}$ · Hub Height: $24.0\text{ m}$ · Rotor: $26.0\text{ m}$ · 20 ft ISO Container ($6.058\text{ m} \times 2.438\text{ m} \times 2.591\text{ m}$, payload $9,216.8\text{ kg} \le 10,886\text{ kg}$) |
 | **Verification Media** | • 360° Turntable (`v2.0`): [`modular_wind_turbine_v2_turntable.gif`](./freecad/wind/renders/modular_wind_turbine_v2_turntable.gif) · [`.mp4`](./freecad/wind/renders/modular_wind_turbine_v2_turntable.mp4)<br>• 100-Unit Macrogrid Fleet (`v1.0`/`v2.0`): [`scene3_strider_fleet_windfarm.gif`](./openscad/amu_surface_playground/renders/scene3_strider_fleet_windfarm.gif)<br>• Macrogrid Iso (`v2.0`): [`scene3_macrogrid_iso.png`](./openscad/amu_surface_playground/renders/scene3_macrogrid_iso.png) |
 
@@ -249,7 +249,7 @@ Containerized Arctic wind turbine system designed for deployment without heavy c
 ## 6. Promotion & Archival Policy
 
 1. **Immutable Historical Records**:
-   - `wind/v1.0` (two-phase thermal sail) is archived in [`openscad/wind/archive/v1.0/`](./openscad/wind/archive/v1.0/) and must not be modified.
+   - `wind/v1.0` (two-phase thermal sail) is archived in [`../_z_archives/cad/openscad/wind/archive/v1.0/`](../_z_archives/cad/openscad/wind/archive/v1.0/) and must not be modified.
    - Heritage orbital AMU (`amu_heritage_opencode_v1.scad`) is frozen as baseline reference for orbital self-replication.
 2. **Sequential Semantic Versioning**:
    - All physical hardware files must include a version suffix (`_v1`, `_v2`, `_v3`).
