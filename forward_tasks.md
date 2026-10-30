@@ -11,10 +11,10 @@
 ```diff
 + ╔════════════════════════════════════════════════════════════════════════════╗
 + ║  ┌──────────────────────────────────────────────────────────────────────┐  ║
-+ ║  │ ⏰ TIMESTAMP: 2026-10-23 11:28 EDT / 15:28 UTC                       │  ║
++ ║  │ ⏰ TIMESTAMP: 2026-10-30 14:09 EDT / 18:09 UTC                       │  ║
 + ║  │ 🎯 PRIMARY TARGET: TASK-AMU-ORBITAL-01 (AMU Orbital Spec)            │  ║
 + ║  │    Assignee: @genidma & AGY                                          │  ║
-+ ║  │    Branch Sync: a19a17b (main == main-dev)                           │  ║
++ ║  │    Branch Sync: a9b2830 (main == main-dev)                           │  ║
 + ║  │    Active Repo: https://github.com/stellardreams/asi.surge.sh        │  ║
 + ║  │    Issue Sequence:                                                   │  ║
 + ║  │      1. #5   (Look 1st: AMU Physical Blueprint & Swarm Backbone)     │  ║
@@ -37,6 +37,11 @@
 + ║  │ 🎯 NEXT PRIORITY 2: TASK-EARTHEN-HABITAT-119  │  ║
 + ║  └───────────────────────────────────────────────┘  ║
 + ╚═════════════════════════════════════════════════════╝
++ ╔═════════════════════════════════════════════════════╗
++ ║  ┌───────────────────────────────────────────────┐  ║
++ ║  │ 🎯 NEXT PRIORITY 3: CHORE-IDE-DOC-CLEANUP     │  ║
++ ║  └───────────────────────────────────────────────┘  ║
++ ╚═════════════════════════════════════════════════════╝
 ```
 
 ---
@@ -48,9 +53,10 @@
 | 🥇 | **TASK-AMU-ORBITAL-01** | AMU Orbital manufacturing & in-space automated assembly architectural specification | 🟢 `ACTIVE` | `plans/plan-amu-orbital.md` / [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) |
 | 🥈 | **TASK-AMU-SURFACE-01** | AMU-Surface habitat modules, regolith utilization & STRIDER-M transporter integration | 🟡 `QUEUED` | `plans/plan-amu-surface.md` / [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) |
 | 🥉 | **TASK-EARTHEN-HABITAT-119** | 🏺 The New Manna Machine (Form Earth slip-form + Shangrila-VHP #45 3D earth + AMU) | 🟡 `QUEUED` | [#119](https://github.com/stellardreams/asi.surge.sh/issues/119) / `plans/` |
-| 4️⃣ | **TASK-FOOD-SECURITY-118** | Global Food Security umbrella coordination, Nunavut indoor farming (#1) & crisis triage | 🟡 `QUEUED` | [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) / [#1](https://github.com/stellardreams/asi.surge.sh/issues/1) |
-| 5️⃣ | **TASK-ROADMAP-UPDATE-117** | Update `ROADMAP.md` with v1.3.3 milestones, decoupled Arctic Wind, and AMU priorities | 🟡 `QUEUED` | [#117](https://github.com/stellardreams/asi.surge.sh/issues/117) / `ROADMAP.md` |
-| 6️⃣ | **TASK-SIT-MAP-63** | Map high-level SIT governance and requirements graph to concrete plans and website `plans.html` | 🟡 `QUEUED` | [#63](https://github.com/stellardreams/asi.surge.sh/issues/63) / `plans.html` |
+| 4️⃣ | **CHORE-IDE-DOC-CLEANUP** | Cleanup and reconciliation of stale/ephemeral markdown drafts, scratch notes & temporary IDE documents | 🟡 `QUEUED` | `scratch/`, `.sys_opt/` |
+| 5️⃣ | **TASK-FOOD-SECURITY-118** | Global Food Security umbrella coordination, Nunavut indoor farming (#1) & crisis triage | 🟡 `QUEUED` | [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) / [#1](https://github.com/stellardreams/asi.surge.sh/issues/1) |
+| 6️⃣ | **TASK-ROADMAP-UPDATE-117** | Update `ROADMAP.md` with v1.3.3 milestones, decoupled Arctic Wind, and AMU priorities | 🟡 `QUEUED` | [#117](https://github.com/stellardreams/asi.surge.sh/issues/117) / `ROADMAP.md` |
+| 7️⃣ | **TASK-SIT-MAP-63** | Map high-level SIT governance and requirements graph to concrete plans and website `plans.html` | 🟡 `QUEUED` | [#63](https://github.com/stellardreams/asi.surge.sh/issues/63) / `plans.html` |
 
 ---
 
@@ -75,6 +81,7 @@
 | 🔄 **TASK-AMU-ORBITAL-01** | **AMU Orbital Manufacturing Architecture** | Formulate autonomous in-space fabrication, beam welding, toolhead changer, and microgravity metallurgy specifications. | • Tracked in: [#5](https://github.com/stellardreams/asi.surge.sh/issues/5)<br>• Target: `plans/plan-amu-orbital.md` | 🟢 `ACTIVE` |
 | 🔄 **TASK-AMU-SURFACE-01** | **AMU-Surface Habitat Modules** | Define pressurized surface modules, regolith sintering / shielding shells, airlock interfaces, and STRIDER-M chassis mounting. | • Parent Trackers: [#97](https://github.com/stellardreams/asi.surge.sh/issues/97) (Closed), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) (Open)<br>• Target: `plans/plan-amu-surface.md` | 🟡 `QUEUED` |
 | 🔄 **TASK-EARTHEN-HABITAT-119** | **🏺 The New Manna Machine (Earthen Bio-Habitats)** | Design dual-tier rammed earth (Form Earth) + self-replicating adobe printer (Shangrila-VHP #45) + AMU controlled polyculture shell. | • Tracked in: [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)<br>• Parent: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) | 🟡 `QUEUED` |
+| 🔄 **CHORE-IDE-DOC-CLEANUP** | **IDE Stale Document Cleanup & Audit** | Audit, archive or prune stale documents, scratch comments, legacy review drafts, and unreferenced artifacts inside the IDE workspace. | • Tracked in: `forward_tasks.md`<br>• Target: `scratch/`, `.sys_opt/`, root workspace | 🟡 `QUEUED` |
 | 🔄 **TASK-FOOD-SECURITY-118** | **Global Food Security & Terrestrial AMU** | Coordinate high-latitude food sovereignty (Nunavut #1) and rapid crisis nutrition deployment (DRC, WFP). | • Tracked in: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118)<br>• Child: [#1](https://github.com/stellardreams/asi.surge.sh/issues/1) | 🟡 `QUEUED` |
 | 🔄 **TASK-ROADMAP-UPDATE-117** | **ROADMAP.md Architecture & Milestones** | Overhaul `ROADMAP.md` to incorporate delivered v1.1–v1.3.3 hardware/cad registries, Arctic Wind decoupling, and AMU priorities. | • Tracked in: [#117](https://github.com/stellardreams/asi.surge.sh/issues/117)<br>• Target: `ROADMAP.md` | 🟡 `QUEUED` |
 | 🔄 **TASK-SIT-MAP-63** | **SIT High-Level Graph Reconciliation** | Re-link graph nodes to targeted plan files and update the live website's `plans.html` showcase. | • Tracked in: [#63](https://github.com/stellardreams/asi.surge.sh/issues/63)<br>• Target: `plans.html` & `plans/` | 🟡 `QUEUED` |
@@ -122,6 +129,6 @@ graph TD
 
 > **Status:** Active  
 > **Environment:** Google Antigravity (AGY)  
-> **Active Branch:** `main-dev` (synced with `main` at `a19a17b`)  
+> **Active Branch:** `main-dev` (synced with `main` at `a9b2830`)  
 > **Parent Initiatives:** [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#63](https://github.com/stellardreams/asi.surge.sh/issues/63), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100), [#117](https://github.com/stellardreams/asi.surge.sh/issues/117), [#118](https://github.com/stellardreams/asi.surge.sh/issues/118), [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)  
 > **Target Release:** `v1.4.0` (Core Space Infrastructure)
