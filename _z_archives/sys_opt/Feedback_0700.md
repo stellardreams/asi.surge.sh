@@ -1,8 +1,8 @@
 # DND / PSPC IDEaS Submission Plan & Portal Execution Doc (`Feedback_0700.md`)
 **Solicitation:** `W7714-248676/A` (*Modular Wind Power for Northern Operations* — Call 006)  
 **Hard Deadline:** **Tomorrow — Tuesday, October 20, 2026 @ 14:00 EDT (2:00 PM Eastern)**  
-**Companion Tracker:** [`forward_tasks.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/forward_tasks.md) (`01. Zone of Focus`)  
-**Non-Submission Items Moved To:** [`non_submission_roadmap_0700.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/non_submission_roadmap_0700.md) (`02. Non-Deadline Tasks`)
+**Companion Tracker:** [`forward_tasks.md`](./forward_tasks.md) (`01. Zone of Focus`)  
+**Non-Submission Items Moved To:** [`non_submission_roadmap_0700.md`](./non_submission_roadmap_0700.md) (`02. Non-Deadline Tasks`)
 
 > [!IMPORTANT]
 > **Strategy Update — "Save Draft" Confirmed on Live Portal (Submit in One Go)**
@@ -193,9 +193,9 @@ Both high-resolution 3D CAD exploded blowup diagrams have already been generated
 2. **Front Elevation Exploded Blowup (`288 KB`)**: `/vms_and_github/Github/asi.surge.sh/.sys_opt/simulations/01_standalone_self_erecting_mawt/exploded_renders/mawt_v3_exploded_blowup_front.png`
 
 ````carousel
-![MAWT v3.1 3D Isometric Exploded Blowup Diagram](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/mawt_v3_exploded_blowup_isometric.png)
+![MAWT v3.1 3D Isometric Exploded Blowup Diagram](./mawt_v3_exploded_blowup_isometric.png)
 <!-- slide -->
-![MAWT v3.1 Front Elevation Exploded Blowup Diagram](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/mawt_v3_exploded_blowup_front.png)
+![MAWT v3.1 Front Elevation Exploded Blowup Diagram](./mawt_v3_exploded_blowup_front.png)
 ````
 
 ---

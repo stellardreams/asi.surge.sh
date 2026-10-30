@@ -7,7 +7,7 @@
 > **Target Opportunity**: Extreme-Cold Modular Wind Power Architecture  
 > **Companion Proposal Draft**: [`.sys_opt/submission_proposal_draft.md`](./submission_proposal_draft.md)  
 > **Dual-Track Simulations Guide**: [`.sys_opt/simulations/README.md`](./simulations/README.md)  
-> **Tracker Reference**: [`forward_tasks.md`](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/forward_tasks.md)
+> **Tracker Reference**: [`forward_tasks.md`](./forward_tasks.md)
 
 ---
 

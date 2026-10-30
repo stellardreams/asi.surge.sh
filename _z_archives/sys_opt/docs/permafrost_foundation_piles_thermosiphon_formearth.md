@@ -5,7 +5,7 @@
   1. Technical Architecture Spec: [`docs/specifications/modular_arctic_wind_architecture.md` (§5.3)](file:///vms_and_github/Github/asi.surge.sh/docs/specifications/modular_arctic_wind_architecture.md)
   2. FreeCAD Parametric B-Rep Generator: [`cad_and_blender/freecad/wind_v3/modular_wind_turbine_v3.py`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/wind_v3/modular_wind_turbine_v3.py) (`build_foundation_subsystem`)
   3. Physics Verification Model: [`scripts/wind_v2/foundation_load_envelope.py`](file:///vms_and_github/Github/asi.surge.sh/scripts/wind_v2/foundation_load_envelope.py)
-  4. CAD Render: [`cad_and_blender/freecad/wind/renders/wind_v3_foundation.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/wind/renders/wind_v3_foundation.png) · [`wind_v3_foundation.png` (Brain)](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/wind_v3_foundation.png)
+  4. CAD Render: [`cad_and_blender/freecad/wind/renders/wind_v3_foundation.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/wind/renders/wind_v3_foundation.png) · [`wind_v3_foundation.png` (Brain)](./wind_v3_foundation.png)
   5. GitHub Issue Tracker: [Issue #103 (`TASK-06` — Cue: `formearth_arctic` / `arctic_formearth`)](https://github.com/stellardreams/asi.surge.sh/issues/103)
 - **Authors**: `@genidma` & `Gemini 4 Argon` (`@agy`)
 
@@ -13,7 +13,7 @@
 
 ## 1. Visual Architecture: `wind_v3_foundation.png`
 
-![Foundation Render](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/wind_v3_foundation.png)
+![Foundation Render](./wind_v3_foundation.png)
 
 ---
 

@@ -4,14 +4,14 @@
 - **Associated CAD & Render Assets**:
   - STEP Solid Model: [`cad_and_blender/freecad/step_exports/wind_v3_microgrid_cabinet.step`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/step_exports/wind_v3_microgrid_cabinet.step)
   - High-Res Render (Repo): [`cad_and_blender/freecad/wind/renders/wind_v3_microgrid_cabinet.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/wind/renders/wind_v3_microgrid_cabinet.png)
-  - High-Res Render (Brain): [`wind_v3_microgrid_cabinet.png`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/wind_v3_microgrid_cabinet.png)
+  - High-Res Render (Brain): [`wind_v3_microgrid_cabinet.png`](./wind_v3_microgrid_cabinet.png)
 - **Authors**: `@genidma` & `Gemini 4 Argon` (`@agy`)
 
 ---
 
 ## 1. Visual Architecture: `wind_v3_microgrid_cabinet.png`
 
-![Microgrid Cabinet Render](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/wind_v3_microgrid_cabinet.png)
+![Microgrid Cabinet Render](./wind_v3_microgrid_cabinet.png)
 
 ---
 

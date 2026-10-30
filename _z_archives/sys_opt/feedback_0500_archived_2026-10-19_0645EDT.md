@@ -1,10 +1,10 @@
 # 0500 Feedback & Engineering Synthesis (`feedback_0500.md`) — Answers to Your 17 Inline Comments, Scale Comparisons, 360° Braided Armor & Exploded Diagrams
 
-- **New Feedback Artifact**: [`feedback_0500.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/feedback_0500.md) · Mirror: [`.sys_opt/feedback_0500.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/feedback_0500.md)
+- **New Feedback Artifact**: [`feedback_0500.md`](./feedback_0500.md) · Mirror: [`.sys_opt/feedback_0500.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/feedback_0500.md)
 - **Previous Feedback Doc (Preserved Untouched + Archived on Disk)**:
-  - Brain Artifact (with your inline comments intact): [`feedback.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/feedback.md)
+  - Brain Artifact (with your inline comments intact): [`feedback.md`](./feedback.md)
   - Disk-Only Repository Archive: [`.sys_opt/feedback_v1_archived_2026-10-19_0413EDT.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/feedback_v1_archived_2026-10-19_0413EDT.md)
-- **Tracker Cue in [`forward_tasks.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/forward_tasks.md)**: `0500 tasks` (Green Border + Pinned at top of Zone of Focus, split into `01. Deadline Tasks` and `02. Non-Deadline Tasks`)
+- **Tracker Cue in [`forward_tasks.md`](./forward_tasks.md)**: `0500 tasks` (Green Border + Pinned at top of Zone of Focus, split into `01. Deadline Tasks` and `02. Non-Deadline Tasks`)
 
 ---
 
@@ -61,7 +61,7 @@
 - **Saved Private Engineering Spec**: [`.sys_opt/docs/arctic_multimodal_logistics_and_sealift.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/docs/arctic_multimodal_logistics_and_sealift.md) *(git-ignored, private on `mram`)*
 - **What Was Done**:
   1. Verified that [`.sys_opt/submission_proposal_draft.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/submission_proposal_draft.md) contains **zero** mention of "Blue Fin", keeping tomorrow's DND submission 100% focused on standard Canadian Coast Guard / commercial Arctic sealift barges, CC-130J Hercules airlift, and winter ice roads.
-  2. Documented why `STRIDER-M v2.1` (`4.80 m` wide stowed) travels by coastal Roll-On/Roll-Off barge rather than inside a `3.05 m`-wide Hercules ramp, why dark asphalt runways melt permafrost, and queued **"Blue Fin" Low-Acoustic Whale-Safe Eco-Vessel & Subsea Barge Towage** under **`02. Non-Deadline Tasks`** in [`forward_tasks.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/forward_tasks.md).
+  2. Documented why `STRIDER-M v2.1` (`4.80 m` wide stowed) travels by coastal Roll-On/Roll-Off barge rather than inside a `3.05 m`-wide Hercules ramp, why dark asphalt runways melt permafrost, and queued **"Blue Fin" Low-Acoustic Whale-Safe Eco-Vessel & Subsea Barge Towage** under **`02. Non-Deadline Tasks`** in [`forward_tasks.md`](./forward_tasks.md).
 
 ---
 
@@ -74,7 +74,7 @@
 > - *"but we didn't discuss how this steel braided umbilical armor would work? I know of a fellow from germany. he has a mesh company. Icould ask him."*
 
 - **Saved Private Engineering Spec**: [`.sys_opt/docs/mil_std_461g_emi_and_nema4x_enclosure_spec.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/docs/mil_std_461g_emi_and_nema4x_enclosure_spec.md) *(git-ignored, private on `mram`)*
-- **Assigned Review Checkbox in [`forward_tasks.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/forward_tasks.md)**: Added under **`01. Deadline Tasks -> Required Reading`** with direct paths to [`cad_and_blender/freecad/wind_v3/renders/wind_v3_microgrid_cabinet.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/wind_v3/renders/wind_v3_microgrid_cabinet.png) and [`.sys_opt/docs/mil_std_461g_emi_and_nema4x_enclosure_spec.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/docs/mil_std_461g_emi_and_nema4x_enclosure_spec.md).
+- **Assigned Review Checkbox in [`forward_tasks.md`](./forward_tasks.md)**: Added under **`01. Deadline Tasks -> Required Reading`** with direct paths to [`cad_and_blender/freecad/wind_v3/renders/wind_v3_microgrid_cabinet.png`](file:///vms_and_github/Github/asi.surge.sh/cad_and_blender/freecad/wind_v3/renders/wind_v3_microgrid_cabinet.png) and [`.sys_opt/docs/mil_std_461g_emi_and_nema4x_enclosure_spec.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/docs/mil_std_461g_emi_and_nema4x_enclosure_spec.md).
 
 ### 3.1 How the `360°` Grounded Steel / Tinned-Copper Braided Umbilical Armor Works (For Your German Mesh Contact!)
 
@@ -143,9 +143,9 @@ When `50 kW` of 3-phase power runs down the `24.0 m` mast from the nacelle into 
 
 > **Your Comments**:
 > - **Copper `-31.4%` resistance drop at `-60 °C`**: *"the copper bit above is standard and needs to be tracked?"*
->   - **Done!** Because standard electrolytic copper windings naturally lose **`-31.44%`** of their electrical resistance at `-60 °C` ($R_{-60^\circ\text{C}} = 0.6856\,R_{20^\circ\text{C}}$), I added this directly into **Section 2.2.4 of our current DND proposal draft ([`.sys_opt/submission_proposal_draft.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/submission_proposal_draft.md))** AND tracked it under **`01. Deadline Tasks`** in [`forward_tasks.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/forward_tasks.md)!
+>   - **Done!** Because standard electrolytic copper windings naturally lose **`-31.44%`** of their electrical resistance at `-60 °C` ($R_{-60^\circ\text{C}} = 0.6856\,R_{20^\circ\text{C}}$), I added this directly into **Section 2.2.4 of our current DND proposal draft ([`.sys_opt/submission_proposal_draft.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/submission_proposal_draft.md))** AND tracked it under **`01. Deadline Tasks`** in [`forward_tasks.md`](./forward_tasks.md)!
 > - **Laithwaite Maglev + MIT/CFS 2G REBCO `77 K` HTS Superconductors + Praseodymium `(Nd,Pr)2Fe14B` Cryo-Magnets + Rotating Cylinder Magnus Harvester**: *"where should we track this? thx"* & *"okay. then we can split FT in 01. deadline tasks and 02. non deadline tasks eh?"*
->   - **Done!** [`forward_tasks.md`](file:///home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/forward_tasks.md) is now split into **`01. DEADLINE TASKS (October 20, 2026)`** and **`02. NON-DEADLINE TASKS (Post-Submission Engineering & Wind v4.0 R&D)`** with individual checkboxes for each of these inventions!
+>   - **Done!** [`forward_tasks.md`](./forward_tasks.md) is now split into **`01. DEADLINE TASKS (October 20, 2026)`** and **`02. NON-DEADLINE TASKS (Post-Submission Engineering & Wind v4.0 R&D)`** with individual checkboxes for each of these inventions!
 > - **"Steve Blank" Style Engineering Exploded Blowup Diagrams**: *"I think we need engineering blowup diagrams. so I can visualize how each invention is supposed to work. and wrap it around in my mind. like the cover of mr. steve blanks book (how to start a startup)"*
 >   - **Done!** I created ready-to-copy prompts in [`.sys_opt/prompts/scale_comparison_gemini_web_prompts.md`](file:///vms_and_github/Github/asi.surge.sh/.sys_opt/prompts/scale_comparison_gemini_web_prompts.md) (`Prompt B` for `MAWT v3.1` and `Prompt C` for `Wind v4.0` Laithwaite Maglev + 77K HTS + Magnus Cylinder) plus a schematic ASCII exploded diagram below so you can visualize the entire system hierarchy at a glance:
 

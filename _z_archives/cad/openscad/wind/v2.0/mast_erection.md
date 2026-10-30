@@ -52,15 +52,15 @@ Three key elevation stages rendered from OpenSCAD:
 
 1. **Stage 1 — Horizontal Assembly ($0^\circ$):**  
    Mast and tophead assembled horizontally atop cribbing along container axis. Gin-pole stands vertical ready for initial pull.
-   ![Stage 1 - Horizontal](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/wind_v2_mast_0deg.png)
+   ![Stage 1 - Horizontal](./wind_v2_mast_0deg.png)
 
 2. **Stage 2 — Mid-Lift Elevation ($45^\circ$):**  
    Winch cable pulls gin-pole apex back towards the winch, rotating the tower upwards through backstays.
-   ![Stage 2 - Mid-Lift](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/wind_v2_mast_45deg.png)
+   ![Stage 2 - Mid-Lift](./wind_v2_mast_45deg.png)
 
 3. **Stage 3 — Vertical Operational Lock ($90^\circ$):**  
    Tower locked in upright vertical position, guy wires tensioned to ground anchors.
-   ![Stage 3 - Upright](/home/adeel/.gemini/antigravity/brain/cfa9f977-7597-486d-a7ad-dba600f152f3/wind_v2_mast_90deg.png)
+   ![Stage 3 - Upright](./wind_v2_mast_90deg.png)
 
 ---
 
