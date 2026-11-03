@@ -1,0 +1,71 @@
+[
+  {"command": "model.units", "params": {"system": "mm-t-s-N-MPa"}},
+  {"command": "geometry.open", "params": {
+    "path": "cad_and_blender/tangency_eval/test_bracket_v21.solidcraft",
+    "model": "new"
+  }},
+  {"command": "mesh.tet.generate", "params": {
+    "body": "LBracket",
+    "size": 3.5,
+    "order": "quadratic"
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "bracket_body",
+    "geometry": [{"body": "LBracket"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "mount_holes",
+    "geometry": [
+      {"body": "LBracket", "face": "F4:bore:side:0"},
+      {"body": "LBracket", "face": "F4:bore:side:1"},
+      {"body": "LBracket", "face": "F5:bore:side:0"},
+      {"body": "LBracket", "face": "F5:bore:side:1"}
+    ]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "tip_flange",
+    "geometry": [
+      {"body": "LBracket", "face": "F2:side:l2"}
+    ]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "inner_fillet",
+    "geometry": [
+      {"body": "LBracket", "face": "F3:blend:F2:side:l3|F2:side:l4"}
+    ]
+  }},
+  {"command": "model.material.create", "params": {
+    "name": "Aluminum",
+    "elastic": {"type": "isotropic", "young": 69000.0, "poisson": 0.33},
+    "density": 2.7e-9
+  }},
+  {"command": "model.section.create", "params": {
+    "name": "BracketSolid",
+    "set": "bracket_body",
+    "material": "Aluminum",
+    "kind": {"type": "solid"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "FixBoltBores",
+    "type": "fixed",
+    "target": {"set": "mount_holes"}
+  }},
+  {"command": "model.load.create", "params": {
+    "name": "TipBendingLoad",
+    "type": "force",
+    "target": {"set": "tip_flange"},
+    "vector": [0.0, -200.0, 0.0],
+    "distribution": "total"
+  }},
+  {"command": "model.step.create", "params": {
+    "name": "BracketStatic",
+    "procedure": {"type": "static"},
+    "boundary_conditions": ["FixBoltBores"],
+    "loads": ["TipBendingLoad"]
+  }},
+  {"command": "solve.static", "params": {"step": "BracketStatic"}},
+  {"command": "solve.probe", "params": {"step": "BracketStatic", "at": [[100.0, 0.0, 20.0], [6.17, 6.17, 20.0]]}},
+  {"command": "solve.probe", "params": {"step": "BracketStatic", "set": "inner_fillet"}},
+  {"command": "results.deformed", "params": {"step": "BracketStatic", "show": true, "scale": "auto"}},
+  {"command": "results.contour", "params": {"step": "BracketStatic", "field": "von_mises", "bands": 12}}
+]

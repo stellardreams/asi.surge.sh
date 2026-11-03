@@ -1,34 +1,48 @@
 [
-  {
-    "command": "sketch.create",
-    "params": {
-      "plane": "XY",
-      "name": "BaseSketch"
-    }
-  },
-  {
-    "command": "sketch.line",
-    "params": {
-      "points": [
-        [0, 0],
-        [100, 0],
-        [100, 20],
-        [20, 20],
-        [20, 80],
-        [0, 80]
-      ],
-      "closed": true
-    }
-  },
-  {
-    "command": "sketch.finish",
-    "params": {}
-  },
-  {
-    "command": "solid.extrude",
-    "params": {
-      "sketch": "BaseSketch",
-      "distance": 30
-    }
-  }
+  {"command": "parameters.add", "params": {"name": "L_base", "expression": "100", "unit": "mm"}},
+  {"command": "parameters.add", "params": {"name": "H_vert", "expression": "50", "unit": "mm"}},
+  {"command": "parameters.add", "params": {"name": "T_wall", "expression": "5", "unit": "mm"}},
+  {"command": "parameters.add", "params": {"name": "W_width", "expression": "40", "unit": "mm"}},
+  {"command": "parameters.add", "params": {"name": "R_fillet", "expression": "4", "unit": "mm"}},
+  {"command": "parameters.add", "params": {"name": "D_hole", "expression": "8", "unit": "mm"}},
+  {"command": "sketch.create", "params": {"plane": "XY", "name": "LProfile"}},
+  {"command": "sketch.line", "params": {
+    "points": [
+      [0, 0],
+      ["L_base", 0],
+      ["L_base", "T_wall"],
+      ["T_wall", "T_wall"],
+      ["T_wall", "H_vert"],
+      [0, "H_vert"]
+    ],
+    "closed": true
+  }},
+  {"command": "sketch.finish", "params": {}},
+  {"command": "solid.extrude", "params": {
+    "sketch": "LProfile",
+    "distance": "W_width",
+    "name": "BaseExtrude",
+    "body_name": "LBracket"
+  }},
+  {"command": "solid.fillet", "params": {
+    "edges": [[5, 5, 20]],
+    "radius": "R_fillet",
+    "name": "InnerFillet"
+  }},
+  {"command": "solid.hole", "params": {
+    "position": [0, 34, 12],
+    "diameter": "D_hole",
+    "depth": "T_wall",
+    "name": "MountHole1"
+  }},
+  {"command": "solid.hole", "params": {
+    "position": [0, 34, 28],
+    "diameter": "D_hole",
+    "depth": "T_wall",
+    "name": "MountHole2"
+  }},
+  {"command": "material.assign", "params": {
+    "bodies": ["LBracket"],
+    "material": "Aluminum"
+  }}
 ]

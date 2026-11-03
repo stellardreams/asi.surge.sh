@@ -1,0 +1,312 @@
+{
+  "features": [
+    {
+      "id": 1,
+      "name": "LProfile",
+      "plane": {
+        "name": "XY",
+        "type": "origin"
+      },
+      "sketch": {
+        "constraints": [
+          {
+            "id": "k1",
+            "p": 0,
+            "q": 6,
+            "type": "coincident"
+          }
+        ],
+        "counters": {
+          "k": 1,
+          "l": 6,
+          "p": 5
+        },
+        "curves": [
+          {
+            "a": 6,
+            "b": 1,
+            "construction": false,
+            "id": "l1",
+            "type": "line"
+          },
+          {
+            "a": 1,
+            "b": 2,
+            "construction": false,
+            "id": "l2",
+            "type": "line"
+          },
+          {
+            "a": 2,
+            "b": 3,
+            "construction": false,
+            "id": "l3",
+            "type": "line"
+          },
+          {
+            "a": 3,
+            "b": 4,
+            "construction": false,
+            "id": "l4",
+            "type": "line"
+          },
+          {
+            "a": 4,
+            "b": 5,
+            "construction": false,
+            "id": "l5",
+            "type": "line"
+          },
+          {
+            "a": 5,
+            "b": 6,
+            "construction": false,
+            "id": "l6",
+            "type": "line"
+          }
+        ],
+        "points": [
+          {
+            "fixed": true,
+            "id": "origin",
+            "pos": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "exprs": {
+              "x": "L_base"
+            },
+            "fixed": true,
+            "id": "p1",
+            "pos": [
+              100.0,
+              0.0
+            ]
+          },
+          {
+            "exprs": {
+              "x": "L_base",
+              "y": "T_wall"
+            },
+            "fixed": true,
+            "id": "p2",
+            "pos": [
+              100.0,
+              5.0
+            ]
+          },
+          {
+            "exprs": {
+              "x": "T_wall",
+              "y": "T_wall"
+            },
+            "fixed": true,
+            "id": "p3",
+            "pos": [
+              5.0,
+              5.0
+            ]
+          },
+          {
+            "exprs": {
+              "x": "T_wall",
+              "y": "H_vert"
+            },
+            "fixed": true,
+            "id": "p4",
+            "pos": [
+              5.0,
+              50.0
+            ]
+          },
+          {
+            "exprs": {
+              "y": "H_vert"
+            },
+            "fixed": true,
+            "id": "p5",
+            "pos": [
+              0.0,
+              50.0
+            ]
+          },
+          {
+            "fixed": false,
+            "id": "l1.start",
+            "pos": [
+              0.0,
+              0.0
+            ]
+          }
+        ]
+      },
+      "suppressed": false,
+      "type": "sketch"
+    },
+    {
+      "body_names": [
+        "LBracket"
+      ],
+      "extent": {
+        "convention": "total_distance",
+        "direction": "positive",
+        "distance": "W_width"
+      },
+      "id": 2,
+      "name": "BaseExtrude",
+      "operation": "new_body",
+      "param_names": [
+        "d1"
+      ],
+      "profiles": {
+        "type": "all"
+      },
+      "sketch": 1,
+      "suppressed": false,
+      "type": "extrude"
+    },
+    {
+      "edge_names": [
+        "F2:side:l3|F2:side:l4"
+      ],
+      "edge_refs": [
+        {
+          "dir": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "max": [
+            100.0,
+            50.0,
+            40.0
+          ],
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "edges": [
+        [
+          5.0,
+          5.0,
+          20.0
+        ]
+      ],
+      "id": 3,
+      "name": "InnerFillet",
+      "param_names": [
+        "d2"
+      ],
+      "radius": "R_fillet",
+      "suppressed": false,
+      "type": "fillet"
+    },
+    {
+      "depth": "T_wall",
+      "diameter": "D_hole",
+      "direction": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "face_names": [
+        "F2:side:l6"
+      ],
+      "hole": {
+        "type": "simple"
+      },
+      "id": 4,
+      "name": "MountHole1",
+      "param_names": [
+        "d3",
+        "d4"
+      ],
+      "position": [
+        0.0,
+        34.0,
+        12.0
+      ],
+      "suppressed": false,
+      "type": "hole"
+    },
+    {
+      "depth": "T_wall",
+      "diameter": "D_hole",
+      "direction": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "face_names": [
+        "F2:side:l6"
+      ],
+      "hole": {
+        "type": "simple"
+      },
+      "id": 5,
+      "name": "MountHole2",
+      "param_names": [
+        "d5",
+        "d6"
+      ],
+      "position": [
+        0.0,
+        34.0,
+        28.0
+      ],
+      "suppressed": false,
+      "type": "hole"
+    }
+  ],
+  "format": "solidcraft/21",
+  "materials": {
+    "LBracket": "Aluminum"
+  },
+  "name": "test_bracket",
+  "next_component_color_index": 0,
+  "next_id": 6,
+  "params": [
+    {
+      "expr": "100",
+      "model": false,
+      "name": "L_base",
+      "unit": "mm"
+    },
+    {
+      "expr": "50",
+      "model": false,
+      "name": "H_vert",
+      "unit": "mm"
+    },
+    {
+      "expr": "5",
+      "model": false,
+      "name": "T_wall",
+      "unit": "mm"
+    },
+    {
+      "expr": "40",
+      "model": false,
+      "name": "W_width",
+      "unit": "mm"
+    },
+    {
+      "expr": "4",
+      "model": false,
+      "name": "R_fillet",
+      "unit": "mm"
+    },
+    {
+      "expr": "8",
+      "model": false,
+      "name": "D_hole",
+      "unit": "mm"
+    }
+  ],
+  "units": "mm"
+}

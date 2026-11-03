@@ -11,34 +11,34 @@
 ```diff
 + ╔════════════════════════════════════════════════════════════════════════════╗
 + ║  ┌──────────────────────────────────────────────────────────────────────┐  ║
-+ ║  │ ⏰ TIMESTAMP: 2026-11-03 16:35 EST / 21:35 UTC                       │  ║
-+ ║  │ 📌 PRIMARY TARGET: TASK-EARTHEN-HABITAT-119                          │  ║
++ ║  │ ⏰ TIMESTAMP: 2026-11-03 17:04 EST / 22:04 UTC                       │  ║
++ ║  │ 📌 PRIMARY TARGET: TASK-AMU-ORBITAL-01                               │  ║
 + ║  │    Assignee: @genidma, Argon & AGY                                   │  ║
 + ║  │    Branch Sync: main-dev active                                      │  ║
 + ║  │    Active Repo: https://github.com/stellardreams/asi.surge.sh        │  ║
-+ ║  │    Deliverable: plans/plan-earthen-bio-habitats.md                   │  ║
-+ ║  │    Parent Tracker: #119 (🏺 The New Manna Machine)                    │  ║
-+ ║  │    In-Issue Search String ➡️ : 'EARTHEN-HABITAT-119'                  │  ║
++ ║  │    Deliverable: plans/plan-amu-orbital.md                            │  ║
++ ║  │    Parent Tracker: #5 (AMU Orbital Manufacturing Blueprint)          │  ║
++ ║  │    In-Issue Search String ➡️ : 'TASK-AMU-ORBITAL-01'                 │  ║
 + ║  │    Focus Scope:                                                      │  ║
-+ ║  │      • Form Earth continuous slip-form rammed earth envelope (45cm)  │  ║
-+ ║  │      • Shangrila-VHP #45 3D earth printer catenary vault modeling    │  ║
-+ ║  │      • AMU vertical polyculture core integration (zero insect farm)  │  ║
-+ ║  │      • Incorporate SolidCraft/FieldCraft FEA hand-off from #123      │  ║
++ ║  │      • Autonomous in-space truss fabrication & electron-beam welding │  ║
++ ║  │      • Modular CORA-M quick-disconnect toolhead changer architecture │  ║
++ ║  │      • Microgravity solar/induction metallurgy & slag separation     │  ║
++ ║  │      • MIL-STD-461G 360° braided cryogenic umbilical harness spec    │  ║
 + ║  └──────────────────────────────────────────────────────────────────────┘  ║
 + ╚════════════════════════════════════════════════════════════════════════════╝
 + ╔═════════════════════════════════════════════════════╗
 + ║  ┌───────────────────────────────────────────────┐  ║
-+ ║  │ 🎯 NEXT PRIORITY 1: TASK-AMU-ORBITAL-01       │  ║
++ ║  │ 🎯 NEXT PRIORITY 1: TASK-REGOLITH-SAFEGUARD-116│  ║
 + ║  └───────────────────────────────────────────────┘  ║
 + ╚═════════════════════════════════════════════════════╝
 + ╔═════════════════════════════════════════════════════╗
 + ║  ┌───────────────────────────────────────────────┐  ║
-+ ║  │ 🎯 NEXT PRIORITY 2: TASK-REGOLITH-SAFEGUARD-116│  ║
++ ║  │ 🎯 NEXT PRIORITY 2: TASK-AMU-SURFACE-01       │  ║
 + ║  └───────────────────────────────────────────────┘  ║
 + ╚═════════════════════════════════════════════════════╝
 + ╔═════════════════════════════════════════════════════╗
 + ║  ┌───────────────────────────────────────────────┐  ║
-+ ║  │ 🎯 NEXT PRIORITY 3: TASK-AMU-SURFACE-01       │  ║
++ ║  │ 🎯 NEXT PRIORITY 3: TASK-SIT-MAP-63           │  ║
 + ║  └───────────────────────────────────────────────┘  ║
 + ╚═════════════════════════════════════════════════════╝
 ```
@@ -49,21 +49,22 @@
 
 | Priority | Task ID | Description | Status | Target |
 | :---: | :--- | :--- | :---: | :--- |
-| 🥇 | **TASK-EARTHEN-HABITAT-119** | 🏺 The New Manna Machine (Form Earth slip-form + Shangrila-VHP #45 3D earth + AMU) | 🟢 `ACTIVE` | [#119](https://github.com/stellardreams/asi.surge.sh/issues/119) / `plans/` |
-| 🥈 | **TASK-SIM-INVESTIGATION-123** | SolidCraft + FieldCraft pure-Rust CAD/CAE evaluation & Argon hand-off delivered | 🏁 `DONE` | `docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md` / [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) |
-| 🥉 | **TASK-AMU-ORBITAL-01** | AMU Orbital manufacturing & in-space automated assembly architectural specification | 🟡 `QUEUED` | `plans/plan-amu-orbital.md` / [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) |
-| 4️⃣ | **TASK-REGOLITH-SAFEGUARD-116**| AMU Self-Replication Protocol: In-Situ Asteroid Regolith Manufacturing & Step 0 Safeguard | 🟡 `QUEUED` | [#116](https://github.com/stellardreams/asi.surge.sh/issues/116) / `plans/` |
-| 5️⃣ | **TASK-AMU-SURFACE-01** | AMU-Surface habitat modules, regolith utilization & STRIDER-M transporter integration | 🟡 `QUEUED` | `plans/plan-amu-surface.md` / [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) |
-| 6️⃣ | **TASK-FOOD-SECURITY-118** | Global Food Security master umbrella architecture specification delivered | 🏁 `DONE` | `plans/plan-food-security.md` / [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) |
-| 7️⃣ | **TASK-ROADMAP-UPDATE-117** | Update `ROADMAP.md` with v1.3.3 milestones, decoupled Arctic Wind, and AMU priorities | 🏁 `DONE` | `ROADMAP.md` / [#117](https://github.com/stellardreams/asi.surge.sh/issues/117) |
-| 8️⃣ | **TASK-SIT-MAP-63** | Map high-level SIT governance and requirements graph to concrete plans and website `plans.html` | 🟡 `QUEUED` | [#63](https://github.com/stellardreams/asi.surge.sh/issues/63) / `plans.html` |
+| 🥇 | **TASK-AMU-ORBITAL-01** | AMU Orbital manufacturing & in-space automated assembly architectural specification | 🟢 `ACTIVE` | `plans/plan-amu-orbital.md` / [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) |
+| 🥈 | **TASK-REGOLITH-SAFEGUARD-116**| AMU Self-Replication Protocol: In-Situ Asteroid Regolith Manufacturing & Step 0 Safeguard | 🟡 `QUEUED` | [#116](https://github.com/stellardreams/asi.surge.sh/issues/116) / `plans/` |
+| 🥉 | **TASK-AMU-SURFACE-01** | AMU-Surface habitat modules, regolith utilization & STRIDER-M transporter integration | 🟡 `QUEUED` | `plans/plan-amu-surface.md` / [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) |
+| 4️⃣ | **TASK-SIT-MAP-63** | Map high-level SIT governance and requirements graph to concrete plans and website `plans.html` | 🟡 `QUEUED` | [#63](https://github.com/stellardreams/asi.surge.sh/issues/63) / `plans.html` |
+| 5️⃣ | **TASK-EARTHEN-HABITAT-119** | 🏺 The New Manna Machine (Form Earth + Shangrila-VHP #45 + Sub-Zero Geopolymer FEA) | 🏁 `DONE` | [#119](https://github.com/stellardreams/asi.surge.sh/issues/119) / [`plans/plan-earthen-bio-habitats.md`](plans/plan-earthen-bio-habitats.md) |
+| 6️⃣ | **TASK-SIM-INVESTIGATION-123** | SolidCraft + FieldCraft pure-Rust CAD/CAE evaluation & Argon verification delivered | 🏁 `DONE` | [`docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md`](docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md) / [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) |
+| 7️⃣ | **TASK-FOOD-SECURITY-118** | Global Food Security master umbrella architecture specification delivered | 🏁 `DONE` | `plans/plan-food-security.md` / [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) |
+| 8️⃣ | **TASK-ROADMAP-UPDATE-117** | Update `ROADMAP.md` with v1.3.3 milestones, decoupled Arctic Wind, and AMU priorities | 🏁 `DONE` | `ROADMAP.md` / [#117](https://github.com/stellardreams/asi.surge.sh/issues/117) |
 | 9️⃣ | **CHORE-IDE-DOC-CLEANUP** | Audit, extract, decouple, and sanitize legacy documents, CAD solids, and specifications | 🏁 `DONE` | `scratch/`, `.sys_opt/`, root workspace |
 
 ---
 
 ### 🏆 Recently Completed Milestones
 
-- [x] **SolidCraft + FieldCraft CAD/CAE Evaluation Delivered (`TASK-SIM-INVESTIGATION-123`)**: Benchmarked pure-Rust CAD/CAE pipeline on Linux x86_64 with zero system library pollution; verified $95.76\%$ FEA convergence against Timoshenko cantilever beam theory; exported AP242 STEP solids; mapped to `cad_and_blender/REGISTRY.md`; and formulated hand-off package for Argon (Gemini 4 Argon). Deliverables documented in `docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md`. Issue #123 kept OPEN pending review. ✅
+- [x] **The New Manna Machine Sub-Zero Geopolymer Binder & Coupled FEA Delivered (`TASK-EARTHEN-HABITAT-119`)**: Specified potassium-silicate alkali-activated aluminosilicate geopolymer binder chemistry ($\text{K}_2\text{SiO}_3 + 8\text{ M KOH} + \text{CaAl}_2\text{O}_4$, liquidus depressed to $-22^\circ\text{C}$, $18.5\text{ MPa}$ 7-day sub-zero cure) and solved coupled steady-state thermal conduction ($-45^\circ\text{C}$ Arctic exterior to $+18^\circ\text{C}$ interior polyculture core) + gravity + $15\text{ kPa}$ snow overburden on the $550\text{ mm}$ catenary vault arch in FieldCraft `v0.7.0` (`manna_vault_thermal_structural_sim.json`, mid-wall $T = -15.06^\circ\text{C}$, crown $\delta_z = -1.175\text{ mm}$, peak foundation toe stress $\sigma_{\text{vM,max}} = 3.79\text{ MPa}, \text{FoS} = 4.88$). Updated [`plans/plan-earthen-bio-habitats.md`](plans/plan-earthen-bio-habitats.md) Section 6 and registered Section 4.3 in [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md). Issue #119 kept OPEN pending review. ✅
+- [x] **SolidCraft + FieldCraft CAD/CAE Evaluation & Argon Verification Delivered (`TASK-SIM-INVESTIGATION-123`)**: Completed full Experiment A/B/C verification in [`docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md`](docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md): parametric Aluminium L-Bracket ($100 \times 50 \times 5\text{ mm}$ with $R=4\text{ mm}$ inner fillet and $2\times \varnothing 8\text{ mm}$ mounting holes), `solidcraft/21` native CAD-to-FEA container bridge (`test_bracket_v21.solidcraft`), $10{,}837\text{ tet10}$ bracket stress FEA ($\sigma_{\text{vM,fillet}} = 141.65\text{ MPa}$), and 80-element quadratic `hex20` cantilever beam benchmark ($99.996\%$ Euler-Bernoulli convergence). Issue #123 kept OPEN pending review. ✅
 
 - [x] **Global Food Security Master Architecture Delivered (`TASK-FOOD-SECURITY-118`)**: Authored [`plans/plan-food-security.md`](plans/plan-food-security.md) bridging closed-loop ECLSS with terrestrial crisis triage (DRC/WFP), linking Nunavut food sovereignty ([#1](https://github.com/stellardreams/asi.surge.sh/issues/1)) and automated earthen bio-habitats ([#119](https://github.com/stellardreams/asi.surge.sh/issues/119)), and establishing a zero-insect-farming biosafety policy. Pushed to `main-dev` (`b02f7d7`) and merged to `main` (`eaaae7a`). Issue #118 kept OPEN pending user review. ✅
 - [x] **Roadmap Architecture Overhaul Delivered (`TASK-ROADMAP-UPDATE-117`)**: Overhauled [`ROADMAP.md`](ROADMAP.md) into a comprehensive Tier 0 through Tier 3 hierarchy incorporating delivered engineering assets across Releases `v1.1` through `v1.3.3` (AMU Heritage Orbital `v1.0`, CORA-M `v1.0`, STRIDER-M `v1.0`/`v2.1`, AMU-Surface Habitat `v1.1`, and The New Manna Machine `v1.0`). Pushed to `main-dev` (`da4f947`) and merged to `main` (`eaaae7a`). Issue #117 kept OPEN pending user review. ✅
@@ -83,14 +84,14 @@
 
 | ID | Task Description | Scope / Context | Parent / Origin | Status |
 |:---|:---|:---|:---|:---|
-| 🔄 **TASK-EARTHEN-HABITAT-119** | **🏺 The New Manna Machine (Earthen Bio-Habitats)** | Design dual-tier rammed earth (Form Earth) + self-replicating adobe printer (Shangrila-VHP #45) + AMU controlled polyculture shell with sub-zero alkali geopolymers. | • Tracked in: [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)<br>• Parent: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) | 🟢 `ACTIVE` |
-| 🏁 **TASK-SIM-INVESTIGATION-123** | **SolidCraft + FieldCraft CAD/CAE Evaluation** | Pure-Rust CAD/CAE evaluation (Tangency Labs), headless CLI, STEP workflow, MCP agent integration, and FEA benchmark for robotics & habitats. | • Tracked in: [#123](https://github.com/stellardreams/asi.surge.sh/issues/123)<br>• Target: `docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md` | 🏁 `DONE` |
-| 🔄 **TASK-AMU-ORBITAL-01** | **AMU Orbital Manufacturing Architecture** | Formulate autonomous in-space fabrication, beam welding, toolhead changer, microgravity metallurgy, and MIL-STD-461G 360° braided cryogenic umbilical harness specifications. | • Tracked in: [#5](https://github.com/stellardreams/asi.surge.sh/issues/5)<br>• Target: `plans/plan-amu-orbital.md` | 🟡 `QUEUED` |
+| 🔄 **TASK-AMU-ORBITAL-01** | **AMU Orbital Manufacturing Architecture** | Formulate autonomous in-space fabrication, beam welding, toolhead changer, microgravity metallurgy, and MIL-STD-461G 360° braided cryogenic umbilical harness specifications. | • Tracked in: [#5](https://github.com/stellardreams/asi.surge.sh/issues/5)<br>• Target: `plans/plan-amu-orbital.md` | 🟢 `ACTIVE` |
 | 🔄 **TASK-REGOLITH-SAFEGUARD-116**| **AMU Regolith Self-Replication & Step 0 Gate** | Define asteroid regolith vacuum refining/sintering and astrobiological lifeform intercept roadblock state machines. | • Tracked in: [#116](https://github.com/stellardreams/asi.surge.sh/issues/116)<br>• Target: `plans/` | 🟡 `QUEUED` |
 | 🔄 **TASK-AMU-SURFACE-01** | **AMU-Surface Habitat Modules** | Define pressurized surface modules, regolith sintering / shielding shells, airlock interfaces, STRIDER-M sub-zero deck latches, and extreme NEMA 4X / IP68 enclosures. | • Parent Trackers: [#97](https://github.com/stellardreams/asi.surge.sh/issues/97) (Closed), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) (Open)<br>• Target: `plans/plan-amu-surface.md` | 🟡 `QUEUED` |
+| 🔄 **TASK-SIT-MAP-63** | **SIT High-Level Graph Reconciliation** | Re-link graph nodes to targeted plan files and update the live website's `plans.html` showcase. | • Tracked in: [#63](https://github.com/stellardreams/asi.surge.sh/issues/63)<br>• Target: `plans.html` & `plans/` | 🟡 `QUEUED` |
+| 🏁 **TASK-EARTHEN-HABITAT-119** | **🏺 The New Manna Machine (Earthen Bio-Habitats)** | Dual-tier rammed earth (Form Earth) + self-replicating adobe printer (Shangrila-VHP #45) + AMU polyculture shell + sub-zero potassium-silicate geopolymer coupled FEA delivered. | • Tracked in: [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)<br>• Parent: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) | 🏁 `DONE` |
+| 🏁 **TASK-SIM-INVESTIGATION-123** | **SolidCraft + FieldCraft CAD/CAE Evaluation** | Pure-Rust CAD/CAE evaluation (Tangency Labs), Experiment A/B/C verification, `solidcraft/21` bridge, `hex20`/`tet10` FEA benchmarks, and MCP automation delivered. | • Tracked in: [#123](https://github.com/stellardreams/asi.surge.sh/issues/123)<br>• Target: `docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md` | 🏁 `DONE` |
 | 🏁 **TASK-FOOD-SECURITY-118** | **Global Food Security & Terrestrial AMU** | Coordinate high-latitude food sovereignty (Nunavut #1) and rapid crisis nutrition deployment (DRC, WFP). | • Tracked in: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118)<br>• Child: [#1](https://github.com/stellardreams/asi.surge.sh/issues/1) | 🏁 `DONE` |
 | 🏁 **TASK-ROADMAP-UPDATE-117** | **ROADMAP.md Architecture & Milestones** | Overhaul `ROADMAP.md` to incorporate delivered v1.1–v1.3.3 hardware/cad registries, Arctic Wind decoupling, and AMU priorities. | • Tracked in: [#117](https://github.com/stellardreams/asi.surge.sh/issues/117)<br>• Target: `ROADMAP.md` | 🏁 `DONE` |
-| 🔄 **TASK-SIT-MAP-63** | **SIT High-Level Graph Reconciliation** | Re-link graph nodes to targeted plan files and update the live website's `plans.html` showcase. | • Tracked in: [#63](https://github.com/stellardreams/asi.surge.sh/issues/63)<br>• Target: `plans.html` & `plans/` | 🟡 `QUEUED` |
 | ⏸️ **TASK-TRL-READING** | **Universal TRL 1–9 Engineering Reference Track** | Review universal TRL 1–9 definitions and exit gates for maintainer reference. | • Target: [`docs/tech_guide/TRL_FRAMEWORK.md`](docs/tech_guide/TRL_FRAMEWORK.md) | ⏸️ `LOW_PRIORITY` |
 | 🏁 **CHORE-IDE-DOC-CLEANUP** | **IDE Stale Document Cleanup & Audit** | Audit, archive or prune stale documents, scratch comments, legacy review drafts, and unreferenced artifacts inside the IDE workspace. | • Tracked in: `forward_tasks.md` (no GH ticket; logged across both repos)<br>• Target: `scratch/`, `.sys_opt/`, root workspace | 🏁 `DONE` |
 
@@ -107,12 +108,13 @@ graph TD
     I63["#63 Space Infrastructure Umbrella"] --> I117["#117 ROADMAP.md Overhaul [DELIVERED]"]
     I63 --> I118["#118 Global Food Security Master [DELIVERED]"]
     I118 --> I01["#1 Nunavut Food Sovereignty [CHILD]"]
-    I118 --> I119["#119 Earthen Bio-Habitats Form Earth/Shangrila [ACTIVE]"]
+    I118 --> I119["#119 Earthen Bio-Habitats & Geopolymer FEA [DELIVERED]"]
 
-    I05["#5 AMU Architecture (Physical Blueprint)"] --> O01["TASK-AMU-ORBITAL-01 AMU Orbital Mfg [QUEUED]"]
+    I05["#5 AMU Architecture (Physical Blueprint)"] --> O01["TASK-AMU-ORBITAL-01 AMU Orbital Mfg [ACTIVE]"]
     I97["#97 / #100 AMU-Surface & STRIDER-M"] --> S01["TASK-AMU-SURFACE-01 AMU Surface Habitats [QUEUED]"]
     I63 --> M63["TASK-SIT-MAP-63 Graph & Website plans.html [QUEUED]"]
     
+    T123 --> I119
     T123 --> V140["Release v1.4.0 Core Infrastructure Target"]
     O01 --> V140
     S01 --> V140
@@ -128,9 +130,9 @@ graph TD
 
     class I123 done;
     class T123 done;
-    class I119 active;
+    class I119 done;
+    class O01 active;
     class S01 queued;
-    class O01 queued;
     class I117 done;
     class I118 done;
     class M63 queued;
@@ -142,8 +144,8 @@ graph TD
 ## 📌 Initiative Metadata & Lineage
 
 > **Status:** Active  
-> **Environment:** Google Antigravity (AGY)  
-> **Active Branch:** `main-dev` (synced at `eaaae7a`)  
+> **Environment:** Google Antigravity (AGY — Gemini 4 Argon)  
+> **Active Branch:** `main-dev`  
 > **Parent Initiatives:** [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#63](https://github.com/stellardreams/asi.surge.sh/issues/63), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100), [#116](https://github.com/stellardreams/asi.surge.sh/issues/116), [#117](https://github.com/stellardreams/asi.surge.sh/issues/117), [#118](https://github.com/stellardreams/asi.surge.sh/issues/118), [#119](https://github.com/stellardreams/asi.surge.sh/issues/119), [#123](https://github.com/stellardreams/asi.surge.sh/issues/123)  
 > **Slated for Release:** `v1.3.4` (currently in draft)  
 > **Target Release:** `v1.4.0` (Core Space Infrastructure)

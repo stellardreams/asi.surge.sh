@@ -1,0 +1,58 @@
+[
+  {"command": "model.units", "params": {"system": "mm-t-s-N-MPa"}},
+  {"command": "mesh.block", "params": {
+    "body": "CantileverBeam",
+    "kind": "hex20",
+    "corners": [
+      [0, 0, 0], [100, 0, 0], [100, 10, 0], [0, 10, 0],
+      [0, 0, 10], [100, 0, 10], [100, 10, 10], [0, 10, 10]
+    ],
+    "divisions": [20, 2, 2],
+    "faces": {"6": "root_face", "4": "tip_face"}
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "all_elems",
+    "geometry": [{"body": "CantileverBeam"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "root_set",
+    "geometry": [{"body": "CantileverBeam", "face": "root_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "tip_set",
+    "geometry": [{"body": "CantileverBeam", "face": "tip_face"}]
+  }},
+  {"command": "model.material.create", "params": {
+    "name": "Steel",
+    "elastic": {"type": "isotropic", "young": 210000.0, "poisson": 0.3},
+    "density": 7.85e-9
+  }},
+  {"command": "model.section.create", "params": {
+    "name": "BeamSection",
+    "set": "all_elems",
+    "material": "Steel",
+    "kind": {"type": "solid"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "ClampRoot",
+    "type": "fixed",
+    "target": {"set": "root_set"}
+  }},
+  {"command": "model.load.create", "params": {
+    "name": "TipForce",
+    "type": "force",
+    "target": {"set": "tip_set"},
+    "vector": [0.0, 0.0, -1000.0],
+    "distribution": "total"
+  }},
+  {"command": "model.step.create", "params": {
+    "name": "StaticLoad",
+    "procedure": {"type": "static"},
+    "boundary_conditions": ["ClampRoot"],
+    "loads": ["TipForce"]
+  }},
+  {"command": "solve.static", "params": {"step": "StaticLoad"}},
+  {"command": "solve.probe", "params": {"step": "StaticLoad", "at": [[100.0, 5.0, 5.0]]}},
+  {"command": "results.deformed", "params": {"step": "StaticLoad", "show": true, "scale": "auto"}},
+  {"command": "results.contour", "params": {"step": "StaticLoad", "field": "von_mises", "bands": 12}}
+]

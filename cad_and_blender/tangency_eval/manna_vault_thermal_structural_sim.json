@@ -1,0 +1,122 @@
+[
+  {"command": "model.units", "params": {"system": "mm-t-s-N-MPa"}},
+  {"command": "mesh.block", "params": {
+    "body": "MannaVaultArch",
+    "kind": "hex20",
+    "corners": [
+      [2500, 0, 0], [3050, 0, 0], [3050, 1000, 0], [2500, 1000, 0],
+      [0, 0, 2500], [0, 0, 3050], [0, 1000, 3050], [0, 1000, 2500]
+    ],
+    "divisions": [4, 4, 16],
+    "edges": [
+      {"corners": [1, 5], "arc": {"center": [0, 0, 0]}},
+      {"corners": [2, 6], "arc": {"center": [0, 0, 0]}},
+      {"corners": [3, 7], "arc": {"center": [0, 1000, 0]}},
+      {"corners": [4, 8], "arc": {"center": [0, 1000, 0]}}
+    ],
+    "faces": {
+      "1": "footing_face",
+      "2": "crown_face",
+      "4": "extrados_face",
+      "6": "intrados_face"
+    }
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "vault_body",
+    "geometry": [{"body": "MannaVaultArch"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "footing_set",
+    "geometry": [{"body": "MannaVaultArch", "face": "footing_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "crown_set",
+    "geometry": [{"body": "MannaVaultArch", "face": "crown_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "extrados_set",
+    "geometry": [{"body": "MannaVaultArch", "face": "extrados_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "intrados_set",
+    "geometry": [{"body": "MannaVaultArch", "face": "intrados_face"}]
+  }},
+  {"command": "model.material.create", "params": {
+    "name": "GeopolymerRammedEarth",
+    "elastic": {"type": "isotropic", "young": 4500.0, "poisson": 0.22},
+    "density": 2.15e-9,
+    "thermal": {
+      "conductivity": 0.65,
+      "expansion": 8.5e-6,
+      "reference_temperature": 5.0,
+      "specific_heat": 9.2e8
+    }
+  }},
+  {"command": "model.section.create", "params": {
+    "name": "VaultEnvelopeSection",
+    "set": "vault_body",
+    "material": "GeopolymerRammedEarth",
+    "kind": {"type": "solid"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "ClampFooting",
+    "type": "fixed",
+    "target": {"set": "footing_set"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "CrownSymmetry",
+    "type": "symmetry",
+    "target": {"set": "crown_set"},
+    "plane": "x"
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "ArcticWinterExterior",
+    "type": "temperature",
+    "target": {"set": "extrados_set"},
+    "value": -45.0
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "PolycultureCoreInterior",
+    "type": "temperature",
+    "target": {"set": "intrados_set"},
+    "value": 18.0
+  }},
+  {"command": "model.load.create", "params": {
+    "name": "VaultSelfWeight",
+    "type": "gravity",
+    "acceleration": [0.0, 0.0, -9810.0]
+  }},
+  {"command": "model.load.create", "params": {
+    "name": "SnowOverburdenPressure",
+    "type": "pressure",
+    "set": "extrados_set",
+    "magnitude": 0.015
+  }},
+  {"command": "model.step.create", "params": {
+    "name": "SubZeroCoupledStep",
+    "procedure": {"type": "coupled_temperature_displacement"},
+    "boundary_conditions": [
+      "ClampFooting",
+      "CrownSymmetry",
+      "ArcticWinterExterior",
+      "PolycultureCoreInterior"
+    ],
+    "loads": [
+      "VaultSelfWeight",
+      "SnowOverburdenPressure"
+    ]
+  }},
+  {"command": "solve.static", "params": {"step": "SubZeroCoupledStep"}},
+  {"command": "solve.probe", "params": {
+    "step": "SubZeroCoupledStep",
+    "at": [
+      [0.0, 500.0, 2500.0],
+      [0.0, 500.0, 2775.0],
+      [0.0, 500.0, 3050.0],
+      [2500.0, 500.0, 0.0],
+      [3050.0, 500.0, 0.0]
+    ]
+  }},
+  {"command": "results.deformed", "params": {"step": "SubZeroCoupledStep", "show": true, "scale": "auto"}},
+  {"command": "results.contour", "params": {"step": "SubZeroCoupledStep", "field": "temperature", "bands": 12}}
+]
