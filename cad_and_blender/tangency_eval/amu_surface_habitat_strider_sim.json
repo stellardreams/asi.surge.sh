@@ -1,0 +1,381 @@
+[
+  {
+    "command": "model.units",
+    "params": {
+      "system": "mm-t-s-N-MPa"
+    }
+  },
+  {
+    "command": "mesh.block",
+    "params": {
+      "body": "StriderM316LTurretCollar",
+      "kind": "hex20",
+      "corners": [
+        [
+          408,
+          0,
+          0
+        ],
+        [
+          680,
+          0,
+          0
+        ],
+        [
+          680,
+          280,
+          0
+        ],
+        [
+          408,
+          280,
+          0
+        ],
+        [
+          0,
+          0,
+          408
+        ],
+        [
+          0,
+          0,
+          680
+        ],
+        [
+          0,
+          280,
+          680
+        ],
+        [
+          0,
+          280,
+          408
+        ]
+      ],
+      "divisions": [
+        4,
+        6,
+        12
+      ],
+      "edges": [
+        {
+          "corners": [
+            1,
+            5
+          ],
+          "arc": {
+            "center": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "corners": [
+            2,
+            6
+          ],
+          "arc": {
+            "center": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "corners": [
+            3,
+            7
+          ],
+          "arc": {
+            "center": [
+              0,
+              280,
+              0
+            ]
+          }
+        },
+        {
+          "corners": [
+            4,
+            8
+          ],
+          "arc": {
+            "center": [
+              0,
+              280,
+              0
+            ]
+          }
+        }
+      ],
+      "faces": {
+        "1": "fore_sym_face",
+        "2": "port_sym_face",
+        "3": "deck_chassis_face",
+        "4": "outer_collar_face",
+        "5": "top_dog_mating_face",
+        "6": "inner_bore_face"
+      }
+    }
+  },
+  {
+    "command": "model.set.create",
+    "params": {
+      "name": "collar_body",
+      "geometry": [
+        {
+          "body": "StriderM316LTurretCollar"
+        }
+      ]
+    }
+  },
+  {
+    "command": "model.set.create",
+    "params": {
+      "name": "fore_sym_set",
+      "geometry": [
+        {
+          "body": "StriderM316LTurretCollar",
+          "face": "fore_sym_face"
+        }
+      ]
+    }
+  },
+  {
+    "command": "model.set.create",
+    "params": {
+      "name": "port_sym_set",
+      "geometry": [
+        {
+          "body": "StriderM316LTurretCollar",
+          "face": "port_sym_face"
+        }
+      ]
+    }
+  },
+  {
+    "command": "model.set.create",
+    "params": {
+      "name": "deck_chassis_set",
+      "geometry": [
+        {
+          "body": "StriderM316LTurretCollar",
+          "face": "deck_chassis_face"
+        }
+      ]
+    }
+  },
+  {
+    "command": "model.set.create",
+    "params": {
+      "name": "top_dog_mating_set",
+      "geometry": [
+        {
+          "body": "StriderM316LTurretCollar",
+          "face": "top_dog_mating_face"
+        }
+      ]
+    }
+  },
+  {
+    "command": "model.set.create",
+    "params": {
+      "name": "outer_collar_set",
+      "geometry": [
+        {
+          "body": "StriderM316LTurretCollar",
+          "face": "outer_collar_face"
+        }
+      ]
+    }
+  },
+  {
+    "command": "model.set.create",
+    "params": {
+      "name": "inner_bore_set",
+      "geometry": [
+        {
+          "body": "StriderM316LTurretCollar",
+          "face": "inner_bore_face"
+        }
+      ]
+    }
+  },
+  {
+    "command": "model.material.create",
+    "params": {
+      "name": "Cryo316LStainless_NEMA4X_IP68",
+      "elastic": {
+        "type": "isotropic",
+        "young": 200000.0,
+        "poisson": 0.28
+      },
+      "density": 7.99e-09,
+      "thermal": {
+        "conductivity": 13.4,
+        "expansion": 1.45e-05,
+        "reference_temperature": 20.0,
+        "specific_heat": 490000000.0
+      }
+    }
+  },
+  {
+    "command": "model.section.create",
+    "params": {
+      "name": "TurretCollarSection",
+      "set": "collar_body",
+      "material": "Cryo316LStainless_NEMA4X_IP68",
+      "kind": {
+        "type": "solid"
+      }
+    }
+  },
+  {
+    "command": "model.boundary_condition.create",
+    "params": {
+      "name": "DeckChassisMount",
+      "type": "symmetry",
+      "target": {
+        "set": "deck_chassis_set"
+      },
+      "plane": "y"
+    }
+  },
+  {
+    "command": "model.boundary_condition.create",
+    "params": {
+      "name": "ForeAftSymmetry",
+      "type": "symmetry",
+      "target": {
+        "set": "fore_sym_set"
+      },
+      "plane": "z"
+    }
+  },
+  {
+    "command": "model.boundary_condition.create",
+    "params": {
+      "name": "PortStarboardSymmetry",
+      "type": "symmetry",
+      "target": {
+        "set": "port_sym_set"
+      },
+      "plane": "x"
+    }
+  },
+  {
+    "command": "model.boundary_condition.create",
+    "params": {
+      "name": "SubZeroPolarAmbientOuter",
+      "type": "temperature",
+      "target": {
+        "set": "outer_collar_set"
+      },
+      "value": -125.0
+    }
+  },
+  {
+    "command": "model.boundary_condition.create",
+    "params": {
+      "name": "HeatedUmbilicalBoreInner",
+      "type": "temperature",
+      "target": {
+        "set": "inner_bore_set"
+      },
+      "value": 25.0
+    }
+  },
+  {
+    "command": "model.load.create",
+    "params": {
+      "name": "CORAMSubZeroBreakawayAndMomentLoad",
+      "type": "force",
+      "target": {
+        "set": "top_dog_mating_set"
+      },
+      "vector": [
+        0.0,
+        -35000.0,
+        0.0
+      ],
+      "distribution": "total"
+    }
+  },
+  {
+    "command": "model.step.create",
+    "params": {
+      "name": "StriderMSubZeroDockingCycle",
+      "procedure": {
+        "type": "coupled_temperature_displacement"
+      },
+      "boundary_conditions": [
+        "DeckChassisMount",
+        "ForeAftSymmetry",
+        "PortStarboardSymmetry",
+        "SubZeroPolarAmbientOuter",
+        "HeatedUmbilicalBoreInner"
+      ],
+      "loads": [
+        "CORAMSubZeroBreakawayAndMomentLoad"
+      ]
+    }
+  },
+  {
+    "command": "solve.static",
+    "params": {
+      "step": "StriderMSubZeroDockingCycle"
+    }
+  },
+  {
+    "command": "solve.probe",
+    "params": {
+      "step": "StriderMSubZeroDockingCycle",
+      "at": [
+        [
+          408.0,
+          140.0,
+          0.0
+        ],
+        [
+          544.0,
+          140.0,
+          0.0
+        ],
+        [
+          680.0,
+          140.0,
+          0.0
+        ],
+        [
+          0.0,
+          280.0,
+          544.0
+        ],
+        [
+          680.0,
+          0.0,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "command": "results.deformed",
+    "params": {
+      "step": "StriderMSubZeroDockingCycle",
+      "show": true,
+      "scale": "auto"
+    }
+  },
+  {
+    "command": "results.contour",
+    "params": {
+      "step": "StriderMSubZeroDockingCycle",
+      "field": "von_mises",
+      "bands": 12
+    }
+  }
+]

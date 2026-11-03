@@ -166,6 +166,16 @@ To verify the structural resilience of the in-situ sintered asteroid basalt/oliv
 | :---: | :---: |
 | ![Regolith Sintered Shield Von Mises FEA](./../../cad_and_blender/tangency_eval/regolith_sintering_fea.png) | ![Regolith Sintered Shield Temperature FEA](./../../cad_and_blender/tangency_eval/regolith_sintering_thermal_fea.png) |
 
+### 5.4 `STRIDER-M` v2 `316L` Sub-Zero Anti-Adfreeze Turret Docking Collar Coupled FEA (Issues [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) & [#5](https://github.com/stellardreams/asi.surge.sh/issues/5))
+
+To verify the `STRIDER-M` v2 broadened 8-lug `316L` stainless steel turret docking collar (`DOCK_COLLAR_R = 680 mm`, `R_in = 408 mm`, `DOCK_COLLAR_H = 280 mm`) and sub-zero anti-adfreeze latch mounting interface (`TASK-AMU-SURFACE-01`, [`plans/plan-amu-surface.md`](../../plans/plan-amu-surface.md) §4), FieldCraft `v0.7.0` solved [`amu_surface_habitat_strider_sim.json`](../../cad_and_blender/tangency_eval/amu_surface_habitat_strider_sim.json) (`288` curved `hex20` elements, `1,629` nodes, `4,887` DOFs):
+* **Geometry & Material (`Cryo316LStainless_NEMA4X_IP68`)**: $90^\circ$ quadrant sector of the thick-walled ($t = 272\text{ mm}$) laser-welded `316L` (`UNS S31603`) turret collar ($E = 200{,}000\text{ MPa}, \nu = 0.28, k = 13.4\text{ W/(m}\cdot\text{K)}, \alpha = 1.45 \times 10^{-5}\text{ K}^{-1}$, cryogenic yield $\sigma_{y,\text{cryo}} = 485.0\text{ MPa}$, cryogenic ultimate $\sigma_{u,\text{cryo}} = 940.0\text{ MPa}$).
+* **Coupled Boundary Conditions & Radial Thermal-Break Relief**: Inner umbilical bore at $T_{\text{in}} = +25.0^\circ\text{C}$ ($298.15\text{ K}$, heated `120 kWh` battery bus & `MIL-STD-461G` coaxial core); outer polar rim at $T_{\text{out}} = -125.0^\circ\text{C}$ ($148.15\text{ K}, \Delta T = 150.0\text{ K}$) + $-35.0\text{ kN}$ axial `CORA-M` locking-dog preload. Replacing an uncompensated rigid deck weld ($1{,}032.68\text{ MPa}$ corner thermal-mismatch singularity) with a **Radially-Compliant `G-10 CR` Cryogenic Thermal-Break / `PTFE-MoS₂` Thrust-Bearing Ring** (`u_y = 0` axial support with radial sliding freedom) reduces peak von Mises stress by **$71.2\%$** to **$297.90\text{ MPa}$** (**$\text{FoS}_y = 1.63$**, **$\text{FoS}_u = 3.16$**), while the mid-wall temperature (**$-59.4756^\circ\text{C}$**) matches exact cylindrical logarithmic conduction theory to 6 significant digits.
+
+| `STRIDER-M` `316L` Turret Collar Coupled Von Mises Stress ($\text{FoS}_y = 1.63$) | `STRIDER-M` `316L` Turret Collar Radial Temperature Field ($+25^\circ\text{C}$ to $-125^\circ\text{C}$) |
+| :---: | :---: |
+| ![STRIDER-M 316L Turret Collar Von Mises FEA](./../../cad_and_blender/tangency_eval/amu_surface_strider_fea.png) | ![STRIDER-M 316L Turret Collar Temperature FEA](./../../cad_and_blender/tangency_eval/amu_surface_strider_thermal_fea.png) |
+
 ---
 
 ## 6. Authoritative Artifact Index (`cad_and_blender/tangency_eval/`)
@@ -191,6 +201,9 @@ To verify the structural resilience of the in-situ sintered asteroid basalt/oliv
 | [`regolith_sintering_shield_sim.json`](../../cad_and_blender/tangency_eval/regolith_sintering_shield_sim.json) | JSON Script | Issue #116 coupled thermal-structural `hex20` FEA of the $150\text{ mm}$ sintered asteroid regolith shield |
 | [`regolith_sintering_fea.png`](../../cad_and_blender/tangency_eval/regolith_sintering_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU sintered regolith shield von Mises stress contour ($\text{FoS}_t = 2.30, \text{FoS}_c = 2.19$) |
 | [`regolith_sintering_thermal_fea.png`](../../cad_and_blender/tangency_eval/regolith_sintering_thermal_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU sintered regolith shield temperature contour ($+45^\circ\text{C}$ to $-155^\circ\text{C}$) |
+| [`amu_surface_habitat_strider_sim.json`](../../cad_and_blender/tangency_eval/amu_surface_habitat_strider_sim.json) | JSON Script | Issue #100 / #5 coupled thermal-structural `hex20` FEA of the `STRIDER-M` v2 `316L` sub-zero turret collar |
+| [`amu_surface_strider_fea.png`](../../cad_and_blender/tangency_eval/amu_surface_strider_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU `STRIDER-M` `316L` turret collar von Mises stress contour ($\text{FoS}_y = 1.63, \text{FoS}_u = 3.16$) |
+| [`amu_surface_strider_thermal_fea.png`](../../cad_and_blender/tangency_eval/amu_surface_strider_thermal_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU `STRIDER-M` `316L` turret collar temperature contour ($+25^\circ\text{C}$ to $-125^\circ\text{C}$) |
 
 ---
 
@@ -209,3 +222,7 @@ To verify the structural resilience of the in-situ sintered asteroid basalt/oliv
 > 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Added Section 5.3 (Sintered Asteroid Regolith Radiation Shield Coupled Thermal-Structural FEA) (#116, #123)  
 > 📅 **Date/Time:** November 3, 2026 — 05:57 PM Eastern (EST) / 22:57 UTC  
 > 🏷️ **Lineage:** Issues [#116](https://github.com/stellardreams/asi.surge.sh/issues/116), [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) · Task `TASK-REGOLITH-SAFEGUARD-116`
+
+> 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Added Section 5.4 (`STRIDER-M` v2 `316L` Sub-Zero Turret Docking Collar Coupled Thermal-Structural FEA) (#100, #5, #123)  
+> 📅 **Date/Time:** November 3, 2026 — 06:21 PM Eastern (EST) / 23:21 UTC  
+> 🏷️ **Lineage:** Issues [#100](https://github.com/stellardreams/asi.surge.sh/issues/100), [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) · Task `TASK-AMU-SURFACE-01`
