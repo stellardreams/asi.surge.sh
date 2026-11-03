@@ -11,25 +11,36 @@
 ```text
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║  ┌──────────────────────────────────────────────────────────────────────┐  ║
-║  │ 🔴 FOCAL TARGET 1: TASK-FEA-SHOWCASE-DOC-05 — FEA & Sentry Showcase  │  ║
+║  │ ⏰ TIMESTAMP: 2026-11-03 18:35 EST / 23:35 UTC                       │  ║
+║  │ 🎯 PRIMARY TARGET: TASK-FEA-SHOWCASE-DOC-05                         │  ║
+║  │    Assignee: AGY (Gemini 3.8 Flash) & @genidma                       │  ║
+║  │    Branch Sync: main & main-dev in sync                              │  ║
+║  │    Active Repo: https://github.com/stellardreams/asi.surge.sh        │  ║
+║  │    Deliverable: amu.html & plans.html multiphysics FEA showcase      │  ║
+║  │    Parent Trackers: #5, #100, #116, #119, #123                       │  ║
+║  │    In-Issue Search String ➡️ : 'Engineering Deliverable Summary — #5' │  ║
+║  │    Focus Scope:                                                      │  ║
+║  │      • Mars–Jupiter, Regolith, STRIDER-M & Manna Vault FEA galleries │  ║
+║  │      • Andy Grove "Only the Paranoid Survive" Bionic Hull Sentry     │  ║
+║  │      • Living blueprint spec cards in plans.html                     │  ║
 ║  └──────────────────────────────────────────────────────────────────────┘  ║
 ╚════════════════════════════════════════════════════════════════════════════╝
-╔════════════════════════════════════════════════════════════════════════════╗
-║  ┌──────────────────────────────────────────────────────────────────────┐  ║
-║  │ 🎯 FOCAL TARGET 2: TASK-SIT-MAP-63 — SIT Graph & plans.html Refresh  │  ║
-║  └──────────────────────────────────────────────────────────────────────┘  ║
-╚════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════╗
+║  ┌───────────────────────────────────────────────┐  ║
+║  │ 🎯 NEXT PRIORITY 1: TASK-SIT-MAP-63           │  ║
+║  └───────────────────────────────────────────────┘  ║
+╚═════════════════════════════════════════════════════╝
 ```
 
-#### 🔴 FOCAL TARGET 1: TASK-FEA-SHOWCASE-DOC-05 — FEA & Sentry Showcase
+#### 🎯 PRIMARY TARGET: TASK-FEA-SHOWCASE-DOC-05
 - **Lineage**: [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) · [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) · [#116](https://github.com/stellardreams/asi.surge.sh/issues/116) · [#119](https://github.com/stellardreams/asi.surge.sh/issues/119) · [#123](https://github.com/stellardreams/asi.surge.sh/issues/123)
 - **In-Issue Search String ➡️** : `'Engineering Deliverable Summary — #5'`
-- **Assignee**: `AGY` (`Gemini 3.8 Flash Low`) & `@genidma`
+- **Assignee**: `AGY` (`Gemini 3.8 Flash`) & `@genidma`
 
-#### 🎯 FOCAL TARGET 2: TASK-SIT-MAP-63 — SIT Graph & plans.html Refresh
+#### 🎯 NEXT PRIORITY 1: TASK-SIT-MAP-63
 - **Lineage**: [#63](https://github.com/stellardreams/asi.surge.sh/issues/63) (`plans.html` & `amu.html` Showcase Reconciliation)
 - **In-Issue Search String ➡️** : `'TASK-SIT-MAP-63'`
-- **Assignee**: `AGY` (`Gemini 3.8 Flash Low`) & `@genidma`
+- **Assignee**: `AGY` (`Gemini 3.8 Flash`) & `@genidma`
 
 ---
 
