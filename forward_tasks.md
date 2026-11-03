@@ -23,6 +23,8 @@
 + ║  │      • Pure Rust CAD/CAE evaluation (Tangency Labs stack)            │  ║
 + ║  │      • Headless CLI, STEP import/export, and MCP agent integration   │  ║
 + ║  │      • Automated FEA structural & thermal verification (L-bracket)   │  ║
++ ║  │      • Map CAD/FEA assets & schema to cad_and_blender/REGISTRY.md    │  ║
++ ║  │      • Formal hand-off package prepared for Argon (Gemini 4 Argon)   │  ║
 + ║  │      • Application to CORA-M links, ZeroClaw, and Manna Machine #119│  ║
 + ║  └──────────────────────────────────────────────────────────────────────┘  ║
 + ╚════════════════════════════════════════════════════════════════════════════╝
