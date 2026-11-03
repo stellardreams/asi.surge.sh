@@ -1,0 +1,140 @@
+[
+  {"command": "model.units", "params": {"system": "mm-t-s-N-MPa"}},
+  {"command": "mesh.block", "params": {
+    "body": "AMUOrbitalHull",
+    "kind": "hex20",
+    "corners": [
+      [5950, 0, 0], [6000, 0, 0], [6000, 2000, 0], [5950, 2000, 0],
+      [0, 0, 5950], [0, 0, 6000], [0, 2000, 6000], [0, 2000, 5950]
+    ],
+    "divisions": [3, 6, 16],
+    "edges": [
+      {"corners": [1, 5], "arc": {"center": [0, 0, 0]}},
+      {"corners": [2, 6], "arc": {"center": [0, 0, 0]}},
+      {"corners": [3, 7], "arc": {"center": [0, 2000, 0]}},
+      {"corners": [4, 8], "arc": {"center": [0, 2000, 0]}}
+    ],
+    "faces": {
+      "1": "equator_sym_face",
+      "2": "zenith_sym_face",
+      "3": "aft_bulkhead_face",
+      "4": "outer_whipple_face",
+      "5": "fwd_docking_face",
+      "6": "inner_hull_face"
+    }
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "hull_body",
+    "geometry": [{"body": "AMUOrbitalHull"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "equator_set",
+    "geometry": [{"body": "AMUOrbitalHull", "face": "equator_sym_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "zenith_set",
+    "geometry": [{"body": "AMUOrbitalHull", "face": "zenith_sym_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "aft_bulkhead_set",
+    "geometry": [{"body": "AMUOrbitalHull", "face": "aft_bulkhead_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "fwd_docking_set",
+    "geometry": [{"body": "AMUOrbitalHull", "face": "fwd_docking_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "outer_whipple_set",
+    "geometry": [{"body": "AMUOrbitalHull", "face": "outer_whipple_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "inner_hull_set",
+    "geometry": [{"body": "AMUOrbitalHull", "face": "inner_hull_face"}]
+  }},
+  {"command": "model.material.create", "params": {
+    "name": "AlLi2195_CryoAlloy",
+    "elastic": {"type": "isotropic", "young": 76000.0, "poisson": 0.33},
+    "density": 2.71e-9,
+    "thermal": {
+      "conductivity": 130.0,
+      "expansion": 2.25e-5,
+      "reference_temperature": 20.0,
+      "specific_heat": 8.8e8
+    }
+  }},
+  {"command": "model.section.create", "params": {
+    "name": "AMUHullSection",
+    "set": "hull_body",
+    "material": "AlLi2195_CryoAlloy",
+    "kind": {"type": "solid"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "AftBulkheadMount",
+    "type": "fixed",
+    "target": {"set": "aft_bulkhead_set"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "EquatorSymmetry",
+    "type": "symmetry",
+    "target": {"set": "equator_set"},
+    "plane": "z"
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "ZenithSymmetry",
+    "type": "symmetry",
+    "target": {"set": "zenith_set"},
+    "plane": "x"
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "DeepSpaceShadowOuter",
+    "type": "temperature",
+    "target": {"set": "outer_whipple_set"},
+    "value": -185.0
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "PressurizedCoreInner",
+    "type": "temperature",
+    "target": {"set": "inner_hull_set"},
+    "value": 20.0
+  }},
+  {"command": "model.load.create", "params": {
+    "name": "InternalHullPressure",
+    "type": "pressure",
+    "set": "inner_hull_set",
+    "magnitude": 0.101325
+  }},
+  {"command": "model.load.create", "params": {
+    "name": "APASDockingAxialThrust",
+    "type": "force",
+    "target": {"set": "fwd_docking_set"},
+    "vector": [0.0, -50000.0, 0.0],
+    "distribution": "total"
+  }},
+  {"command": "model.step.create", "params": {
+    "name": "MarsJupiterThermalCycle",
+    "procedure": {"type": "coupled_temperature_displacement"},
+    "boundary_conditions": [
+      "AftBulkheadMount",
+      "EquatorSymmetry",
+      "ZenithSymmetry",
+      "DeepSpaceShadowOuter",
+      "PressurizedCoreInner"
+    ],
+    "loads": [
+      "InternalHullPressure",
+      "APASDockingAxialThrust"
+    ]
+  }},
+  {"command": "solve.static", "params": {"step": "MarsJupiterThermalCycle"}},
+  {"command": "solve.probe", "params": {
+    "step": "MarsJupiterThermalCycle",
+    "at": [
+      [5950.0, 1000.0, 0.0],
+      [5975.0, 1000.0, 0.0],
+      [6000.0, 1000.0, 0.0],
+      [0.0, 2000.0, 5975.0]
+    ]
+  }},
+  {"command": "results.deformed", "params": {"step": "MarsJupiterThermalCycle", "show": true, "scale": "auto"}},
+  {"command": "results.contour", "params": {"step": "MarsJupiterThermalCycle", "field": "von_mises", "bands": 12}}
+]

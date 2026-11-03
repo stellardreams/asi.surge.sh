@@ -142,6 +142,19 @@ To close the engineering verification loop on `TASK-EARTHEN-HABITAT-119` ([Issue
 
 ---
 
+### 5.2 Coupled Mars–Jupiter Corridor Thermal-Structural FEA: AMU Orbital Hull ([Issue #5](https://github.com/stellardreams/asi.surge.sh/issues/5))
+
+To verify the structural resilience of the **AMU Orbital MMS Hull** under Mars–Jupiter Main Belt ($2.2\text{--}3.3\text{ AU}$) eclipse thermal cycling (`TASK-AMU-ORBITAL-01`, [`plans/plan-amu-orbital.md`](../../plans/plan-amu-orbital.md) §2.4), FieldCraft `v0.7.0` solved [`amu_orbital_mars_jupiter_sim.json`](../../cad_and_blender/tangency_eval/amu_orbital_mars_jupiter_sim.json) (`288` curved `hex20` elements, `1,689` nodes, `5,067` DOFs):
+* **Geometry & Material (`AlLi2195_CryoAlloy`)**: $90^\circ$ cylindrical quarter-sector ($R_{\text{in}} = 5{,}950\text{ mm}, R_{\text{out}} = 6{,}000\text{ mm}, t = 50\text{ mm}, L_y = 2{,}000\text{ mm}$) with $E = 76{,}000\text{ MPa}, \nu = 0.33, k = 130\text{ W/(m}\cdot\text{K)}, \alpha = 2.25 \times 10^{-5}\text{ K}^{-1}$, cryogenic yield strength $\sigma_{y,\text{cryo}} = 560\text{ MPa}$.
+* **Coupled Boundary Conditions & Loads**: Outer Whipple skin at $T_{\text{ext}} = -185.0^\circ\text{C}$ ($88\text{ K}$); inner pressurized core wall at $T_{\text{int}} = +20.0^\circ\text{C}$ ($293\text{ K}, \Delta T = 205.0\text{ K}$) + $101.325\text{ kPa}$ ($1\text{ atm}$) internal pressure + $50.0\text{ kN}$ axial APAS-95 docking thrust.
+* **Solved Results**: Mid-wall temperature **$-82.71^\circ\text{C}$** ($190.4\text{ K}$); neutral mid-surface stress **$7.11\text{ MPa}$**; mid-span inner/outer skin von Mises stress **$239.87\text{ / }229.97\text{ MPa}$** (**$\text{FoS}_{\text{skin}} = 2.33$**); aft bulkhead clamped root peak **$438.44\text{ MPa}$** (**$\text{FoS}_{\text{root}} = 1.28 > 1.10\text{ NASA-STD-5001B}$**).
+
+| AMU Orbital Hull Coupled Von Mises Stress ($\text{FoS}_{\text{skin}} = 2.33$) | AMU Orbital Hull Mars–Jupiter Temperature Field ($-185^\circ\text{C}$ to $+20^\circ\text{C}$) |
+| :---: | :---: |
+| ![AMU Orbital Hull Von Mises FEA](./../../cad_and_blender/tangency_eval/amu_orbital_fea.png) | ![AMU Orbital Hull Temperature FEA](./../../cad_and_blender/tangency_eval/amu_orbital_thermal_fea.png) |
+
+---
+
 ## 6. Authoritative Artifact Index (`cad_and_blender/tangency_eval/`)
 
 | Artifact Path | Format | Role & Description |
@@ -159,6 +172,9 @@ To close the engineering verification loop on `TASK-EARTHEN-HABITAT-119` ([Issue
 | [`manna_vault_thermal_structural_sim.json`](../../cad_and_blender/tangency_eval/manna_vault_thermal_structural_sim.json) | JSON Script | Issue #119 coupled thermal-structural `hex20` FEA of the $550\text{ mm}$ Manna Machine earthen vault |
 | [`manna_vault_fea.png`](../../cad_and_blender/tangency_eval/manna_vault_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU transmembrane temperature contour ($-45^\circ\text{C}$ to $+18^\circ\text{C}$) |
 | [`manna_vault_von_mises_fea.png`](../../cad_and_blender/tangency_eval/manna_vault_von_mises_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU coupled thermo-elastic + gravity von Mises stress contour ($\text{FoS} = 4.88$) |
+| [`amu_orbital_mars_jupiter_sim.json`](../../cad_and_blender/tangency_eval/amu_orbital_mars_jupiter_sim.json) | JSON Script | Issue #5 coupled Mars–Jupiter thermal-structural `hex20` FEA of the Al-Li 2195 AMU Orbital Hull |
+| [`amu_orbital_fea.png`](../../cad_and_blender/tangency_eval/amu_orbital_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU AMU Orbital Hull von Mises stress contour ($\text{FoS}_{\text{skin}} = 2.33$) |
+| [`amu_orbital_thermal_fea.png`](../../cad_and_blender/tangency_eval/amu_orbital_thermal_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU AMU Orbital Hull transmembrane temperature contour ($-185^\circ\text{C}$ to $+20^\circ\text{C}$) |
 
 ---
 
@@ -169,3 +185,7 @@ To close the engineering verification loop on `TASK-EARTHEN-HABITAT-119` ([Issue
 > 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Completed Full Experiment A/B/C Verification, Resolved `solidcraft/21` Native CAD-to-FEA Bridge, Achieved 99.996% `hex20` Convergence, and Executed Coupled Thermal-Structural FEA for The New Manna Machine (#123, #119)  
 > 📅 **Date/Time:** November 3, 2026 — 05:00 PM Eastern (EST) / 22:00 UTC  
 > 🏷️ **Lineage:** Issues [#123](https://github.com/stellardreams/asi.surge.sh/issues/123), [#119](https://github.com/stellardreams/asi.surge.sh/issues/119) · Tasks `TASK-SIM-INVESTIGATION-123`, `TASK-EARTHEN-HABITAT-119`
+
+> 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Added Section 5.2 (AMU Orbital Hull Mars–Jupiter Corridor Coupled Thermal-Structural FEA) (#5, #123)  
+> 📅 **Date/Time:** November 3, 2026 — 05:25 PM Eastern (EST) / 22:25 UTC  
+> 🏷️ **Lineage:** Issues [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) · Task `TASK-AMU-ORBITAL-01`

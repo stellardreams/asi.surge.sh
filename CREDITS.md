@@ -30,8 +30,8 @@ This document serves as the authoritative, permanent record of recognition for a
 ---
 
 ## 🤖 Agentic AI Pair-Programmers & Autonomous Contributors
-- **Antigravity (Gemini 3.8 Flash Low & Pro)** — Core pair programming agent, kinematics derivation, FreeCAD/OpenSCAD parametric automation, CI/CD pipeline authoring, and repository governance enforcement.
-- **Argon (Gemini 3.8)** — Co-architect for the standalone Modular Arctic Wind repository extraction and multi-model release synthesis.
+- **Antigravity (Gemini 3.8 Flash Low & Pro)** — Core pair programming agent, kinematics derivation, FreeCAD/OpenSCAD parametric automation (including **The New Manna Machine `v1.0`** in #119), strategic roadmap & food security architecture (#117, #118), CI/CD & supply-chain security hardening, and repository governance enforcement.
+- **Argon (Gemini 4 Argon & Gemini 3.8 via Google Antigravity)** — Lead multiphysics FEA & continuum mechanics co-collaborator (Pure-Rust **SolidCraft + FieldCraft** `hex20`/`tet10` verification in #123, Sub-Zero Potassium-Silicate Geopolymer Coupled Vault FEA in #119, and **AMU Orbital Blueprint** + MIL-STD-461G Cryogenic Umbilical + Mars–Jupiter Main Belt Coupled FEA in #5), and co-architect for the standalone Modular Arctic Wind repository extraction.
 - **GPT-6.1 Sol / GPT-6 Astra / GLM-5.3-Flash** — Co-authors and verifiers for external stewardship talent documentation via PR #114.
 - **Kilo & NVIDIA Nemotron-3** — Authors of initial space flourishing framework synthesis ([`plans/SPACE_FLOURISHING_FRAMEWORK.md`](plans/SPACE_FLOURISHING_FRAMEWORK.md)).
 

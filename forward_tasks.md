@@ -11,34 +11,29 @@
 ```diff
 + ╔════════════════════════════════════════════════════════════════════════════╗
 + ║  ┌──────────────────────────────────────────────────────────────────────┐  ║
-+ ║  │ ⏰ TIMESTAMP: 2026-11-03 17:04 EST / 22:04 UTC                       │  ║
-+ ║  │ 📌 PRIMARY TARGET: TASK-AMU-ORBITAL-01                               │  ║
++ ║  │ ⏰ TIMESTAMP: 2026-11-03 17:25 EST / 22:25 UTC                       │  ║
++ ║  │ 📌 PRIMARY TARGET: TASK-REGOLITH-SAFEGUARD-116                       │  ║
 + ║  │    Assignee: @genidma, Argon & AGY                                   │  ║
 + ║  │    Branch Sync: main-dev active                                      │  ║
 + ║  │    Active Repo: https://github.com/stellardreams/asi.surge.sh        │  ║
-+ ║  │    Deliverable: plans/plan-amu-orbital.md                            │  ║
-+ ║  │    Parent Tracker: #5 (AMU Orbital Manufacturing Blueprint)          │  ║
-+ ║  │    In-Issue Search String ➡️ : 'TASK-AMU-ORBITAL-01'                 │  ║
++ ║  │    Deliverable: plans/plan-regolith-self-replication-safeguard.md    │  ║
++ ║  │    Parent Tracker: #116 (AMU Regolith Self-Replication & Step 0 Gate)│  ║
++ ║  │    In-Issue Search String ➡️ : 'TASK-REGOLITH-SAFEGUARD-116'         │  ║
 + ║  │    Focus Scope:                                                      │  ║
-+ ║  │      • Autonomous in-space truss fabrication & electron-beam welding │  ║
-+ ║  │      • Modular CORA-M quick-disconnect toolhead changer architecture │  ║
-+ ║  │      • Microgravity solar/induction metallurgy & slag separation     │  ║
-+ ║  │      • MIL-STD-461G 360° braided cryogenic umbilical harness spec    │  ║
++ ║  │      • Step 0 Mandatory Pre-Gate: Astrobiological Lifeform Intercept │  ║
++ ║  │      • Non-thermal multi-spectral & chiral biosignature screening    │  ║
++ ║  │      • Vacuum carbothermal reduction & solar/microwave sintering     │  ║
++ ║  │      • Closed-loop von Neumann self-replication governance boundary  │  ║
 + ║  └──────────────────────────────────────────────────────────────────────┘  ║
 + ╚════════════════════════════════════════════════════════════════════════════╝
 + ╔═════════════════════════════════════════════════════╗
 + ║  ┌───────────────────────────────────────────────┐  ║
-+ ║  │ 🎯 NEXT PRIORITY 1: TASK-REGOLITH-SAFEGUARD-116│  ║
++ ║  │ 🎯 NEXT PRIORITY 1: TASK-AMU-SURFACE-01       │  ║
 + ║  └───────────────────────────────────────────────┘  ║
 + ╚═════════════════════════════════════════════════════╝
 + ╔═════════════════════════════════════════════════════╗
 + ║  ┌───────────────────────────────────────────────┐  ║
-+ ║  │ 🎯 NEXT PRIORITY 2: TASK-AMU-SURFACE-01       │  ║
-+ ║  └───────────────────────────────────────────────┘  ║
-+ ╚═════════════════════════════════════════════════════╝
-+ ╔═════════════════════════════════════════════════════╗
-+ ║  ┌───────────────────────────────────────────────┐  ║
-+ ║  │ 🎯 NEXT PRIORITY 3: TASK-SIT-MAP-63           │  ║
++ ║  │ 🎯 NEXT PRIORITY 2: TASK-SIT-MAP-63           │  ║
 + ║  └───────────────────────────────────────────────┘  ║
 + ╚═════════════════════════════════════════════════════╝
 ```
@@ -49,10 +44,10 @@
 
 | Priority | Task ID | Description | Status | Target |
 | :---: | :--- | :--- | :---: | :--- |
-| 🥇 | **TASK-AMU-ORBITAL-01** | AMU Orbital manufacturing & in-space automated assembly architectural specification | 🟢 `ACTIVE` | `plans/plan-amu-orbital.md` / [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) |
-| 🥈 | **TASK-REGOLITH-SAFEGUARD-116**| AMU Self-Replication Protocol: In-Situ Asteroid Regolith Manufacturing & Step 0 Safeguard | 🟡 `QUEUED` | [#116](https://github.com/stellardreams/asi.surge.sh/issues/116) / `plans/` |
-| 🥉 | **TASK-AMU-SURFACE-01** | AMU-Surface habitat modules, regolith utilization & STRIDER-M transporter integration | 🟡 `QUEUED` | `plans/plan-amu-surface.md` / [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) |
-| 4️⃣ | **TASK-SIT-MAP-63** | Map high-level SIT governance and requirements graph to concrete plans and website `plans.html` | 🟡 `QUEUED` | [#63](https://github.com/stellardreams/asi.surge.sh/issues/63) / `plans.html` |
+| 🥇 | **TASK-REGOLITH-SAFEGUARD-116**| AMU Self-Replication Protocol: In-Situ Asteroid Regolith Manufacturing & Step 0 Safeguard | 🟢 `ACTIVE` | [#116](https://github.com/stellardreams/asi.surge.sh/issues/116) / `plans/` |
+| 🥈 | **TASK-AMU-SURFACE-01** | AMU-Surface habitat modules, regolith utilization & STRIDER-M transporter integration | 🟡 `QUEUED` | `plans/plan-amu-surface.md` / [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) |
+| 🥉 | **TASK-SIT-MAP-63** | Map high-level SIT governance and requirements graph to concrete plans and website `plans.html` | 🟡 `QUEUED` | [#63](https://github.com/stellardreams/asi.surge.sh/issues/63) / `plans.html` |
+| 4️⃣ | **TASK-AMU-ORBITAL-01** | AMU Orbital manufacturing, MIL-STD-461G cryo umbilicals & Mars–Jupiter coupled FEA delivered | 🏁 `DONE` | [`plans/plan-amu-orbital.md`](plans/plan-amu-orbital.md) / [#5](https://github.com/stellardreams/asi.surge.sh/issues/5) |
 | 5️⃣ | **TASK-EARTHEN-HABITAT-119** | 🏺 The New Manna Machine (Form Earth + Shangrila-VHP #45 + Sub-Zero Geopolymer FEA) | 🏁 `DONE` | [#119](https://github.com/stellardreams/asi.surge.sh/issues/119) / [`plans/plan-earthen-bio-habitats.md`](plans/plan-earthen-bio-habitats.md) |
 | 6️⃣ | **TASK-SIM-INVESTIGATION-123** | SolidCraft + FieldCraft pure-Rust CAD/CAE evaluation & Argon verification delivered | 🏁 `DONE` | [`docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md`](docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md) / [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) |
 | 7️⃣ | **TASK-FOOD-SECURITY-118** | Global Food Security master umbrella architecture specification delivered | 🏁 `DONE` | `plans/plan-food-security.md` / [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) |
@@ -63,6 +58,7 @@
 
 ### 🏆 Recently Completed Milestones
 
+- [x] **AMU Orbital Manufacturing Blueprint & Mars–Jupiter Coupled FEA Delivered (`TASK-AMU-ORBITAL-01`)**: Authored [`plans/plan-amu-orbital.md`](plans/plan-amu-orbital.md) specifying the four-module orbital facility (Module I Autonomous Foundry & $3\text{ K}$ Radiative Flash-Freeze Vitrification, Module II Zero-Boil-Off Cryo Tank Farm & MIL-STD-461G 360° braided cryogenic umbilicals with iris/cone EMC compression glands, Module III Bioreactor Array, and Module IV $0.3\text{--}1.0g$ Variable-Gravity Habitat Ring with permanent purpose-segregation air-gap & FAA/FDA oversight), the $2\tau_{\text{OWLT}}$ Speed-of-Light Latency Blind-Spot Risk Registry, the Andy Grove Bionic Hull Sentry Daemon, and the Wikinomics `AbundanceDividend` model. Executed the Mars–Jupiter Main Belt Corridor coupled thermal-structural FEA in FieldCraft `v0.7.0` (`amu_orbital_mars_jupiter_sim.json`: $50\text{ mm}$ Al-Li 2195-T8 hull under $\Delta T = 205\text{ K}$ eclipse shock + $1\text{ atm}$ + $50\text{ kN}$ docking thrust; mid-wall $T = -82.71^\circ\text{C}$, mid-span skin $\sigma_{\text{vM}} = 239.87\text{ MPa}$ ($\text{FoS}=2.33$), aft root $\sigma_{\text{vM}} = 438.44\text{ MPa}$ ($\text{FoS}=1.28$)) and updated [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md) per #101. Issue #5 kept OPEN pending review. ✅
 - [x] **The New Manna Machine Sub-Zero Geopolymer Binder & Coupled FEA Delivered (`TASK-EARTHEN-HABITAT-119`)**: Specified potassium-silicate alkali-activated aluminosilicate geopolymer binder chemistry ($\text{K}_2\text{SiO}_3 + 8\text{ M KOH} + \text{CaAl}_2\text{O}_4$, liquidus depressed to $-22^\circ\text{C}$, $18.5\text{ MPa}$ 7-day sub-zero cure) and solved coupled steady-state thermal conduction ($-45^\circ\text{C}$ Arctic exterior to $+18^\circ\text{C}$ interior polyculture core) + gravity + $15\text{ kPa}$ snow overburden on the $550\text{ mm}$ catenary vault arch in FieldCraft `v0.7.0` (`manna_vault_thermal_structural_sim.json`, mid-wall $T = -15.06^\circ\text{C}$, crown $\delta_z = -1.175\text{ mm}$, peak foundation toe stress $\sigma_{\text{vM,max}} = 3.79\text{ MPa}, \text{FoS} = 4.88$). Updated [`plans/plan-earthen-bio-habitats.md`](plans/plan-earthen-bio-habitats.md) Section 6 and registered Section 4.3 in [`cad_and_blender/REGISTRY.md`](cad_and_blender/REGISTRY.md). Issue #119 kept OPEN pending review. ✅
 - [x] **SolidCraft + FieldCraft CAD/CAE Evaluation & Argon Verification Delivered (`TASK-SIM-INVESTIGATION-123`)**: Completed full Experiment A/B/C verification in [`docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md`](docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md): parametric Aluminium L-Bracket ($100 \times 50 \times 5\text{ mm}$ with $R=4\text{ mm}$ inner fillet and $2\times \varnothing 8\text{ mm}$ mounting holes), `solidcraft/21` native CAD-to-FEA container bridge (`test_bracket_v21.solidcraft`), $10{,}837\text{ tet10}$ bracket stress FEA ($\sigma_{\text{vM,fillet}} = 141.65\text{ MPa}$), and 80-element quadratic `hex20` cantilever beam benchmark ($99.996\%$ Euler-Bernoulli convergence). Issue #123 kept OPEN pending review. ✅
 
@@ -84,10 +80,10 @@
 
 | ID | Task Description | Scope / Context | Parent / Origin | Status |
 |:---|:---|:---|:---|:---|
-| 🔄 **TASK-AMU-ORBITAL-01** | **AMU Orbital Manufacturing Architecture** | Formulate autonomous in-space fabrication, beam welding, toolhead changer, microgravity metallurgy, and MIL-STD-461G 360° braided cryogenic umbilical harness specifications. | • Tracked in: [#5](https://github.com/stellardreams/asi.surge.sh/issues/5)<br>• Target: `plans/plan-amu-orbital.md` | 🟢 `ACTIVE` |
-| 🔄 **TASK-REGOLITH-SAFEGUARD-116**| **AMU Regolith Self-Replication & Step 0 Gate** | Define asteroid regolith vacuum refining/sintering and astrobiological lifeform intercept roadblock state machines. | • Tracked in: [#116](https://github.com/stellardreams/asi.surge.sh/issues/116)<br>• Target: `plans/` | 🟡 `QUEUED` |
+| 🔄 **TASK-REGOLITH-SAFEGUARD-116**| **AMU Regolith Self-Replication & Step 0 Gate** | Define asteroid regolith vacuum refining/sintering and astrobiological lifeform intercept roadblock state machines. | • Tracked in: [#116](https://github.com/stellardreams/asi.surge.sh/issues/116)<br>• Target: `plans/` | 🟢 `ACTIVE` |
 | 🔄 **TASK-AMU-SURFACE-01** | **AMU-Surface Habitat Modules** | Define pressurized surface modules, regolith sintering / shielding shells, airlock interfaces, STRIDER-M sub-zero deck latches, and extreme NEMA 4X / IP68 enclosures. | • Parent Trackers: [#97](https://github.com/stellardreams/asi.surge.sh/issues/97) (Closed), [#100](https://github.com/stellardreams/asi.surge.sh/issues/100) (Open)<br>• Target: `plans/plan-amu-surface.md` | 🟡 `QUEUED` |
 | 🔄 **TASK-SIT-MAP-63** | **SIT High-Level Graph Reconciliation** | Re-link graph nodes to targeted plan files and update the live website's `plans.html` showcase. | • Tracked in: [#63](https://github.com/stellardreams/asi.surge.sh/issues/63)<br>• Target: `plans.html` & `plans/` | 🟡 `QUEUED` |
+| 🏁 **TASK-AMU-ORBITAL-01** | **AMU Orbital Manufacturing Architecture** | Autonomous in-space fabrication, beam welding, toolhead changer, microgravity metallurgy, MIL-STD-461G 360° braided cryogenic umbilical harness, and Mars–Jupiter coupled FEA delivered. | • Tracked in: [#5](https://github.com/stellardreams/asi.surge.sh/issues/5)<br>• Target: [`plans/plan-amu-orbital.md`](plans/plan-amu-orbital.md) | 🏁 `DONE` |
 | 🏁 **TASK-EARTHEN-HABITAT-119** | **🏺 The New Manna Machine (Earthen Bio-Habitats)** | Dual-tier rammed earth (Form Earth) + self-replicating adobe printer (Shangrila-VHP #45) + AMU polyculture shell + sub-zero potassium-silicate geopolymer coupled FEA delivered. | • Tracked in: [#119](https://github.com/stellardreams/asi.surge.sh/issues/119)<br>• Parent: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118) | 🏁 `DONE` |
 | 🏁 **TASK-SIM-INVESTIGATION-123** | **SolidCraft + FieldCraft CAD/CAE Evaluation** | Pure-Rust CAD/CAE evaluation (Tangency Labs), Experiment A/B/C verification, `solidcraft/21` bridge, `hex20`/`tet10` FEA benchmarks, and MCP automation delivered. | • Tracked in: [#123](https://github.com/stellardreams/asi.surge.sh/issues/123)<br>• Target: `docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md` | 🏁 `DONE` |
 | 🏁 **TASK-FOOD-SECURITY-118** | **Global Food Security & Terrestrial AMU** | Coordinate high-latitude food sovereignty (Nunavut #1) and rapid crisis nutrition deployment (DRC, WFP). | • Tracked in: [#118](https://github.com/stellardreams/asi.surge.sh/issues/118)<br>• Child: [#1](https://github.com/stellardreams/asi.surge.sh/issues/1) | 🏁 `DONE` |
@@ -110,13 +106,16 @@ graph TD
     I118 --> I01["#1 Nunavut Food Sovereignty [CHILD]"]
     I118 --> I119["#119 Earthen Bio-Habitats & Geopolymer FEA [DELIVERED]"]
 
-    I05["#5 AMU Architecture (Physical Blueprint)"] --> O01["TASK-AMU-ORBITAL-01 AMU Orbital Mfg [ACTIVE]"]
+    I05["#5 AMU Architecture (Physical Blueprint)"] --> O01["TASK-AMU-ORBITAL-01 AMU Orbital Mfg & Cryo FEA [DONE]"]
+    I05 --> R116["#116 TASK-REGOLITH-SAFEGUARD-116 Regolith & Step 0 [ACTIVE]"]
     I97["#97 / #100 AMU-Surface & STRIDER-M"] --> S01["TASK-AMU-SURFACE-01 AMU Surface Habitats [QUEUED]"]
     I63 --> M63["TASK-SIT-MAP-63 Graph & Website plans.html [QUEUED]"]
     
     T123 --> I119
+    T123 --> O01
     T123 --> V140["Release v1.4.0 Core Infrastructure Target"]
     O01 --> V140
+    R116 --> V140
     S01 --> V140
     I117 --> V140
     I118 --> V140
@@ -131,7 +130,9 @@ graph TD
     class I123 done;
     class T123 done;
     class I119 done;
-    class O01 active;
+    class I05 done;
+    class O01 done;
+    class R116 active;
     class S01 queued;
     class I117 done;
     class I118 done;
