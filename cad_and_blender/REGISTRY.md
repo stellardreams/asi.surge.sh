@@ -249,7 +249,28 @@ Containerized Arctic wind turbine system designed for deployment without heavy c
 
 ---
 
-## 6. Promotion & Archival Policy
+## 6. Emerging Simulation & Computational CAD Pipeline (SolidCraft + FieldCraft)
+
+> **Governing Issue:** [#123](https://github.com/stellardreams/asi.surge.sh/issues/123)  
+> **Evaluation Report:** [`docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md`](../docs/tech_guide/SOLID_AND_FIELD_CRAFT_EVALUATION.md)  
+> **Primary Hand-Off:** Assigned to **Argon (Gemini 4 Argon)** for multi-model verification and rendering pipeline integration.
+
+In addition to traditional FreeCAD 1.0 and OpenSCAD modeling pipelines, the repository maintains evaluation benchmarks for pure-Rust parametric CAD and multiphysics finite element simulation:
+
+| Specification Field | Technical Details |
+| :--- | :--- |
+| **Parametric 3D CAD** | **SolidCraft v0.30.1** (Tangency Labs)<br>• Command-line scripting: [`bracket_script.json`](./tangency_eval/bracket_script.json)<br>• Native AP242 STEP Solid: [`test_bracket.step`](./tangency_eval/test_bracket.step)<br>• Native Model File: [`test_bracket.sc`](./tangency_eval/test_bracket.sc)<br>• Still Render ($1280 \times 800$): [`test_bracket.png`](./tangency_eval/test_bracket.png) |
+| **Multiphysics CAE / FEA** | **FieldCraft v0.7.0** (Tangency Labs)<br>• Verified Cantilever Hex8 Mesh Script: [`cant_beam_fine.json`](./tangency_eval/cant_beam_fine.json) (640 elements, 1025 nodes)<br>• VTK XML Unstructured Grid Dataset: [`cantilever_fine.vtu`](./tangency_eval/cantilever_fine.vtu)<br>• Von Mises Stress Contour Still: [`cantilever_fea.png`](./tangency_eval/cantilever_fea.png) |
+| **Convergence Accuracy** | $95.76\%$ convergence vs. Timoshenko analytical beam theory ($\delta_{\text{FEA}} = -1.838\text{ mm}$ vs. $\delta_{\text{analytical}} = -1.920\text{ mm}$) at sub-20ms solve times. |
+| **AI Agent Interfaces** | Built-in Model Context Protocol (MCP) servers (`solidcraft-cli mcp --headless` & `fieldcraft-cli mcp --headless`) enabling automated generative CAD sweeps and stress optimization. |
+
+| SolidCraft Headless GPU Render (`v0.30.1`) | FieldCraft Von Mises FEA Contour (`v0.7.0`) |
+| :---: | :---: |
+| ![SolidCraft Bracket Render](./tangency_eval/test_bracket.png) | ![FieldCraft Cantilever FEA](./tangency_eval/cantilever_fea.png) |
+
+---
+
+## 7. Promotion & Archival Policy
 
 1. **Immutable Historical Records**:
    - `wind/v1.0` (two-phase thermal sail) is archived in [`../_z_archives/cad/openscad/wind/archive/v1.0/`](../_z_archives/cad/openscad/wind/archive/v1.0/) and must not be modified.

@@ -1,0 +1,12 @@
+[
+  {
+    "command": "geometry.open",
+    "params": {
+      "path": "test_bracket.sc"
+    }
+  },
+  {
+    "command": "geometry.bodies",
+    "params": {}
+  }
+]
