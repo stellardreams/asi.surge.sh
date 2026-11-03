@@ -1,0 +1,133 @@
+[
+  {"command": "model.units", "params": {"system": "mm-t-s-N-MPa"}},
+  {"command": "mesh.block", "params": {
+    "body": "RegolithSinteredShield",
+    "kind": "hex20",
+    "corners": [
+      [6050, 0, 0], [6200, 0, 0], [6200, 1500, 0], [6050, 1500, 0],
+      [0, 0, 6050], [0, 0, 6200], [0, 1500, 6200], [0, 1500, 6050]
+    ],
+    "divisions": [3, 6, 16],
+    "edges": [
+      {"corners": [1, 5], "arc": {"center": [0, 0, 0]}},
+      {"corners": [2, 6], "arc": {"center": [0, 0, 0]}},
+      {"corners": [3, 7], "arc": {"center": [0, 1500, 0]}},
+      {"corners": [4, 8], "arc": {"center": [0, 1500, 0]}}
+    ],
+    "faces": {
+      "1": "equator_sym_face",
+      "2": "zenith_sym_face",
+      "3": "aft_trunnion_face",
+      "4": "outer_regolith_face",
+      "5": "fwd_mating_face",
+      "6": "inner_shield_face"
+    }
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "shield_body",
+    "geometry": [{"body": "RegolithSinteredShield"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "equator_set",
+    "geometry": [{"body": "RegolithSinteredShield", "face": "equator_sym_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "zenith_set",
+    "geometry": [{"body": "RegolithSinteredShield", "face": "zenith_sym_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "aft_trunnion_set",
+    "geometry": [{"body": "RegolithSinteredShield", "face": "aft_trunnion_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "fwd_mating_set",
+    "geometry": [{"body": "RegolithSinteredShield", "face": "fwd_mating_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "outer_regolith_set",
+    "geometry": [{"body": "RegolithSinteredShield", "face": "outer_regolith_face"}]
+  }},
+  {"command": "model.set.create", "params": {
+    "name": "inner_shield_set",
+    "geometry": [{"body": "RegolithSinteredShield", "face": "inner_shield_face"}]
+  }},
+  {"command": "model.material.create", "params": {
+    "name": "SinteredAsteroidBasalt_FeNiComposite",
+    "elastic": {"type": "isotropic", "young": 78000.0, "poisson": 0.24},
+    "density": 2.95e-9,
+    "thermal": {
+      "conductivity": 2.15,
+      "expansion": 7.8e-6,
+      "reference_temperature": 20.0,
+      "specific_heat": 8.4e8
+    }
+  }},
+  {"command": "model.section.create", "params": {
+    "name": "RegolithShieldSection",
+    "set": "shield_body",
+    "material": "SinteredAsteroidBasalt_FeNiComposite",
+    "kind": {"type": "solid"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "AftTrunnionMount",
+    "type": "fixed",
+    "target": {"set": "aft_trunnion_set"}
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "EquatorSymmetry",
+    "type": "symmetry",
+    "target": {"set": "equator_set"},
+    "plane": "z"
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "ZenithSymmetry",
+    "type": "symmetry",
+    "target": {"set": "zenith_set"},
+    "plane": "x"
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "DeepSpaceShadowOuter",
+    "type": "temperature",
+    "target": {"set": "outer_regolith_set"},
+    "value": -155.0
+  }},
+  {"command": "model.boundary_condition.create", "params": {
+    "name": "RadiatorInterfaceInner",
+    "type": "temperature",
+    "target": {"set": "inner_shield_set"},
+    "value": 45.0
+  }},
+  {"command": "model.load.create", "params": {
+    "name": "CORAMLatchPreload",
+    "type": "force",
+    "target": {"set": "fwd_mating_set"},
+    "vector": [0.0, -25000.0, 0.0],
+    "distribution": "total"
+  }},
+  {"command": "model.step.create", "params": {
+    "name": "RegolithShieldThermalCycle",
+    "procedure": {"type": "coupled_temperature_displacement"},
+    "boundary_conditions": [
+      "AftTrunnionMount",
+      "EquatorSymmetry",
+      "ZenithSymmetry",
+      "DeepSpaceShadowOuter",
+      "RadiatorInterfaceInner"
+    ],
+    "loads": [
+      "CORAMLatchPreload"
+    ]
+  }},
+  {"command": "solve.static", "params": {"step": "RegolithShieldThermalCycle"}},
+  {"command": "solve.probe", "params": {
+    "step": "RegolithShieldThermalCycle",
+    "at": [
+      [6050.0, 750.0, 0.0],
+      [6125.0, 750.0, 0.0],
+      [6200.0, 750.0, 0.0],
+      [0.0, 1500.0, 6125.0]
+    ]
+  }},
+  {"command": "results.deformed", "params": {"step": "RegolithShieldThermalCycle", "show": true, "scale": "auto"}},
+  {"command": "results.contour", "params": {"step": "RegolithShieldThermalCycle", "field": "von_mises", "bands": 12}}
+]

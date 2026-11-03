@@ -155,6 +155,19 @@ To verify the structural resilience of the **AMU Orbital MMS Hull** under Mars�
 
 ---
 
+### 5.3 Coupled Thermal-Structural FEA: Sintered Asteroid Regolith Radiation Shield ([Issue #116](https://github.com/stellardreams/asi.surge.sh/issues/116))
+
+To verify the structural resilience of the in-situ sintered asteroid basalt/olivine radiation-shielding sectors (`TASK-REGOLITH-SAFEGUARD-116`, [`plans/plan-regolith-self-replication-safeguard.md`](../../plans/plan-regolith-self-replication-safeguard.md) §6), FieldCraft `v0.7.0` solved [`regolith_sintering_shield_sim.json`](../../cad_and_blender/tangency_eval/regolith_sintering_shield_sim.json) (`288` curved `hex20` elements, `1,689` nodes, `5,067` DOFs):
+* **Geometry & Composite Material (`SinteredAsteroidBasalt_FeNiComposite`)**: $60^\circ$ cylindrical shield sector ($R_{\text{in}} = 6{,}050\text{ mm}, R_{\text{out}} = 6{,}200\text{ mm}, t = 150\text{ mm}, L_y = 1{,}500\text{ mm}$) reinforced with $8\text{ wt}\%$ Mond carbonyl-refined $\text{Fe-Ni}$ micro-fibers ($E = 78{,}000\text{ MPa}, \nu = 0.24, k = 2.15\text{ W/(m}\cdot\text{K)}, \alpha = 7.8 \times 10^{-6}\text{ K}^{-1}$, $\sigma_{c,\text{ult}} = 320.0\text{ MPa}$, $\sigma_{t,\text{cermet}} = 185.0\text{ MPa}$).
+* **Coupled Boundary Conditions & Loads**: Inner face at $T_{\text{in}} = +45.0^\circ\text{C}$ ($318.15\text{ K}$, radiator annulus); outer deep-space face at $T_{\text{out}} = -155.0^\circ\text{C}$ ($118.15\text{ K}, \Delta T = 200.0\text{ K}$) + $-25.0\text{ kN}$ axial `CORA-M` robotic latch preload.
+* **Solved Results**: Mid-wall temperature **$-55.6125^\circ\text{C}$** ($217.54\text{ K}$, matching exact cylindrical log-conduction to 7 digits); mid-wall neutral surface stress **$23.39\text{ MPa}$**; cold extrados tensile hoop stress **$80.58\text{ MPa}$** (**$\text{FoS}_t = 2.30$** with carbonyl $\text{Fe-Ni}$ fiber reinforcement); aft trunnion clamped root peak **$146.09\text{ MPa}$** (**$\text{FoS}_c = 2.19$**).
+
+| Sintered Regolith Shield Coupled Von Mises Stress ($\text{FoS}_t = 2.30$) | Sintered Regolith Shield Radial Temperature Field ($+45^\circ\text{C}$ to $-155^\circ\text{C}$) |
+| :---: | :---: |
+| ![Regolith Sintered Shield Von Mises FEA](./../../cad_and_blender/tangency_eval/regolith_sintering_fea.png) | ![Regolith Sintered Shield Temperature FEA](./../../cad_and_blender/tangency_eval/regolith_sintering_thermal_fea.png) |
+
+---
+
 ## 6. Authoritative Artifact Index (`cad_and_blender/tangency_eval/`)
 
 | Artifact Path | Format | Role & Description |
@@ -175,6 +188,9 @@ To verify the structural resilience of the **AMU Orbital MMS Hull** under Mars�
 | [`amu_orbital_mars_jupiter_sim.json`](../../cad_and_blender/tangency_eval/amu_orbital_mars_jupiter_sim.json) | JSON Script | Issue #5 coupled Mars–Jupiter thermal-structural `hex20` FEA of the Al-Li 2195 AMU Orbital Hull |
 | [`amu_orbital_fea.png`](../../cad_and_blender/tangency_eval/amu_orbital_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU AMU Orbital Hull von Mises stress contour ($\text{FoS}_{\text{skin}} = 2.33$) |
 | [`amu_orbital_thermal_fea.png`](../../cad_and_blender/tangency_eval/amu_orbital_thermal_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU AMU Orbital Hull transmembrane temperature contour ($-185^\circ\text{C}$ to $+20^\circ\text{C}$) |
+| [`regolith_sintering_shield_sim.json`](../../cad_and_blender/tangency_eval/regolith_sintering_shield_sim.json) | JSON Script | Issue #116 coupled thermal-structural `hex20` FEA of the $150\text{ mm}$ sintered asteroid regolith shield |
+| [`regolith_sintering_fea.png`](../../cad_and_blender/tangency_eval/regolith_sintering_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU sintered regolith shield von Mises stress contour ($\text{FoS}_t = 2.30, \text{FoS}_c = 2.19$) |
+| [`regolith_sintering_thermal_fea.png`](../../cad_and_blender/tangency_eval/regolith_sintering_thermal_fea.png) | PNG ($1280 \times 900$) | FieldCraft hardware-GPU sintered regolith shield temperature contour ($+45^\circ\text{C}$ to $-155^\circ\text{C}$) |
 
 ---
 
@@ -189,3 +205,7 @@ To verify the structural resilience of the **AMU Orbital MMS Hull** under Mars�
 > 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Added Section 5.2 (AMU Orbital Hull Mars–Jupiter Corridor Coupled Thermal-Structural FEA) (#5, #123)  
 > 📅 **Date/Time:** November 3, 2026 — 05:25 PM Eastern (EST) / 22:25 UTC  
 > 🏷️ **Lineage:** Issues [#5](https://github.com/stellardreams/asi.surge.sh/issues/5), [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) · Task `TASK-AMU-ORBITAL-01`
+
+> 🤖 **Signed:** Antigravity, powered by **Gemini 4 Argon** — Added Section 5.3 (Sintered Asteroid Regolith Radiation Shield Coupled Thermal-Structural FEA) (#116, #123)  
+> 📅 **Date/Time:** November 3, 2026 — 05:57 PM Eastern (EST) / 22:57 UTC  
+> 🏷️ **Lineage:** Issues [#116](https://github.com/stellardreams/asi.surge.sh/issues/116), [#123](https://github.com/stellardreams/asi.surge.sh/issues/123) · Task `TASK-REGOLITH-SAFEGUARD-116`
